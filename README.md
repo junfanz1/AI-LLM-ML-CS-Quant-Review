@@ -116,6 +116,9 @@ BDAI Conference, 2024 Oct 3-5, UChicago
 
 大模型基础，毛玉仁等 - 2024，浙大
 
+![image](https://github.com/user-attachments/assets/0c35d5d0-f8e0-4b64-9d93-2240c628feaa)
+
+
 - [__Course Github__](https://github.com/ZJU-LLMs/Foundations-of-LLMs)
 
 - [__Course Video__](https://www.bilibili.com/video/BV1PB6XYFET2)
