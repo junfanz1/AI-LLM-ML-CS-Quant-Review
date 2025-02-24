@@ -17,6 +17,7 @@ ML/LLM Cheat Sheet
    * [4 Steps in Training](#4-steps-in-training)
    * [Capstone Project](#capstone-project)
 - [2. DeepSeek MoE](#2-deepseek-moe)
+- [3. DeepSeek R1](#3-deepseek-r1)
 - [101. Transformer如何设定learning rate?](#101-transformerlearning-rate)
 - [102. Transformer: Why Positional Encoding?](#102-transformer-why-positional-encoding)
 - [103. Deploy ML Applications?](#103-deploy-ml-applications)
@@ -26,7 +27,7 @@ ML/LLM Cheat Sheet
 
 <!-- TOC end -->
 
-<!-- TOC --><a name="0-udemy-llm-project-notes"></a>
+<!-- TOC --><a name="1-udemy-llm-project-notes"></a>
 # 1. Udemy LLM Project Notes
 
 https://www.udemy.com/course/llm-engineering-master-ai-and-large-language-models/learn/lecture/
@@ -156,6 +157,9 @@ Build ensemble model
 
 <!-- TOC --><a name="2-deepseek-moe"></a>
 # 2. DeepSeek MoE
+https://space.bilibili.com/517221395/upload/video
+
+https://github.com/chenzomi12/AIFoundation/
 
 DeepSeek V-1 MoE (2024.01)
 - 专家共享机制，部分专家在不同Token或层间共享参数，减少冗余。
@@ -177,10 +181,46 @@ MoE优化
 - MoE模型蒸馏回对应的稠密小模型
 - 任务级别路由+专家聚合，简化模型减少专家
 
+<!-- TOC --><a name="3-deepseek-r1"></a>
+# 3. DeepSeek R1
+
+https://www.bilibili.com/video/BV1DJwRevE6d/
+
+DeepSeek-V3
+- Multi-Head Latent Attention (MLA)引入潜在空间提高计算效率，并保持模型对输入数据复杂关系的捕捉能力。
+- Mixture of Expert (MoE)高效专家分配和计算资源利用来降低成本。
+- F8混合精度训练+多token预测，提高理解能力。
+- 通信优化DulePipe算法，双流水线并行优化
+
+DeepSeek-R1
+- R1-Zero=基于规则的奖励（准确率奖励+思考过程格式奖励）+推理为中心的大规模强化学习（组相对策略优化GRPO+瞄准Reasoning推理任务）。
+- 相比DeepSeek-v3-Base，增强了推理链可读性（用高质量数据冷启动让RL更稳定+推理为中心的RL）、提升通用能力和安全性（拒绝采样和全领域SFT+全领域All Scenario RL）。
+- 无需监督微调（节省标注成本）的纯强化学习驱动（需要强大V3基座模型+GRPO强化学习优化+推理问题可以自动化标记验证）。基于强化学习的后训练Post-Training Scaling Law，有强大推理能力和长文本思考能力。 因为大模型预训练的边际收益递减，自回归的数学推理难以自我纠错。
+- 即使是稀疏奖励信号，模型也能自然探索出验证回溯总结反思。
+- GRPO：构建多个模型输出的群组（多个回答），计算群组内相对奖励来估计基线。相比PPO的价值函数是大模型大计算，GRPO省略了Value Model而用群组相对方式计算优势值，将策略模型与参考模型的KL散度作为正则项加入损失函数（而非奖励函数），大幅降低RL计算成本。
+- 四阶段交替训练：SFT、RL、再SFT、再RL，解决冷启动和收敛效率问题。涌现出检查、反思、长链推理。
+
+Kimi K1.5
+- 强化学习让模型试错。In-Context RL不训练模型规划，而是模拟规划approximate planning（将每个state和value都视为language tokens，建模成contextual bandit问题，用REINFORCE变种来优化，并用长度惩罚机制防止overthinking算力损耗）。
+- 采样策略：课程学习循序渐进+优先采样做难题。
+- 四阶段：Pretraining、SFT、Long CoT SFT、RL。
+- 构造Vision Data（把文本内容转化为视觉格式）+Long2Short蒸馏（用够短思维链达到长思维链效果：模型融合+最短拒绝采样+DPO）。
+
+技术对比
+- Kimi K1.5与DeepSeek-R1对比：Kimi K1.5更多从In-Context RL出发，直接训练模型approximate planning，将思考过程建模到语言模型的next token prediction中，但复杂推理可能难以迭代。DeepSeek-R1从纯RL出发，用GPRO+Rule-based reward激活模型本身的推理能力。二者都根据答案对错给予奖励惩罚。
+- 蒸馏与强化学习对比：蒸馏就是学生学习强大老师，短期内掌握复杂技能。强化学习是试错尝试，泛化性更好，因为SFT主要负责记忆而非理解故很难分布外泛化。DeepSeek用R1蒸馏出的小模型，因为R1强大，发现了高阶推理范式（小模型直接RL则难以发现因为预训练知识不足），蒸馏甚至超过RL的方法。
+
+未来展望
+- 长思维链的欺骗性推理In-Context Scheming、奖励篡改。要引入AI-driven监督机制、对比推理。
+- 模态扩展+模态穿透（强推理+多模态），拓展模型推理边界。因为RLHF+DPO模态无感，用从语言反馈中学习Learning from Language Feedback，捕捉人类意图的多元偏好和复杂模态交互，实现any-to-any models与人类意图对齐。
+- 强推理赋能Agentic，要反思、长程规划、工具调用。
+- 大模型就像压缩器，因为弹性而抗拒对齐，用Deliberative Alignment审计对齐把宪法融入到模型推理过程。
+- LLM受限于过程性推理任务，人类可以抽象出高维概念并细粒度反馈。
+
 
 ---
 
-<!-- TOC --><a name="1-transformerlearning-rate"></a>
+<!-- TOC --><a name="101-transformerlearning-rate"></a>
 # 101. Transformer如何设定learning rate?
 
 Learning rate是训练Transformer的超参数，决定了优化过程中每次迭代的步长大小，显著影响模型的收敛速度和最终性能。
@@ -204,7 +244,7 @@ Learning rate是训练Transformer的超参数，决定了优化过程中每次�
   -   考虑批大小和模型大小，更大的批大小和模型需要更低的学习率。
   -   微调预训练模型，需要更低的学习率。
 
-<!-- TOC --><a name="2-transformer-why-positional-encoding"></a>
+<!-- TOC --><a name="102-transformer-why-positional-encoding"></a>
 # 102. Transformer: Why Positional Encoding?
 
 Transformer缺乏对序列顺序的理解。与RNN、CNN不同，Transformer不会逐个处理输入序列中的元素，而是同时处理所有元素。并行处理虽然高效，但丧失了对序列中元素位置信息的感知。
@@ -225,7 +265,7 @@ $PE(pos, 2i) = \sin(pos / 10000^{2i/d_{model}})$
 
 $PE(pos, 2i + 1) = \cos(pos / 10000^{2i/d_{model}})$
 
-<!-- TOC --><a name="3-deploy-ml-applications"></a>
+<!-- TOC --><a name="103-deploy-ml-applications"></a>
 # 103. Deploy ML Applications?
 
 用Nginx部署机器学习应用
@@ -279,7 +319,7 @@ sudo apt install certbot python3-certbot-nginx
 sudo certbot --nginx -d <域名>
 ```
 
-<!-- TOC --><a name="4-mlopsmodel-health-in-prod"></a>
+<!-- TOC --><a name="104-mlopsmodel-health-in-prod"></a>
 # 104. MLOps：Model health in Prod?
 
 1. 监控输入数据
@@ -299,7 +339,7 @@ sudo certbot --nginx -d <域名>
   - 检查漂移（输入输出关系变化），检测模型是否需要更新
   - 构建自动化的数据-模型-系统全链路监控，可视化工具
 
-<!-- TOC --><a name="5-rag"></a>
+<!-- TOC --><a name="105-rag"></a>
 # 105. 优化RAG？
 
 1. 优化Retrieval Component
@@ -320,7 +360,7 @@ sudo certbot --nginx -d <域名>
   - 动态索引更新。对知识频繁变化的部分，用动态索引或定期更新索引，确保内容最新。
   - 用向量索引加快语义搜索，如FAISS工具提高效率。
 
-<!-- TOC --><a name="6-llm"></a>
+<!-- TOC --><a name="106-llm"></a>
 # 106. LLM微调与优化？
 
 微调
