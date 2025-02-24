@@ -1,9 +1,37 @@
+<!-- TOC start (generated with https://github.com/derlin/bitdowntoc) -->
+
+- [AI-ML-CS-Quant-Readings-Notes](#ai-ml-cs-quant-readings-notes)
+   * [Contents](#contents)
+- [1. C++ Design Patterns and Derivatives Pricing](#1-c-design-patterns-and-derivatives-pricing)
+- [2. High-Frequency Finance](#2-high-frequency-finance)
+- [3. Machine Learning for Algorithmic Trading](#3-machine-learning-for-algorithmic-trading)
+- [4. Stochastic Volatility Modeling](#4-stochastic-volatility-modeling)
+- [5. Quant Job Interview Questions](#5-quant-job-interview-questions)
+- [6. Computer Systems](#6-computer-systems)
+- [7. System Design Interview](#7-system-design-interview)
+- [8. Big Data and AI in Finance, Econometrics and Statistics Conference](#8-big-data-and-ai-in-finance-econometrics-and-statistics-conference)
+- [9. Machine Learning/LLM Interviews Cheatsheet](#9-machine-learningllm-interviews-cheatsheet)
+- [10. Foundations of LLMs](#10-foundations-of-llms)
+- [100. Distributed Systems](#100-distributed-systems)
+- [101. Language Models](#101-language-models)
+- [102. Designing Machine Learning Systems](#102-designing-machine-learning-systems)
+- [103. Designing Data-Intensive Applications (DDIA)](#103-designing-data-intensive-applications-ddia)
+- [104. Distributed Machine Learning](#104-distributed-machine-learning)
+- [105. The Elements of Quantitative Investing](#105-the-elements-of-quantitative-investing)
+
+<!-- TOC end -->
+
+<!-- TOC --><a name="ai-ml-cs-quant-readings-notes"></a>
 # AI-ML-CS-Quant-Readings-Notes
 
 Taking notes on Quant Finance, Machine Learning & Computer Science
 
+<!-- TOC --><a name="contents"></a>
+## Contents
+
 ---
 
+<!-- TOC --><a name="1-c-design-patterns-and-derivatives-pricing"></a>
 # 1. C++ Design Patterns and Derivatives Pricing
 
 C++ Design Patterns and Derivatives Pricing (Mathematics, Finance and Risk, Series Number 2) 2nd Edition, by M. S. Joshi
@@ -17,6 +45,7 @@ C++ Design Patterns and Derivatives Pricing (Mathematics, Finance and Risk, Seri
 
 - [__Markdown Notes__](https://github.com/junfanz1/Quant-Books-Notes/blob/main/C%2B%2B%20Design%20Patterns%20Derivatives%20Pricing/C%2B%2B%20Design%20Patterns%20Derivatives%20Pricing.md)
 
+<!-- TOC --><a name="2-high-frequency-finance"></a>
 # 2. High-Frequency Finance
 
 An Introduction to High-Frequency Finance, by Ramazan Gençay, et al.
@@ -30,6 +59,7 @@ An Introduction to High-Frequency Finance, by Ramazan Gençay, et al.
 
 - [__Markdown Notes__](https://github.com/junfanz1/Quant-Books-Notes/blob/main/An%20Intro%20to%20High-Frequency%20Finance/An%20Introduction%20to%20High-Frequency%20Financ.md)
 
+<!-- TOC --><a name="3-machine-learning-for-algorithmic-trading"></a>
 # 3. Machine Learning for Algorithmic Trading
 
 Machine Learning for Algorithmic Trading: Predictive models to extract signals from market and alternative data for systematic trading strategies with Python, 2nd Edition Paperback – by Stefan Jansen 2020 
@@ -43,6 +73,7 @@ Machine Learning for Algorithmic Trading: Predictive models to extract signals f
 
 - [__Markdown Notes__](https://github.com/junfanz1/Quant-Books-Notes/blob/main/ML%20for%20Algorithmic%20Trading/Notes%20on%20Machine%20Learning%20for%20Algorithmic%20Trading.md)
 
+<!-- TOC --><a name="4-stochastic-volatility-modeling"></a>
 # 4. Stochastic Volatility Modeling
 
 Stochastic Volatility Modeling (Chapman and Hall/CRC Financial Mathematics Series) 1st Edition, by Lorenzo Bergomi
@@ -60,6 +91,7 @@ Stochastic Volatility Modeling (Chapman and Hall/CRC Financial Mathematics Serie
   
 - [__Markdown Char 2 Local Vol__](https://github.com/junfanz1/Quant-Books-Notes/blob/main/Stochastic%20Volatility%20Modeling/Stochastic%20Volatility%20Modeling%20-%20Char%202%20Local%20Volatility%20Notes.md)
 
+<!-- TOC --><a name="5-quant-job-interview-questions"></a>
 # 5. Quant Job Interview Questions
 
 Quant Job Interview Questions and Answers (Second Edition) – by Mark Joshi 2013 
@@ -71,6 +103,7 @@ Quant Job Interview Questions and Answers (Second Edition) – by Mark Joshi 201
 
 - [__Markdown Notes__](https://github.com/junfanz1/Quant-Books-Notes/blob/main/Quant%20Job%20Interview%20Q%26A/Quant%20Essentials%20Takeaways.md)
 
+<!-- TOC --><a name="6-computer-systems"></a>
 # 6. Computer Systems
 
 计算机底层的秘密，陆小风 - 2023，电子工业出版社
@@ -82,6 +115,7 @@ Quant Job Interview Questions and Answers (Second Edition) – by Mark Joshi 201
 
 - [__PDF Notes__](https://github.com/junfanz1/Quant-Books-Notes/blob/main/Computer%20Systems/Notes%20on%20Computer%20Systems%20-%20Chinese.pdf)
   
+<!-- TOC --><a name="7-system-design-interview"></a>
 # 7. System Design Interview
 
 System Design Interview, An Insider's Guide, Second Edition - by Alex Xu 2020, Chinese translation 2023
@@ -93,6 +127,7 @@ System Design Interview, An Insider's Guide, Second Edition - by Alex Xu 2020, C
 
 - [__PDF Notes__](https://github.com/junfanz1/Quant-Books-Notes/blob/main/System%20Design/Notes%20on%20System%20Design.pdf)
 
+<!-- TOC --><a name="8-big-data-and-ai-in-finance-econometrics-and-statistics-conference"></a>
 # 8. Big Data and AI in Finance, Econometrics and Statistics Conference
 
 BDAI Conference, 2024 Oct 3-5, UChicago
@@ -108,10 +143,12 @@ BDAI Conference, 2024 Oct 3-5, UChicago
 
 > [Conference Review Notes PDF](https://github.com/junfanz1/Quant-Books-Notes/blob/main/Big%20Data%20AI%20in%20Finance%2C%20Econometrics%2C%20Statistics%20Conference%202024/Big_Data_Finance_Conference_Notes.pdf) 
 
+<!-- TOC --><a name="9-machine-learningllm-interviews-cheatsheet"></a>
 # 9. Machine Learning/LLM Interviews Cheatsheet
 
 - [__Markdown Notes__](https://github.com/junfanz1/Quant-Books-Notes/blob/main/LLM%20Cheat%20Sheet/LLM%20Cheat%20Sheet.md)
 
+<!-- TOC --><a name="10-foundations-of-llms"></a>
 # 10. Foundations of LLMs
 
 大模型基础，毛玉仁等 - 2024，浙大
@@ -138,24 +175,28 @@ Leave a message to me:
 
 Future Readings:
 
+<!-- TOC --><a name="100-distributed-systems"></a>
 # 100. Distributed Systems
 
 深入理解分布式系统，唐伟志 - 2022，电子工业出版社
 
 > [Book Link](https://book.douban.com/subject/35794814/)
 
+<!-- TOC --><a name="101-language-models"></a>
 # 101. Language Models
 
 预训练语言模型，邵浩 刘一烽 - 2021，电子工业出版社
 
 > [Book Link](https://book.douban.com/subject/35458428/)
 
+<!-- TOC --><a name="102-designing-machine-learning-systems"></a>
 # 102. Designing Machine Learning Systems
 
 Designing Machine Learning Systems: An Iterative Process for Production-Ready Applications - by Chip Huyen
 
 > [Book Link](https://www.amazon.com/Designing-Machine-Learning-Systems-Production-Ready/dp/1098107969)
 
+<!-- TOC --><a name="103-designing-data-intensive-applications-ddia"></a>
 # 103. Designing Data-Intensive Applications (DDIA)
 
 Designing Data-Intensive Applications: The Big Ideas Behind Reliable, Scalable, and Maintainable Systems
@@ -163,12 +204,14 @@ Book - by Martin Kleppmann
 
 > [Book Link](https://www.amazon.com/Designing-Data-Intensive-Applications-Reliable-Maintainable/dp/1449373321)
 
+<!-- TOC --><a name="104-distributed-machine-learning"></a>
 # 104. Distributed Machine Learning
 
 分布式机器学习，刘铁岩等 - 2018，机械工业出版社
 
 > [Book Link](https://book.douban.com/subject/30360968/)
 
+<!-- TOC --><a name="105-the-elements-of-quantitative-investing"></a>
 # 105. The Elements of Quantitative Investing
 
 The Elements of Quantitative Investing - by Giuseppe Paleologo 2025
