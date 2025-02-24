@@ -93,7 +93,7 @@ Stochastic Volatility Modeling (Chapman and Hall/CRC Financial Mathematics Serie
 
 - [__Quant__](https://github.com/junfanz1/AI-ML-CS-Quant-Readings/blob/main/Stochastic%20Volatility%20Modeling/Quant.pdf)
 
-- [__Vanna Volga__](https://github.com/junfanz1/AI-ML-CS-Quant-Readings/blob/main/Stochastic%20Volatility%20Modeling/Vanna%20Volga.pdf)
+- [__FX Exotic Derivatives (Vanna Volga)__](https://github.com/junfanz1/AI-ML-CS-Quant-Readings/blob/main/Stochastic%20Volatility%20Modeling/Vanna%20Volga.pdf)
 
 - [__Risk Methodologies__](https://github.com/junfanz1/AI-ML-CS-Quant-Readings/blob/main/Stochastic%20Volatility%20Modeling/Risk%20Methodologies.pdf)
 
