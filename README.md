@@ -1,7 +1,13 @@
+
+<!-- TOC --><a name="ai-ml-cs-quant-readings-notes"></a>
+# AI-ML-CS-Quant-Readings-Notes
+
+Taking notes on Quant Finance, Machine Learning & Computer Science
+
+<!-- TOC --><a name="contents"></a>
+## Contents
 <!-- TOC start (generated with https://github.com/derlin/bitdowntoc) -->
 
-- [AI-ML-CS-Quant-Readings-Notes](#ai-ml-cs-quant-readings-notes)
-   * [Contents](#contents)
 - [1. C++ Design Patterns and Derivatives Pricing](#1-c-design-patterns-and-derivatives-pricing)
 - [2. High-Frequency Finance](#2-high-frequency-finance)
 - [3. Machine Learning for Algorithmic Trading](#3-machine-learning-for-algorithmic-trading)
@@ -20,14 +26,6 @@
 - [105. The Elements of Quantitative Investing](#105-the-elements-of-quantitative-investing)
 
 <!-- TOC end -->
-
-<!-- TOC --><a name="ai-ml-cs-quant-readings-notes"></a>
-# AI-ML-CS-Quant-Readings-Notes
-
-Taking notes on Quant Finance, Machine Learning & Computer Science
-
-<!-- TOC --><a name="contents"></a>
-## Contents
 
 ---
 
