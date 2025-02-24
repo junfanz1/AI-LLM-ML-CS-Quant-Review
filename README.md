@@ -89,14 +89,6 @@ Stochastic Volatility Modeling (Chapman and Hall/CRC Financial Mathematics Serie
   
 - [__Markdown Char 2 Local Vol__](https://github.com/junfanz1/Quant-Books-Notes/blob/main/Stochastic%20Volatility%20Modeling/Stochastic%20Volatility%20Modeling%20-%20Char%202%20Local%20Volatility%20Notes.md)
 
-- [__Cloud__](https://github.com/junfanz1/AI-ML-CS-Quant-Readings/blob/main/Stochastic%20Volatility%20Modeling/Cloud.pdf)
-
-- [__Quant__](https://github.com/junfanz1/AI-ML-CS-Quant-Readings/blob/main/Stochastic%20Volatility%20Modeling/Quant.pdf)
-
-- [__FX Exotic Derivatives (Vanna Volga)__](https://github.com/junfanz1/AI-ML-CS-Quant-Readings/blob/main/Stochastic%20Volatility%20Modeling/Vanna%20Volga.pdf)
-
-- [__Risk Methodologies__](https://github.com/junfanz1/AI-ML-CS-Quant-Readings/blob/main/Stochastic%20Volatility%20Modeling/Risk%20Methodologies.pdf)
-
 <!-- TOC --><a name="5-quant-job-interview-questions"></a>
 # 5. Quant Job Interview Questions
 
@@ -108,6 +100,14 @@ Quant Job Interview Questions and Answers (Second Edition) – by Mark Joshi 201
 
 
 - [__Markdown Notes__](https://github.com/junfanz1/Quant-Books-Notes/blob/main/Quant%20Job%20Interview%20Q%26A/Quant%20Essentials%20Takeaways.md)
+
+- [__Cloud Platform PDF Notes__](https://github.com/junfanz1/AI-ML-CS-Quant-Readings/blob/main/Quant%20Job%20Interview%20Q%26A/Cloud.pdf)
+
+- [__Quant PDF Notes__](https://github.com/junfanz1/AI-ML-CS-Quant-Readings/blob/main/Quant%20Job%20Interview%20Q%26A/Quant.pdf)
+
+- [__FX Exotic Derivatives PDF Notes__](https://github.com/junfanz1/AI-ML-CS-Quant-Readings/blob/main/Quant%20Job%20Interview%20Q%26A/FX%20Exotic%20Derivatives.pdf)
+
+- [__Risk Methodologies PDF Notes__](https://github.com/junfanz1/AI-ML-CS-Quant-Readings/blob/main/Quant%20Job%20Interview%20Q&A/Risk%20Methodologies.md)
 
 <!-- TOC --><a name="6-computer-systems"></a>
 # 6. Computer Systems
