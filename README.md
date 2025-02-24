@@ -89,6 +89,14 @@ Stochastic Volatility Modeling (Chapman and Hall/CRC Financial Mathematics Serie
   
 - [__Markdown Char 2 Local Vol__](https://github.com/junfanz1/Quant-Books-Notes/blob/main/Stochastic%20Volatility%20Modeling/Stochastic%20Volatility%20Modeling%20-%20Char%202%20Local%20Volatility%20Notes.md)
 
+- [__Cloud__](https://github.com/junfanz1/AI-ML-CS-Quant-Readings/blob/main/Stochastic%20Volatility%20Modeling/Cloud.pdf)
+
+- [__Quant__](https://github.com/junfanz1/AI-ML-CS-Quant-Readings/blob/main/Stochastic%20Volatility%20Modeling/Quant.pdf)
+
+- [__Vanna Volga__](https://github.com/junfanz1/AI-ML-CS-Quant-Readings/blob/main/Stochastic%20Volatility%20Modeling/Vanna%20Volga.pdf)
+
+- [__Risk Methodologies__](https://github.com/junfanz1/AI-ML-CS-Quant-Readings/blob/main/Stochastic%20Volatility%20Modeling/Risk%20Methodologies.pdf)
+
 <!-- TOC --><a name="5-quant-job-interview-questions"></a>
 # 5. Quant Job Interview Questions
 
