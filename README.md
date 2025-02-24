@@ -15,7 +15,7 @@ Taking notes on Quant Finance, Machine Learning & Computer Science
 - [5. Quant Job Interview Questions](#5-quant-job-interview-questions)
 - [6. Computer Systems](#6-computer-systems)
 - [7. System Design Interview](#7-system-design-interview)
-- [8. Big Data and AI in Finance, Econometrics and Statistics Conference, UChicago 2024](#8-big-data-and-ai-in-finance-econometrics-and-statistics-conference, UChicago 2024)
+- [8. Big Data and AI in Finance, Econometrics and Statistics Conference, UChicago 2024](#8-big-data-and-ai-in-finance-econometrics-and-statistics-conference-UChicago-2024)
 - [9. Machine Learning/LLM Interviews Cheatsheet](#9-machine-learningllm-interviews-cheatsheet)
 - [10. Foundations of LLMs](#10-foundations-of-llms)
 
