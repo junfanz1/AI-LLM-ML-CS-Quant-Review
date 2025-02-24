@@ -30,6 +30,8 @@ ML/LLM Cheat Sheet
 
 https://www.udemy.com/course/llm-engineering-master-ai-and-large-language-models/learn/lecture/
 
+<img src="https://github.com/user-attachments/assets/e5bb6fb6-9c70-42e6-9d4a-7603d9646b26" width="50%" height="50%">
+
 Building AI UIs with Gradio from HuggingFace using LLMs behind its scenes, implementing streaming responses
 
 DALL-E-3, image generation model behind GPT-4o
