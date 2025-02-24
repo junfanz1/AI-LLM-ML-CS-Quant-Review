@@ -14,6 +14,121 @@ ML/LLM Cheat Sheet
 
 <!-- TOC end -->
 
+# 0. Udemy LLM Project Keynotes
+
+https://www.udemy.com/course/llm-engineering-master-ai-and-large-language-models/learn/lecture/
+
+Building AI UIs with Gradio from HuggingFace using LLMs behind its scenes, implementing streaming responses
+
+DALL-E-3, image generation model behind GPT-4o
+
+Agent Framework, build multimodal (image, audio) AI assistant
+
+Use HuggingFace pipelines, tokenizers and models, libraries: hub, datasets, transformers, peft (parameter efficient fine tuning), trl, accelerate
+
+Use Frontier models/open source models to convert audio to text
+
+Benchmarks comparing LLMs - HuggingFace Open LLM Leaderboard 
+
+- ELO, evaluating Chats, results from head-to-head face-offs with other LLMs, as with ELO in Chess
+- HumanEval, evaluating Python coding, 164 problems writing code based on docstrings
+- MultiPL-E, evaluating broader coding, translation of HumanEval to 18 programming languages
+
+## Metrics to train LLM
+- Cross-entropy loss: -log(predicted probability of the thing that turned out to be actual next token)
+- Perplexity: e^{Cross-entropy loss}, if = 1 then model is 100% correct, if = 2 then model is 50% correct, if = 4 then model is 25% correct. Higher perplexity: how many tokens would need to be to predict next token
+
+## RAG
+
+RAG (Retrieval Augmented Generation) uses vector embeddings and vector databases to add contexts to prompts, define LangChain and read/split documents. 
+
+Convert chunks of text into vectors using OpenAI Embeddings, store vectors in Chroma (open source AI vector datastores) or FAISS, and visualize the vector store in 3D, and reduce the dimension of vectors to 2D using t-SNE.
+- Autoregressive LLM: predict future token from the past
+- Autoencoding LLM: produce output based on full input. Good at sentiment analysis, classification. (BERT, OpenAI Embeddings)
+
+## LangChain
+
+LangChain = LLM + Retriever (Chroma, vector storer) + Memory (list of dicts, history chats)
+- Simplifies creation of applications using LLMs (AI assistants, RAG, summarization), fast time to market
+- Wrapper code around LLMs makes it easy to swap models 
+- As APIs for LLMs have matured, converged and simplified, need for unifying framework like LangChain has decreased 
+
+LangChain’s decorative language LCEL
+
+Professional private knowledge base can be vectorized in Chroma, vector datastore, and build conversational AI. Use libraries to connect to email history, Microsoft Office files, Google Drive (can map to Google Colab to vectorize all documents) and Slack texts in Chroma. Use RAG to get the 25 closest documents in the vector database. Use open source model BERT to do vectorization by myself. Use Llama.CPP library to vectorize all documents without the need to go to cloud. 
+
+Use Transfer learning to train LLMs, take pretrained models as base, use additional training data to fine-tune for our task. 
+
+Generate text and code with Frontier models including AI assistants with Tools and with open source models with HuggingFace transformers. Create advanced RAG solutions with LangChain. Make baseline model with traditional ML and making Frontier solution, and fine-tuning Frontier models.
+
+## Fine-tuning open source model (smaller than Frontier model)
+
+Llama 3.1 architecture
+- 8B parameters, 32G memory, too large and costly to train.
+- 32 groups of layers, each group = llama decoder layer
+
+## LoRA (Low Rank Adaptation)
+
+Freeze main model, come up with a bunch of smaller matrices with fewer dimensions, they’ll get trained and be applied using simple formulas to target modules. So we can make a base model that gets better as it learns because of the application of LoRA matrices.
+- Freeze weights, we don’t optimize 8B weights (too many gradients), but we pick a few layers (target modules) that we think are key things we want to train. We create new matrices (Low Rank Adaptor) with fewer dimensions, and apply these matrices into target modules. So fewer weights are applied to target modules.
+- Quantization (Q in QLoRA): Keep the number of weights but reduce precision of each weight. Model performance is worse, but impact is small. 
+
+## 3 Hyperparameters for LoRA fine-tuning
+- r, rank, how many dimensions in low-rank matrices. Start with 8, 16, 32 until diminishing returns 
+- Alpha, scaling factor that multiplies the lower rank matrices. Alpha = 2 * r, the bigger the more effective.
+- Target modules, which layers of NN are adapted. Target the attention head layers.
+
+fine_tuned_model = PeftModel.from_pretrained(base_model, FINETUNED_MODEL), after quantized to 8 bit or 4 bit, model size reduced to 5000MB, after fine-tuned LoRA matrices applying to big model, size of weights reduced to 100MB.
+
+## 5 Hyperparameters for QLoRA fine-tuning
+- Target modules
+- r, how many dimensions
+- alpha, scaling factor to multiply up the importance of adaptor when applying to target modules, by default = 2 * r
+- Quantization
+- Dropout, regularization technique, to prevent overfitting
+
+## Training
+- Epochs, how many times we go through the entire dataset when training. At the end of each epoch, we save the model and the model gets better in each epoch before overfitting then gets worse; we pick the best model and that’s the result of training.
+- Batch size, take a bunch of data together rather than step by step, it’s faster and better performance, because for multiple epochs, in each epoch the batch is different. 
+- Learning rate, = 0.0001, predict the next token vs. the actual next token should be -> loss, how poorly it predicts the actual, use loss to do back propagation to figure out how to adjust weight to do better, the amount that it shifts the weights is learning rate. During the epochs we can gradually lower the learning rate, to make tiny adjustments as the model gets trained.
+- Gradient accumulation. Improve speed of going through training. We can do forward pass and get the gradient, and don’t take a step, just do a second forward pass and add up the gradients and keep accumulating gradients and then take a step and optimize the network. Steps less frequently = faster. 
+- Optimizer. Algorithm that updates NN to shift everything a bit to increase the prediction accuracy of the next token.
+
+## 4 Steps in Training
+- Forward pass, predict next token in training data
+- Loss calculation, how different was it to the true token
+- Backpropagation, how much (sensitivity) should we tweak parameters to do better next time (gradients)
+- Optimization, update parameters a tiny step to do better next time
+
+Loss function: cross-entropy loss = -log Prob(next true token), = 0 : 100% confident of right answer, higher number = lower confidence.
+
+Carry out end-to-end process for selecting and training open source models to build proprietary verticalized LLM (deploy multiple models to production, including LLM on Modal, RAG workflow with Frontier model) to solve business problems that can outperform the Frontier model. 
+
+Run inference on a QLoRA fine-tuned model.
+
+## Capstone Project
+
+Autonomous Agentic AI framework (watches for deals published online, estimate price of products, send push notifications when it’s opportunity)
+
+modal.com to deploy LLM to production, serverless platform for AI teams, 
+
+Agent Architecture/Workflows: 7 Agents work together (GPT-4o model identify deals from RSS feed, frontier-busting fine-tuned model estimate prices, use Frontier model with massive RAG Chroma datastore)
+- UI, with Gradio
+- Agent Framework: with memory and logging
+- Planning Agent: coordinate activities
+- Scanner Agent: identify promising deals
+- Ensemble Agent: estimate prices using multiple models, and collaborate with other 3 agents
+- Messaging Agent: send push notifications
+- Frontier Agent: RAG pricer (based on inventory of lots of products, good use case for RAG)
+- Specialist Agent: estimate prices 
+- Random Forest Agent: estimate prices (transformer architecture)
+
+SentenceTransformer from HuggingFace maps sentences to 384 dimensional dense vector space and is ideal for semantic search. 
+
+Build advanced RAG solution without LangChain
+
+Build ensemble model 
+
 
 
 # 1. Transformer如何设定learning rate?
