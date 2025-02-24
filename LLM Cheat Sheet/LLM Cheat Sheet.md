@@ -5,6 +5,17 @@ ML/LLM Cheat Sheet
 
 <!-- TOC start (generated with https://github.com/derlin/bitdowntoc) -->
 
+- [0. Udemy LLM Project Notes](#0-udemy-llm-project-notes)
+   * [Metrics to train LLM](#metrics-to-train-llm)
+   * [RAG](#rag)
+   * [LangChain](#langchain)
+   * [Fine-tuning open source model (smaller than Frontier model)](#fine-tuning-open-source-model-smaller-than-frontier-model)
+   * [LoRA (Low Rank Adaptation)](#lora-low-rank-adaptation)
+   * [3 Hyperparameters for LoRA fine-tuning](#3-hyperparameters-for-lora-fine-tuning)
+   * [5 Hyperparameters for QLoRA fine-tuning](#5-hyperparameters-for-qlora-fine-tuning)
+   * [Training](#training)
+   * [4 Steps in Training](#4-steps-in-training)
+   * [Capstone Project](#capstone-project)
 - [1. Transformer如何设定learning rate?](#1-transformerlearning-rate)
 - [2. Transformer: Why Positional Encoding?](#2-transformer-why-positional-encoding)
 - [3. Deploy ML Applications?](#3-deploy-ml-applications)
@@ -14,7 +25,8 @@ ML/LLM Cheat Sheet
 
 <!-- TOC end -->
 
-# 0. Udemy LLM Project Keynotes
+<!-- TOC --><a name="0-udemy-llm-project-notes"></a>
+# 0. Udemy LLM Project Notes
 
 https://www.udemy.com/course/llm-engineering-master-ai-and-large-language-models/learn/lecture/
 
@@ -34,10 +46,12 @@ Benchmarks comparing LLMs - HuggingFace Open LLM Leaderboard
 - HumanEval, evaluating Python coding, 164 problems writing code based on docstrings
 - MultiPL-E, evaluating broader coding, translation of HumanEval to 18 programming languages
 
+<!-- TOC --><a name="metrics-to-train-llm"></a>
 ## Metrics to train LLM
 - Cross-entropy loss: -log(predicted probability of the thing that turned out to be actual next token)
 - Perplexity: e^{Cross-entropy loss}, if = 1 then model is 100% correct, if = 2 then model is 50% correct, if = 4 then model is 25% correct. Higher perplexity: how many tokens would need to be to predict next token
 
+<!-- TOC --><a name="rag"></a>
 ## RAG
 
 RAG (Retrieval Augmented Generation) uses vector embeddings and vector databases to add contexts to prompts, define LangChain and read/split documents. 
@@ -46,6 +60,7 @@ Convert chunks of text into vectors using OpenAI Embeddings, store vectors in Ch
 - Autoregressive LLM: predict future token from the past
 - Autoencoding LLM: produce output based on full input. Good at sentiment analysis, classification. (BERT, OpenAI Embeddings)
 
+<!-- TOC --><a name="langchain"></a>
 ## LangChain
 
 LangChain = LLM + Retriever (Chroma, vector storer) + Memory (list of dicts, history chats)
@@ -61,18 +76,21 @@ Use Transfer learning to train LLMs, take pretrained models as base, use additio
 
 Generate text and code with Frontier models including AI assistants with Tools and with open source models with HuggingFace transformers. Create advanced RAG solutions with LangChain. Make baseline model with traditional ML and making Frontier solution, and fine-tuning Frontier models.
 
+<!-- TOC --><a name="fine-tuning-open-source-model-smaller-than-frontier-model"></a>
 ## Fine-tuning open source model (smaller than Frontier model)
 
 Llama 3.1 architecture
 - 8B parameters, 32G memory, too large and costly to train.
 - 32 groups of layers, each group = llama decoder layer
 
+<!-- TOC --><a name="lora-low-rank-adaptation"></a>
 ## LoRA (Low Rank Adaptation)
 
 Freeze main model, come up with a bunch of smaller matrices with fewer dimensions, they’ll get trained and be applied using simple formulas to target modules. So we can make a base model that gets better as it learns because of the application of LoRA matrices.
 - Freeze weights, we don’t optimize 8B weights (too many gradients), but we pick a few layers (target modules) that we think are key things we want to train. We create new matrices (Low Rank Adaptor) with fewer dimensions, and apply these matrices into target modules. So fewer weights are applied to target modules.
 - Quantization (Q in QLoRA): Keep the number of weights but reduce precision of each weight. Model performance is worse, but impact is small. 
 
+<!-- TOC --><a name="3-hyperparameters-for-lora-fine-tuning"></a>
 ## 3 Hyperparameters for LoRA fine-tuning
 - r, rank, how many dimensions in low-rank matrices. Start with 8, 16, 32 until diminishing returns 
 - Alpha, scaling factor that multiplies the lower rank matrices. Alpha = 2 * r, the bigger the more effective.
@@ -80,6 +98,7 @@ Freeze main model, come up with a bunch of smaller matrices with fewer dimension
 
 fine_tuned_model = PeftModel.from_pretrained(base_model, FINETUNED_MODEL), after quantized to 8 bit or 4 bit, model size reduced to 5000MB, after fine-tuned LoRA matrices applying to big model, size of weights reduced to 100MB.
 
+<!-- TOC --><a name="5-hyperparameters-for-qlora-fine-tuning"></a>
 ## 5 Hyperparameters for QLoRA fine-tuning
 - Target modules
 - r, how many dimensions
@@ -87,6 +106,7 @@ fine_tuned_model = PeftModel.from_pretrained(base_model, FINETUNED_MODEL), after
 - Quantization
 - Dropout, regularization technique, to prevent overfitting
 
+<!-- TOC --><a name="training"></a>
 ## Training
 - Epochs, how many times we go through the entire dataset when training. At the end of each epoch, we save the model and the model gets better in each epoch before overfitting then gets worse; we pick the best model and that’s the result of training.
 - Batch size, take a bunch of data together rather than step by step, it’s faster and better performance, because for multiple epochs, in each epoch the batch is different. 
@@ -94,6 +114,7 @@ fine_tuned_model = PeftModel.from_pretrained(base_model, FINETUNED_MODEL), after
 - Gradient accumulation. Improve speed of going through training. We can do forward pass and get the gradient, and don’t take a step, just do a second forward pass and add up the gradients and keep accumulating gradients and then take a step and optimize the network. Steps less frequently = faster. 
 - Optimizer. Algorithm that updates NN to shift everything a bit to increase the prediction accuracy of the next token.
 
+<!-- TOC --><a name="4-steps-in-training"></a>
 ## 4 Steps in Training
 - Forward pass, predict next token in training data
 - Loss calculation, how different was it to the true token
@@ -106,6 +127,7 @@ Carry out end-to-end process for selecting and training open source models to bu
 
 Run inference on a QLoRA fine-tuned model.
 
+<!-- TOC --><a name="capstone-project"></a>
 ## Capstone Project
 
 Autonomous Agentic AI framework (watches for deals published online, estimate price of products, send push notifications when it’s opportunity)
@@ -131,6 +153,7 @@ Build ensemble model
 
 
 
+<!-- TOC --><a name="1-transformerlearning-rate"></a>
 # 1. Transformer如何设定learning rate?
 
 Learning rate是训练Transformer的超参数，决定了优化过程中每次迭代的步长大小，显著影响模型的收敛速度和最终性能。
@@ -154,6 +177,7 @@ Learning rate是训练Transformer的超参数，决定了优化过程中每次�
   -   考虑批大小和模型大小，更大的批大小和模型需要更低的学习率。
   -   微调预训练模型，需要更低的学习率。
 
+<!-- TOC --><a name="2-transformer-why-positional-encoding"></a>
 # 2. Transformer: Why Positional Encoding?
 
 Transformer缺乏对序列顺序的理解。与RNN、CNN不同，Transformer不会逐个处理输入序列中的元素，而是同时处理所有元素。并行处理虽然高效，但丧失了对序列中元素位置信息的感知。
@@ -174,6 +198,7 @@ $PE(pos, 2i) = \sin(pos / 10000^{2i/d_{model}})$
 
 $PE(pos, 2i + 1) = \cos(pos / 10000^{2i/d_{model}})$
 
+<!-- TOC --><a name="3-deploy-ml-applications"></a>
 # 3. Deploy ML Applications?
 
 用Nginx部署机器学习应用
@@ -227,6 +252,7 @@ sudo apt install certbot python3-certbot-nginx
 sudo certbot --nginx -d <域名>
 ```
 
+<!-- TOC --><a name="4-mlopsmodel-health-in-prod"></a>
 # 4. MLOps：Model health in Prod?
 
 1. 监控输入数据
@@ -246,6 +272,7 @@ sudo certbot --nginx -d <域名>
   - 检查漂移（输入输出关系变化），检测模型是否需要更新
   - 构建自动化的数据-模型-系统全链路监控，可视化工具
 
+<!-- TOC --><a name="5-rag"></a>
 # 5. 优化RAG？
 
 1. 优化Retrieval Component
@@ -266,6 +293,7 @@ sudo certbot --nginx -d <域名>
   - 动态索引更新。对知识频繁变化的部分，用动态索引或定期更新索引，确保内容最新。
   - 用向量索引加快语义搜索，如FAISS工具提高效率。
 
+<!-- TOC --><a name="6-llm"></a>
 # 6. LLM微调与优化？
 
 微调
