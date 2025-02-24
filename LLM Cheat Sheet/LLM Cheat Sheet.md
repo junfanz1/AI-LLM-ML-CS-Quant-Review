@@ -5,7 +5,7 @@ ML/LLM Cheat Sheet
 
 <!-- TOC start (generated with https://github.com/derlin/bitdowntoc) -->
 
-- [0. Udemy LLM Project Notes](#0-udemy-llm-project-notes)
+- [1. Udemy LLM Project Notes](#1-udemy-llm-project-notes)
    * [Metrics to train LLM](#metrics-to-train-llm)
    * [RAG](#rag)
    * [LangChain](#langchain)
@@ -16,17 +16,18 @@ ML/LLM Cheat Sheet
    * [Training](#training)
    * [4 Steps in Training](#4-steps-in-training)
    * [Capstone Project](#capstone-project)
-- [1. Transformer如何设定learning rate?](#1-transformerlearning-rate)
-- [2. Transformer: Why Positional Encoding?](#2-transformer-why-positional-encoding)
-- [3. Deploy ML Applications?](#3-deploy-ml-applications)
-- [4. MLOps：Model health in Prod?](#4-mlopsmodel-health-in-prod)
-- [5. 优化RAG？](#5-rag)
-- [6. LLM微调与优化？](#6-llm)
+- [2. DeepSeek MoE](#2-deepseek-moe)
+- [101. Transformer如何设定learning rate?](#101-transformerlearning-rate)
+- [102. Transformer: Why Positional Encoding?](#102-transformer-why-positional-encoding)
+- [103. Deploy ML Applications?](#103-deploy-ml-applications)
+- [104. MLOps：Model health in Prod?](#104-mlopsmodel-health-in-prod)
+- [105. 优化RAG？](#105-rag)
+- [106. LLM微调与优化？](#106-llm)
 
 <!-- TOC end -->
 
 <!-- TOC --><a name="0-udemy-llm-project-notes"></a>
-# 0. Udemy LLM Project Notes
+# 1. Udemy LLM Project Notes
 
 https://www.udemy.com/course/llm-engineering-master-ai-and-large-language-models/learn/lecture/
 
@@ -153,10 +154,34 @@ Build advanced RAG solution without LangChain
 
 Build ensemble model 
 
+<!-- TOC --><a name="2-deepseek-moe"></a>
+# 2. DeepSeek MoE
 
+DeepSeek V-1 MoE (2024.01)
+- 专家共享机制，部分专家在不同Token或层间共享参数，减少冗余。
+- 内存优化，用多头潜在注意力机制MLA+键值缓存优化，减少延迟。
+
+Mixture of Experts (MoE) 混合专家模型。参数小、多专家，监督学习+分而治之，模块化神经网络的基础，像集成学习。根据scaling law大模型性能好，而推理时只执行部分参数，故DeepSeek成本低。
+
+MoE模型架构
+- 稀疏MoE层，代替了Transformer FFN层（节省算力），包含很多专家，每个专家是一个神经网络。稀疏性让部分专家被激活，非所有参数参与计算。高效推理同时，扩展到超大规模，提升模型表征能力。
+- 专家模块化，不同专家学习不同特征，处理大数据。门控网络Gating Network或路由=可学习的门控网络+专家间负载均衡，动态协调哪些token激活哪些专家参与计算，与专家一起学习。稀疏门控激活部分专家，稠密门控激活所有专家，软门控合并专家与token并可微。
+
+训练效率提升
+- 训练。专家并行EP使用All2All通讯（带宽少），每个专家处理一部分batch（增加吞吐）。
+- 推理。只激活少量专家（低延迟），增加专家数量（推理成本不变）。
+
+MoE优化
+- 专家并行计算
+- 提高容量因子Capacity Factor和显存带宽
+- MoE模型蒸馏回对应的稠密小模型
+- 任务级别路由+专家聚合，简化模型减少专家
+
+
+---
 
 <!-- TOC --><a name="1-transformerlearning-rate"></a>
-# 1. Transformer如何设定learning rate?
+# 101. Transformer如何设定learning rate?
 
 Learning rate是训练Transformer的超参数，决定了优化过程中每次迭代的步长大小，显著影响模型的收敛速度和最终性能。
 
@@ -180,7 +205,7 @@ Learning rate是训练Transformer的超参数，决定了优化过程中每次�
   -   微调预训练模型，需要更低的学习率。
 
 <!-- TOC --><a name="2-transformer-why-positional-encoding"></a>
-# 2. Transformer: Why Positional Encoding?
+# 102. Transformer: Why Positional Encoding?
 
 Transformer缺乏对序列顺序的理解。与RNN、CNN不同，Transformer不会逐个处理输入序列中的元素，而是同时处理所有元素。并行处理虽然高效，但丧失了对序列中元素位置信息的感知。
 
@@ -201,7 +226,7 @@ $PE(pos, 2i) = \sin(pos / 10000^{2i/d_{model}})$
 $PE(pos, 2i + 1) = \cos(pos / 10000^{2i/d_{model}})$
 
 <!-- TOC --><a name="3-deploy-ml-applications"></a>
-# 3. Deploy ML Applications?
+# 103. Deploy ML Applications?
 
 用Nginx部署机器学习应用
 
@@ -255,7 +280,7 @@ sudo certbot --nginx -d <域名>
 ```
 
 <!-- TOC --><a name="4-mlopsmodel-health-in-prod"></a>
-# 4. MLOps：Model health in Prod?
+# 104. MLOps：Model health in Prod?
 
 1. 监控输入数据
   - 数据漂移：生产数据和训练数据分布是否一致，特征均值和方差
@@ -275,7 +300,7 @@ sudo certbot --nginx -d <域名>
   - 构建自动化的数据-模型-系统全链路监控，可视化工具
 
 <!-- TOC --><a name="5-rag"></a>
-# 5. 优化RAG？
+# 105. 优化RAG？
 
 1. 优化Retrieval Component
   - 构建高质量知识库，确保知识库是最新高质量内容，通过筛选和过滤，提升检索相关性。
@@ -296,7 +321,7 @@ sudo certbot --nginx -d <域名>
   - 用向量索引加快语义搜索，如FAISS工具提高效率。
 
 <!-- TOC --><a name="6-llm"></a>
-# 6. LLM微调与优化？
+# 106. LLM微调与优化？
 
 微调
 
