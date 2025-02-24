@@ -107,7 +107,7 @@ Quant Job Interview Questions and Answers (Second Edition) – by Mark Joshi 201
 
 - [__FX Exotic Derivatives PDF Notes__](https://github.com/junfanz1/AI-ML-CS-Quant-Readings/blob/main/Quant%20Job%20Interview%20Q%26A/FX%20Exotic%20Derivatives.pdf)
 
-- [__Risk Methodologies PDF Notes__](https://github.com/junfanz1/AI-ML-CS-Quant-Readings/blob/main/Quant%20Job%20Interview%20Q&A/Risk%20Methodologies.md)
+- [__Risk Methodologies PDF Notes__](https://github.com/junfanz1/AI-ML-CS-Quant-Readings/blob/main/Quant%20Job%20Interview%20Q%26A/Risk%20Methodologies.pdf)
 
 <!-- TOC --><a name="6-computer-systems"></a>
 # 6. Computer Systems
