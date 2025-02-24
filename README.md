@@ -152,6 +152,7 @@ BDAI Conference, 2024 Oct 3-5, UChicago
 <!-- TOC --><a name="9-machine-learningllm-interviews-cheatsheet"></a>
 # 9. Machine Learning/LLM Interviews Cheatsheet
 
+> [Course Video](https://www.udemy.com/course/llm-engineering-master-ai-and-large-language-models/learn/lecture/)
 
 <img src="https://github.com/user-attachments/assets/e5bb6fb6-9c70-42e6-9d4a-7603d9646b26" width="50%" height="50%">
 
