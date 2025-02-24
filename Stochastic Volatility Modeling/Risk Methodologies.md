@@ -2,7 +2,7 @@
 
 Compliance: SR11-7 (Supervisory Guidance on model risk management)
 
-SG Prime Services front office (prime brokerage), manage market and counterparty risk. Equity prime brokerage, futures clearing, F/X. Key metric: 4-day 99% VaR number for client.
+Prime Services front office (prime brokerage), manage market and counterparty risk. Equity prime brokerage, futures clearing, F/X. Key metric: 4-day 99% VaR number for client.
 
 The model can cohesively model dozens of different security types and a wide variety of market scenario outcomes while producing competitive margin values. A model that could provide cross-margining capabilities at competitive levels while at the same time covering the risk. 
 
