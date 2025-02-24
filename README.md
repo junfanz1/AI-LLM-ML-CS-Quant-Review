@@ -39,7 +39,8 @@ C++ Design Patterns and Derivatives Pricing (Mathematics, Finance and Risk, Seri
 
 > [Book Link](https://www.amazon.com/Patterns-Derivatives-Pricing-Mathematics-Finance/dp/0521721628) 
 
-![image](https://github.com/user-attachments/assets/4cc95940-d8b6-4328-97db-29742bb5ba61)
+![image](https://github.com/user-attachments/assets/c16d6c10-2dbf-44a4-9651-3917c039d2cc)
+
 
 
 - [__PDF Notes__](https://github.com/junfanz1/Quant-Books-Notes/blob/main/C%2B%2B%20Design%20Patterns%20Derivatives%20Pricing/C%2B%2B%20Design%20Patterns%20Derivatives%20Pricing.pdf)
@@ -154,6 +155,9 @@ BDAI Conference, 2024 Oct 3-5, UChicago
 
 <!-- TOC --><a name="9-machine-learningllm-interviews-cheatsheet"></a>
 # 9. Machine Learning/LLM Interviews Cheatsheet
+
+![image](https://github.com/user-attachments/assets/e5bb6fb6-9c70-42e6-9d4a-7603d9646b26)
+
 
 - [__Markdown Notes__](https://github.com/junfanz1/Quant-Books-Notes/blob/main/LLM%20Cheat%20Sheet/LLM%20Cheat%20Sheet.md)
 
