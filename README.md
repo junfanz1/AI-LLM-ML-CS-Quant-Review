@@ -2,7 +2,7 @@
 <!-- TOC --><a name="ai-ml-cs-quant-readings-notes"></a>
 # AI-ML-CS-Quant-Readings-Notes
 
-Taking notes on Quant Finance, Machine Learning & Computer Science
+Taking notes on Quant Finance, Machine Learning, AI & Computer Science
 
 <!-- TOC --><a name="contents"></a>
 ## Contents
