@@ -15,7 +15,7 @@ Taking notes on Quant Finance, Machine Learning & Computer Science
 - [5. Quant Job Interview Questions](#5-quant-job-interview-questions)
 - [6. Computer Systems](#6-computer-systems)
 - [7. System Design Interview](#7-system-design-interview)
-- [8. Big Data and AI in Finance, Econometrics and Statistics Conference](#8-big-data-and-ai-in-finance-econometrics-and-statistics-conference)
+- [8. Big Data and AI in Finance, Econometrics and Statistics Conference, UChicago 2024](#8-big-data-and-ai-in-finance-econometrics-and-statistics-conference, UChicago 2024)
 - [9. Machine Learning/LLM Interviews Cheatsheet](#9-machine-learningllm-interviews-cheatsheet)
 - [10. Foundations of LLMs](#10-foundations-of-llms)
 
@@ -135,19 +135,19 @@ System Design Interview, An Insider's Guide, Second Edition - by Alex Xu 2020, C
 - [__PDF Notes__](https://github.com/junfanz1/Quant-Books-Notes/blob/main/System%20Design/Notes%20on%20System%20Design.pdf)
 
 <!-- TOC --><a name="8-big-data-and-ai-in-finance-econometrics-and-statistics-conference"></a>
-# 8. Big Data and AI in Finance, Econometrics and Statistics Conference
+# 8. Big Data and AI in Finance, Econometrics and Statistics Conference, UChicago 2024
 
 BDAI Conference, 2024 Oct 3-5, UChicago
 
 <img src="https://github.com/user-attachments/assets/b1ff9d58-2deb-4caa-8370-115539c18abf" width="50%" height="50%">
 
-- [Abstract PDF](https://github.com/junfanz1/Quant-Books-Notes/blob/main/Big%20Data%20AI%20in%20Finance%2C%20Econometrics%2C%20Statistics%20Conference%202024/BDAI-2024%20Abstracts.pdf)
+- [__Abstract PDF__](https://github.com/junfanz1/Quant-Books-Notes/blob/main/Big%20Data%20AI%20in%20Finance%2C%20Econometrics%2C%20Statistics%20Conference%202024/BDAI-2024%20Abstracts.pdf)
 
-- [Agenda PDF](https://github.com/junfanz1/Quant-Books-Notes/blob/main/Big%20Data%20AI%20in%20Finance%2C%20Econometrics%2C%20Statistics%20Conference%202024/BDAI-2024%20Program.pdf)
+- [__Agenda PDF__](https://github.com/junfanz1/Quant-Books-Notes/blob/main/Big%20Data%20AI%20in%20Finance%2C%20Econometrics%2C%20Statistics%20Conference%202024/BDAI-2024%20Program.pdf)
 
-- [High Level Overview Notes PDF](https://github.com/junfanz1/Quant-Books-Notes/blob/main/Big%20Data%20AI%20in%20Finance%2C%20Econometrics%2C%20Statistics%20Conference%202024/Big_Data_Finance_Conference_High_Level_Overview.pdf)
+- [__High Level Overview Notes PDF__](https://github.com/junfanz1/Quant-Books-Notes/blob/main/Big%20Data%20AI%20in%20Finance%2C%20Econometrics%2C%20Statistics%20Conference%202024/Big_Data_Finance_Conference_High_Level_Overview.pdf)
 
-- [Conference Review Notes PDF](https://github.com/junfanz1/Quant-Books-Notes/blob/main/Big%20Data%20AI%20in%20Finance%2C%20Econometrics%2C%20Statistics%20Conference%202024/Big_Data_Finance_Conference_Notes.pdf) 
+- [__Conference Review Notes PDF__](https://github.com/junfanz1/Quant-Books-Notes/blob/main/Big%20Data%20AI%20in%20Finance%2C%20Econometrics%2C%20Statistics%20Conference%202024/Big_Data_Finance_Conference_Notes.pdf) 
 
 <!-- TOC --><a name="9-machine-learningllm-interviews-cheatsheet"></a>
 # 9. Machine Learning/LLM Interviews Cheatsheet
