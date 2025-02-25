@@ -15,6 +15,7 @@ LLM Cheat Sheet
 - [3. DeepSeek-V3/R1](#3-deepseek-v3r1)
    * [DeepSeek-V3](#deepseek-v3)
    * [DeepSeek-R1](#deepseek-r1)
+   * [DeepSeek Janus](#deepseek-janus)
    * [Kimi-K1.5](#kimi-k15)
 - [101. Transformer如何设定learning rate?](#101-transformerlearning-rate)
 - [102. Transformer: Why Positional Encoding?](#102-transformer-why-positional-encoding)
@@ -204,6 +205,13 @@ https://www.bilibili.com/video/BV1DJwRevE6d/
 - GRPO：构建多个模型输出的群组（多个回答），计算群组内相对奖励来估计基线。相比PPO的价值函数是大模型大计算，GRPO省略了Value Model而用群组相对方式计算优势值，将策略模型与参考模型的KL散度作为正则项加入损失函数（而非奖励函数），大幅降低RL计算成本。
 - 四阶段交替训练：SFT、RL、再SFT、再RL，解决冷启动和收敛效率问题。涌现出检查、反思、长链推理。
 - 冷启动数据+SFT给V3，由GRPO强化后得到R1，使用rejection sampling得到reasoning data再去微调V3，几轮post-training迭代后得到R1，蒸馏出小模型。
+
+<!-- TOC --><a name="deepseek-janus"></a>
+## DeepSeek Janus
+- Janus：把理解和生成任务合并统一成自回归Transformer架构。understanding encoder（用SigLIP对图像编码）和generation encoder（用VQ-tokenizer）不同，二者编码后都经过adaptor进入自回归LLM架构，因此提升模型灵活性同时缓解生成-理解的冲突。
+- Janus-Flow：不同于Janus，Generation部分基于Rectified Flow（如Stable Diffusion3）在LLM内融合两种架构，encoder-decoder迭代配对，统一视觉理解与文本生成。
+- Janus-Pro：用ImageNet充分训练，用多模态数据后训练。
+
 
 <!-- TOC --><a name="kimi-k15"></a>
 ## Kimi-K1.5
