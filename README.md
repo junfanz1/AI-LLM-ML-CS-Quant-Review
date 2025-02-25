@@ -6,24 +6,13 @@ Taking notes on Quant Finance, Machine Learning, AI & Computer Science
 
 ## Star History
 
-<picture>
-  <source
-    media="(prefers-color-scheme: dark)"
-    srcset="
-      https://api.star-history.com/svg?repos=https://github.com/junfanz1/AI-ML-CS-Quant-Readings/&type=Date&theme=dark
-    "
-  />
-  <source
-    media="(prefers-color-scheme: light)"
-    srcset="
-      https://api.star-history.com/svg?repos=star-history/star-history&type=Date
-    "
-  />
-  <img
-    alt="Star History Chart"
-    src="https://api.star-history.com/svg?repos=star-history/star-history&type=Date"
-  />
-</picture>
+<a href="https://star-history.com/#junfanz1/AI-ML-CS-Quant-Readings&Date">
+ <picture>
+   <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/svg?repos=junfanz1/AI-ML-CS-Quant-Readings&type=Date&theme=dark" />
+   <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/svg?repos=junfanz1/AI-ML-CS-Quant-Readings&type=Date" />
+   <img alt="Star History Chart" src="https://api.star-history.com/svg?repos=junfanz1/AI-ML-CS-Quant-Readings&type=Date" />
+ </picture>
+</a>
 
 <!-- TOC --><a name="contents"></a>
 ## Contents
