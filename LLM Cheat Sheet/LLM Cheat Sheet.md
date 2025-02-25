@@ -6,18 +6,16 @@ ML/LLM Cheat Sheet
 <!-- TOC start (generated with https://github.com/derlin/bitdowntoc) -->
 
 - [1. Udemy LLM Project Notes](#1-udemy-llm-project-notes)
-   * [Metrics to train LLM](#metrics-to-train-llm)
    * [RAG](#rag)
    * [LangChain](#langchain)
-   * [Fine-tuning open source model (smaller than Frontier model)](#fine-tuning-open-source-model-smaller-than-frontier-model)
    * [LoRA (Low Rank Adaptation)](#lora-low-rank-adaptation)
-   * [3 Hyperparameters for LoRA fine-tuning](#3-hyperparameters-for-lora-fine-tuning)
-   * [5 Hyperparameters for QLoRA fine-tuning](#5-hyperparameters-for-qlora-fine-tuning)
    * [Training](#training)
-   * [4 Steps in Training](#4-steps-in-training)
    * [Capstone Project](#capstone-project)
 - [2. DeepSeek MoE](#2-deepseek-moe)
-- [3. DeepSeek R1](#3-deepseek-r1)
+- [3. DeepSeek-V3/R1](#3-deepseek-v3r1)
+   * [DeepSeek-V3](#deepseek-v3)
+   * [DeepSeek-R1](#deepseek-r1)
+   * [Kimi-K1.5](#kimi-k15)
 - [101. Transformer如何设定learning rate?](#101-transformerlearning-rate)
 - [102. Transformer: Why Positional Encoding?](#102-transformer-why-positional-encoding)
 - [103. Deploy ML Applications?](#103-deploy-ml-applications)
@@ -50,8 +48,7 @@ Benchmarks comparing LLMs - HuggingFace Open LLM Leaderboard
 - HumanEval, evaluating Python coding, 164 problems writing code based on docstrings
 - MultiPL-E, evaluating broader coding, translation of HumanEval to 18 programming languages
 
-<!-- TOC --><a name="metrics-to-train-llm"></a>
-## Metrics to train LLM
+Metrics to train LLM
 - Cross-entropy loss: -log(predicted probability of the thing that turned out to be actual next token)
 - Perplexity: e^{Cross-entropy loss}, if = 1 then model is 100% correct, if = 2 then model is 50% correct, if = 4 then model is 25% correct. Higher perplexity: how many tokens would need to be to predict next token
 
@@ -80,8 +77,7 @@ Use Transfer learning to train LLMs, take pretrained models as base, use additio
 
 Generate text and code with Frontier models including AI assistants with Tools and with open source models with HuggingFace transformers. Create advanced RAG solutions with LangChain. Make baseline model with traditional ML and making Frontier solution, and fine-tuning Frontier models.
 
-<!-- TOC --><a name="fine-tuning-open-source-model-smaller-than-frontier-model"></a>
-## Fine-tuning open source model (smaller than Frontier model)
+Fine-tuning open source model (smaller than Frontier model)
 
 Llama 3.1 architecture
 - 8B parameters, 32G memory, too large and costly to train.
@@ -94,16 +90,14 @@ Freeze main model, come up with a bunch of smaller matrices with fewer dimension
 - Freeze weights, we don’t optimize 8B weights (too many gradients), but we pick a few layers (target modules) that we think are key things we want to train. We create new matrices (Low Rank Adaptor) with fewer dimensions, and apply these matrices into target modules. So fewer weights are applied to target modules.
 - Quantization (Q in QLoRA): Keep the number of weights but reduce precision of each weight. Model performance is worse, but impact is small. 
 
-<!-- TOC --><a name="3-hyperparameters-for-lora-fine-tuning"></a>
-## 3 Hyperparameters for LoRA fine-tuning
+3 Hyperparameters for LoRA fine-tuning
 - r, rank, how many dimensions in low-rank matrices. Start with 8, 16, 32 until diminishing returns 
 - Alpha, scaling factor that multiplies the lower rank matrices. Alpha = 2 * r, the bigger the more effective.
 - Target modules, which layers of NN are adapted. Target the attention head layers.
 
 fine_tuned_model = PeftModel.from_pretrained(base_model, FINETUNED_MODEL), after quantized to 8 bit or 4 bit, model size reduced to 5000MB, after fine-tuned LoRA matrices applying to big model, size of weights reduced to 100MB.
 
-<!-- TOC --><a name="5-hyperparameters-for-qlora-fine-tuning"></a>
-## 5 Hyperparameters for QLoRA fine-tuning
+5 Hyperparameters for QLoRA fine-tuning
 - Target modules
 - r, how many dimensions
 - alpha, scaling factor to multiply up the importance of adaptor when applying to target modules, by default = 2 * r
@@ -118,8 +112,7 @@ fine_tuned_model = PeftModel.from_pretrained(base_model, FINETUNED_MODEL), after
 - Gradient accumulation. Improve speed of going through training. We can do forward pass and get the gradient, and don’t take a step, just do a second forward pass and add up the gradients and keep accumulating gradients and then take a step and optimize the network. Steps less frequently = faster. 
 - Optimizer. Algorithm that updates NN to shift everything a bit to increase the prediction accuracy of the next token.
 
-<!-- TOC --><a name="4-steps-in-training"></a>
-## 4 Steps in Training
+4 Steps in Training
 - Forward pass, predict next token in training data
 - Loss calculation, how different was it to the true token
 - Backpropagation, how much (sensitivity) should we tweak parameters to do better next time (gradients)
@@ -187,18 +180,22 @@ DeepSeek GRPO与LLM主流RLHF两大路线
 - GRPO=无需价值函数，与奖励模型的比较性质对齐，KL惩罚在损失函数中。DeepSeek GRPO避免了PPO用Critic Value Model近似，而是用同一问题下多个采样输出的平均奖励作基线，这样Actor（没了Critic）直接去对齐Reward，求均值后再去跟Policy求KL散度。
 
 
-<!-- TOC --><a name="3-deepseek-r1"></a>
-# 3. DeepSeek R1
+<!-- TOC --><a name="3-deepseek-v3r1"></a>
+# 3. DeepSeek-V3/R1
 
 https://www.bilibili.com/video/BV1DJwRevE6d/
 
-DeepSeek-V3
-- Multi-Head Latent Attention (MLA)引入潜在空间提高计算效率，并保持模型对输入数据复杂关系的捕捉能力。
-- Mixture of Expert (MoE)高效专家分配和计算资源利用来降低成本。
-- F8混合精度训练+多token预测，提高理解能力。
-- 通信优化DulePipe算法，双流水线并行优化。
+<!-- TOC --><a name="deepseek-v3"></a>
+## DeepSeek-V3
+- Multi-Head Latent Attention (MLA)：引入潜在空间提高计算效率，并保持模型对输入数据复杂关系的捕捉能力。
+- Mixture of Expert (MoE)：高效专家分配（负载均衡）和计算资源利用来降低成本。
+- FP8量化（混合精度训练）+多token预测（并行推理，就像随机采样，加速解码过程），提高理解能力。
+- 分阶段训练，性能提升依赖于算法升级（post-training, RL，知识蒸馏）
+- 通信优化DulePipe双流水线并行优化
 
-DeepSeek-R1
+
+<!-- TOC --><a name="deepseek-r1"></a>
+## DeepSeek-R1
 - R1-Zero（探索RL+LLM）=基于规则的奖励（准确率奖励+思考过程格式奖励）+推理为中心的大规模强化学习（组相对策略优化GRPO+瞄准Reasoning推理任务）。
 - R1（工程和数据调优）=V3+GRPO，好：自我进化，具有test-time reasoning。 坏：reasoning可读性差，中英混杂。
 - 相比DeepSeek-v3-Base，增强了推理链可读性（用高质量数据冷启动让RL更稳定+推理为中心的RL）、提升通用能力和安全性（拒绝采样和全领域SFT+全领域All Scenario RL）。
@@ -208,7 +205,8 @@ DeepSeek-R1
 - 四阶段交替训练：SFT、RL、再SFT、再RL，解决冷启动和收敛效率问题。涌现出检查、反思、长链推理。
 - 冷启动数据+SFT给V3，由GRPO强化后得到R1，使用rejection sampling得到reasoning data再去微调V3，几轮post-training迭代后得到R1，蒸馏出小模型。
 
-Kimi K1.5
+<!-- TOC --><a name="kimi-k15"></a>
+## Kimi-K1.5
 - 强化学习让模型试错。In-Context RL不训练模型规划，而是模拟规划approximate planning（将每个state和value都视为language tokens，建模成contextual bandit问题，用REINFORCE变种来优化，并用长度惩罚机制防止overthinking算力损耗）。
 - 采样策略：课程学习循序渐进+优先采样做难题。
 - 四阶段：Pretraining、SFT、Long CoT SFT、RL。
