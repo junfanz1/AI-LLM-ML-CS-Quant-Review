@@ -1,4 +1,4 @@
-ML/LLM Cheat Sheet
+LLM Cheat Sheet
 ---
 
 [Contents](https://bitdowntoc.derlin.ch/)
