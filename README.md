@@ -4,6 +4,10 @@
 
 Taking notes on Quant Finance, Machine Learning, AI & Computer Science
 
+## Star History
+
+[![Star History Chart](https://api.star-history.com/svg?repos=junfanz1/AI-ML-CS-Quant-Readings&type=Date)](https://star-history.com/#junfanz1/AI-ML-CS-Quant-Readings&Date)
+
 <!-- TOC --><a name="contents"></a>
 ## Contents
 <!-- TOC start (generated with https://github.com/derlin/bitdowntoc) -->
