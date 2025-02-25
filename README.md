@@ -10,7 +10,7 @@ Taking notes on Quant Finance, Machine Learning, AI & Computer Science
   <source
     media="(prefers-color-scheme: dark)"
     srcset="
-      https://api.star-history.com/svg?repos=star-history/star-history&type=Date&theme=dark
+      https://api.star-history.com/svg?repos=https://github.com/junfanz1/AI-ML-CS-Quant-Readings/&type=Date&theme=dark
     "
   />
   <source
