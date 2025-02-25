@@ -181,6 +181,12 @@ MoE优化
 - MoE模型蒸馏回对应的稠密小模型
 - 任务级别路由+专家聚合，简化模型减少专家
 
+DeepSeek GRPO与LLM主流RLHF两大路线
+- On-Policy (PPO)：每次训练都基于自己的生成模型Actor，通过教练Critic反馈奖励。好：效率高，坏：模型能力低。PPO共有4个模型（Actor, Critic, Reward, Reference），计算大。
+- Off-Policy (DPO)：基于现有标注进行分析，可能样本与模型不匹配。好：可能达到模型上限，坏：效率低。
+- GRPO=无需价值函数，与奖励模型的比较性质对齐，KL惩罚在损失函数中。DeepSeek GRPO避免了PPO用Critic Value Model近似，而是用同一问题下多个采样输出的平均奖励作基线，这样Actor（没了Critic）直接去对齐Reward，求均值后再去跟Policy求KL散度。
+
+
 <!-- TOC --><a name="3-deepseek-r1"></a>
 # 3. DeepSeek R1
 
@@ -190,15 +196,17 @@ DeepSeek-V3
 - Multi-Head Latent Attention (MLA)引入潜在空间提高计算效率，并保持模型对输入数据复杂关系的捕捉能力。
 - Mixture of Expert (MoE)高效专家分配和计算资源利用来降低成本。
 - F8混合精度训练+多token预测，提高理解能力。
-- 通信优化DulePipe算法，双流水线并行优化
+- 通信优化DulePipe算法，双流水线并行优化。
 
 DeepSeek-R1
-- R1-Zero=基于规则的奖励（准确率奖励+思考过程格式奖励）+推理为中心的大规模强化学习（组相对策略优化GRPO+瞄准Reasoning推理任务）。
+- R1-Zero（探索RL+LLM）=基于规则的奖励（准确率奖励+思考过程格式奖励）+推理为中心的大规模强化学习（组相对策略优化GRPO+瞄准Reasoning推理任务）。
+- R1（工程和数据调优）=V3+GRPO，好：自我进化，具有test-time reasoning。 坏：reasoning可读性差，中英混杂。
 - 相比DeepSeek-v3-Base，增强了推理链可读性（用高质量数据冷启动让RL更稳定+推理为中心的RL）、提升通用能力和安全性（拒绝采样和全领域SFT+全领域All Scenario RL）。
 - 无需监督微调（节省标注成本）的纯强化学习驱动（需要强大V3基座模型+GRPO强化学习优化+推理问题可以自动化标记验证）。基于强化学习的后训练Post-Training Scaling Law，有强大推理能力和长文本思考能力。 因为大模型预训练的边际收益递减，自回归的数学推理难以自我纠错。
-- 即使是稀疏奖励信号，模型也能自然探索出验证回溯总结反思。
+- 涌现出检查、反思、长链推理。即使是稀疏奖励信号，模型也能自然探索出验证回溯总结反思。
 - GRPO：构建多个模型输出的群组（多个回答），计算群组内相对奖励来估计基线。相比PPO的价值函数是大模型大计算，GRPO省略了Value Model而用群组相对方式计算优势值，将策略模型与参考模型的KL散度作为正则项加入损失函数（而非奖励函数），大幅降低RL计算成本。
 - 四阶段交替训练：SFT、RL、再SFT、再RL，解决冷启动和收敛效率问题。涌现出检查、反思、长链推理。
+- 冷启动数据+SFT给V3，由GRPO强化后得到R1，使用rejection sampling得到reasoning data再去微调V3，几轮post-training迭代后得到R1，蒸馏出小模型。
 
 Kimi K1.5
 - 强化学习让模型试错。In-Context RL不训练模型规划，而是模拟规划approximate planning（将每个state和value都视为language tokens，建模成contextual bandit问题，用REINFORCE变种来优化，并用长度惩罚机制防止overthinking算力损耗）。
