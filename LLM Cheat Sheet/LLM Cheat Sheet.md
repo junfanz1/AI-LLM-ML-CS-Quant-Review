@@ -29,7 +29,7 @@ LLM Cheat Sheet
 <!-- TOC --><a name="1-udemy-llm-project-notes"></a>
 # 1. Udemy LLM Project Notes
 
-https://www.udemy.com/course/llm-engineering-master-ai-and-large-language-models/learn/lecture/
+[Ed Donnoer: LLM Engineering: Master AI, Large Language Models & Agents](https://www.udemy.com/course/llm-engineering-master-ai-and-large-language-models/learn/lecture/)
 
 <img src="https://github.com/user-attachments/assets/e5bb6fb6-9c70-42e6-9d4a-7603d9646b26" width="50%" height="50%">
 
@@ -65,10 +65,32 @@ Convert chunks of text into vectors using OpenAI Embeddings, store vectors in Ch
 <!-- TOC --><a name="langchain"></a>
 ## LangChain
 
+[Eden Marco: LangChain- Develop LLM powered applications with LangChain](https://www.udemy.com/course/langchain/?srsltid=AfmBOooPg0Xkc19q5W1430Dzq6MHGKWqHtq5a1WY4uUl9sQkrh_b_pej&couponCode=ST4MT240225B)
+
+<img src="https://github.com/user-attachments/assets/545885af-9c0b-431c-b8d4-cc28a0b7d64f" width="50%" height="50%">
+
 LangChain = LLM + Retriever (Chroma, vector storer) + Memory (list of dicts, history chats)
+- LLM applications = RAG + Agents
 - Simplifies creation of applications using LLMs (AI assistants, RAG, summarization), fast time to market
 - Wrapper code around LLMs makes it easy to swap models 
 - As APIs for LLMs have matured, converged and simplified, need for unifying framework like LangChain has decreased 
+
+ReAct (Reason-Act)
+- Paradigm that integrates language models with reasoning and acting capabilities, allowing for dynamic reasoning and interaction with external environments to accomplish complex tasks.
+- Simplest agent is for-loop (ReAct), ReAct agents are flexible and any state is possible, but have poor reliability (eg. invoking the same tool always and stuck, due to hallucination, tool-misuse, task ambiguity, LLM non-determinism).
+
+LangGraph
+- LangGraph is both reliable (like Chain, that architects our state machine) and flexible (like ReAct).
+- Flow Engineering (planning+testing), can build highly customized agents. (AutoGPT can do long-term planning, but we want to define the flow.) 
+- Controllability (we define control flow, LLM make decisions inside flow) + Persistence + Human-in-the-loop + Streaming. 
+- LangChain Agent. Memory (shared state across the graph), tools (nodes can call tools and modify state), planning (edges can route control flow based on LLM decisions).
+
+Autonomy in LLM applications (5 levels): 
+- human code
+- LLM call: one-step only
+- Chain: multiple steps, but one-directional
+- Router (LangChain): decide output of steps and steps to take (but no cycles), still human-driven (not agent executed)
+- State Machine (LangGraph): Agent executed, where agent is a control flow controlled by LLM, use LLM to reason where to go in this flow and tools-calling to execute steps, agent can have cycles.
 
 LangChain’s decorative language LCEL
 
