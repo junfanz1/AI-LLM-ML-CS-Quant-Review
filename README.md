@@ -11,17 +11,16 @@ Taking notes on Quant Finance, Machine Learning, AI & Computer Science
 <!-- TOC --><a name="contents"></a>
 ## Contents
 <!-- TOC start (generated with https://github.com/derlin/bitdowntoc) -->
-
-- [1. C++ Design Patterns and Derivatives Pricing](#1-c-design-patterns-and-derivatives-pricing)
-- [2. High-Frequency Finance](#2-high-frequency-finance)
+- [1. Machine Learning/LLM Interviews Cheatsheet](#1-machine-learningllm-interviews-cheatsheet)
+- [2. Foundations of LLMs](#2-foundations-of-llms)
 - [3. Machine Learning for Algorithmic Trading](#3-machine-learning-for-algorithmic-trading)
 - [4. Stochastic Volatility Modeling](#4-stochastic-volatility-modeling)
 - [5. Quant Job Interview Questions](#5-quant-job-interview-questions)
 - [6. Computer Systems](#6-computer-systems)
 - [7. System Design Interview](#7-system-design-interview)
 - [8. Big Data and AI in Finance, Econometrics and Statistics Conference, UChicago 2024](#8-big-data-and-ai-in-finance-econometrics-and-statistics-conference-UChicago-2024)
-- [9. Machine Learning/LLM Interviews Cheatsheet](#9-machine-learningllm-interviews-cheatsheet)
-- [10. Foundations of LLMs](#10-foundations-of-llms)
+- [9. C++ Design Patterns and Derivatives Pricing](#9-c-design-patterns-and-derivatives-pricing)
+- [10. High-Frequency Finance](#10-high-frequency-finance)
 
 TBD:
 
@@ -36,33 +35,32 @@ TBD:
 
 ---
 
-<!-- TOC --><a name="1-c-design-patterns-and-derivatives-pricing"></a>
-# 1. C++ Design Patterns and Derivatives Pricing
+<!-- TOC --><a name="1-machine-learningllm-interviews-cheatsheet"></a>
+# 1. Machine Learning/LLM Interviews Cheatsheet
 
-C++ Design Patterns and Derivatives Pricing (Mathematics, Finance and Risk, Series Number 2) 2nd Edition, by M. S. Joshi
+> [Course Video](https://www.udemy.com/course/llm-engineering-master-ai-and-large-language-models/learn/lecture/)
 
-> [Book Link](https://www.amazon.com/Patterns-Derivatives-Pricing-Mathematics-Finance/dp/0521721628) 
+<img src="https://github.com/user-attachments/assets/e5bb6fb6-9c70-42e6-9d4a-7603d9646b26" width="50%" height="50%">
 
-<img src="https://github.com/user-attachments/assets/c16d6c10-2dbf-44a4-9651-3917c039d2cc" width="50%" height="50%">
+- [__Markdown Notes__](https://github.com/junfanz1/Quant-Books-Notes/blob/main/LLM%20Cheat%20Sheet/LLM%20Cheat%20Sheet.md)
+
+<!-- TOC --><a name="2-foundations-of-llms"></a>
+# 2. Foundations of LLMs
+
+大模型基础，毛玉仁等 - 2024，浙大
+
+> [Course Github](https://github.com/ZJU-LLMs/Foundations-of-LLMs)
+
+> [Course Video](https://www.bilibili.com/video/BV1PB6XYFET2)
+
+> [Textbook](https://github.com/ZJU-LLMs/Foundations-of-LLMs/blob/main/%E3%80%8A%E5%A4%A7%E6%A8%A1%E5%9E%8B%E5%9F%BA%E7%A1%80%E3%80%8B%E6%95%99%E6%9D%90/%E5%A4%A7%E6%A8%A1%E5%9E%8B%E5%9F%BA%E7%A1%80%20%E5%AE%8C%E6%95%B4%E7%89%88.pdf)
+
+<img src="https://github.com/user-attachments/assets/0c35d5d0-f8e0-4b64-9d93-2240c628feaa" width="50%" height="50%">
+<img src="https://github.com/user-attachments/assets/545885af-9c0b-431c-b8d4-cc28a0b7d64f" width="50%" height="50%">
+
+- [__PDF Notes__](https://github.com/junfanz1/AI-ML-CS-Quant-Readings/blob/main/Foundations%20of%20LLMs/%E6%B5%99%E5%A4%A7%E5%A4%A7%E6%A8%A1%E5%9E%8B%E8%AF%BE%E7%AC%94%E8%AE%B0.pdf)
 
 
-
-- [__PDF Notes__](https://github.com/junfanz1/Quant-Books-Notes/blob/main/C%2B%2B%20Design%20Patterns%20Derivatives%20Pricing/C%2B%2B%20Design%20Patterns%20Derivatives%20Pricing.pdf)
-
-- [__Markdown Notes__](https://github.com/junfanz1/Quant-Books-Notes/blob/main/C%2B%2B%20Design%20Patterns%20Derivatives%20Pricing/C%2B%2B%20Design%20Patterns%20Derivatives%20Pricing.md)
-
-<!-- TOC --><a name="2-high-frequency-finance"></a>
-# 2. High-Frequency Finance
-
-An Introduction to High-Frequency Finance, by Ramazan Gençay, et al.
-
-> [Book Link](https://www.amazon.com/Introduction-High-Frequency-Finance-Ramazan-Gen%C3%A7ay/dp/0122796713)
-
-<img src="https://github.com/user-attachments/assets/587c8e69-f785-4137-b9f6-c809bb87bb90" width="50%" height="50%">
-
-- [__PDF Notes__](https://github.com/junfanz1/Quant-Books-Notes/blob/main/An%20Intro%20to%20High-Frequency%20Finance/Notes%20on%20An%20Introduction%20to%20High-Frequency%20Finance.pdf)
-
-- [__Markdown Notes__](https://github.com/junfanz1/Quant-Books-Notes/blob/main/An%20Intro%20to%20High-Frequency%20Finance/An%20Introduction%20to%20High-Frequency%20Financ.md)
 
 <!-- TOC --><a name="3-machine-learning-for-algorithmic-trading"></a>
 # 3. Machine Learning for Algorithmic Trading
@@ -154,29 +152,33 @@ BDAI Conference, 2024 Oct 3-5, UChicago
 
 - [__Conference Review Notes PDF__](https://github.com/junfanz1/Quant-Books-Notes/blob/main/Big%20Data%20AI%20in%20Finance%2C%20Econometrics%2C%20Statistics%20Conference%202024/Big_Data_Finance_Conference_Notes.pdf) 
 
-<!-- TOC --><a name="9-machine-learningllm-interviews-cheatsheet"></a>
-# 9. Machine Learning/LLM Interviews Cheatsheet
+<!-- TOC --><a name="9-c-design-patterns-and-derivatives-pricing"></a>
+# 9. C++ Design Patterns and Derivatives Pricing
 
-> [Course Video](https://www.udemy.com/course/llm-engineering-master-ai-and-large-language-models/learn/lecture/)
+C++ Design Patterns and Derivatives Pricing (Mathematics, Finance and Risk, Series Number 2) 2nd Edition, by M. S. Joshi
 
-<img src="https://github.com/user-attachments/assets/e5bb6fb6-9c70-42e6-9d4a-7603d9646b26" width="50%" height="50%">
+> [Book Link](https://www.amazon.com/Patterns-Derivatives-Pricing-Mathematics-Finance/dp/0521721628) 
 
-- [__Markdown Notes__](https://github.com/junfanz1/Quant-Books-Notes/blob/main/LLM%20Cheat%20Sheet/LLM%20Cheat%20Sheet.md)
+<img src="https://github.com/user-attachments/assets/c16d6c10-2dbf-44a4-9651-3917c039d2cc" width="50%" height="50%">
 
-<!-- TOC --><a name="10-foundations-of-llms"></a>
-# 10. Foundations of LLMs
 
-大模型基础，毛玉仁等 - 2024，浙大
 
-> [Course Github](https://github.com/ZJU-LLMs/Foundations-of-LLMs)
+- [__PDF Notes__](https://github.com/junfanz1/Quant-Books-Notes/blob/main/C%2B%2B%20Design%20Patterns%20Derivatives%20Pricing/C%2B%2B%20Design%20Patterns%20Derivatives%20Pricing.pdf)
 
-> [Course Video](https://www.bilibili.com/video/BV1PB6XYFET2)
+- [__Markdown Notes__](https://github.com/junfanz1/Quant-Books-Notes/blob/main/C%2B%2B%20Design%20Patterns%20Derivatives%20Pricing/C%2B%2B%20Design%20Patterns%20Derivatives%20Pricing.md)
 
-> [Textbook](https://github.com/ZJU-LLMs/Foundations-of-LLMs/blob/main/%E3%80%8A%E5%A4%A7%E6%A8%A1%E5%9E%8B%E5%9F%BA%E7%A1%80%E3%80%8B%E6%95%99%E6%9D%90/%E5%A4%A7%E6%A8%A1%E5%9E%8B%E5%9F%BA%E7%A1%80%20%E5%AE%8C%E6%95%B4%E7%89%88.pdf)
+<!-- TOC --><a name="10-high-frequency-finance"></a>
+# 10. High-Frequency Finance
 
-<img src="https://github.com/user-attachments/assets/0c35d5d0-f8e0-4b64-9d93-2240c628feaa" width="50%" height="50%">
+An Introduction to High-Frequency Finance, by Ramazan Gençay, et al.
 
-- [__PDF Notes__](https://github.com/junfanz1/AI-ML-CS-Quant-Readings/blob/main/Foundations%20of%20LLMs/%E6%B5%99%E5%A4%A7%E5%A4%A7%E6%A8%A1%E5%9E%8B%E8%AF%BE%E7%AC%94%E8%AE%B0.pdf)
+> [Book Link](https://www.amazon.com/Introduction-High-Frequency-Finance-Ramazan-Gen%C3%A7ay/dp/0122796713)
+
+<img src="https://github.com/user-attachments/assets/587c8e69-f785-4137-b9f6-c809bb87bb90" width="50%" height="50%">
+
+- [__PDF Notes__](https://github.com/junfanz1/Quant-Books-Notes/blob/main/An%20Intro%20to%20High-Frequency%20Finance/Notes%20on%20An%20Introduction%20to%20High-Frequency%20Finance.pdf)
+
+- [__Markdown Notes__](https://github.com/junfanz1/Quant-Books-Notes/blob/main/An%20Intro%20to%20High-Frequency%20Finance/An%20Introduction%20to%20High-Frequency%20Financ.md)
 
 ---
 
