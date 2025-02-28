@@ -11,7 +11,7 @@ Taking notes on Quant Finance, Machine Learning, AI & Computer Science
 <!-- TOC --><a name="contents"></a>
 ## Contents
 <!-- TOC start (generated with https://github.com/derlin/bitdowntoc) -->
-- [1. Machine Learning/LLM Interviews Cheatsheet](#1-machine-learningllm-interviews-cheatsheet)
+- [1. Large Language Models CheatSheet](#1-llm-cheatsheet)
 - [2. Foundations of LLMs](#2-foundations-of-llms)
 - [3. Machine Learning for Algorithmic Trading](#3-machine-learning-for-algorithmic-trading)
 - [4. Stochastic Volatility Modeling](#4-stochastic-volatility-modeling)
@@ -36,7 +36,7 @@ TBD:
 ---
 
 <!-- TOC --><a name="1-machine-learningllm-interviews-cheatsheet"></a>
-# 1. Machine Learning/LLM Interviews Cheatsheet
+# 1. Large Language Models CheatSheet
 
 > [Course Video](https://www.udemy.com/course/llm-engineering-master-ai-and-large-language-models/learn/lecture/)
 
