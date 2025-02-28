@@ -40,8 +40,8 @@ TBD:
 
 > [Course Video](https://www.udemy.com/course/llm-engineering-master-ai-and-large-language-models/learn/lecture/)
 
-<img src="https://github.com/user-attachments/assets/e5bb6fb6-9c70-42e6-9d4a-7603d9646b26" width="50%" height="50%">
-<img src="https://github.com/user-attachments/assets/545885af-9c0b-431c-b8d4-cc28a0b7d64f" width="50%" height="50%">
+<img src="https://github.com/user-attachments/assets/e5bb6fb6-9c70-42e6-9d4a-7603d9646b26" width="30%" height="30%">
+<img src="https://github.com/user-attachments/assets/545885af-9c0b-431c-b8d4-cc28a0b7d64f" width="30%" height="30%">
 
 - [__Markdown Notes__](https://github.com/junfanz1/Quant-Books-Notes/blob/main/LLM%20Cheat%20Sheet/LLM%20Cheat%20Sheet.md)
 
