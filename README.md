@@ -35,7 +35,7 @@ TBD:
 
 ---
 
-<!-- TOC --><a name="1-machine-learningllm-interviews-cheatsheet"></a>
+<!-- TOC --><a name="1-llm-cheatsheet"></a>
 # 1. Large Language Models CheatSheet
 
 > [Course Video](https://www.udemy.com/course/llm-engineering-master-ai-and-large-language-models/learn/lecture/)
