@@ -70,6 +70,8 @@ Autonomy in LLM applications (5 levels):
 
 [Eden Marco: LangGraph-Develop LLM powered AI agents with LangGraph](https://www.udemy.com/course/langgraph)
 
+<img src="https://github.com/user-attachments/assets/0511a3b1-a5d4-4255-8916-fc9cb2d08e99" width="50%" height="50%">
+
 Projects:
 - https://github.com/junfanz1/Cognito-LangGraph-RAG
 - https://github.com/junfanz1/LangGraph-Reflection-Researcher
