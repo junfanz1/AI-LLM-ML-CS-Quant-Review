@@ -6,11 +6,15 @@ LLM Cheat Sheet
 <!-- TOC start (generated with https://github.com/derlin/bitdowntoc) -->
 
 - [1. Udemy LLM Project Notes](#1-udemy-llm-project-notes)
-   * [RAG](#rag)
    * [LangChain](#langchain)
-   * [LoRA (Low Rank Adaptation)](#lora-low-rank-adaptation)
-   * [Training](#training)
-   * [Capstone Project](#capstone-project)
+   * [LangGraph](#langgraph)
+      + [LangGraph Researcher Agent](#langgraph-researcher-agent)
+      + [RAG Self-Reflection Workflow ](#rag-self-reflection-workflow)
+   * [Agent Framework](#agent-framework)
+      + [Project](#project)
+      + [RAG](#rag)
+      + [LoRA (Low Rank Adaptation)](#lora-low-rank-adaptation)
+      + [Training](#training)
 - [2. DeepSeek MoE](#2-deepseek-moe)
 - [3. DeepSeek-V3/R1](#3-deepseek-v3r1)
    * [DeepSeek-V3](#deepseek-v3)
@@ -26,8 +30,106 @@ LLM Cheat Sheet
 
 <!-- TOC end -->
 
+
+
 <!-- TOC --><a name="1-udemy-llm-project-notes"></a>
 # 1. Udemy LLM Project Notes
+
+
+<!-- TOC --><a name="langchain"></a>
+## LangChain
+
+[Eden Marco: LangChain- Develop LLM powered applications with LangChain](https://www.udemy.com/course/langchain/?srsltid=AfmBOooPg0Xkc19q5W1430Dzq6MHGKWqHtq5a1WY4uUl9sQkrh_b_pej&couponCode=ST4MT240225B)
+
+<img src="https://github.com/user-attachments/assets/545885af-9c0b-431c-b8d4-cc28a0b7d64f" width="50%" height="50%">
+
+Projects
+- https://github.com/junfanz1/Code-Interpreter-ReAct-LangChain-Agent
+- https://github.com/junfanz1/LLM-Documentation-Chatbot
+
+LangChain = LLM + Retriever (Chroma, vector storer) + Memory (list of dicts, history chats)
+- LLM applications = RAG + Agents
+- Simplifies creation of applications using LLMs (AI assistants, RAG, summarization), fast time to market
+- Wrapper code around LLMs makes it easy to swap models 
+- As APIs for LLMs have matured, converged and simplified, need for unifying framework like LangChain has decreased 
+
+ReAct (Reason-Act)
+- Paradigm that integrates language models with reasoning and acting capabilities, allowing for dynamic reasoning and interaction with external environments to accomplish complex tasks.
+- Simplest agent is for-loop (ReAct), ReAct agents are flexible and any state is possible, but have poor reliability (eg. invoking the same tool always and stuck, due to hallucination, tool-misuse, task ambiguity, LLM non-determinism).
+
+Autonomy in LLM applications (5 levels): 
+- human code
+- LLM call: one-step only
+- Chain: multiple steps, but one-directional
+- Router (LangChain): decide output of steps and steps to take (but no cycles), still human-driven (not agent executed)
+- State Machine (LangGraph): Agent executed, where agent is a control flow controlled by LLM, use LLM to reason where to go in this flow and tools-calling to execute steps, agent can have cycles.
+
+
+<!-- TOC --><a name="langgraph"></a>
+## LangGraph
+
+[Eden Marco: LangGraph-Develop LLM powered AI agents with LangGraph](https://www.udemy.com/course/langgraph)
+
+Projects:
+- https://github.com/junfanz1/Cognito-LangGraph-RAG
+- https://github.com/junfanz1/LangGraph-Reflection-Researcher
+
+
+LangGraph
+- LangGraph is both reliable (like Chain, that architects our state machine) and flexible (like ReAct).
+- Flow Engineering (planning+testing), can build highly customized agents. (AutoGPT can do long-term planning, but we want to define the flow.) 
+- Controllability (we define control flow, LLM make decisions inside flow) + Persistence + Human-in-the-loop + Streaming. 
+- LangChain Agent. Memory (shared state across the graph), tools (nodes can call tools and modify state), planning (edges can route control flow based on LLM decisions).
+
+<!-- TOC --><a name="langgraph-researcher-agent"></a>
+### LangGraph Researcher Agent
+- Implementing agent production-ready. There’re nodes and edges, but no cycles. We can integrate GPT Researcher (as a node under LangGraph graph) within Multi-Agent Architecture. https://github.com/junfanz1/gpt-researcher/tree/master/multi_agents
+- https://github.com/assafelovic/gpt-researcher
+- Every agent in a multi-agent system can be a researcher, as part of workflow. e.g., `Technology` agent is talor-made for technological subjects, and is dynamically created/chosen
+- Research automation needs to make a decision for a few deeper levels and iterate again again again until the optimal answer. Key difference here is not only width (in parallel then aggregation) but also depth
+
+Reason for LangGraph in Multi-Agent Architecture
+- LangGraph (Flow Engineering techniques addresses the tradeoff between agent freedom and our control) is more flexible in production than CrewAI (doesn’t have as much control of the flow)
+- breaks down the problem into specific actions, like microservices, (1) with specialized tasks, we can control quality of nodes, (2) can scale up the application as it grows
+- Customizability, creative framework
+- Contextual compression is the best method for retrieving in RAG workflow
+- Allow both web and local data indexing, with LangChain easy integration can embed anything
+- Human-in-the-loop, let user decide how much feedback autonomy to interact with, especially useful when finding two knowledge sources that conflict or contradict each other. When this happens, AI needs human assistance.
+
+
+<!-- TOC --><a name="rag-self-reflection-workflow"></a>
+### RAG Self-Reflection Workflow 
+
+LangGraph Components
+- Nodes (Python functions)
+- Edges (connect nodes)
+- Conditional Edges (make dynamic decisions to go to node A or B)
+
+State Management: dictionary to track the graph’s execution result, chat history, etc.
+
+Reflection Agents: prompt to improve quality and success rate of agents/AI systems.
+
+Self-reflects on 
+- Document we retrieve
+- Curate documents and add new info
+- Answers if grounded in documents
+
+We also implement a routing element, routing our request to correct datastore with info of the answer.
+
+RAG Idea Foundations
+- Self-RAG: reflect on the answer the model generated, check if answer is grounded in the docs.
+- Adaptive RAG: (1) taking the route to search on a website, then continuing downstream on the same logic (2) use RAG from the vector store. Use conditional entry points for routing.
+- Corrective RAG: Take query, vector search + semantic search, retrieve all docs, start to self-reflect and critique the docs, determine whether they’re relevant or not. If relevant, send to LLM, if not relevant, filter out and perform external Internet search to get more info, to augment our prompt with real-time online info, then augment the prompt and send to LLM.
+
+Further Improvements
+
+- LangGraph has a persistence layer via checkpoint object (save the state after each node execution, in persistence storage, e.g. SQLite). Can interrupt the graph and checkpoint the state of the graph and stop to get human feedback, and resume graph execution from the stop point.
+- Create conditional branches for parallel node execution
+- Use Docker to deploy to LangGraph Cloud, or use LangGraph Studio, LangGraph API to build LLM applications without frontend
+
+
+<!-- TOC --><a name="agent-framework"></a>
+## Agent Framework
 
 [Ed Donnoer: LLM Engineering: Master AI, Large Language Models & Agents](https://www.udemy.com/course/llm-engineering-master-ai-and-large-language-models/learn/lecture/)
 
@@ -53,44 +155,35 @@ Metrics to train LLM
 - Cross-entropy loss: -log(predicted probability of the thing that turned out to be actual next token)
 - Perplexity: e^{Cross-entropy loss}, if = 1 then model is 100% correct, if = 2 then model is 50% correct, if = 4 then model is 25% correct. Higher perplexity: how many tokens would need to be to predict next token
 
+<!-- TOC --><a name="project"></a>
+### Project
+
+Autonomous Agentic AI framework (watches for deals published online, estimate price of products, send push notifications when it’s opportunity)
+
+modal.com to deploy LLM to production, serverless platform for AI teams 
+
+Agent Architecture/Workflows: 7 Agents work together (GPT-4o model identify deals from RSS feed, frontier-busting fine-tuned model estimate prices, use Frontier model with massive RAG Chroma datastore)
+- UI, with Gradio
+- Agent Framework: with memory and logging
+- Planning Agent: coordinate activities
+- Scanner Agent: identify promising deals
+- Ensemble Agent: estimate prices using multiple models, and collaborate with other 3 agents
+- Messaging Agent: send push notifications
+- Frontier Agent: RAG pricer (based on inventory of lots of products, good use case for RAG)
+- Specialist Agent: estimate prices 
+- Random Forest Agent: estimate prices (transformer architecture)
+
+SentenceTransformer from HuggingFace maps sentences to 384 dimensional dense vector space and is ideal for semantic search. 
+
+
 <!-- TOC --><a name="rag"></a>
-## RAG
+### RAG
 
 RAG (Retrieval Augmented Generation) uses vector embeddings and vector databases to add contexts to prompts, define LangChain and read/split documents. 
 
 Convert chunks of text into vectors using OpenAI Embeddings, store vectors in Chroma (open source AI vector datastores) or FAISS, and visualize the vector store in 3D, and reduce the dimension of vectors to 2D using t-SNE.
 - Autoregressive LLM: predict future token from the past
 - Autoencoding LLM: produce output based on full input. Good at sentiment analysis, classification. (BERT, OpenAI Embeddings)
-
-<!-- TOC --><a name="langchain"></a>
-## LangChain
-
-[Eden Marco: LangChain- Develop LLM powered applications with LangChain](https://www.udemy.com/course/langchain/?srsltid=AfmBOooPg0Xkc19q5W1430Dzq6MHGKWqHtq5a1WY4uUl9sQkrh_b_pej&couponCode=ST4MT240225B)
-
-<img src="https://github.com/user-attachments/assets/545885af-9c0b-431c-b8d4-cc28a0b7d64f" width="50%" height="50%">
-
-LangChain = LLM + Retriever (Chroma, vector storer) + Memory (list of dicts, history chats)
-- LLM applications = RAG + Agents
-- Simplifies creation of applications using LLMs (AI assistants, RAG, summarization), fast time to market
-- Wrapper code around LLMs makes it easy to swap models 
-- As APIs for LLMs have matured, converged and simplified, need for unifying framework like LangChain has decreased 
-
-ReAct (Reason-Act)
-- Paradigm that integrates language models with reasoning and acting capabilities, allowing for dynamic reasoning and interaction with external environments to accomplish complex tasks.
-- Simplest agent is for-loop (ReAct), ReAct agents are flexible and any state is possible, but have poor reliability (eg. invoking the same tool always and stuck, due to hallucination, tool-misuse, task ambiguity, LLM non-determinism).
-
-LangGraph
-- LangGraph is both reliable (like Chain, that architects our state machine) and flexible (like ReAct).
-- Flow Engineering (planning+testing), can build highly customized agents. (AutoGPT can do long-term planning, but we want to define the flow.) 
-- Controllability (we define control flow, LLM make decisions inside flow) + Persistence + Human-in-the-loop + Streaming. 
-- LangChain Agent. Memory (shared state across the graph), tools (nodes can call tools and modify state), planning (edges can route control flow based on LLM decisions).
-
-Autonomy in LLM applications (5 levels): 
-- human code
-- LLM call: one-step only
-- Chain: multiple steps, but one-directional
-- Router (LangChain): decide output of steps and steps to take (but no cycles), still human-driven (not agent executed)
-- State Machine (LangGraph): Agent executed, where agent is a control flow controlled by LLM, use LLM to reason where to go in this flow and tools-calling to execute steps, agent can have cycles.
 
 LangChain’s decorative language LCEL
 
@@ -107,7 +200,7 @@ Llama 3.1 architecture
 - 32 groups of layers, each group = llama decoder layer
 
 <!-- TOC --><a name="lora-low-rank-adaptation"></a>
-## LoRA (Low Rank Adaptation)
+### LoRA (Low Rank Adaptation)
 
 Freeze main model, come up with a bunch of smaller matrices with fewer dimensions, they’ll get trained and be applied using simple formulas to target modules. So we can make a base model that gets better as it learns because of the application of LoRA matrices.
 - Freeze weights, we don’t optimize 8B weights (too many gradients), but we pick a few layers (target modules) that we think are key things we want to train. We create new matrices (Low Rank Adaptor) with fewer dimensions, and apply these matrices into target modules. So fewer weights are applied to target modules.
@@ -128,7 +221,7 @@ fine_tuned_model = PeftModel.from_pretrained(base_model, FINETUNED_MODEL), after
 - Dropout, regularization technique, to prevent overfitting
 
 <!-- TOC --><a name="training"></a>
-## Training
+### Training
 - Epochs, how many times we go through the entire dataset when training. At the end of each epoch, we save the model and the model gets better in each epoch before overfitting then gets worse; we pick the best model and that’s the result of training.
 - Batch size, take a bunch of data together rather than step by step, it’s faster and better performance, because for multiple epochs, in each epoch the batch is different. 
 - Learning rate, = 0.0001, predict the next token vs. the actual next token should be -> loss, how poorly it predicts the actual, use loss to do back propagation to figure out how to adjust weight to do better, the amount that it shifts the weights is learning rate. During the epochs we can gradually lower the learning rate, to make tiny adjustments as the model gets trained.
@@ -147,29 +240,7 @@ Carry out end-to-end process for selecting and training open source models to bu
 
 Run inference on a QLoRA fine-tuned model.
 
-<!-- TOC --><a name="capstone-project"></a>
-## Capstone Project
 
-Autonomous Agentic AI framework (watches for deals published online, estimate price of products, send push notifications when it’s opportunity)
-
-modal.com to deploy LLM to production, serverless platform for AI teams, 
-
-Agent Architecture/Workflows: 7 Agents work together (GPT-4o model identify deals from RSS feed, frontier-busting fine-tuned model estimate prices, use Frontier model with massive RAG Chroma datastore)
-- UI, with Gradio
-- Agent Framework: with memory and logging
-- Planning Agent: coordinate activities
-- Scanner Agent: identify promising deals
-- Ensemble Agent: estimate prices using multiple models, and collaborate with other 3 agents
-- Messaging Agent: send push notifications
-- Frontier Agent: RAG pricer (based on inventory of lots of products, good use case for RAG)
-- Specialist Agent: estimate prices 
-- Random Forest Agent: estimate prices (transformer architecture)
-
-SentenceTransformer from HuggingFace maps sentences to 384 dimensional dense vector space and is ideal for semantic search. 
-
-Build advanced RAG solution without LangChain
-
-Build ensemble model 
 
 <!-- TOC --><a name="2-deepseek-moe"></a>
 # 2. DeepSeek MoE
