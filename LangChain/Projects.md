@@ -1,5 +1,4 @@
-===
-Contents
+# Contents
 
 <!-- TOC start (generated with https://github.com/derlin/bitdowntoc) -->
 
@@ -23,6 +22,8 @@ Contents
    * [4.8 Deployment](#48-deployment)
 
 <!-- TOC end -->
+
+---
 
 <!-- TOC --><a name="1-langchain"></a>
 # 1. LangChain
