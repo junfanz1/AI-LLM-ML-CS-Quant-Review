@@ -48,7 +48,9 @@ Taking notes on AI, Machine Learning, Computer Science & Quant Finance.
 - [__Markdown Notes__](https://github.com/junfanz1/AI-ML-CS-Quant-Readings/blob/main/LangChain/Projects.md)
 
 <!-- TOC --><a name="2-deepseek"></a>
-# 2. DeepSeek
+# 2. DeepSeek 
+
+DeepSeek Paper Reading Notes
 
 > https://space.bilibili.com/517221395/upload/video
 
