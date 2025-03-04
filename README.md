@@ -2,7 +2,7 @@
 <!-- TOC --><a name="ai-ml-cs-quant-readings-notes"></a>
 # AI-ML-CS-Quant-Readings-Notes
 
-Taking notes on Quant Finance, Machine Learning, AI & Computer Science
+Taking notes on AI, Machine Learning, Computer Science & Quant Finance.
 
 ## Star History
 
@@ -11,31 +11,25 @@ Taking notes on Quant Finance, Machine Learning, AI & Computer Science
 <!-- TOC --><a name="contents"></a>
 ## Contents
 <!-- TOC start (generated with https://github.com/derlin/bitdowntoc) -->
-- [1. Large Language Models CheatSheet](#1-llm-cheatsheet)
-- [2. Foundations of LLMs](#2-foundations-of-llms)
-- [3. Machine Learning for Algorithmic Trading](#3-machine-learning-for-algorithmic-trading)
+
+- [1. LangChain LLM Engineering Projects](#1-langchain-llm-engineering-projects)
+- [2. DeepSeek](#2-deepseek)
+- [3. Foundations of LLMs](#3-foundations-of-llms)
 - [4. Stochastic Volatility Modeling](#4-stochastic-volatility-modeling)
 - [5. Quant Job Interview Questions](#5-quant-job-interview-questions)
 - [6. Computer Systems](#6-computer-systems)
 - [7. System Design Interview](#7-system-design-interview)
-- [8. Big Data and AI in Finance, Econometrics and Statistics Conference, UChicago 2024](#8-big-data-and-ai-in-finance-econometrics-and-statistics-conference-UChicago-2024)
+- [8. Big Data and AI in Finance, Econometrics and Statistics Conference, UChicago 2024](#8-big-data-and-ai-in-finance-econometrics-and-statistics-conference-uchicago-2024)
 - [9. C++ Design Patterns and Derivatives Pricing](#9-c-design-patterns-and-derivatives-pricing)
 - [10. High-Frequency Finance](#10-high-frequency-finance)
-
-TBD:
-
-- [100. Distributed Systems](#100-distributed-systems)
-- [101. Language Models](#101-language-models)
-- [102. Designing Machine Learning Systems](#102-designing-machine-learning-systems)
-- [103. Designing Data-Intensive Applications (DDIA)](#103-designing-data-intensive-applications-ddia)
-- [104. Distributed Machine Learning](#104-distributed-machine-learning)
-- [105. The Elements of Quantitative Investing](#105-the-elements-of-quantitative-investing)
+- [11. Machine Learning for Algorithmic Trading](#11-machine-learning-for-algorithmic-trading)
+- [12. LLM Cheat Sheet](#12-llm-cheat-sheet)
 
 <!-- TOC end -->
 
 ---
 
-<!-- TOC --><a name="1-llm-cheatsheet"></a>
+<!-- TOC --><a name="1-langchain-llm-engineering-projects"></a>
 # 1. LangChain LLM Engineering Projects
 
 > [Ed Donnoer: LLM Engineering: Master AI, Large Language Models & Agents](https://www.udemy.com/course/llm-engineering-master-ai-and-large-language-models)
@@ -53,8 +47,17 @@ TBD:
 
 - [__Markdown Notes__](https://github.com/junfanz1/AI-ML-CS-Quant-Readings/blob/main/LangChain/Projects.md)
 
-<!-- TOC --><a name="2-foundations-of-llms"></a>
-# 2. Foundations of LLMs
+<!-- TOC --><a name="2-deepseek"></a>
+# 2. DeepSeek
+
+> https://space.bilibili.com/517221395/upload/video
+
+> https://github.com/chenzomi12/AIFoundation/
+
+- [__Markdown Notes__](https://github.com/junfanz1/AI-ML-CS-Quant-Readings/blob/main/DeepSeek/DeepSeek.md)
+
+<!-- TOC --><a name="3-foundations-of-llms"></a>
+# 3. Foundations of LLMs
 
 大模型基础，毛玉仁等 - 2024，浙大
 
@@ -67,22 +70,6 @@ TBD:
 <img src="https://github.com/user-attachments/assets/0c35d5d0-f8e0-4b64-9d93-2240c628feaa" width="50%" height="50%">
 
 - [__PDF Notes__](https://github.com/junfanz1/AI-ML-CS-Quant-Readings/blob/main/Foundations%20of%20LLMs/%E6%B5%99%E5%A4%A7%E5%A4%A7%E6%A8%A1%E5%9E%8B%E8%AF%BE%E7%AC%94%E8%AE%B0.pdf)
-
-
-
-<!-- TOC --><a name="3-machine-learning-for-algorithmic-trading"></a>
-# 3. Machine Learning for Algorithmic Trading
-
-Machine Learning for Algorithmic Trading: Predictive models to extract signals from market and alternative data for systematic trading strategies with Python, 2nd Edition Paperback – by Stefan Jansen 2020 
-
-> [Book Link](https://www.amazon.com/Machine-Learning-Algorithmic-Trading-alternative/dp/1839217715)
-
-
-<img src="https://github.com/user-attachments/assets/5c2a9362-211e-4372-ac51-1653031e5f7b" width="50%" height="50%">
-
-- [__PDF Notes__](https://github.com/junfanz1/Quant-Books-Notes/blob/main/ML%20for%20Algorithmic%20Trading/Notes%20on%20Machine%20Learning%20for%20Algorithmic%20Trading.pdf)
-
-- [__Markdown Notes__](https://github.com/junfanz1/Quant-Books-Notes/blob/main/ML%20for%20Algorithmic%20Trading/Notes%20on%20Machine%20Learning%20for%20Algorithmic%20Trading.md)
 
 <!-- TOC --><a name="4-stochastic-volatility-modeling"></a>
 # 4. Stochastic Volatility Modeling
@@ -144,7 +131,7 @@ System Design Interview, An Insider's Guide, Second Edition - by Alex Xu 2020, C
 
 - [__PDF Notes__](https://github.com/junfanz1/Quant-Books-Notes/blob/main/System%20Design/Notes%20on%20System%20Design.pdf)
 
-<!-- TOC --><a name="8-big-data-and-ai-in-finance-econometrics-and-statistics-conference"></a>
+<!-- TOC --><a name="8-big-data-and-ai-in-finance-econometrics-and-statistics-conference-uchicago-2024"></a>
 # 8. Big Data and AI in Finance, Econometrics and Statistics Conference, UChicago 2024
 
 BDAI Conference, 2024 Oct 3-5, UChicago
@@ -187,6 +174,27 @@ An Introduction to High-Frequency Finance, by Ramazan Gençay, et al.
 - [__PDF Notes__](https://github.com/junfanz1/Quant-Books-Notes/blob/main/An%20Intro%20to%20High-Frequency%20Finance/Notes%20on%20An%20Introduction%20to%20High-Frequency%20Finance.pdf)
 
 - [__Markdown Notes__](https://github.com/junfanz1/Quant-Books-Notes/blob/main/An%20Intro%20to%20High-Frequency%20Finance/An%20Introduction%20to%20High-Frequency%20Financ.md)
+
+
+
+<!-- TOC --><a name="11-machine-learning-for-algorithmic-trading"></a>
+# 11. Machine Learning for Algorithmic Trading
+
+Machine Learning for Algorithmic Trading: Predictive models to extract signals from market and alternative data for systematic trading strategies with Python, 2nd Edition Paperback – by Stefan Jansen 2020 
+
+> [Book Link](https://www.amazon.com/Machine-Learning-Algorithmic-Trading-alternative/dp/1839217715)
+
+
+<img src="https://github.com/user-attachments/assets/5c2a9362-211e-4372-ac51-1653031e5f7b" width="50%" height="50%">
+
+- [__PDF Notes__](https://github.com/junfanz1/Quant-Books-Notes/blob/main/ML%20for%20Algorithmic%20Trading/Notes%20on%20Machine%20Learning%20for%20Algorithmic%20Trading.pdf)
+
+- [__Markdown Notes__](https://github.com/junfanz1/Quant-Books-Notes/blob/main/ML%20for%20Algorithmic%20Trading/Notes%20on%20Machine%20Learning%20for%20Algorithmic%20Trading.md)
+
+<!-- TOC --><a name="12-llm-cheat-sheet"></a>
+# 12. LLM Cheat Sheet
+
+- [__Markdown Notes__](https://github.com/junfanz1/AI-ML-CS-Quant-Readings/blob/main/LLM%20Cheat%20Sheet/LLM%20Cheat%20Sheet.md)
 
 ---
 
