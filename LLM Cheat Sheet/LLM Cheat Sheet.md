@@ -242,7 +242,11 @@ Carry out end-to-end process for selecting and training open source models to bu
 
 Run inference on a QLoRA fine-tuned model.
 
+## Cursor
 
+> [Eden Marco: Cursor Course: FullStack development with Cursor AI Copilot](https://www.udemy.com/course/cursor-ai-ide/)
+
+<img src="https://github.com/user-attachments/assets/71c2bd39-a1a1-410c-a541-0615e4608995" width="50%" height="50%">
 
 <!-- TOC --><a name="2-deepseek-moe"></a>
 # 2. DeepSeek MoE
