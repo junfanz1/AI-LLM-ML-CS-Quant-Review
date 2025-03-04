@@ -36,7 +36,7 @@ TBD:
 ---
 
 <!-- TOC --><a name="1-llm-cheatsheet"></a>
-# 1. Large Language Models CheatSheet
+# 1. LangChain LLM Engineering Projects
 
 > [Ed Donnoer: LLM Engineering: Master AI, Large Language Models & Agents](https://www.udemy.com/course/llm-engineering-master-ai-and-large-language-models)
 
@@ -51,7 +51,7 @@ TBD:
 <img src="https://github.com/user-attachments/assets/0511a3b1-a5d4-4255-8916-fc9cb2d08e99" width="40%" height="40%">
 <img src="https://github.com/user-attachments/assets/71c2bd39-a1a1-410c-a541-0615e4608995" width="40%" height="40%">
 
-- [__Markdown Notes__](https://github.com/junfanz1/Quant-Books-Notes/blob/main/LLM%20Cheat%20Sheet/LLM%20Cheat%20Sheet.md)
+- [__Markdown Notes__](https://github.com/junfanz1/AI-ML-CS-Quant-Readings/blob/main/LangChain/Projects.md)
 
 <!-- TOC --><a name="2-foundations-of-llms"></a>
 # 2. Foundations of LLMs
