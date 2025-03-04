@@ -1,16 +1,10 @@
-DeepSeek
+Cheat Sheet
 ---
 
 [Contents](https://bitdowntoc.derlin.ch/)
 
 <!-- TOC start (generated with https://github.com/derlin/bitdowntoc) -->
 
-- [2. DeepSeek MoE](#2-deepseek-moe)
-- [3. DeepSeek-V3/R1](#3-deepseek-v3r1)
-   * [DeepSeek-V3](#deepseek-v3)
-   * [DeepSeek-R1](#deepseek-r1)
-   * [DeepSeek Janus](#deepseek-janus)
-   * [Kimi-K1.5](#kimi-k15)
 - [101. Transformer如何设定learning rate?](#101-transformerlearning-rate)
 - [102. Transformer: Why Positional Encoding?](#102-transformer-why-positional-encoding)
 - [103. Deploy ML Applications?](#103-deploy-ml-applications)
@@ -19,90 +13,6 @@ DeepSeek
 - [106. LLM微调与优化？](#106-llm)
 
 <!-- TOC end -->
-
-
-
-# 2. DeepSeek MoE
-https://space.bilibili.com/517221395/upload/video
-
-https://github.com/chenzomi12/AIFoundation/
-
-DeepSeek V-1 MoE (2024.01)
-- 专家共享机制，部分专家在不同Token或层间共享参数，减少冗余。
-- 内存优化，用多头潜在注意力机制MLA+键值缓存优化，减少延迟。
-
-Mixture of Experts (MoE) 混合专家模型。参数小、多专家，监督学习+分而治之，模块化神经网络的基础，像集成学习。根据scaling law大模型性能好，而推理时只执行部分参数，故DeepSeek成本低。
-
-MoE模型架构
-- 稀疏MoE层，代替了Transformer FFN层（节省算力），包含很多专家，每个专家是一个神经网络。稀疏性让部分专家被激活，非所有参数参与计算。高效推理同时，扩展到超大规模，提升模型表征能力。
-- 专家模块化，不同专家学习不同特征，处理大数据。门控网络Gating Network或路由=可学习的门控网络+专家间负载均衡，动态协调哪些token激活哪些专家参与计算，与专家一起学习。稀疏门控激活部分专家，稠密门控激活所有专家，软门控合并专家与token并可微。
-
-训练效率提升
-- 训练。专家并行EP使用All2All通讯（带宽少），每个专家处理一部分batch（增加吞吐）。
-- 推理。只激活少量专家（低延迟），增加专家数量（推理成本不变）。
-
-MoE优化
-- 专家并行计算
-- 提高容量因子Capacity Factor和显存带宽
-- MoE模型蒸馏回对应的稠密小模型
-- 任务级别路由+专家聚合，简化模型减少专家
-
-DeepSeek GRPO与LLM主流RLHF两大路线
-- On-Policy (PPO)：每次训练都基于自己的生成模型Actor，通过教练Critic反馈奖励。好：效率高，坏：模型能力低。PPO共有4个模型（Actor, Critic, Reward, Reference），计算大。
-- Off-Policy (DPO)：基于现有标注进行分析，可能样本与模型不匹配。好：可能达到模型上限，坏：效率低。
-- GRPO=无需价值函数，与奖励模型的比较性质对齐，KL惩罚在损失函数中。DeepSeek GRPO避免了PPO用Critic Value Model近似，而是用同一问题下多个采样输出的平均奖励作基线，这样Actor（没了Critic）直接去对齐Reward，求均值后再去跟Policy求KL散度。
-
-
-<!-- TOC --><a name="3-deepseek-v3r1"></a>
-# 3. DeepSeek-V3/R1
-
-https://www.bilibili.com/video/BV1DJwRevE6d/
-
-<!-- TOC --><a name="deepseek-v3"></a>
-## DeepSeek-V3
-- Multi-Head Latent Attention (MLA)：引入潜在空间提高计算效率，并保持模型对输入数据复杂关系的捕捉能力。
-- Mixture of Expert (MoE)：高效专家分配（负载均衡）和计算资源利用来降低成本。
-- FP8量化（混合精度训练）+多token预测（并行推理，就像随机采样，加速解码过程），提高理解能力。
-- 分阶段训练，性能提升依赖于算法升级（post-training, RL，知识蒸馏）
-- 通信优化DulePipe双流水线并行优化
-
-
-<!-- TOC --><a name="deepseek-r1"></a>
-## DeepSeek-R1
-- R1-Zero（探索RL+LLM）=基于规则的奖励（准确率奖励+思考过程格式奖励）+推理为中心的大规模强化学习（组相对策略优化GRPO+瞄准Reasoning推理任务）。
-- R1（工程和数据调优）=V3+GRPO，好：自我进化，具有test-time reasoning。 坏：reasoning可读性差，中英混杂。
-- 相比DeepSeek-v3-Base，增强了推理链可读性（用高质量数据冷启动让RL更稳定+推理为中心的RL）、提升通用能力和安全性（拒绝采样和全领域SFT+全领域All Scenario RL）。
-- 无需监督微调（节省标注成本）的纯强化学习驱动（需要强大V3基座模型+GRPO强化学习优化+推理问题可以自动化标记验证）。基于强化学习的后训练Post-Training Scaling Law，有强大推理能力和长文本思考能力。 因为大模型预训练的边际收益递减，自回归的数学推理难以自我纠错。
-- 涌现出检查、反思、长链推理。即使是稀疏奖励信号，模型也能自然探索出验证回溯总结反思。
-- GRPO：构建多个模型输出的群组（多个回答），计算群组内相对奖励来估计基线。相比PPO的价值函数是大模型大计算，GRPO省略了Value Model而用群组相对方式计算优势值，将策略模型与参考模型的KL散度作为正则项加入损失函数（而非奖励函数），大幅降低RL计算成本。
-- 四阶段交替训练：SFT、RL、再SFT、再RL，解决冷启动和收敛效率问题。涌现出检查、反思、长链推理。
-- 冷启动数据+SFT给V3，由GRPO强化后得到R1，使用rejection sampling得到reasoning data再去微调V3，几轮post-training迭代后得到R1，蒸馏出小模型。
-
-<!-- TOC --><a name="deepseek-janus"></a>
-## DeepSeek Janus
-- Janus：把理解和生成任务合并统一成自回归Transformer架构。understanding encoder（用SigLIP对图像编码）和generation encoder（用VQ-tokenizer）不同，二者编码后都经过adaptor进入自回归LLM架构，因此提升模型灵活性同时缓解生成-理解的冲突。
-- Janus-Flow：不同于Janus，Generation部分基于Rectified Flow（如Stable Diffusion3）在LLM内融合两种架构，encoder-decoder迭代配对，统一视觉理解与文本生成。
-- Janus-Pro：用ImageNet充分训练，用多模态数据后训练。
-
-
-<!-- TOC --><a name="kimi-k15"></a>
-## Kimi-K1.5
-- 强化学习让模型试错。In-Context RL不训练模型规划，而是模拟规划approximate planning（将每个state和value都视为language tokens，建模成contextual bandit问题，用REINFORCE变种来优化，并用长度惩罚机制防止overthinking算力损耗）。
-- 采样策略：课程学习循序渐进+优先采样做难题。
-- 四阶段：Pretraining、SFT、Long CoT SFT、RL。
-- 构造Vision Data（把文本内容转化为视觉格式）+Long2Short蒸馏（用够短思维链达到长思维链效果：模型融合+最短拒绝采样+DPO）。
-
-技术对比
-- Kimi K1.5与DeepSeek-R1对比：Kimi K1.5更多从In-Context RL出发，直接训练模型approximate planning，将思考过程建模到语言模型的next token prediction中，但复杂推理可能难以迭代。DeepSeek-R1从纯RL出发，用GPRO+Rule-based reward激活模型本身的推理能力。二者都根据答案对错给予奖励惩罚。
-- 蒸馏与强化学习对比：蒸馏就是学生学习强大老师，短期内掌握复杂技能。强化学习是试错尝试，泛化性更好，因为SFT主要负责记忆而非理解故很难分布外泛化。DeepSeek用R1蒸馏出的小模型，因为R1强大，发现了高阶推理范式（小模型直接RL则难以发现因为预训练知识不足），蒸馏甚至超过RL的方法。
-
-未来展望
-- 长思维链的欺骗性推理In-Context Scheming、奖励篡改。要引入AI-driven监督机制、对比推理。
-- 模态扩展+模态穿透（强推理+多模态），拓展模型推理边界。因为RLHF+DPO模态无感，用从语言反馈中学习Learning from Language Feedback，捕捉人类意图的多元偏好和复杂模态交互，实现any-to-any models与人类意图对齐。
-- 强推理赋能Agentic，要反思、长程规划、工具调用。
-- 大模型就像压缩器，因为弹性而抗拒对齐，用Deliberative Alignment审计对齐把宪法融入到模型推理过程。
-- LLM受限于过程性推理任务，人类可以抽象出高维概念并细粒度反馈。
-
 
 ---
 
