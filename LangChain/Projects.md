@@ -1,4 +1,28 @@
-## LangChain
+<!-- TOC start (generated with https://github.com/derlin/bitdowntoc) -->
+
+- [1. LangChain](#1-langchain)
+- [2. LangGraph](#2-langgraph)
+   * [2.1 LangGraph Researcher Agent](#21-langgraph-researcher-agent)
+   * [2.2 RAG Self-Reflection Workflow ](#22-rag-self-reflection-workflow)
+- [3. Agent Framework](#3-agent-framework)
+   * [3.1 Project](#31-project)
+   * [3.2 RAG](#32-rag)
+   * [3.3 LoRA (Low Rank Adaptation)](#33-lora-low-rank-adaptation)
+   * [3.4 Training](#34-training)
+- [4. Prompting Cursor to develop Full-Stack AI Application](#4-prompting-cursor-to-develop-full-stack-ai-application)
+   * [4.1 Project Overview](#41-project-overview)
+   * [4.2 Cursor Tips](#42-cursor-tips)
+   * [4.3 Create SaaS Application by Next.js](#43-create-saas-application-by-nextjs)
+   * [4.4 Backend functionality `Github Summarizer` with LangChain](#44-backend-functionality-github-summarizer-with-langchain)
+   * [4.5 Authentication Flow for user login](#45-authentication-flow-for-user-login)
+   * [4.6 Landing Page UI Web development with Shadcn and V0(Vercel)](#46-landing-page-ui-web-development-with-shadcn-and-v0vercel)
+   * [4.7 RESTful API for API keys management](#47-restful-api-for-api-keys-management)
+   * [4.8 Deployment](#48-deployment)
+
+<!-- TOC end -->
+
+<!-- TOC --><a name="1-langchain"></a>
+# 1. LangChain
 
 [Eden Marco: LangChain- Develop LLM powered applications with LangChain](https://www.udemy.com/course/langchain/?srsltid=AfmBOooPg0Xkc19q5W1430Dzq6MHGKWqHtq5a1WY4uUl9sQkrh_b_pej&couponCode=ST4MT240225B)
 
@@ -26,8 +50,8 @@ Autonomy in LLM applications (5 levels):
 - State Machine (LangGraph): Agent executed, where agent is a control flow controlled by LLM, use LLM to reason where to go in this flow and tools-calling to execute steps, agent can have cycles.
 
 
-<!-- TOC --><a name="langgraph"></a>
-## LangGraph
+<!-- TOC --><a name="2-langgraph"></a>
+# 2. LangGraph
 
 [Eden Marco: LangGraph-Develop LLM powered AI agents with LangGraph](https://www.udemy.com/course/langgraph)
 
@@ -44,8 +68,8 @@ LangGraph
 - Controllability (we define control flow, LLM make decisions inside flow) + Persistence + Human-in-the-loop + Streaming. 
 - LangChain Agent. Memory (shared state across the graph), tools (nodes can call tools and modify state), planning (edges can route control flow based on LLM decisions).
 
-<!-- TOC --><a name="langgraph-researcher-agent"></a>
-### LangGraph Researcher Agent
+<!-- TOC --><a name="21-langgraph-researcher-agent"></a>
+## 2.1 LangGraph Researcher Agent
 https://github.com/assafelovic/gpt-researcher
 - Implementing agent production-ready. There’re nodes and edges, but no cycles. We can integrate GPT Researcher (as a node under LangGraph graph) within Multi-Agent Architecture. (https://github.com/assafelovic/gpt-researcher/tree/master/multi_agents)
 - Every agent in a multi-agent system can be a researcher, as part of workflow. e.g., `Technology` agent is talor-made for technological subjects, and is dynamically created/chosen
@@ -60,8 +84,8 @@ Reason for LangGraph in Multi-Agent Architecture
 - Human-in-the-loop, let user decide how much feedback autonomy to interact with, especially useful when finding two knowledge sources that conflict or contradict each other. When this happens, AI needs human assistance.
 
 
-<!-- TOC --><a name="rag-self-reflection-workflow"></a>
-### RAG Self-Reflection Workflow 
+<!-- TOC --><a name="22-rag-self-reflection-workflow"></a>
+## 2.2 RAG Self-Reflection Workflow 
 
 LangGraph Components
 - Nodes (Python functions)
@@ -91,8 +115,8 @@ Further Improvements
 - Use Docker to deploy to LangGraph Cloud, or use LangGraph Studio, LangGraph API to build LLM applications without frontend
 
 
-<!-- TOC --><a name="agent-framework"></a>
-## Agent Framework
+<!-- TOC --><a name="3-agent-framework"></a>
+# 3. Agent Framework
 
 [Ed Donnoer: LLM Engineering: Master AI, Large Language Models & Agents](https://www.udemy.com/course/llm-engineering-master-ai-and-large-language-models/learn/lecture/)
 
@@ -118,8 +142,8 @@ Metrics to train LLM
 - Cross-entropy loss: -log(predicted probability of the thing that turned out to be actual next token)
 - Perplexity: e^{Cross-entropy loss}, if = 1 then model is 100% correct, if = 2 then model is 50% correct, if = 4 then model is 25% correct. Higher perplexity: how many tokens would need to be to predict next token
 
-<!-- TOC --><a name="project"></a>
-### Project
+<!-- TOC --><a name="31-project"></a>
+## 3.1 Project
 
 Autonomous Agentic AI framework (watches for deals published online, estimate price of products, send push notifications when it’s opportunity)
 
@@ -139,8 +163,8 @@ Agent Architecture/Workflows: 7 Agents work together (GPT-4o model identify deal
 SentenceTransformer from HuggingFace maps sentences to 384 dimensional dense vector space and is ideal for semantic search. 
 
 
-<!-- TOC --><a name="rag"></a>
-### RAG
+<!-- TOC --><a name="32-rag"></a>
+## 3.2 RAG
 
 RAG (Retrieval Augmented Generation) uses vector embeddings and vector databases to add contexts to prompts, define LangChain and read/split documents. 
 
@@ -162,8 +186,8 @@ Llama 3.1 architecture
 - 8B parameters, 32G memory, too large and costly to train.
 - 32 groups of layers, each group = llama decoder layer
 
-<!-- TOC --><a name="lora-low-rank-adaptation"></a>
-### LoRA (Low Rank Adaptation)
+<!-- TOC --><a name="33-lora-low-rank-adaptation"></a>
+## 3.3 LoRA (Low Rank Adaptation)
 
 Freeze main model, come up with a bunch of smaller matrices with fewer dimensions, they’ll get trained and be applied using simple formulas to target modules. So we can make a base model that gets better as it learns because of the application of LoRA matrices.
 - Freeze weights, we don’t optimize 8B weights (too many gradients), but we pick a few layers (target modules) that we think are key things we want to train. We create new matrices (Low Rank Adaptor) with fewer dimensions, and apply these matrices into target modules. So fewer weights are applied to target modules.
@@ -183,8 +207,8 @@ fine_tuned_model = PeftModel.from_pretrained(base_model, FINETUNED_MODEL), after
 - Quantization
 - Dropout, regularization technique, to prevent overfitting
 
-<!-- TOC --><a name="training"></a>
-### Training
+<!-- TOC --><a name="34-training"></a>
+## 3.4 Training
 - Epochs, how many times we go through the entire dataset when training. At the end of each epoch, we save the model and the model gets better in each epoch before overfitting then gets worse; we pick the best model and that’s the result of training.
 - Batch size, take a bunch of data together rather than step by step, it’s faster and better performance, because for multiple epochs, in each epoch the batch is different. 
 - Learning rate, = 0.0001, predict the next token vs. the actual next token should be -> loss, how poorly it predicts the actual, use loss to do back propagation to figure out how to adjust weight to do better, the amount that it shifts the weights is learning rate. During the epochs we can gradually lower the learning rate, to make tiny adjustments as the model gets trained.
@@ -203,20 +227,23 @@ Carry out end-to-end process for selecting and training open source models to bu
 
 Run inference on a QLoRA fine-tuned model.
 
-## Prompting Cursor to develop Full-Stack AI Application
+<!-- TOC --><a name="4-prompting-cursor-to-develop-full-stack-ai-application"></a>
+# 4. Prompting Cursor to develop Full-Stack AI Application
 
 > [Eden Marco: Cursor Course: FullStack development with Cursor AI Copilot](https://www.udemy.com/course/cursor-ai-ide/)
 
 <img src="https://github.com/user-attachments/assets/71c2bd39-a1a1-410c-a541-0615e4608995" width="50%" height="50%">
 
-### Overview
+<!-- TOC --><a name="41-project-overview"></a>
+## 4.1 Project Overview
 
 - Build E2E Micro SaaS AI application, takes in Github urls, generate json reports with AI powered insights and repo stats, similar to Gitingest
 - Next.js to write full stack app, v0 to generate UI components, shadcn/ui for UI components, Supabase to store data with PostgreSQL, Vercel to deploy code, LangChain.js to write backend code to interact with LLM
 
 ![image](https://github.com/user-attachments/assets/f5c8ae6f-3f86-49f0-831f-5404840f6350)
 
-Cursor techniques
+<!-- TOC --><a name="42-cursor-tips"></a>
+## 4.2 Cursor Tips
 - Chat, Composer
 - Inline editing coding (Command + K), will open a prompt bar to fill in snippets, can add follow up instructions (debug…)
 - (Control + I): refactor code and break down a few files 
@@ -227,7 +254,8 @@ Cursor techniques
 - Break down huge prompts into smaller tasks, otherwise debugging will be a huge pain, don’t put one big feature in a single prompt.
 - Bolt vs. Windsurf vs. Cursor copilots
 
-### Create SaaS Application by Next.js
+<!-- TOC --><a name="43-create-saas-application-by-nextjs"></a>
+## 4.3 Create SaaS Application by Next.js
 
 ```bash
 npx create-next-app@latest
@@ -258,32 +286,37 @@ Now we have a SaaS application that can be used via API keys and can be validate
 
 Next, build the app in cloud which is scalable, deploy on Vercel.
 - import the project from Github, and enter the Framework and Environment variables.
-![image](https://github.com/user-attachments/assets/151cc71d-a350-4a58-b07d-b16ccb2d71db)
+
+<img src="https://github.com/user-attachments/assets/151cc71d-a350-4a58-b07d-b16ccb2d71db" width="50%" height="50%">
 
 - https://github.com/junfanz1/CursorApptest
 - https://cursor-apptest.vercel.app/ 
 
-### Backend functionality `Github Summarizer` with LangChain
+<!-- TOC --><a name="44-backend-functionality-github-summarizer-with-langchain"></a>
+## 4.4 Backend functionality `Github Summarizer` with LangChain
 
 - Use Postman for backend SaaS service, to validate API key, `{input: url, process raw message: api_key = xxx, output: “valid api key”.}`.
 - Cursor prompt: `generate LangChain chain from @LangChain-JS that will generate the prompt of “summarize this github repository from readme file content”, then inject readme content to the prompt. The chain will invoke an LLM, we want to get structured output to an object with field “summary”: str and “cool facts”: List[str]`
 - Coding style: Python to Pydantic is what Java to Zod, using these tools can output more strictly with a schema, we can use function schema, function calling, output parsing to make our code robust. Cursor prompt: `use withStructuredOutput from @LangChain-JS and bind it to the model`, to make LangChain model return structured data.
 
-### Authentication Flow for user login
+<!-- TOC --><a name="45-authentication-flow-for-user-login"></a>
+## 4.5 Authentication Flow for user login
 
 - Download NextAuth.js, Cursor prompt: `implement entire Google SSO flow, show me step by step what I need to configure. Add a login button @page.js`
 - Go to Google Cloud, right up Console, Build Project, left sidebar APIs & Services/OAuth consent screen, fill in and then left side Credentials/Create OAuth client ID, get Google_Client_ID, GOOGLE_CLIENT_SECRET, then put in `.env.local`, configure all variables
 - Add profile pic, and Google SSO for user to sign in and sign out
 - Supabase authentication. Create a matching supabase migration script to add the table ‘users’
 
-### Landing Page UI Web development with Shadcn and V0(Vercel)
+<!-- TOC --><a name="46-landing-page-ui-web-development-with-shadcn-and-v0vercel"></a>
+## 4.6 Landing Page UI Web development with Shadcn and V0(Vercel)
 
 - V0 website prompt: `a landing page for junfan github analyzer. It’s a SasS application with a free tier which gives you an api and you will output with AI github open source repositories summaries, analyses, starts, important pull requests, etc. The landing page should have a sign up / login button and a pricing with free tier.` It’ll generate the web preview and tsx code. Then prompt: `show me how to install it and use it step by step.` It’ll guide you to install all packages and configs. On the right side, it shows Preview webpage and .tsx code.
 - Shadcn UI, has many reusable components to add to our API demo component and intergrate into our landing page, beautifully designed and can do copy paste into our apps. Go to Blocks, click on Lift Mode, click on the black button below to open it, it opens the V0 chat window, we can customize our needs. 
 
 ![image](https://github.com/user-attachments/assets/02289376-6d0d-4b0e-8fb6-c17efcf91a69)
 
-### RESTful API for API keys management
+<!-- TOC --><a name="47-restful-api-for-api-keys-management"></a>
+## 4.7 RESTful API for API keys management
 
 - Create Cursor notepad “CRUD”, prompt: `implement a CRUD API for managing API keys, the original code is in @apiKeyOperations.js`. If we tag this notepad, notepad will be attached to every request Cursor is going to make with LLM with our prompt. We can write a lot of high-level descriptions, product requirements, for the task. (e.g. We can copy the Jira ticket screenshot to give context to LLM).
 ![image](https://github.com/user-attachments/assets/239e3d1b-15cb-4a85-9af0-9c75eb17e022)
@@ -291,7 +324,8 @@ Next, build the app in cloud which is scalable, deploy on Vercel.
 - CRUD REST API, integrating with UI. `update @page.js to use CRUD rest endpoints in @api-keys, get the current logged in user JWT in the client and send it to the server to perform all CRUD operations. Remove the usage from @apiKeyOperation.js and delete this file.`
 - Adding retaliating and quota enforcement. `implement rate limit protection to /github-summarizer api in route.js. Each time a user invokes an api key, we want to increment the api key usage column of the corresponding api key in supabase. Check if the user is lower than the limit of api key, if larger, return 429 response and say there’s a rate limit. Make code usable and easy to maintain by splitting CheckApiKeyUsage() and UpdateApiKeyUsage() functions.`
  
-### Deployment
+<!-- TOC --><a name="48-deployment"></a>
+## 4.8 Deployment
 
 - Configure a custom production domain, buy from GoDaddy, setup domain with Vercel in Project Settings/Domains, add domain www.junfan.cloud, add A Record (copy this configure IP, go to GoDaddy Domain/Manage DNS to add new DNS records, then go back to refresh) and CNAME, then the web is online. Go to Google Cloud console/APIs Services/Credentials to add in URIs the new domain to allow list in authentication client.
 - Patching Vulnerability handling. Because the application is vulnerable to cache poisoning, `sudo yarn audit` will find 1 vulnerability, prompt: `how to upgrade next version with yarn, need to upgrade what packages`. Then `sudo yarn audit –fix` should fix it.
