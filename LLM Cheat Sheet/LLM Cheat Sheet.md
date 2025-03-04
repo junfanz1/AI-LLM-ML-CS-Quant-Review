@@ -242,13 +242,40 @@ Carry out end-to-end process for selecting and training open source models to bu
 
 Run inference on a QLoRA fine-tuned model.
 
-## Cursor
+## Prompting Cursor to develop Full-Stack AI Application
 
 > [Eden Marco: Cursor Course: FullStack development with Cursor AI Copilot](https://www.udemy.com/course/cursor-ai-ide/)
 
 <img src="https://github.com/user-attachments/assets/71c2bd39-a1a1-410c-a541-0615e4608995" width="50%" height="50%">
 
-![image](https://github.com/user-attachments/assets/2b0ac972-866a-4971-b962-611c0ec31d1a)
+### Overview
+
+- Build E2E Micro SaaS AI application, takes in Github urls, generate json reports with AI powered insights and repo stats, similar to Gitingest
+- Next.js to write full stack app, v0 to generate UI components, shadcn/ui for UI components, Supabase to store data with PostgreSQL, Vercel to deploy code, LangChain.js to write backend code to interact with LLM
+
+![image](https://github.com/user-attachments/assets/f5c8ae6f-3f86-49f0-831f-5404840f6350)
+
+1. Create Next App by Next.js
+
+```bash
+npx create-next-app@latest
+cd junfan (project name)
+npm run dev
+```
+
+Cursor Prompt:
+- `@page.js   Create a button that will redirect to /dashboards that will be the dashboard for managing api keys. it'll have a UI for CRUD API for api keys. Then implement a UI for CRUD for managing user api keys.`
+- Give a screenshot to Cursor and say: `i like this design, make the UI like this. make when clicking "create" open a modal like this, make when clicking the eye icon to show the api key. when clicking on the copy icon, it is copied to the clipboard. add popups when I create and delete and edit api keys. add the sidebar like screenshot. change the title on the left sidebar from "Tavily" to "Junfan AI", and use my logo image.`
+
+Connect to Supabase:
+- `@page.js connect this CRUD API to a real database which is hosted on Supabase`
+- Create a project and then table in Supabase, add columns: `{id: uuid, created_at: timestamp, "name": text, "value": text, "usage": int8}`, in Supabase/Settings/Data API, copy anon key and project url, and add file in cursor-project/.env.local, in this file input
+
+```bash
+NEXT_PUBLIC_SUPABASE_ANON_KEY=anon key
+NEXT_PUBLIC_SUPABASE_URL=project url
+```
+Now we can create API keys and see their storage on Supabase.
 
 
 <!-- TOC --><a name="2-deepseek-moe"></a>
