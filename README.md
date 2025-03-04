@@ -12,7 +12,7 @@ Taking notes on AI, Machine Learning, Computer Science & Quant Finance.
 ## Contents
 <!-- TOC start (generated with https://github.com/derlin/bitdowntoc) -->
 
-- [1. LangChain LLM Engineering Projects](#1-langchain-llm-engineering-projects)
+- [1. LangChain LLM Engineering](#1-langchain-llm-engineering)
 - [2. DeepSeek](#2-deepseek)
 - [3. Foundations of LLMs](#3-foundations-of-llms)
 - [4. Stochastic Volatility Modeling](#4-stochastic-volatility-modeling)
@@ -29,8 +29,8 @@ Taking notes on AI, Machine Learning, Computer Science & Quant Finance.
 
 ---
 
-<!-- TOC --><a name="1-langchain-llm-engineering-projects"></a>
-# 1. LangChain LLM Engineering Projects
+<!-- TOC --><a name="1-langchain-llm-engineering"></a>
+# 1. LangChain LLM Engineering
 
 > [Ed Donnoer: LLM Engineering: Master AI, Large Language Models & Agents](https://www.udemy.com/course/llm-engineering-master-ai-and-large-language-models)
 
