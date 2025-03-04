@@ -248,6 +248,9 @@ Run inference on a QLoRA fine-tuned model.
 
 <img src="https://github.com/user-attachments/assets/71c2bd39-a1a1-410c-a541-0615e4608995" width="50%" height="50%">
 
+![image](https://github.com/user-attachments/assets/2b0ac972-866a-4971-b962-611c0ec31d1a)
+
+
 <!-- TOC --><a name="2-deepseek-moe"></a>
 # 2. DeepSeek MoE
 https://space.bilibili.com/517221395/upload/video
