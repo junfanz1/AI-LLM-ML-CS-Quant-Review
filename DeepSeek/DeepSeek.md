@@ -18,14 +18,9 @@
    * [Day 3. DeepGEMM](#day-3-deepgemm)
    * [Day 4. DualPipe](#day-4-dualpipe)
    * [Day 5. 3FS](#day-5-3fs)
+- [Acknowledgements](#acknowledgements)
 
 <!-- TOC end -->
-
----
-
-> https://space.bilibili.com/517221395/upload/video
-
-> https://github.com/chenzomi12/AIFoundation/
 
 <!-- TOC --><a name="1-mixture-of-experts-moe"></a>
 # 1. Mixture of Experts (MoE)
@@ -162,4 +157,9 @@ MoE专用通信库，支持EP、FP8低精度通信，实现高吞吐低延迟GPU
 - 技术：推测采用分阶段数据预加载与内存映射技术
 
 
+<!-- TOC --><a name="acknowledgements"></a>
+# Acknowledgements
 
+> https://space.bilibili.com/517221395/upload/video
+
+> https://github.com/chenzomi12/AIFoundation/
