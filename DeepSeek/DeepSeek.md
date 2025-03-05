@@ -106,30 +106,35 @@ https://www.bilibili.com/video/BV1DJwRevE6d/
 
 > https://zhuanlan.zhihu.com/p/27181462601
 
-Day1, FlashMLA：专为Hopper架构优化的MLA Kernel，支持变长序列
+[Day1] FlashMLA：专为Hopper架构优化的MLA Kernel，支持变长序列
 - Multi-head Latent Attention (MLA): boost inference efficiency，比Multi-head Attention (MHA)多了latent隐变量，通过潜在向量latent vector压缩了Key-Value cache，大大降低训练耗时和显存、提高吞吐。
 - MLA架构：用low-rank key-value joint compression加速，类似LoRA低秩分解，把KV Cache大参数压缩成小latent向量来节省KV显存，再反压缩回来。
 - FlashMLA：分页KV缓存管理、异步内存拷贝（英伟达Hopper架构）、双模式执行引擎（动态负载均衡，对长短序列用不同缓存模式）
 - 应用：MoE推理加速（长文本生成，对话系统）
 - 意义：降低高性能推理门槛，低成本部署
 - 技术：融合FA 2/3注意力优化与cutlass硬件适配，针对Hopper Tensor Core定制
-Day 2, DeepEP：MoE专用通信库，支持EP、FP8低精度通信，实现高吞吐低延迟GPU Kernel
+
+[Day 2] DeepEP：MoE专用通信库，支持EP、FP8低精度通信，实现高吞吐低延迟GPU Kernel
 - All-to-all通信，让输入可以正确分发给各专家，并将专家输出结果正确聚合。MoE架构正适合All-to-all (dispatch分发 + combine聚合)。
 - 应用：MoE训练与分布式推理
 - 意义：突破MoE专家间通信瓶颈，推动千亿级模型实用化部署，AI行业将从堆算力转为智能优化
 - 技术：基于NVSHMEM优化通信协议，结合自研低精度专家分发算法
-Day 3, DeepGEMM：高性能FP8矩阵运算库，Hopper峰值性能1350+tflops，显存占用较FP16减半
+
+[Day 3] DeepGEMM：高性能FP8矩阵运算库，Hopper峰值性能1350+tflops，显存占用较FP16减半
 - 应用：MoE架构计算优化，边缘设备轻量化部署
 - 意义：推动行业向低精度计算迁移，解决千亿模型内存墙问题
 - 技术：集成Hopper架构FP8 Tensor Core指令集，动态量化策略平衡精度与效率
-Day 4, DualPipe：双向流水线并行框架，通过计算与通信重叠减少流水线气泡，提升训练效率
+
+[Day 4] DualPipe：双向流水线并行框架，通过计算与通信重叠减少流水线气泡，提升训练效率
 - 应用：超大规模MoE训练（DeepSeek V3 128k上下文）
 - 意义：解决流水线并行中资源闲置问题，降低训练成本
 - 技术：创新流水线调度算法，结合跨节点全通信优化
-Day 5, 3FS：分布式训练存储优化方案，支持高效数据分片与缓存管理
+
+[Day 5] 3FS：分布式训练存储优化方案，支持高效数据分片与缓存管理
 - 应用：超大规模训练数据加载加速、分布式检查点存储
 - 意义：缓解训练I/O瓶颈，提升GPU集群利用率
 - 技术：推测采用分阶段数据预加载与内存映射技术
+
 总结
 - FP8计算生态崛起，推动大模型算法向低精度迁移
 - MoE模型加速落地，未来scaling law全面转向MoE架构，聚焦AI Infra底层
