@@ -118,7 +118,7 @@ https://www.bilibili.com/video/BV1DJwRevE6d/
 - MoE模型加速落地，未来scaling law全面转向MoE架构，聚焦AI Infra底层
 
 <!-- TOC --><a name="day1-flashmla"></a>
-## Day1. FlashMLA
+## Day 1. FlashMLA
 专为Hopper架构优化的MLA Kernel，支持变长序列
 - Multi-head Latent Attention (MLA): boost inference efficiency，比Multi-head Attention (MHA)多了latent隐变量，通过潜在向量latent vector压缩了Key-Value cache，大大降低训练耗时和显存、提高吞吐。
 - MLA架构：用low-rank key-value joint compression加速，类似LoRA低秩分解，把KV Cache大参数压缩成小latent向量来节省KV显存，再反压缩回来。
