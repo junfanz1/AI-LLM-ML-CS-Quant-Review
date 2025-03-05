@@ -13,7 +13,7 @@
    * [DeepSeek Janus](#deepseek-janus)
    * [Kimi-K1.5](#kimi-k15)
 - [3. DeepSeek Open Source Week, 2025.02.24](#3-deepseek-open-source-week-20250224)
-   * [Day1. FlashMLA](#day1-flashmla)
+   * [Day 1. FlashMLA](#day1-flashmla)
    * [Day 2. DeepEP](#day-2-deepep)
    * [Day 3. DeepGEMM](#day-3-deepgemm)
    * [Day 4. DualPipe](#day-4-dualpipe)
