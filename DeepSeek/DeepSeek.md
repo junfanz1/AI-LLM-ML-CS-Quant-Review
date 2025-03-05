@@ -3,12 +3,21 @@
 <!-- TOC start (generated with https://github.com/derlin/bitdowntoc) -->
 
 - [1. Mixture of Experts (MoE)](#1-mixture-of-experts-moe)
+   * [MoE模型架构](#moe)
+   * [MoE优化](#moe-1)
+   * [DeepSeek GRPO与LLM主流RLHF两大路线](#deepseek-grpollmrlhf)
+   * [DeepSeek V-1 MoE, 2024.01 开山之作](#deepseek-v-1-moe-202401-)
 - [2. DeepSeek](#2-deepseek)
    * [DeepSeek-V3](#deepseek-v3)
    * [DeepSeek-R1](#deepseek-r1)
    * [DeepSeek Janus](#deepseek-janus)
    * [Kimi-K1.5](#kimi-k15)
 - [3. DeepSeek Open Source Week, 2025.02.24](#3-deepseek-open-source-week-20250224)
+   * [Day1. FlashMLA](#day1-flashmla)
+   * [Day 2. DeepEP](#day-2-deepep)
+   * [Day 3. DeepGEMM](#day-3-deepgemm)
+   * [Day 4. DualPipe](#day-4-dualpipe)
+   * [Day 5. 3FS](#day-5-3fs)
 
 <!-- TOC end -->
 
@@ -23,7 +32,8 @@
 
 Mixture of Experts (MoE) 混合专家模型。参数小、多专家，监督学习+分而治之，模块化神经网络的基础，像集成学习。根据scaling law大模型性能好，而推理时只执行部分参数，故DeepSeek成本低。
 
-MoE模型架构
+<!-- TOC --><a name="moe"></a>
+## MoE模型架构
 - 稀疏MoE层，代替了Transformer FFN层（节省算力），包含很多专家，每个专家是一个神经网络。稀疏性让部分专家被激活，非所有参数参与计算。高效推理同时，扩展到超大规模，提升模型表征能力。
 - 专家模块化，不同专家学习不同特征，处理大数据。门控网络Gating Network或路由=可学习的门控网络+专家间负载均衡，动态协调哪些token激活哪些专家参与计算，与专家一起学习。稀疏门控激活部分专家，稠密门控激活所有专家，软门控合并专家与token并可微。
 
@@ -31,18 +41,21 @@ MoE模型架构
 - 训练。专家并行EP使用All2All通讯（带宽少），每个专家处理一部分batch（增加吞吐）。
 - 推理。只激活少量专家（低延迟），增加专家数量（推理成本不变）。
 
-MoE优化
+<!-- TOC --><a name="moe-1"></a>
+## MoE优化
 - 专家并行计算
 - 提高容量因子Capacity Factor和显存带宽
 - MoE模型蒸馏回对应的稠密小模型
 - 任务级别路由+专家聚合，简化模型减少专家
 
-DeepSeek GRPO与LLM主流RLHF两大路线
+<!-- TOC --><a name="deepseek-grpollmrlhf"></a>
+## DeepSeek GRPO与LLM主流RLHF两大路线
 - On-Policy (PPO)：每次训练都基于自己的生成模型Actor，通过教练Critic反馈奖励。好：效率高，坏：模型能力低。PPO共有4个模型（Actor, Critic, Reward, Reference），计算大。
 - Off-Policy (DPO)：基于现有标注进行分析，可能样本与模型不匹配。好：可能达到模型上限，坏：效率低。
 - GRPO=无需价值函数，与奖励模型的比较性质对齐，KL惩罚在损失函数中。DeepSeek GRPO避免了PPO用Critic Value Model近似，而是用同一问题下多个采样输出的平均奖励作基线，这样Actor（没了Critic）直接去对齐Reward，求均值后再去跟Policy求KL散度。
 
-DeepSeek V-1 MoE, 2024.01 开山之作
+<!-- TOC --><a name="deepseek-v-1-moe-202401-"></a>
+## DeepSeek V-1 MoE, 2024.01 开山之作
 - 细分了很多小专家，小而多，不同专家可以灵活组合（FFN参数减半，专家数量加倍）。
 - 把共享专家隔离出来（单独多了一个FFN），让其他专家获得共同知识，提高专家的专业程度，部分专家在不同Token或层间共享参数，减少路由冗余。
 - 负载均衡内存优化，用多头潜在注意力机制MLA+键值缓存优化，减少延迟。效率优化：FP8混合精度、DualPipe，减少训练时间和通信开销。
@@ -106,6 +119,10 @@ https://www.bilibili.com/video/BV1DJwRevE6d/
 
 > https://zhuanlan.zhihu.com/p/27181462601
 
+- FP8计算生态崛起，推动大模型算法向低精度迁移
+- MoE模型加速落地，未来scaling law全面转向MoE架构，聚焦AI Infra底层
+
+<!-- TOC --><a name="day1-flashmla"></a>
 ## Day1. FlashMLA
 专为Hopper架构优化的MLA Kernel，支持变长序列
 - Multi-head Latent Attention (MLA): boost inference efficiency，比Multi-head Attention (MHA)多了latent隐变量，通过潜在向量latent vector压缩了Key-Value cache，大大降低训练耗时和显存、提高吞吐。
@@ -115,6 +132,7 @@ https://www.bilibili.com/video/BV1DJwRevE6d/
 - 意义：降低高性能推理门槛，低成本部署
 - 技术：融合FA 2/3注意力优化与cutlass硬件适配，针对Hopper Tensor Core定制
 
+<!-- TOC --><a name="day-2-deepep"></a>
 ## Day 2. DeepEP
 MoE专用通信库，支持EP、FP8低精度通信，实现高吞吐低延迟GPU Kernel
 - All-to-all通信，让输入可以正确分发给各专家，并将专家输出结果正确聚合。MoE架构正适合All-to-all (dispatch分发 + combine聚合)。
@@ -122,26 +140,26 @@ MoE专用通信库，支持EP、FP8低精度通信，实现高吞吐低延迟GPU
 - 意义：突破MoE专家间通信瓶颈，推动千亿级模型实用化部署，AI行业将从堆算力转为智能优化
 - 技术：基于NVSHMEM优化通信协议，结合自研低精度专家分发算法
 
+<!-- TOC --><a name="day-3-deepgemm"></a>
 ## Day 3. DeepGEMM
 高性能FP8矩阵运算库，Hopper峰值性能1350+tflops，显存占用较FP16减半
 - 应用：MoE架构计算优化，边缘设备轻量化部署
 - 意义：推动行业向低精度计算迁移，解决千亿模型内存墙问题
 - 技术：集成Hopper架构FP8 Tensor Core指令集，动态量化策略平衡精度与效率
 
+<!-- TOC --><a name="day-4-dualpipe"></a>
 ## Day 4. DualPipe
 双向流水线并行框架，通过计算与通信重叠减少流水线气泡，提升训练效率
 - 应用：超大规模MoE训练（DeepSeek V3 128k上下文）
 - 意义：解决流水线并行中资源闲置问题，降低训练成本
 - 技术：创新流水线调度算法，结合跨节点全通信优化
 
+<!-- TOC --><a name="day-5-3fs"></a>
 ## Day 5. 3FS
 分布式训练存储优化方案，支持高效数据分片与缓存管理
 - 应用：超大规模训练数据加载加速、分布式检查点存储
 - 意义：缓解训练I/O瓶颈，提升GPU集群利用率
 - 技术：推测采用分阶段数据预加载与内存映射技术
 
-## 总结
-- FP8计算生态崛起，推动大模型算法向低精度迁移
-- MoE模型加速落地，未来scaling law全面转向MoE架构，聚焦AI Infra底层
 
 
