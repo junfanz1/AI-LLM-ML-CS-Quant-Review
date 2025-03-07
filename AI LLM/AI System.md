@@ -128,7 +128,7 @@ GraphSAGE
 排序服务
 - 每个因子背后都使用了一个甚至多个模型来满足打分的需求，比如上面的排序分中涉及到了“XX 率”预测模型和控制因子用到的 PID 控制器方法。所以这本质上是一个混合专家系统（Mixture of Experts, MoE），该系统通过不同的专家模型解决各个领域的任务，共同实现业务目标。
 
-<div align="center"><img src="https://github.com/user-attachments/assets/c4ce7e99-5eea-461d-9b2f-8248b34d3451" width="40%" height="40%"></div>
+<div align="center"><img src="https://github.com/user-attachments/assets/c4ce7e99-5eea-461d-9b2f-8248b34d3451" width="60%" height="60%"></div>
 
 多智能体博弈
 - 集成到 ChatGPT 上的应用都是参与博弈的智能体，所有生态应用都会想尽办法让 ChatGPT 选它，所以它们会给出自己的“最优方案”，这意味着各个应用需要考虑其他应用的行为，才能在激烈的竞争中占据上风。
