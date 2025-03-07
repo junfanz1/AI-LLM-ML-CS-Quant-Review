@@ -50,13 +50,18 @@ Taking notes on AI, Machine Learning, Computer Science & Quant Finance.
 <!-- TOC --><a name="2-deepseek"></a>
 # 2. DeepSeek 
 
-DeepSeek Paper Reading Notes
+DeepSeek Theory & Research Paper Notes
 
 > https://space.bilibili.com/517221395/upload/video
 
 > https://github.com/chenzomi12/AIFoundation/
 
-- [__Markdown Notes__](https://github.com/junfanz1/AI-ML-CS-Quant-Readings/blob/main/DeepSeek/DeepSeek.md)
+- [__Markdown Notes__](https://github.com/junfanz1/AI-ML-CS-Quant-Readings/blob/main/DeepSeek/DeepSeek%20Theory.md)
+
+DeepSeek Developer Practice
+
+- [DeepSeek 应用开发实战](https://time.geekbang.org/column/intro/100995901)
+- [__Markdown Notes__](https://github.com/junfanz1/AI-ML-CS-Quant-Readings/blob/main/DeepSeek/DeepSeek%20Developer%20Practice.md)
 
 <!-- TOC --><a name="3-foundations-of-llms"></a>
 # 3. Foundations of LLMs
@@ -86,6 +91,11 @@ LLM Cheat Sheet
 
 - [__Markdown Notes__](https://github.com/junfanz1/AI-ML-CS-Quant-Readings/tree/main/AI%20LLM)
 
+LLM Project
+
+- [AI大模型项目落地实战](https://time.geekbang.org/column/article/801454)
+
+- [__Markdown Notes__](https://github.com/junfanz1/AI-ML-CS-Quant-Readings/blob/main/AI%20LLM/LLM%20Project.md）
 
 <!-- TOC --><a name="5-quant-job-interview-questions"></a>
 # 5. Quant Job Interview Questions
