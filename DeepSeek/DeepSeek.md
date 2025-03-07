@@ -7,13 +7,14 @@
    * [MoE优化](#moe-1)
    * [DeepSeek GRPO与LLM主流RLHF两大路线](#deepseek-grpollmrlhf)
    * [DeepSeek V-1 MoE, 2024.01 开山之作](#deepseek-v-1-moe-202401-)
+   * [MoE核心原理](#moe-2)
 - [2. DeepSeek](#2-deepseek)
    * [DeepSeek-V3](#deepseek-v3)
    * [DeepSeek-R1](#deepseek-r1)
    * [DeepSeek Janus](#deepseek-janus)
    * [Kimi-K1.5](#kimi-k15)
 - [3. DeepSeek Open Source Week, 2025.02.24](#3-deepseek-open-source-week-20250224)
-   * [Day 1. FlashMLA](#day1-flashmla)
+   * [Day 1. FlashMLA](#day-1-flashmla)
    * [Day 2. DeepEP](#day-2-deepep)
    * [Day 3. DeepGEMM](#day-3-deepgemm)
    * [Day 4. DualPipe](#day-4-dualpipe)
@@ -55,6 +56,23 @@ Mixture of Experts (MoE) 混合专家模型。参数小、多专家，监督学�
 - 把共享专家隔离出来（单独多了一个FFN），让其他专家获得共同知识，提高专家的专业程度，部分专家在不同Token或层间共享参数，减少路由冗余。
 - 负载均衡内存优化，用多头潜在注意力机制MLA+键值缓存优化，减少延迟。效率优化：FP8混合精度、DualPipe，减少训练时间和通信开销。
 - 三阶段训练：专家孵化、专精强化、协同优化
+
+<!-- TOC --><a name="moe-2"></a>
+## MoE核心原理
+https://www.youtube.com/watch?v=sOPDGQjFcuM
+
+- MoE=专家（FFN前馈神经网络矩阵层）+路由/门控网络（开关决定token选什么专家）
+- Decoder-only Transformer架构：把FFN层替换成多个专家FFN，把dense model的稠密信息进行分割，切割成很多小组专家学习模型中的信息，分组后变成sparse model（每一层只有Top k个专家被使用），经过路由选择形成path得到最终答案。
+- 路由怎么选择专家：路由=FFN+softmax（计算出各专家概率去选择专家）
+- 稀疏架构：Transformer分为Dense和MoE，MoE下又分Dense MoE（选所有专家）和Sparse MoE（选Top k专家后aggregate）
+- 负载均衡：如果某专家计算特别快，其他专家慢，路由pathway就会自动选择快的专家，导致贫富差距加大
+  - 需要KeepTopK专家选择来注入高斯噪声（有选择性地抑制某个专家过于频繁被选择，降低得分）。
+  - Auxiliary Loss辅助损失（不是网络模型的损失，是负载均衡损失）：加入importance因子计算每个专家对网络的重要性，用coefficient variation去抑制最被经常使用的专家，让各专家负载均衡。
+  - 专家容量：限制每个专家处理的最大token数，让网络均衡
+
+模型规模与计算效率的tradeoff
+- 2024：大参数少专家，容易训练，计算成本高，负载不均、专家利用率低。
+- 2025趋势：小参数多专家（DeepSeek-V3: 256个），细粒度专家划分+动态路由优化负载均衡，计算效率高，泛化能力和扩展性强，成本低，更高参数量提升模型容量，更低推理成本（仅激活必要参数），更强任务适配性（Expert-as-a-Service）。
 
 
 <!-- TOC --><a name="2-deepseek"></a>
@@ -117,7 +135,7 @@ https://www.bilibili.com/video/BV1DJwRevE6d/
 - FP8计算生态崛起，推动大模型算法向低精度迁移
 - MoE模型加速落地，未来scaling law全面转向MoE架构，聚焦AI Infra底层
 
-<!-- TOC --><a name="day1-flashmla"></a>
+<!-- TOC --><a name="day-1-flashmla"></a>
 ## Day 1. FlashMLA
 专为Hopper架构优化的MLA Kernel，支持变长序列
 - Multi-head Latent Attention (MLA): boost inference efficiency，比Multi-head Attention (MHA)多了latent隐变量，通过潜在向量latent vector压缩了Key-Value cache，大大降低训练耗时和显存、提高吞吐。
