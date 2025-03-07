@@ -15,7 +15,7 @@ Taking notes on AI, Machine Learning, Computer Science & Quant Finance.
 - [1. LangChain LLM Engineering](#1-langchain-llm-engineering)
 - [2. DeepSeek](#2-deepseek)
 - [3. Foundations of LLMs](#3-foundations-of-llms)
-- [4. AI LLM](#12-ai-llm)
+- [4. AI LLM](#4-ai-llm)
 - [5. Quant Job Interview Questions](#5-quant-job-interview-questions)
 - [6. Computer Systems](#6-computer-systems)
 - [7. System Design Interview](#7-system-design-interview)
