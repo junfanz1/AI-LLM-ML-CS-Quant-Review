@@ -16,3 +16,7 @@
   - 网关选型：传统的类似 Nginx 的网关已经无法应对 AI 时代的长连接、高延时和大带宽的要求。Higress 是以 istio 和 envoy 为核心开发的，天然对于这些特性就有完美的契合。Higress 部署与测试
   - API Key二次分组：如果我们想将 Ollama 集群面向多用户提供服务，这种场景该如何满足呢？比如面向公司内部员工使用，每个员工一个 API Key，或者面向外部客户，按 API Key 使用量收费等。Higress 提供了 API Key 二次分租的功能。我们可以这样理解这个功能—— Ollama 是房东，Higress 租下了 Ollama 的房子，然后又把房子租给了别人，自己变成了二房东。
   - 接入 对话前端LobeChat：curl命令只是我们研发人员测试使用的，如果让用户也使用 curl，就太不像话了。因此最后，我们将网关接入到一个可视化的自然语言前端，为我们的整个方案画上圆满的句号。在 Github 上，开源的自然语言前端有很多，热度比较高的有 OpenWebUI、LobeChat
+
+# Acknowledgements
+
+- [DeepSeek 应用开发实战](https://time.geekbang.org/column/intro/100995901)
