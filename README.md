@@ -140,6 +140,16 @@ System Design Interview, An Insider's Guide, Second Edition - by Alex Xu 2020, C
 
 - [__PDF Notes__](https://github.com/junfanz1/Quant-Books-Notes/blob/main/System%20Design/Notes%20on%20System%20Design.pdf)
 
+> https://www.educative.io/courses/grokking-the-system-design-interview/
+
+<img src="https://github.com/user-attachments/assets/d1c8b656-bf2d-46f1-ae90-39bb2791fbf3" width="50%" height="50%">
+
+- [Certificate](https://www.educative.io/verify-certificate/B86jYxWPP3JhA8lAZw0B2Mhr92YjJNmG5Ty)
+
+- [__PDF Notes__](https://github.com/junfanz1/CS-Online-Course-Notes/blob/main/Grokking%20the%20System%20Design%20Interview/Grokking%20the%20System%20Design%20Interview.pdf)
+
+- [__Markdown Notes__](https://github.com/junfanz1/CS-Online-Course-Notes/blob/main/Grokking%20the%20System%20Design%20Interview/Grokking%20the%20System%20Design%20Interview.md)
+
 <!-- TOC --><a name="8-big-data-and-ai-in-finance-econometrics-and-statistics-conference-uchicago-2024"></a>
 # 8. Big Data and AI in Finance, Econometrics and Statistics Conference, UChicago 2024
 
