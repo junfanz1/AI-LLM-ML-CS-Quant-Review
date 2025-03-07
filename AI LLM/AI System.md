@@ -2,14 +2,12 @@
 
 <!-- TOC start (generated with https://github.com/derlin/bitdowntoc) -->
 
-- [Flowise零代码搭建 LLM 应用平台](#flowise-llm-)
 - [AI推荐系统架构](#ai)
    * [策略建模](#)
    * [AI系统特征工程](#ai-1)
    * [模型工厂](#-1)
    * [数据算法](#-2)
    * [系统构建，在线模型的训练流程](#-3)
-- [多智能体博弈](#-4)
 - [NLP](#nlp)
 - [GPT](#gpt)
 - [Transformer](#transformer)
@@ -27,8 +25,7 @@
 
 ---
 
-<!-- TOC --><a name="flowise-llm-"></a>
-# Flowise零代码搭建 LLM 应用平台
+Flowise零代码搭建 LLM 应用平台
 
 ```bash
 $ npm install -g flowise
@@ -74,7 +71,7 @@ Google 的 Wide&Deep 模型，这是点击率预测的经典模型。
 
 模型由宽度和深度两部分组成。宽度部分用于处理与“是否点击”有直接联系的特征，原理与传统的逻辑回归相同。深度部分则可以更好地利用那些看似与标签无关，但组合起来会很有用的特征，是一个多层的神经网络（MLP）。本质上，它是将宽度和深度两个模型融合成了一个模型，来发挥各自的优势。
 
-<img src="https://github.com/user-attachments/assets/f68d8c3b-d11d-422b-bba8-b27c5bc08370" width="40%" height="40%">
+![image](https://github.com/user-attachments/assets/1e8bf7bf-90a5-4156-8a6d-3ea2b0758bf9)
 
 损失函数 L 是模型给出的“预测”和标准“答案”之间的差距，损失越小则说明模型效果越好。所以“解方程”的过程就是要“试”出损失最小的“解”。工业场景中我们会使用更复杂的损失函数，比如交叉熵，它可以对预测值和真实值之间的分布做相似性的预估。
 梯度下降来求解的整个过程是这样的。首先，我们从需要拟合的已知数据中取一小批数据（X，Y），并将它们带入损失函数。然后，随机给损失函数赋予一个解 W。接下来，计算梯度，梯度会指向这批数据上将损失函数减小的最小解的方向。之后，沿着这个方向迈出一步，也就是调整你的模型参数 W。最后，我们再取一批数据，基于更新后的解重复这个过程，直到用完所有已知数据。最终，你将得到一个针对你的已知数据拟合后的点击率模型。这个模型可以用来预测未知数据的点击率。
@@ -101,7 +98,7 @@ PID 算法也存在一些局限性，比如调整加权参数通常需要高昂�
 
 GraphSAGE
 
-<img src="https://github.com/user-attachments/assets/b2a45085-29c0-4265-9671-27b576a46cf6" width="40%" height="40%">
+<div align="center"><img src="https://github.com/user-attachments/assets/b2a45085-29c0-4265-9671-27b576a46cf6" width="50%" height="50%"></div>
 
 <!-- TOC --><a name="-3"></a>
 ## 系统构建，在线模型的训练流程
@@ -115,7 +112,7 @@ GraphSAGE
 增量模型训练（和 AI 大模型的微调大同小异）
 - 样本进行多级分类，通过“三级火箭”的方式发布上线。第一级火箭使用全量（例如过去一年）的样本。第二级火箭是模型的短期增量训练，使用第一级训练出的模型和最近一天的样本数据，训练一个最新的二级模型。二级模型通常每天训练一次，来更新前一天的二级模型。第三级火箭指的是，把在二级模型部署到线上后，24 小时内产生的增量数据，实时地喂给在线模型进行训练和更新，来确保在线模型的实效性。
 
-<img src="https://github.com/user-attachments/assets/6b075013-a0a8-443f-9dcc-807d09d124da" width="40%" height="40%">
+<div align="center"><img src="https://github.com/user-attachments/assets/6b075013-a0a8-443f-9dcc-807d09d124da" width="60%" height="60%"></div>
 
 数据存储索引Memory&Index
 - 在线倒排索引：ElasticSearch。增量索引是一个技术难点。通常需要通过对诸如 MySQL 的增量二进制日志进行繁琐地解析和处理才能完成。
@@ -126,10 +123,9 @@ GraphSAGE
 排序服务
 - 每个因子背后都使用了一个甚至多个模型来满足打分的需求，比如上面的排序分中涉及到了“XX 率”预测模型和控制因子用到的 PID 控制器方法。所以这本质上是一个混合专家系统（Mixture of Experts, MoE），该系统通过不同的专家模型解决各个领域的任务，共同实现业务目标。
 
-<img src="https://github.com/user-attachments/assets/c4ce7e99-5eea-461d-9b2f-8248b34d3451" width="40%" height="40%">
+<div align="center"><img src="https://github.com/user-attachments/assets/c4ce7e99-5eea-461d-9b2f-8248b34d3451" width="40%" height="40%"></div>
 
-<!-- TOC --><a name="-4"></a>
-# 多智能体博弈
+多智能体博弈
 - 集成到 ChatGPT 上的应用都是参与博弈的智能体，所有生态应用都会想尽办法让 ChatGPT 选它，所以它们会给出自己的“最优方案”，这意味着各个应用需要考虑其他应用的行为，才能在激烈的竞争中占据上风。
 - 实时竞价问题RealTime Bidding
 - 市场竞价预估Bid Landscape Forecasting
@@ -154,7 +150,7 @@ GraphSAGE
 - GPT-3 in-Context Learning。“少样本学习”（Few-Shot Learning）的概念。这和传统意义上模型微调的“少样本学习”是不一样的。GPT-3 所提出的方式是，允许下游使用者通过提示词（prompt）直接把下游任务样本输入到模型中，让模型在提示语中学习新样本的模式和规律，这种方法的学名叫做 in-context learning。
 - ChatGpt 排序打分Learning to Rank：对偏序关系进行建模，借助偏序关系的传递性，进一步对全局的偏序关系建模。你可以借助这个方法的损失函数直观理解它的原理。
 
-<img src="https://github.com/user-attachments/assets/48ef5ff9-361c-4286-b5fd-0e5a7499eff8" width="40%" height="40%">
+<div align="center"><img src="https://github.com/user-attachments/assets/48ef5ff9-361c-4286-b5fd-0e5a7499eff8" width="40%" height="40%"></div>
 
 其中，yw​ 代表排序排在 yl​ 的所有句子。损失函数的值等于排序列表中所有排在前面项的 reward 的总和，减去排在后面项的 reward 的总和。这其实就是好答案和坏答案之间的距离。因此，我们只要最小化损失函数，就可以得到更好的排序结果。
 - 随着模型规模的增长，刚开始模型效果下降，但当模型规模足够大时，效果反而会提升的现象称为“U 形曲线效应”。因为如果把参数规模作为横坐标，把模型性能作为纵坐标，那么就会出现一个 U 型曲线。在包含多种子任务，而且模型规模较大的情况下，就会经常出现“U 型曲线效应”。
@@ -169,7 +165,7 @@ GraphSAGE
 - 集体智慧决策的方式，通过设立总参谋部，分层汇总各个平行宇宙的舰队情况。这就是 Transformer 中多层感知机，也就是 MLP 的作用了。从下图中你可以看出，在 Transformer 中，每个“头”都会输出到 MLP 中进一步的汇总信息，用来增加 Transformer 模型的拟合能力，提升决策的效率和效果。
 - 舰队的升空启航，进入宇宙空间。这就好像 Transformer 模型中把文本输入数据转化成了高维空间向量的过程。随后，为了确保每艘舰船在航行中，能够准确地报告自己的位置，并且进行有效的通讯，我们为每位成员分配了独一无二的编号，这也是 Transformer 中位置编码的作用。随着太空军司令的一声令下，舰船们各自启航，寻找目标。这实际上就是自注意力机制所承担的任务，它负责在茫茫的宇宙中寻找目标。同时，为了提高寻找过程的效率，太空军司令还拥有了一种“超能力”，那就是窥探平行宇宙中，各种可能的寻找路径。这就是多头注意力机制的巧妙之处，它可以极大地加速寻找的过程。最后，司令汇总了所有舰船的探索结果，通过加权汇总的方式确定了目标星球的位置，就像 MLP 层在模型中的作用一样。
 
-<img src="https://github.com/user-attachments/assets/28f3a4b8-2328-4d51-88f9-0a1596b37175" width="40%" height="40%">
+<div align="center"><img src="https://github.com/user-attachments/assets/28f3a4b8-2328-4d51-88f9-0a1596b37175" width="40%" height="40%"></div>
 
 <!-- TOC --><a name="ai-2"></a>
 # AI大模型系统
@@ -208,7 +204,7 @@ $ pip install -r requirements.txt
 # 模型工程
 - 怎么低成本获取大量的指令微调数据。Self-Instruct 是一种数据增强方法，其目标是减少对人工标注人员的依赖。总的来说，Self-Instruct 从一组初始示例样本开始，以 LLM 的自我引导方式生成新的指令和示例。
 
-<img src="https://github.com/user-attachments/assets/d46bca84-cfd4-4efc-a2ff-5d9550b6cb71" width="40%" height="40%">
+<div align="center"><img src="https://github.com/user-attachments/assets/d46bca84-cfd4-4efc-a2ff-5d9550b6cb71" width="70%" height="70%"></div>
 
 - Alpaca 是 LLaMA-7B 的微调版本，它采用了 Self-Instruct 方式生成的数据进行了指令微调。具体来说，它利用了 OpenAI 的 text-davinc-003 模型，用 175 对人工标注的种子数据，构建了 52K 条指令微调数据，使用 OpenAI API 的成本仅仅不到 500 美元。斯坦福的研究团队基于 LoRA 训练框架和 Llama 开源预训练模型，对这些生成增强数据进行了微调训练，得到了 Alpaca 模型，事实表明通过这种方法得到的模型，可以在指定任务上达到 SOTA 的效果。
 - 用了 LoRA（低秩适应）技术复制了 Alpaca 的结果。LoRA 的实现思想很直观：我们首先冻结一个预训练模型的矩阵参数，然后选择使用 A 和 B 矩阵来代替这些参数。在下游任务的训练中，我们只对 A 和 B 进行更新即可。该方法会在原始的预训练模型右侧添加一个侧通道，进行降维和升维的操作，以模拟内在维度的概念。在训练的过程中，需要保持预训练模型的参数不变，只对降维矩阵 A 和升维矩阵 B 进行训练。模型的输入输出维度保持不变，在输出时，将 BA 矩阵与预训练的参数相叠加即可。这里我想提醒你注意的是，我们需要使用随机高斯分布来初始化矩阵 A，同时使用零矩阵初始化矩阵 B，这样可以确保在训练开始时，这个侧通道矩阵是一个零矩阵。
@@ -249,7 +245,7 @@ Alpaca 的开源实现与工业界的需求紧密契合，可以说达到了工�
 - DeepSeek V3 使用了一项关键技术 GRPO 来进一步强化模型的自我进化能力。GRPO，其实可以看作是对传统强化学习对齐方法 RLHF 的一次重大升级。它不仅在策略更新过程中加入了奖励平滑与调控机制，更注重从长远反馈中提取信息，让模型在不断试错的过程中保持稳定性和高效性。
 - RLHF 方法，也就是 OpenAI-o1 Policy 采用的方案。在这个方法里，模型要经过多个环节优化。用户输入一个问题后，策略模型（Policy） 会先给出一个回答，这个回答会被参考模型（Reference Model） 和奖励模型（Reward Model） 评估，然后再通过额外训练的价值模型（Value Model） 进一步优化答案。虽然这种方式能提升回答质量，但问题在于，价值模型本身需要单独训练，这不仅增加了计算成本，而且优化流程变得更复杂。而 DeepSeek V3 采用的是 GRPO 方法，它的做法就简洁多了！它的策略是：让模型一次性生成多个候选答案（比如 Output 1、Output 2……Output N），然后让冻结的参考模型（REF Model） 和奖励模型（Reward Model） 直接对这些答案进行评估，最终选出最优答案。这样一来，不需要额外训练价值模型，整个优化流程轻量化了，计算开销也减少了不少！通过 GRPO，DeepSeek V3 不用训练额外的价值模型，但却能让模型更稳定、更聪明，在动态交互过程中不断提升推理能力。
 
-<img src="https://github.com/user-attachments/assets/c32469db-5285-4ed9-8272-cb9618ed9509" width="40%" height="40%">
+<div align="center"><img src="https://github.com/user-attachments/assets/c32469db-5285-4ed9-8272-cb9618ed9509" width="50%" height="50%"></div>
 
 DeepSeek V3 的两个重要对齐机制
 - 首先是指令微调对齐，通过收集海量真实场景的指令数据，再经过专家的严格标注，让模型不仅能够捕捉到指令的表层含义，更能深刻理解用户真实意图。然后，我们讲到了强化学习对齐，这里核心在于通过设计精细的奖励体系，鼓励模型输出逻辑严谨、推理完整的答案。
@@ -263,7 +259,7 @@ DeepSeek V3 做了哪些工程化优化。
   - LoRA 的低秩空间表示，这里是同样的道理，我们用一个隐空间配合线性变换还原出完整的 MHA，是不是非常像？这样一来，在 Prefill 和 Decode 阶段，就不需要面对每个 token 都和所有其他 token 进行全连式的注意力运算，也不用在内存里保存非常庞大的 K/V，对于推理尤其重要的 KV Cache，也能轻装上阵。虽然在直觉上，这会让人担心会不会丢失一些精细的信息，但事实上，MLA 的核心就是让那部分“压缩”是可学习的，并且依然保留多头机制。这意味着不同 Head 还是可以去关注隐式向量里不同的维度或者特征，从而在保留丰富上下文的同时，大大降低长序列带来的算力和存储负担。
   - MLA 让我们看到了另一种可能——与其在 n² 上做大量减法，不如在序列表示形成的时候就把 Key/Value 学习得更高效、更紧凑，把注意力范围局限在潜在空间里，不再死板地让每个 token 都要跟所有其他 token 做全交互。更可喜的是，这种思路还保留了多头的灵活性，保留了深度学习可端到端训练的属性，也就为日后继续迭代改进留下了很大空间。从 MHA、GQA 到 MQA，再到 MLA，这条演化脉络让我们看到一个趋势：优化多头注意力，最根本的点还是减少重复存储和大规模交互，让模型学会用更紧凑、更聪明的方式表达上下文依赖。
 
-<img src="https://github.com/user-attachments/assets/e249fe33-5a02-4e62-82e7-9f82231be728" width="40%" height="40%">
+<div align="center"><img src="https://github.com/user-attachments/assets/e249fe33-5a02-4e62-82e7-9f82231be728" width="50%" height="50%"></div>
 
 - RoPE：让长文本位置编码更灵活、更有效
   - Transformer 之所以能够并行处理序列数据，是因为它的自注意力机制无需像 RNN 那样逐步读入。然而，这种并行特性也带来了一个问题：模型需要“显式”知道每个 token 在序列中的位置，否则就无法判断先后顺序。最早的 Transformer（“Attention Is All You Need”论文）通过正余弦绝对位置编码来解决这个问题。在固定长度的序列里，这种编码表现尚可，但当序列大幅拉长，尤其在超过训练长度时，绝对位置编码经常出现梯度消失和外推性不足等问题。
@@ -274,7 +270,7 @@ DeepSeek V3 做了哪些工程化优化。
   - DeepSeek V3 的方法通过将多 token 预测融入损失函数，帮助模型在生成多个 token 时，仍能保持语言的一致性与流畅性。同时，如何平衡输出 token 的数量，也是一个至关重要的策略。如果一次性输出太多 token，错误或偏差可能会被放大，影响结果的整体质量；如果输出的 token 太少，又无法有效提高推理效率。因此，模型需要根据任务场景和硬件资源，在速度和生成质量之间找到最佳平衡。
   - 实际应用中，可以通过结合投机采样算法进行优化：模型先生成多个候选 token 作为草稿，然后通过后续的验证过程，筛选出符合质量标准的前缀。这样不仅能够提升生成效率，还能在确保质量的同时最大化加速推理过程。
 
-<img src="https://github.com/user-attachments/assets/7c574442-7660-412b-b727-835d78a5552a" width="40%" height="40%">
+<div align="center"><img src="https://github.com/user-attachments/assets/7c574442-7660-412b-b727-835d78a5552a" width="60%" height="60%"></div>
 
 <!-- TOC --><a name="-8"></a>
 # 面试题
@@ -315,5 +311,7 @@ LoRA 方法和向量检索中的经典 ANN 算法 PQ 之间有何联系？
 <!-- TOC --><a name="acknowledgements"></a>
 # Acknowledgements
 
-<img src="https://github.com/user-attachments/assets/862e0a90-09c2-4bca-9fed-97faa20fd2fd" width="40%" height="40%">
+- [AI大模型系统实战-极客时间-Tyler](https://time.geekbang.org/column/article/852628)
+
+<div align="center"><img src="https://github.com/user-attachments/assets/862e0a90-09c2-4bca-9fed-97faa20fd2fd" width="40%" height="40%"></div>
 
