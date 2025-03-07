@@ -186,4 +186,5 @@ Ollama 是一套构建和运行大模型的开发框架，它采用的模型量�
 
 - [AI大模型项目落地实战](https://time.geekbang.org/column/article/801454)
 
-![image](https://github.com/user-attachments/assets/4d1d1b9a-4bb6-4e65-958c-c63d48893faf)
+<img src="https://github.com/user-attachments/assets/4d1d1b9a-4bb6-4e65-958c-c63d48893faf" width="50%" height="50%">
+
