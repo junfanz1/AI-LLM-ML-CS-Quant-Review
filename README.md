@@ -15,7 +15,7 @@ Taking notes on AI, Machine Learning, Computer Science & Quant Finance.
 - [1. LangChain LLM Engineering](#1-langchain-llm-engineering)
 - [2. DeepSeek](#2-deepseek)
 - [3. Foundations of LLMs](#3-foundations-of-llms)
-- [4. Stochastic Volatility Modeling](#4-stochastic-volatility-modeling)
+- [4. AI LLM](#12-ai-llm)
 - [5. Quant Job Interview Questions](#5-quant-job-interview-questions)
 - [6. Computer Systems](#6-computer-systems)
 - [7. System Design Interview](#7-system-design-interview)
@@ -23,7 +23,7 @@ Taking notes on AI, Machine Learning, Computer Science & Quant Finance.
 - [9. C++ Design Patterns and Derivatives Pricing](#9-c-design-patterns-and-derivatives-pricing)
 - [10. High-Frequency Finance](#10-high-frequency-finance)
 - [11. Machine Learning for Algorithmic Trading](#11-machine-learning-for-algorithmic-trading)
-- [12. LLM Cheat Sheet](#12-llm-cheat-sheet)
+- [12. Stochastic Volatility Modeling](#12-stochastic-volatility-modeling)
 
 <!-- TOC end -->
 
@@ -73,22 +73,19 @@ DeepSeek Paper Reading Notes
 
 - [__PDF Notes__](https://github.com/junfanz1/AI-ML-CS-Quant-Readings/blob/main/Foundations%20of%20LLMs/%E6%B5%99%E5%A4%A7%E5%A4%A7%E6%A8%A1%E5%9E%8B%E8%AF%BE%E7%AC%94%E8%AE%B0.pdf)
 
-<!-- TOC --><a name="4-stochastic-volatility-modeling"></a>
-# 4. Stochastic Volatility Modeling
+<!-- TOC --><a name="4-ai-llm"></a>
+# 4. AI LLM
 
-Stochastic Volatility Modeling (Chapman and Hall/CRC Financial Mathematics Series) 1st Edition, by Lorenzo Bergomi
+AI LLM Systems 
 
-> [Book Link](https://www.amazon.com/Stochastic-Volatility-Modeling-Financial-Mathematics/dp/1482244063)
+- [AI大模型系统实战-极客时间-Tyler](https://time.geekbang.org/column/article/852628)
 
-<img src="https://github.com/user-attachments/assets/6c275c02-a757-49bc-9417-d7be1fc709df" width="50%" height="50%">
+- [__Markdown Notes__](https://github.com/junfanz1/AI-ML-CS-Quant-Readings/blob/main/AI%20LLM/AI%20System.md)
 
-- [__PDF Char 1 Intro__](https://github.com/junfanz1/Quant-Books-Notes/blob/main/Stochastic%20Volatility%20Modeling/Stochastic%20Volatility%20Modeling%20-%20Char%201%20Introduction%20Notes.pdf)
-  
-- [__PDF Char 2 Local Vol__](https://github.com/junfanz1/Quant-Books-Notes/blob/main/Stochastic%20Volatility%20Modeling/Stochastic%20Volatility%20Modeling%20-%20Char%202%20Local%20Volatility%20Notes.pdf)
+LLM Cheat Sheet
 
-- [__Markdown Char 1 Intro__](https://github.com/junfanz1/Quant-Books-Notes/blob/main/Stochastic%20Volatility%20Modeling/Stochastic%20Volatility%20Modeling%20-%20Char%201%20Introduction%20Notes.md)
-  
-- [__Markdown Char 2 Local Vol__](https://github.com/junfanz1/Quant-Books-Notes/blob/main/Stochastic%20Volatility%20Modeling/Stochastic%20Volatility%20Modeling%20-%20Char%202%20Local%20Volatility%20Notes.md)
+- [__Markdown Notes__](https://github.com/junfanz1/AI-ML-CS-Quant-Readings/tree/main/AI%20LLM)
+
 
 <!-- TOC --><a name="5-quant-job-interview-questions"></a>
 # 5. Quant Job Interview Questions
@@ -193,10 +190,22 @@ Machine Learning for Algorithmic Trading: Predictive models to extract signals f
 
 - [__Markdown Notes__](https://github.com/junfanz1/Quant-Books-Notes/blob/main/ML%20for%20Algorithmic%20Trading/Notes%20on%20Machine%20Learning%20for%20Algorithmic%20Trading.md)
 
-<!-- TOC --><a name="12-llm-cheat-sheet"></a>
-# 12. LLM Cheat Sheet
+<!-- TOC --><a name="12-stochastic-volatility-modeling"></a>
+# 12. Stochastic Volatility Modeling
 
-- [__Markdown Notes__](https://github.com/junfanz1/AI-ML-CS-Quant-Readings/blob/main/LLM%20Cheat%20Sheet/LLM%20Cheat%20Sheet.md)
+Stochastic Volatility Modeling (Chapman and Hall/CRC Financial Mathematics Series) 1st Edition, by Lorenzo Bergomi
+
+> [Book Link](https://www.amazon.com/Stochastic-Volatility-Modeling-Financial-Mathematics/dp/1482244063)
+
+<img src="https://github.com/user-attachments/assets/6c275c02-a757-49bc-9417-d7be1fc709df" width="50%" height="50%">
+
+- [__PDF Char 1 Intro__](https://github.com/junfanz1/Quant-Books-Notes/blob/main/Stochastic%20Volatility%20Modeling/Stochastic%20Volatility%20Modeling%20-%20Char%201%20Introduction%20Notes.pdf)
+  
+- [__PDF Char 2 Local Vol__](https://github.com/junfanz1/Quant-Books-Notes/blob/main/Stochastic%20Volatility%20Modeling/Stochastic%20Volatility%20Modeling%20-%20Char%202%20Local%20Volatility%20Notes.pdf)
+
+- [__Markdown Char 1 Intro__](https://github.com/junfanz1/Quant-Books-Notes/blob/main/Stochastic%20Volatility%20Modeling/Stochastic%20Volatility%20Modeling%20-%20Char%201%20Introduction%20Notes.md)
+  
+- [__Markdown Char 2 Local Vol__](https://github.com/junfanz1/Quant-Books-Notes/blob/main/Stochastic%20Volatility%20Modeling/Stochastic%20Volatility%20Modeling%20-%20Char%202%20Local%20Volatility%20Notes.md)
 
 ---
 
