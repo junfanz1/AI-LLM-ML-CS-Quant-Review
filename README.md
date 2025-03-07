@@ -95,7 +95,7 @@ LLM Project
 
 - [AI大模型项目落地实战](https://time.geekbang.org/column/article/801454)
 
-- [__Markdown Notes__](https://github.com/junfanz1/AI-ML-CS-Quant-Readings/blob/main/AI%20LLM/LLM%20Project.md）
+- [__Markdown Notes__](https://github.com/junfanz1/AI-ML-CS-Quant-Readings/blob/main/AI%20LLM/LLM%20Project.md)
 
 <!-- TOC --><a name="5-quant-job-interview-questions"></a>
 # 5. Quant Job Interview Questions
