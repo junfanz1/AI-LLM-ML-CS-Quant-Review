@@ -38,7 +38,7 @@ $ npx flowise start --FLOWISE_USERNAME=user --FLOWISE_PASSWORD=1234
 - In-Memory Vector Store 组件用来将 Embedding 存入数据库中，供给 LLM 作为外部记忆。
 - Conversational Retrieval QA Chain  组件则会根据问题，获得外部知识，在 LLM 思考形成回答后返回给用户问题答案。
 
-![image](https://github.com/user-attachments/assets/b26ab21d-f98a-40da-a994-1bba53329bc0)
+<div align="center"><img src="https://github.com/user-attachments/assets/b26ab21d-f98a-40da-a994-1bba53329bc0" width="50%" height="50%"></div>
 
 真正的领域微调需要基于定制化的模型，使用高性能的训练框架进行大规模分布式训练，结合强化学习和 MoE（混合专家模型）。因为在商业系统中，绝对不允许出现差错，对模型性能有严格的要求。
 
@@ -71,13 +71,12 @@ AIRC 系统
 
 Google 的 Wide&Deep 模型，这是点击率预测的经典模型。
 
-![image](https://github.com/user-attachments/assets/d18c8c22-8792-48f0-b68b-205f7a8e781c)
+<div align="center"><img src="https://github.com/user-attachments/assets/d18c8c22-8792-48f0-b68b-205f7a8e781c" width="50%" height="50%"></div>
 
 
 模型由宽度和深度两部分组成。宽度部分用于处理与“是否点击”有直接联系的特征，原理与传统的逻辑回归相同。深度部分则可以更好地利用那些看似与标签无关，但组合起来会很有用的特征，是一个多层的神经网络（MLP）。本质上，它是将宽度和深度两个模型融合成了一个模型，来发挥各自的优势。
 
-![image](https://github.com/user-attachments/assets/e4db78b4-0bf0-4fc0-9bc8-b566f1728f84)
-
+<div align="center"><img src="https://github.com/user-attachments/assets/e4db78b4-0bf0-4fc0-9bc8-b566f1728f84" width="60%" height="60%"></div>
 
 损失函数 L 是模型给出的“预测”和标准“答案”之间的差距，损失越小则说明模型效果越好。所以“解方程”的过程就是要“试”出损失最小的“解”。工业场景中我们会使用更复杂的损失函数，比如交叉熵，它可以对预测值和真实值之间的分布做相似性的预估。
 梯度下降来求解的整个过程是这样的。首先，我们从需要拟合的已知数据中取一小批数据（X，Y），并将它们带入损失函数。然后，随机给损失函数赋予一个解 W。接下来，计算梯度，梯度会指向这批数据上将损失函数减小的最小解的方向。之后，沿着这个方向迈出一步，也就是调整你的模型参数 W。最后，我们再取一批数据，基于更新后的解重复这个过程，直到用完所有已知数据。最终，你将得到一个针对你的已知数据拟合后的点击率模型。这个模型可以用来预测未知数据的点击率。
