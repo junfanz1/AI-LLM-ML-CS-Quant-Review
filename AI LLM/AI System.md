@@ -40,7 +40,7 @@ $ npx flowise start --FLOWISE_USERNAME=user --FLOWISE_PASSWORD=1234
 - OpenAI Embeddings 组件负责将断句后的内容切片映射成高维 Embedding。
 - In-Memory Vector Store 组件用来将 Embedding 存入数据库中，供给 LLM 作为外部记忆。
 - Conversational Retrieval QA Chain  组件则会根据问题，获得外部知识，在 LLM 思考形成回答后返回给用户问题答案。
-<img src="https://github.com/user-attachments/assets/d243cf3b-e90d-4e18-b4bf-984f1819837c" width="40%" height="40%">
+<div align="center"><img src="https://github.com/user-attachments/assets/d243cf3b-e90d-4e18-b4bf-984f1819837c" width="40%" height="40%"></div>
 真正的领域微调需要基于定制化的模型，使用高性能的训练框架进行大规模分布式训练，结合强化学习和 MoE（混合专家模型）。因为在商业系统中，绝对不允许出现差错，对模型性能有严格的要求。
 
 <!-- TOC --><a name="ai"></a>
