@@ -52,7 +52,7 @@ Taking notes on AI, Machine Learning, Computer Science & Quant Finance.
 
 DeepSeek Theory & Research Paper Notes
 
-> [Bilibili](https://space.bilibili.com/517221395/upload/video) | [Github](https://github.com/chenzomi12/AIFoundation/)
+> [Zomi酱-Bilibili](https://space.bilibili.com/517221395/upload/video) | [Github](https://github.com/chenzomi12/AIFoundation/)
 
 - [__Markdown Notes__](https://github.com/junfanz1/AI-ML-CS-Quant-Readings/blob/main/DeepSeek/DeepSeek%20Theory.md)
 
