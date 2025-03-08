@@ -58,7 +58,7 @@ DeepSeek Theory & Research Paper Notes
 
 DeepSeek Developer Practice
 
-- [DeepSeek 应用开发实战](https://time.geekbang.org/column/intro/100995901) | [__Markdown Notes__](https://github.com/junfanz1/AI-ML-CS-Quant-Readings/blob/main/DeepSeek/DeepSeek%20Developer%20Practice.md)
+- [DeepSeek应用开发实战-极客时间-邢云阳](https://time.geekbang.org/column/intro/100995901) | [__Markdown Notes__](https://github.com/junfanz1/AI-ML-CS-Quant-Readings/blob/main/DeepSeek/DeepSeek%20Developer%20Practice.md)
 
 <!-- TOC --><a name="3-foundations-of-llms"></a>
 # 3. Foundations of LLMs
@@ -80,11 +80,11 @@ AI LLM Systems
 
 LLM Project
 
-- [AI大模型项目落地实战](https://time.geekbang.org/column/article/801454) | [__Markdown Notes__](https://github.com/junfanz1/AI-ML-CS-Quant-Readings/blob/main/AI%20LLM/LLM%20Project.md)
+- [AI大模型项目落地实战-极客时间-蓝金伟](https://time.geekbang.org/column/article/801454) | [__Markdown Notes__](https://github.com/junfanz1/AI-ML-CS-Quant-Readings/blob/main/AI%20LLM/LLM%20Project.md)
 
 RAG
 
-- [RAG快速开发实战](https://time.geekbang.org/column/intro/100804101?tab=catalog) | [__Markdown Notes__](https://github.com/junfanz1/AI-ML-CS-Quant-Readings/edit/main/AI%20LLM/RAG.md)
+- [RAG快速开发实战-极客时间-常扬](https://time.geekbang.org/column/intro/100804101?tab=catalog) | [__Markdown Notes__](https://github.com/junfanz1/AI-ML-CS-Quant-Readings/edit/main/AI%20LLM/RAG.md)
 
 LLM Cheat Sheet
 
@@ -134,8 +134,6 @@ System Design Interview, An Insider's Guide, Second Edition - by Alex Xu 2020, C
 - [__PDF Notes__](https://github.com/junfanz1/Quant-Books-Notes/blob/main/System%20Design/Notes%20on%20System%20Design.pdf)
 
 > [Educative - System Design Interview](https://www.educative.io/courses/grokking-the-system-design-interview/) | [Certificate](https://www.educative.io/verify-certificate/B86jYxWPP3JhA8lAZw0B2Mhr92YjJNmG5Ty)
-
-<img src="https://github.com/user-attachments/assets/d1c8b656-bf2d-46f1-ae90-39bb2791fbf3" width="50%" height="50%">
 
 - [__PDF Notes__](https://github.com/junfanz1/CS-Online-Course-Notes/blob/main/Grokking%20the%20System%20Design%20Interview/Grokking%20the%20System%20Design%20Interview.pdf) | [__Markdown Notes__](https://github.com/junfanz1/CS-Online-Course-Notes/blob/main/Grokking%20the%20System%20Design%20Interview/Grokking%20the%20System%20Design%20Interview.md)
 
