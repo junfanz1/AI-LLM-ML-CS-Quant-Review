@@ -4,10 +4,6 @@
 
 Taking notes on AI, Machine Learning, Computer Science & Quant Finance.
 
-## Star History
-
-[![Star History Chart](https://api.star-history.com/svg?repos=junfanz1/AI-ML-CS-Quant-Readings&type=Date)](https://star-history.com/#junfanz1/AI-ML-CS-Quant-Readings&Date)
-
 <!-- TOC --><a name="contents"></a>
 ## Contents
 <!-- TOC start (generated with https://github.com/derlin/bitdowntoc) -->
@@ -22,7 +18,7 @@ Taking notes on AI, Machine Learning, Computer Science & Quant Finance.
    * [LLM Project](#llm-project)
    * [RAG](#rag)
    * [LLM Cheat Sheet](#llm-cheat-sheet)
-- [5. Quant Job Interview Questions](#5-quant-job-interview-questions)
+- [5. NVIDIA GTC | AI Conference for Developers](#5-nvidia-gtc-ai-conference-for-developers)
 - [6. Computer Systems](#6-computer-systems)
 - [7. System Design Interview](#7-system-design-interview)
    * [Book](#book)
@@ -32,6 +28,7 @@ Taking notes on AI, Machine Learning, Computer Science & Quant Finance.
 - [10. High-Frequency Finance](#10-high-frequency-finance)
 - [11. Machine Learning for Algorithmic Trading](#11-machine-learning-for-algorithmic-trading)
 - [12. Stochastic Volatility Modeling](#12-stochastic-volatility-modeling)
+- [13. Quant Job Interview Questions](#13-quant-job-interview-questions)
 - [100. Distributed Systems](#100-distributed-systems)
 - [101. Language Models](#101-language-models)
 - [102. Designing Machine Learning Systems](#102-designing-machine-learning-systems)
@@ -110,24 +107,11 @@ Taking notes on AI, Machine Learning, Computer Science & Quant Finance.
 
 - [__Markdown Notes__](https://github.com/junfanz1/AI-ML-CS-Quant-Readings/tree/main/AI%20LLM)
 
-<!-- TOC --><a name="5-quant-job-interview-questions"></a>
-# 5. Quant Job Interview Questions
+<!-- TOC --><a name="5-nvidia-gtc-ai-conference-for-developers"></a>
+# 5. NVIDIA GTC | AI Conference for Developers
 
-Quant Job Interview Questions and Answers (Second Edition) – by Mark Joshi 2013 
-
-> [Book Link](https://www.amazon.com/Quant-Interview-Questions-Answers-Second/dp/0987122827)
-
-<img src="https://github.com/user-attachments/assets/8051e593-da43-4b72-95c3-02a1fb9d5b95" width="50%" height="50%">
-
-- [__Markdown Notes__](https://github.com/junfanz1/Quant-Books-Notes/blob/main/Quant%20Job%20Interview%20Q%26A/Quant%20Essentials%20Takeaways.md)
-
-- [__Cloud Platform PDF Notes__](https://github.com/junfanz1/AI-ML-CS-Quant-Readings/blob/main/Quant%20Job%20Interview%20Q%26A/Cloud.pdf)
-
-- [__Quant PDF Notes__](https://github.com/junfanz1/AI-ML-CS-Quant-Readings/blob/main/Quant%20Job%20Interview%20Q%26A/Quant.pdf)
-
-- [__FX Exotic Derivatives PDF Notes__](https://github.com/junfanz1/AI-ML-CS-Quant-Readings/blob/main/Quant%20Job%20Interview%20Q%26A/FX%20Exotic%20Derivatives.pdf)
-
-- [__Risk Methodologies PDF Notes__](https://github.com/junfanz1/AI-ML-CS-Quant-Readings/blob/main/Quant%20Job%20Interview%20Q%26A/Risk%20Methodologies.pdf)
+- [GTC 2024 Notes](https://github.com/junfanz1/AI-LLM-ML-CS-Quant-Readings/blob/main/NVIDIA%20GTC/GTC%202024.md)
+- [GTC 2025 Notes]()
 
 <!-- TOC --><a name="6-computer-systems"></a>
 # 6. Computer Systems
@@ -227,6 +211,26 @@ Stochastic Volatility Modeling (Chapman and Hall/CRC Financial Mathematics Serie
   
 - [__PDF Char 2 Local Vol__](https://github.com/junfanz1/Quant-Books-Notes/blob/main/Stochastic%20Volatility%20Modeling/Stochastic%20Volatility%20Modeling%20-%20Char%202%20Local%20Volatility%20Notes.pdf) | [__Markdown Char 2 Local Vol__](https://github.com/junfanz1/Quant-Books-Notes/blob/main/Stochastic%20Volatility%20Modeling/Stochastic%20Volatility%20Modeling%20-%20Char%202%20Local%20Volatility%20Notes.md)
 
+<!-- TOC --><a name="13-quant-job-interview-questions"></a>
+# 13. Quant Job Interview Questions
+
+Quant Job Interview Questions and Answers (Second Edition) – by Mark Joshi 2013 
+
+> [Book Link](https://www.amazon.com/Quant-Interview-Questions-Answers-Second/dp/0987122827)
+
+<img src="https://github.com/user-attachments/assets/8051e593-da43-4b72-95c3-02a1fb9d5b95" width="50%" height="50%">
+
+- [__Markdown Notes__](https://github.com/junfanz1/Quant-Books-Notes/blob/main/Quant%20Job%20Interview%20Q%26A/Quant%20Essentials%20Takeaways.md)
+
+- [__Cloud Platform PDF Notes__](https://github.com/junfanz1/AI-ML-CS-Quant-Readings/blob/main/Quant%20Job%20Interview%20Q%26A/Cloud.pdf)
+
+- [__Quant PDF Notes__](https://github.com/junfanz1/AI-ML-CS-Quant-Readings/blob/main/Quant%20Job%20Interview%20Q%26A/Quant.pdf)
+
+- [__FX Exotic Derivatives PDF Notes__](https://github.com/junfanz1/AI-ML-CS-Quant-Readings/blob/main/Quant%20Job%20Interview%20Q%26A/FX%20Exotic%20Derivatives.pdf)
+
+- [__Risk Methodologies PDF Notes__](https://github.com/junfanz1/AI-ML-CS-Quant-Readings/blob/main/Quant%20Job%20Interview%20Q%26A/Risk%20Methodologies.pdf)
+
+
 ---
 
 Connect me: 
@@ -236,6 +240,10 @@ Leave a message to me:
 [junfanzhu98@gmail.com](mailto:junfanzhu98@gmail.com)
 
 ---
+
+## Star History
+
+[![Star History Chart](https://api.star-history.com/svg?repos=junfanz1/AI-ML-CS-Quant-Readings&type=Date)](https://star-history.com/#junfanz1/AI-ML-CS-Quant-Readings&Date)
 
 Future Readings:
 
