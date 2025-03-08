@@ -110,8 +110,8 @@ Taking notes on AI, Machine Learning, Computer Science & Quant Finance.
 <!-- TOC --><a name="5-nvidia-gtc-ai-conference-for-developers"></a>
 # 5. NVIDIA GTC | AI Conference for Developers
 
-- [GTC 2024 Notes](https://github.com/junfanz1/AI-LLM-ML-CS-Quant-Readings/blob/main/NVIDIA%20GTC/GTC%202024.md)
-- [GTC 2025 Notes]()
+- [__GTC 2024 Notes__](https://github.com/junfanz1/AI-LLM-ML-CS-Quant-Readings/blob/main/NVIDIA%20GTC/GTC%202024.md)
+- [__GTC 2025 Notes__](https://github.com/junfanz1/AI-LLM-ML-CS-Quant-Readings/blob/main/NVIDIA%20GTC/GTC%202025.md)
 
 <!-- TOC --><a name="6-computer-systems"></a>
 # 6. Computer Systems
