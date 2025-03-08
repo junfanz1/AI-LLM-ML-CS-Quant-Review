@@ -83,25 +83,19 @@ DeepSeek Developer Practice
 
 AI LLM Systems 
 
-- [AI大模型系统实战-极客时间-Tyler](https://time.geekbang.org/column/article/852628)
+- [AI大模型系统实战-极客时间-Tyler](https://time.geekbang.org/column/article/852628) | [__Markdown Notes__](https://github.com/junfanz1/AI-ML-CS-Quant-Readings/blob/main/AI%20LLM/AI%20System.md)
 
-- [__Markdown Notes__](https://github.com/junfanz1/AI-ML-CS-Quant-Readings/blob/main/AI%20LLM/AI%20System.md)
+LLM Project
+
+- [AI大模型项目落地实战](https://time.geekbang.org/column/article/801454) | [__Markdown Notes__](https://github.com/junfanz1/AI-ML-CS-Quant-Readings/blob/main/AI%20LLM/LLM%20Project.md)
+
+RAG
+
+- [RAG快速开发实战](https://time.geekbang.org/column/intro/100804101?tab=catalog) | [__Markdown Notes__](https://github.com/junfanz1/AI-ML-CS-Quant-Readings/edit/main/AI%20LLM/RAG.md)
 
 LLM Cheat Sheet
 
 - [__Markdown Notes__](https://github.com/junfanz1/AI-ML-CS-Quant-Readings/tree/main/AI%20LLM)
-
-LLM Project
-
-- [AI大模型项目落地实战](https://time.geekbang.org/column/article/801454)
-
-- [__Markdown Notes__](https://github.com/junfanz1/AI-ML-CS-Quant-Readings/blob/main/AI%20LLM/LLM%20Project.md)
-
-RAG
-
-- [RAG快速开发实战](https://time.geekbang.org/column/intro/100804101?tab=catalog)
-
-- [__Markdown Notes__](https://github.com/junfanz1/AI-ML-CS-Quant-Readings/edit/main/AI%20LLM/RAG.md)
 
 <!-- TOC --><a name="5-quant-job-interview-questions"></a>
 # 5. Quant Job Interview Questions
