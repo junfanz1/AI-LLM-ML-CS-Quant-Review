@@ -13,17 +13,31 @@ Taking notes on AI, Machine Learning, Computer Science & Quant Finance.
 <!-- TOC start (generated with https://github.com/derlin/bitdowntoc) -->
 
 - [1. LangChain LLM Engineering](#1-langchain-llm-engineering)
-- [2. DeepSeek](#2-deepseek)
+- [2. DeepSeek ](#2-deepseek)
+   * [DeepSeek Theory & Research Paper Notes](#deepseek-theory-research-paper-notes)
+   * [DeepSeek Developer Practice](#deepseek-developer-practice)
 - [3. Foundations of LLMs](#3-foundations-of-llms)
 - [4. AI LLM](#4-ai-llm)
+   * [AI LLM Systems](#ai-llm-systems)
+   * [LLM Project](#llm-project)
+   * [RAG](#rag)
+   * [LLM Cheat Sheet](#llm-cheat-sheet)
 - [5. Quant Job Interview Questions](#5-quant-job-interview-questions)
 - [6. Computer Systems](#6-computer-systems)
 - [7. System Design Interview](#7-system-design-interview)
+   * [Book](#book)
+   * [Educative](#educative)
 - [8. Big Data and AI in Finance, Econometrics and Statistics Conference, UChicago 2024](#8-big-data-and-ai-in-finance-econometrics-and-statistics-conference-uchicago-2024)
 - [9. C++ Design Patterns and Derivatives Pricing](#9-c-design-patterns-and-derivatives-pricing)
 - [10. High-Frequency Finance](#10-high-frequency-finance)
 - [11. Machine Learning for Algorithmic Trading](#11-machine-learning-for-algorithmic-trading)
 - [12. Stochastic Volatility Modeling](#12-stochastic-volatility-modeling)
+- [100. Distributed Systems](#100-distributed-systems)
+- [101. Language Models](#101-language-models)
+- [102. Designing Machine Learning Systems](#102-designing-machine-learning-systems)
+- [103. Designing Data-Intensive Applications (DDIA)](#103-designing-data-intensive-applications-ddia)
+- [104. Distributed Machine Learning](#104-distributed-machine-learning)
+- [105. The Elements of Quantitative Investing](#105-the-elements-of-quantitative-investing)
 
 <!-- TOC end -->
 
@@ -50,13 +64,15 @@ Taking notes on AI, Machine Learning, Computer Science & Quant Finance.
 <!-- TOC --><a name="2-deepseek"></a>
 # 2. DeepSeek 
 
-DeepSeek Theory & Research Paper Notes
+<!-- TOC --><a name="deepseek-theory-research-paper-notes"></a>
+## DeepSeek Theory & Research Paper Notes
 
 > [Zomi酱-Bilibili](https://space.bilibili.com/517221395/upload/video) | [Github](https://github.com/chenzomi12/AIFoundation/)
 
 - [__Markdown Notes__](https://github.com/junfanz1/AI-ML-CS-Quant-Readings/blob/main/DeepSeek/DeepSeek%20Theory.md)
 
-DeepSeek Developer Practice
+<!-- TOC --><a name="deepseek-developer-practice"></a>
+## DeepSeek Developer Practice
 
 - [DeepSeek应用开发实战-极客时间-邢云阳](https://time.geekbang.org/column/intro/100995901) | [__Markdown Notes__](https://github.com/junfanz1/AI-ML-CS-Quant-Readings/blob/main/DeepSeek/DeepSeek%20Developer%20Practice.md)
 
@@ -74,19 +90,23 @@ DeepSeek Developer Practice
 <!-- TOC --><a name="4-ai-llm"></a>
 # 4. AI LLM
 
-AI LLM Systems 
+<!-- TOC --><a name="ai-llm-systems"></a>
+## AI LLM Systems
 
 - [AI大模型系统实战-极客时间-Tyler](https://time.geekbang.org/column/article/852628) | [__Markdown Notes__](https://github.com/junfanz1/AI-ML-CS-Quant-Readings/blob/main/AI%20LLM/AI%20System.md)
 
-LLM Project
+<!-- TOC --><a name="llm-project"></a>
+## LLM Project
 
 - [AI大模型项目落地实战-极客时间-蓝金伟](https://time.geekbang.org/column/article/801454) | [__Markdown Notes__](https://github.com/junfanz1/AI-ML-CS-Quant-Readings/blob/main/AI%20LLM/LLM%20Project.md)
 
-RAG
+<!-- TOC --><a name="rag"></a>
+## RAG
 
 - [RAG快速开发实战-极客时间-常扬](https://time.geekbang.org/column/intro/100804101?tab=catalog) | [__Markdown Notes__](https://github.com/junfanz1/AI-ML-CS-Quant-Readings/edit/main/AI%20LLM/RAG.md)
 
-LLM Cheat Sheet
+<!-- TOC --><a name="llm-cheat-sheet"></a>
+## LLM Cheat Sheet
 
 - [__Markdown Notes__](https://github.com/junfanz1/AI-ML-CS-Quant-Readings/tree/main/AI%20LLM)
 
@@ -124,6 +144,9 @@ Quant Job Interview Questions and Answers (Second Edition) – by Mark Joshi 201
 <!-- TOC --><a name="7-system-design-interview"></a>
 # 7. System Design Interview
 
+<!-- TOC --><a name="book"></a>
+## Book
+
 System Design Interview, An Insider's Guide, Second Edition - by Alex Xu 2020, Chinese translation 2023
 
 > [Book Link](https://www.amazon.com/System-Design-Interview-insiders-Second/dp/B08CMF2CQF)
@@ -132,6 +155,9 @@ System Design Interview, An Insider's Guide, Second Edition - by Alex Xu 2020, C
 <img src="https://github.com/user-attachments/assets/8cfad2aa-2ad3-4c97-af88-79c98f369e33" width="50%" height="50%">
 
 - [__PDF Notes__](https://github.com/junfanz1/Quant-Books-Notes/blob/main/System%20Design/Notes%20on%20System%20Design.pdf)
+
+<!-- TOC --><a name="educative"></a>
+## Educative
 
 > [Educative - System Design Interview](https://www.educative.io/courses/grokking-the-system-design-interview/) | [Certificate](https://www.educative.io/verify-certificate/B86jYxWPP3JhA8lAZw0B2Mhr92YjJNmG5Ty)
 
