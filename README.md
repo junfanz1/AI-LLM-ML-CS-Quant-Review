@@ -46,7 +46,7 @@ Taking notes on AI, Machine Learning, Computer Science & Quant Finance.
 <!-- TOC --><a name="1-langchain-llm-engineering"></a>
 # 1. LangChain LLM Engineering
 
-> [Ed Donnoer: LLM Engineering: Master AI, Large Language Models & Agents](https://www.udemy.com/course/llm-engineering-master-ai-and-large-language-models)
+> [Ed Donner: LLM Engineering: Master AI, Large Language Models & Agents](https://www.udemy.com/course/llm-engineering-master-ai-and-large-language-models)
 
 > [Eden Marco: LangChain-Develop LLM powered applications with LangChain](https://www.udemy.com/course/langchain/)
 
