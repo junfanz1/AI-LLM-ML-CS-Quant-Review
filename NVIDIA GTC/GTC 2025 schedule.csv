@@ -1,0 +1,78 @@
+Status,Session Title,Session Code,Date,Start Time,End Time,Room
+
+Scheduled,AI,S73846,2025-03-16,21:00,22:00,APAC Simulive Room 1
+Scheduled, AI ,S73910,2025-03-17,01:00,02:00,APAC Simulive Room 1
+Scheduled,,S72716,2025-03-17,02:00,02:40,APAC Simulive Room 2
+Scheduled,CPU/GPU ,S71579,2025-03-17,03:30,04:10,APAC Simulive Room 4
+Scheduled,Scaling Open Source AI: From Foundation Models to Ecosystem Success,S74647,2025-03-17,12:00,13:00,SJCC 210D (L2)
+Scheduled,Enable Intelligent Storage to Process Data for AI Applications,S71937,2025-03-17,15:00,15:40,Marriott Ballroom 3 (L2)
+Scheduled,"New Frontiers in Brain Research: Real-Time Imaging, BCIs, and AI-Driven Neuroscience Exploration",S71786,2025-03-17,16:00,16:40,Marriott Ballroom 4 (L2)
+Scheduled,How to ace a finance developer interview: A Deep Dive into GPU Matrix Optimization,S73619,2025-03-17,17:00,18:30,SJCC 210C (L2)
+Scheduled, 2025  AI ,S73909,2025-03-17,21:00,22:00,APAC Simulive Room 1
+Scheduled, AGI,S74501,2025-03-17,22:30,23:10,APAC Simulive Room 2
+Scheduled,,S74366,2025-03-18,01:00,01:40,APAC Simulive Room 2
+Scheduled,,S72639,2025-03-18,02:30,03:10,APAC Simulive Room 3
+Scheduled,,S74073,2025-03-18,03:30,04:10,APAC Simulive Room 5
+Scheduled,GTC 2025 Keynote,S72484,2025-03-18,12:00,14:00,SAP Center
+Scheduled,AI for Safe and Efficient Trading in Electronic Markets,S72692,2025-03-18,16:00,16:40,Marriott Ballroom 4 (L2)
+Scheduled,Building a Scalable Enterprise Multi-Agent Platform for Financial Services,S72854,2025-03-18,17:00,17:40,Marriott Ballroom 4 (L2)
+Scheduled,AI Agents in Production: Insights and Future Directions,S72884,2025-03-18,18:00,18:40,Montgomery Theater
+Scheduled,NVIDIA  AI ,S73842,2025-03-19,01:00,03:00,APAC Simulive Room 5
+Scheduled,Productionize LLMs for Quantitative Analysis of Market Risk,S73818,2025-03-19,06:00,06:40,EMEA Simulive Room 1
+Scheduled,Leveraging Large Model-Based Embodied Intelligence to Enhance Financial Service Robots,S71267,2025-03-19,10:00,10:40,Marriott Ballroom 4 (L2)
+Scheduled,Maximize AI Potential: Unlock Idle GPU Compute and Collaborate Smarter with Z by HP (Presented by HP),S74464,2025-03-19,11:00,11:40,Marriott Willow Glen 1 (L2)
+Scheduled,AI for Humanoid Robots,S73182,2025-03-19,12:00,12:40,San Jose Civic
+Scheduled,Jane Street: How an Early AI Adopter Thinks About Infrastructure (Presented by CoreWeave),S74219,2025-03-19,13:00,13:40,Hilton Almaden 2 (L1)
+Scheduled,A New Era of Generalist Robotics: The Rise of Humanoids,S72543,2025-03-19,16:00,17:00,San Jose Civic
+Scheduled,Tencent HunYuan: Building a High-Performance Inference Engine for Large Models Based on NVIDIA TensorRT-LLM,S71563,2025-03-19,17:00,17:40,SJCC 212A (L2)
+Scheduled,Accelerate Super Long-Context LLM Inference,S72568,2025-03-19,18:00,18:40,SJCC 212A (L2)
+Scheduled,Streamlining Investment Insights for Wealth Management with Generative AI,S71653,2025-03-20,10:00,10:40,Marriott Ballroom 5 (L2)
+Scheduled,"The Future of AI: Scaling Intelligence, Open-Source Innovation, and Human-AI Collaboration",S73863,2025-03-20,11:00,11:40,Montgomery Theater
+Scheduled,Unlocking High-Performance AI Applications at Airbnb,S73265,2025-03-20,12:00,12:40,Marriott Ballroom 3 (L2)
+Scheduled,FlashAttention-3: Fast and Accurate Attention With Asynchrony and Low Precision,S71368,2025-03-20,13:00,13:40,SJCC 210G (L2)
+Scheduled,Peering Into the Future: What AI and Graph Networks Can Mean for the Future of Financial Analysis,S74726,2025-03-20,16:00,16:40,Marriott Ballroom 5 (L2)
+Scheduled,Kolmogorov AI Networks for Interpretable Financial Forecasting,S72542,2025-03-20,17:00,17:40,Marriott Ballroom 5 (L2)
+Scheduled,Integrate LLMs Into Asset Management to Drive Innovation and Efficiency,S71575,2025-03-20,18:00,18:40,Marriott Ballroom 5 (L2)
+Scheduled,From RAG to Agents: Building Enterprise Products with Generative AI,S71685,2025-03-21,10:00,10:40,SJCC 210D (L2)
+Scheduled,Advanced RAG Pipelines: Engineer Scalable Retrieval Systems for Enterprise AI,S73015,2025-03-21,12:00,12:40,SJCC LL20A (LL)
+Scheduled,Enhance LLMs With Writing in the Margins (WiM): A Better Inference Pattern for Long-Context Retrieval,S72323,2025-03-21,13:00,13:40,SJCC 211A (L2)
+Scheduled,Watch Party: How to Build an Agentic AI System Using the Best Tools and Frameworks,WP73739b,2025-03-24,01:00,02:00,Virtual WP
+Scheduled,Watch Party: A New Era of Generalist Robotics: The Rise of Humanoids,WP72543,2025-03-24,04:00,05:00,Virtual WP
+Scheduled,Watch Party: Pretraining of Foundation Large Language Models for Ecommerce,WP72589,2025-03-26,01:30,03:00,Virtual WP 2
+Favorited,(Favorited) AIRSPEED: ,S74390,2025-03-17,03:30,04:10,APAC Simulive Room 3
+Favorited,(Favorited) NVIDIA ,S74412,2025-03-17,20:30,21:10,APAC Simulive Room 2
+Favorited,(Favorited) Unlocking the Future of LLMs: High-Efficiency xLSTM Architectures for Scalable Performance,S71812,2025-03-20,10:00,10:40,Hilton Almaden 1 (L1)
+Favorited,(Favorited) UFO-Lite: ,S72498,2025-03-17,20:30,21:10,APAC Simulive Room 4
+Favorited,(Favorited) An Introduction to Building Humanoid Robots,S72590,2025-03-19,10:00,11:30,SJCC 230C (L2)
+Favorited,(Favorited) VLA,S72557,2025-03-17,21:30,22:10,APAC Simulive Room 2
+Favorited,(Favorited) Optimize the Future of Ads with MoE Models,S73303,2025-03-18,16:00,16:40,Marriott Ballroom 5 (L2)
+Favorited,(Favorited) Paving the Way for Data Center Networking With Zero-Tail Latency,CWE71413,2025-03-19,18:00,18:50,CWE Pod F (L2)
+Favorited,(Favorited) HybridRAG: Make RAG More Accurate by Combining Graph and Vector-Based Retrieval,CWE72566,2025-03-19,11:00,11:50,CWE Pod C (L2)
+Favorited,"(Favorited) Scaling AI Platform at LinkedIn: LLMs, Agents, GPUs, Kernels, and More",S72963,2025-03-19,18:00,18:40,SJCC 210C (L2)
+Favorited,(Favorited) ,S74438,2025-03-18,03:00,03:40,APAC Simulive Room 2
+Favorited,(Favorited) The Instrumental Edge: Enabling Real-Time AI Scientific Discovery,S72921,2025-03-17,18:00,18:40,SJCC 210B (L2)
+Favorited,(Favorited) Physical AI for Humanoids: How Google Robotics Uses Simulation to Accelerate Humanoid Robotics Training,S72709,2025-03-20,11:00,11:40,SJCC 230C (L2)
+Favorited,(Favorited) Frontiers of AI and Computing: A Conversation With Yann LeCun and Bill Dally,S73208,2025-03-18,16:00,16:40,San Jose Civic
+Favorited,(Favorited) Mobile-Agent: ,S72561,2025-03-16,22:00,22:40,APAC Simulive Room 2
+Favorited,(Favorited) Pretraining of Foundation Large Language Models for Ecommerce,S72589,2025-03-20,18:00,18:40,Marriott Ballroom 3 (L2)
+Favorited,(Favorited) Own your AI: Building an open-source AI strategy,S73262,2025-03-18,18:00,18:40,SJCC 212A (L2)
+Favorited,(Favorited) Scaling Vision LLMs to extract and deploy targeted metadata for Catalog Management,S73701,2025-03-18,18:00,18:40,Marriott Ballroom 3 (L2)
+Favorited,(Favorited)  Overlap  LLM ,S72643,2025-03-17,21:30,22:10,APAC Simulive Room 4
+Favorited,(Favorited) Watch Party: Accelerated Python: The Community and Ecosystem,WP72450,2025-03-24,06:30,07:30,Virtual WP
+Favorited,(Favorited)  TensorRT-LLM ,S74181,2025-03-17,22:30,23:10,APAC Simulive Room 5
+Favorited,"(Favorited) Startup Pitches: Generative AI, LLMs, and Data",S74529,2025-03-20,18:00,19:00,SJCC Grand Ballroom Theater (L2)
+Favorited,(Favorited) Building LLM Agent Applications for the Financial Services Industry,CWE73336,2025-03-19,17:00,17:50,CWE Pod B (L2)
+Favorited,(Favorited) The Promise of Humanoid Robots: Research vs. the Real World,S72592,2025-03-19,13:00,13:40,SJCC 230C (L2)
+Favorited,(Favorited)  TensorRT-LLM ,S72995,2025-03-18,03:30,04:10,APAC Simulive Room 3
+Favorited,(Favorited) The embodied end-to-end VLA model driven by synthetic big data  VLA ,S71942,2025-03-16,21:30,22:20,APAC Simulive Room 3
+Favorited,(Favorited) NVIDIA Nventures Showcase: AI Agents in Physical and Virtual Worlds,DD73694,2025-03-18,16:00,16:40,Hyatt Place Grand Ballroom (L1)
+Favorited,(Favorited) Laiye AI Foundry - NVIDIA AI Enterprise ,S72276,2025-03-18,01:00,01:40,APAC Simulive Room 4
+Favorited,(Favorited) ,S72635,2025-03-17,03:00,03:40,APAC Simulive Room 2
+Favorited,(Favorited) Reduce Fraud and Financial Crime With Featurespace ARIC Risk Hub on AWS (Presented by Amazon Web Services),S74269,2025-03-20,17:00,17:40,Marriott Willow Glen 1 (L2)
+Favorited,(Favorited) Horizontal Scaling of LLM Training with JAX,S73266,2025-03-20,16:00,16:40,SJCC 210F (L2)
+Favorited,(Favorited) Scaling and Leveraging Multi-Modal Large Models for Roblox's Metaverse,S72911,2025-03-20,13:00,13:40,Marriott Ballroom 3 (L2)
+Favorited,(Favorited) Distributed Agentic Multi-Modal LLM Deployments,S72654,2025-03-18,17:00,17:40,Hilton Almaden 1 (L1)
+Favorited,(Favorited) ,S72500,2025-03-17,01:00,01:40,APAC Simulive Room 2
+Favorited,(Favorited) Optimize Distributed AI Workloads With Ray Compiled Graphs,S71766,2025-03-20,17:00,17:40,SJCC 210F (L2)
+Favorited,(Favorited) Toward Multidisciplinary Scientific Foundation Models,S72256,2025-03-20,16:00,16:40,SJCC 210A (L2)
+Favorited,(Favorited) Empowering Global Ecommerce With Generative AI,S72655,2025-03-20,17:00,17:40,Marriott Ballroom 3 (L2)
