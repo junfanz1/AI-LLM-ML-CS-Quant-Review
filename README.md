@@ -1,6 +1,6 @@
 
 <!-- TOC --><a name="ai-ml-cs-quant-readings-notes"></a>
-# AI-ML-CS-Quant-Readings-Notes
+# AI-LLM-ML-CS-Quant-Readings
 
 Taking notes on AI, Machine Learning, Computer Science & Quant Finance.
 
