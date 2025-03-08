@@ -97,6 +97,12 @@ LLM Project
 
 - [__Markdown Notes__](https://github.com/junfanz1/AI-ML-CS-Quant-Readings/blob/main/AI%20LLM/LLM%20Project.md)
 
+RAG
+
+- [RAG快速开发实战](https://time.geekbang.org/column/intro/100804101?tab=catalog)
+
+- [__Markdown Notes__](https://github.com/junfanz1/AI-ML-CS-Quant-Readings/edit/main/AI%20LLM/RAG.md)
+
 <!-- TOC --><a name="5-quant-job-interview-questions"></a>
 # 5. Quant Job Interview Questions
 
