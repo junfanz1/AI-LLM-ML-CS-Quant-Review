@@ -218,4 +218,5 @@ RAG 在使用向量检索时面临两个主要挑战
 
 > [RAG快速开发实战](https://time.geekbang.org/column/intro/100804101?tab=catalog)
 
-![image](https://github.com/user-attachments/assets/94a49f33-139b-4840-bcca-db07fe28bf65)
+<img src="https://github.com/user-attachments/assets/94a49f33-139b-4840-bcca-db07fe28bf65" width="50%" height="50%">
+
