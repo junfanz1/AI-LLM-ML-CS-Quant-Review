@@ -125,4 +125,4 @@ Function Calling特定领域微调
 
 [大模型应用开发实战-极客时间-黄佳](https://time.geekbang.org/column/intro/100764201)
 
-![image](https://github.com/user-attachments/assets/4cd59ea7-6ff7-4a32-88b9-4a3efa6459c9)
+<img src="https://github.com/user-attachments/assets/4cd59ea7-6ff7-4a32-88b9-4a3efa6459c9" width="50%" height="50%">
