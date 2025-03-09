@@ -8,7 +8,7 @@ Taking notes on AI, LLM, Machine Learning, Computer Science & Quant Finance.
 ## Contents
 <!-- TOC start (generated with https://github.com/derlin/bitdowntoc) -->
 
-- [1. LangChain LLM Engineering](#1-langchain-llm-engineering)
+- [1. LangGraph & Cursor AI](#1-langgraph-cursor-ai)
 - [2. DeepSeek ](#2-deepseek)
    * [DeepSeek Theory & Research Paper Notes](#deepseek-theory-research-paper-notes)
    * [DeepSeek Developer Practice](#deepseek-developer-practice)
@@ -29,6 +29,7 @@ Taking notes on AI, LLM, Machine Learning, Computer Science & Quant Finance.
 - [11. Machine Learning for Algorithmic Trading](#11-machine-learning-for-algorithmic-trading)
 - [12. Stochastic Volatility Modeling](#12-stochastic-volatility-modeling)
 - [13. Quant Job Interview Questions](#13-quant-job-interview-questions)
+   * [Star History](#star-history)
 - [100. Distributed Systems](#100-distributed-systems)
 - [101. Language Models](#101-language-models)
 - [102. Designing Machine Learning Systems](#102-designing-machine-learning-systems)
@@ -40,8 +41,9 @@ Taking notes on AI, LLM, Machine Learning, Computer Science & Quant Finance.
 
 ---
 
-<!-- TOC --><a name="1-langchain-llm-engineering"></a>
-# 1. LangChain LLM Engineering
+
+<!-- TOC --><a name="1-langgraph-cursor-ai"></a>
+# 1. LangGraph & Cursor AI
 
 > [Ed Donner: LLM Engineering: Master AI, Large Language Models & Agents](https://www.udemy.com/course/llm-engineering-master-ai-and-large-language-models)
 
@@ -249,6 +251,7 @@ Leave a message to me:
 
 ---
 
+<!-- TOC --><a name="star-history"></a>
 ## Star History
 
 [![Star History Chart](https://api.star-history.com/svg?repos=junfanz1/AI-ML-CS-Quant-Readings&type=Date)](https://star-history.com/#junfanz1/AI-ML-CS-Quant-Readings&Date)
