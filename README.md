@@ -96,6 +96,7 @@ Taking notes on AI, LLM, Machine Learning, Computer Science & Quant Finance.
 ## LLM Project
 
 - [AI大模型项目落地实战-极客时间-蓝金伟](https://time.geekbang.org/column/article/801454) | [__Markdown Notes__](https://github.com/junfanz1/AI-ML-CS-Quant-Readings/blob/main/AI%20LLM/LLM%20Project.md)
+- [大模型应用开发实战-极客时间-黄佳](https://time.geekbang.org/column/intro/100764201) | [__Markdown Notes__](https://github.com/junfanz1/AI-LLM-ML-CS-Quant-Readings/blob/main/AI%20LLM/LLM%20App.md)
 
 <!-- TOC --><a name="rag"></a>
 ## RAG
