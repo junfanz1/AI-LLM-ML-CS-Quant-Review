@@ -121,6 +121,9 @@ Projects
 <!-- TOC --><a name="5-nvidia-gtc-ai-conference-for-developers"></a>
 # 5. NVIDIA GTC | AI Conference for Developers
 
+![image](https://github.com/user-attachments/assets/73e41194-64af-45ad-9d1b-6e7f61f49f4a)
+
+
 - [__GTC 2024 Notes__](https://github.com/junfanz1/AI-LLM-ML-CS-Quant-Readings/blob/main/NVIDIA%20GTC/GTC%202024.md)
 - [__GTC 2025 Notes__](https://github.com/junfanz1/AI-LLM-ML-CS-Quant-Readings/blob/main/NVIDIA%20GTC/GTC%202025.md)
 
