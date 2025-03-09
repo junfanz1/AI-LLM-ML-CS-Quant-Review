@@ -53,6 +53,7 @@ Autonomy in LLM applications (5 levels):
 - Router (LangChain): decide output of steps and steps to take (but no cycles), still human-driven (not agent executed)
 - State Machine (LangGraph): Agent executed, where agent is a control flow controlled by LLM, use LLM to reason where to go in this flow and tools-calling to execute steps, agent can have cycles.
 
+MCP (Model Concept Protocol): no need to rewrite integrations, but MCP adds another layer of abstraction (software engineering concept) to support various agents and integrate only once into MCP server, because other agents support MCP, so we only need to implement our agent once, then we can migrate to other agents that support MCP. So agent compatible with Cursor can also compatible with Windsurf.
 
 <!-- TOC --><a name="2-langgraph"></a>
 # 2. LangGraph
