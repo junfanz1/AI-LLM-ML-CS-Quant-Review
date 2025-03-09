@@ -14,10 +14,10 @@ Taking notes on AI, LLM, Machine Learning, Computer Science & Quant Finance.
    * [DeepSeek Developer Practice](#deepseek-developer-practice)
 - [3. Foundations of LLMs](#3-foundations-of-llms)
 - [4. AI LLM](#4-ai-llm)
-   * [AI LLM Systems](#ai-llm-systems)
-   * [LLM Project](#llm-project)
+   * [LLM Systems](#llm-systems)
+   * [LLM Projects](#llm-projects)
    * [RAG](#rag)
-   * [LLM Cheat Sheet](#llm-cheat-sheet)
+   * [Cheat Sheet](#cheat-sheet)
 - [5. NVIDIA GTC | AI Conference for Developers](#5-nvidia-gtc-ai-conference-for-developers)
 - [6. Computer Systems](#6-computer-systems)
 - [7. System Design Interview](#7-system-design-interview)
@@ -58,6 +58,13 @@ Taking notes on AI, LLM, Machine Learning, Computer Science & Quant Finance.
 
 - [__Markdown Notes__](https://github.com/junfanz1/AI-ML-CS-Quant-Readings/blob/main/LangChain/Projects.md)
 
+Projects
+- [Code-Interpreter-ReAct-LangChain-Agent](https://github.com/junfanz1/Code-Interpreter-ReAct-LangChain-Agent)
+- [LLM-Documentation-Chatbot](https://github.com/junfanz1/LLM-Documentation-Chatbot)
+- [Cognito-LangGraph-RAG](https://github.com/junfanz1/Cognito-LangGraph-RAG)
+- [LangGraph-Reflection-Researcher](https://github.com/junfanz1/LangGraph-Reflection-Researcher)
+- [Cursor-FullStack-AI-App](https://github.com/junfanz1/Cursor-FullStack-AI-App)
+
 <!-- TOC --><a name="2-deepseek"></a>
 # 2. DeepSeek 
 
@@ -87,13 +94,13 @@ Taking notes on AI, LLM, Machine Learning, Computer Science & Quant Finance.
 <!-- TOC --><a name="4-ai-llm"></a>
 # 4. AI LLM
 
-<!-- TOC --><a name="ai-llm-systems"></a>
-## AI LLM Systems
+<!-- TOC --><a name="llm-systems"></a>
+## LLM Systems
 
 - [AI大模型系统实战-极客时间-Tyler](https://time.geekbang.org/column/article/852628) | [__Markdown Notes__](https://github.com/junfanz1/AI-ML-CS-Quant-Readings/blob/main/AI%20LLM/AI%20System.md)
 
-<!-- TOC --><a name="llm-project"></a>
-## LLM Project
+<!-- TOC --><a name="llm-projects"></a>
+## LLM Projects
 
 - [AI大模型项目落地实战-极客时间-蓝金伟](https://time.geekbang.org/column/article/801454) | [__Markdown Notes__](https://github.com/junfanz1/AI-ML-CS-Quant-Readings/blob/main/AI%20LLM/LLM%20Project.md)
 - [大模型应用开发实战-极客时间-黄佳](https://time.geekbang.org/column/intro/100764201) | [__Markdown Notes__](https://github.com/junfanz1/AI-LLM-ML-CS-Quant-Readings/blob/main/AI%20LLM/LLM%20App.md)
@@ -103,8 +110,8 @@ Taking notes on AI, LLM, Machine Learning, Computer Science & Quant Finance.
 
 - [RAG快速开发实战-极客时间-常扬](https://time.geekbang.org/column/intro/100804101?tab=catalog) | [__Markdown Notes__](https://github.com/junfanz1/AI-ML-CS-Quant-Readings/edit/main/AI%20LLM/RAG.md)
 
-<!-- TOC --><a name="llm-cheat-sheet"></a>
-## LLM Cheat Sheet
+<!-- TOC --><a name="cheat-sheet"></a>
+## Cheat Sheet
 
 - [__Markdown Notes__](https://github.com/junfanz1/AI-ML-CS-Quant-Readings/tree/main/AI%20LLM)
 
