@@ -21,5 +21,7 @@ DB-GPT
 
 Acknowledgements
 
+[AI Agent智能体实战-极客时间-周文洋](https://time.geekbang.org/course/intro/100775901?tab=catalog)
+
 <img src="https://github.com/user-attachments/assets/dce0937a-f364-46b6-b885-890c3f135d7f" width="50%" height="50%">
 
