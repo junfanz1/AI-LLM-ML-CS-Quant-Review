@@ -166,9 +166,9 @@ System Design Interview, An Insider's Guide, Second Edition - by Alex Xu 2020, C
 
 BDAI Conference, 2024 Oct 3-5, UChicago
 
-<img src="https://github.com/user-attachments/assets/b1ff9d58-2deb-4caa-8370-115539c18abf" width="50%" height="50%">
-
 > [Abstract PDF](https://github.com/junfanz1/Quant-Books-Notes/blob/main/Big%20Data%20AI%20in%20Finance%2C%20Econometrics%2C%20Statistics%20Conference%202024/BDAI-2024%20Abstracts.pdf) | [Agenda PDF](https://github.com/junfanz1/Quant-Books-Notes/blob/main/Big%20Data%20AI%20in%20Finance%2C%20Econometrics%2C%20Statistics%20Conference%202024/BDAI-2024%20Program.pdf)
+
+<img src="https://github.com/user-attachments/assets/b1ff9d58-2deb-4caa-8370-115539c18abf" width="50%" height="50%">
 
 - [__High Level Overview Notes PDF__](https://github.com/junfanz1/Quant-Books-Notes/blob/main/Big%20Data%20AI%20in%20Finance%2C%20Econometrics%2C%20Statistics%20Conference%202024/Big_Data_Finance_Conference_High_Level_Overview.pdf) | [__Conference Review Notes PDF__](https://github.com/junfanz1/Quant-Books-Notes/blob/main/Big%20Data%20AI%20in%20Finance%2C%20Econometrics%2C%20Statistics%20Conference%202024/Big_Data_Finance_Conference_Notes.pdf) 
 
