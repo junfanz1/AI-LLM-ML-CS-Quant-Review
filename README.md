@@ -52,7 +52,6 @@ Taking notes on AI, LLM, Machine Learning, Computer Science & Quant Finance.
 # 1. LangGraph & Cursor AI
 
 > [__Markdown Notes__](https://github.com/junfanz1/AI-ML-CS-Quant-Readings/blob/main/LangChain/Projects.md)
-
 - [Ed Donner: LLM Engineering: Master AI, Large Language Models & Agents](https://www.udemy.com/course/llm-engineering-master-ai-and-large-language-models)
 - [Eden Marco: LangChain-Develop LLM powered applications with LangChain](https://www.udemy.com/course/langchain/)
 - [Eden Marco: LangGraph-Develop LLM powered AI agents with LangGraph](https://www.udemy.com/course/langgraph)
@@ -63,7 +62,7 @@ Taking notes on AI, LLM, Machine Learning, Computer Science & Quant Finance.
 <img src="https://github.com/user-attachments/assets/0511a3b1-a5d4-4255-8916-fc9cb2d08e99" width="20%" height="20%">
 <img src="https://github.com/user-attachments/assets/71c2bd39-a1a1-410c-a541-0615e4608995" width="20%" height="20%">
 
-Projects
+> GitHub Projects
 - [Code-Interpreter-ReAct-LangChain-Agent](https://github.com/junfanz1/Code-Interpreter-ReAct-LangChain-Agent)
 - [LLM-Documentation-Chatbot](https://github.com/junfanz1/LLM-Documentation-Chatbot)
 - [Cognito-LangGraph-RAG](https://github.com/junfanz1/Cognito-LangGraph-RAG)
