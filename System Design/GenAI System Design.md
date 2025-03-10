@@ -152,17 +152,13 @@ We went through a comprehensive journey designing, training, and deploying a tex
 <!-- TOC --><a name="design-2"></a>
 ## Design
 
-<!-- TOC --><a name="prompt-processing-and-embedding-system"></a>
-### Prompt processing and embedding system
-This subsystem is the foundational component that transforms user inputs into meaningful data for text-to-image generation. It processes and enhances prompts to extract semantic meanings and expressive styles, providing encoded inputs for subsequent stages.
-<!-- TOC --><a name="dynamic-contextualizer-system"></a>
-### Dynamic contextualizer system
-This subsystem combines dynamic prompt interpretation with user feedback, enabling the model to generate contextually rich and detailed outputs. This system ensures user intent is balanced across concepts, styles, and aesthetics while the different databases retain relevant knowledge for informed image creation.
-<!-- TOC --><a name="model-hosting-and-content-moderation-system"></a>
-### Model hosting and content moderation system
-<!-- TOC --><a name="inference-strategies"></a>
-### Inference strategies
-We will use efficient denoising schedulers like the denoising diffusion implicit model (DDIM) or diffusion probabilistic model solver (DPM-Solver) to reduce steps and speed up image generation without sacrificing quality. As we have seen, the half-precision floating point is ideal for fast computation (and reducing the number of GPUs). Attention layers can be optimized with libraries like xFormers for better memory and speed performance. Using batching and parallelization can maximize GPU usage, especially in high-throughput scenarios.
+- Prompt processing and embedding system
+  - This subsystem is the foundational component that transforms user inputs into meaningful data for text-to-image generation. It processes and enhances prompts to extract semantic meanings and expressive styles, providing encoded inputs for subsequent stages.
+- Dynamic contextualizer system
+  - This subsystem combines dynamic prompt interpretation with user feedback, enabling the model to generate contextually rich and detailed outputs. This system ensures user intent is balanced across concepts, styles, and aesthetics while the different databases retain relevant knowledge for informed image creation.
+- Model hosting and content moderation system
+- Inference strategies
+  - We will use efficient denoising schedulers like the denoising diffusion implicit model (DDIM) or diffusion probabilistic model solver (DPM-Solver) to reduce steps and speed up image generation without sacrificing quality. As we have seen, the half-precision floating point is ideal for fast computation (and reducing the number of GPUs). Attention layers can be optimized with libraries like xFormers for better memory and speed performance. Using batching and parallelization can maximize GPU usage, especially in high-throughput scenarios.
 
 <!-- TOC --><a name="6-text-to-video"></a>
 # 6. Text-to-Video
@@ -189,9 +185,7 @@ We built a text-to-video system using the Mochi 1 model, trained on a diverse da
 
 [Educative Certificate](https://www.educative.io/verify-certificate/RgxzXQFQkKyYgKrGjTX1RQpE9J3vT6)
 
-![image](https://github.com/user-attachments/assets/5ca7557b-ef9a-4e9e-be21-8d2c623aa89c)
-
-
+<img src="https://github.com/user-attachments/assets/5ca7557b-ef9a-4e9e-be21-8d2c623aa89c" width="50%" height="50%">
 
 
 
