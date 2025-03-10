@@ -5,6 +5,8 @@
 - [1. Concepts](#1-concepts)
    * [Evaluation Metrics for GenAI Systems](#evaluation-metrics-for-genai-systems)
    * [Parallelism in GenAI Models with Distributed Machine Learning](#parallelism-in-genai-models-with-distributed-machine-learning)
+      + [Peer-to-peer (P2P) synchronization](#peer-to-peer-p2p-synchronization)
+      + [Model parallelism](#model-parallelism)
    * [Inference Optimization in GenAI Models](#inference-optimization-in-genai-models)
 - [2. Design Framework](#2-design-framework)
 - [3. Text-to-Text System design](#3-text-to-text-system-design)
@@ -42,14 +44,17 @@
 
 <!-- TOC --><a name="parallelism-in-genai-models-with-distributed-machine-learning"></a>
 ## Parallelism in GenAI Models with Distributed Machine Learning
-- Peer-to-peer (P2P) synchronization: is a decentralized approach where servers (nodes) work collaboratively to synchronize the model. Each server communicates with its peers to gather and share updates, ensuring everyone stays on the same page. There are many sub-types of P2P model synchronization, including:
+<!-- TOC --><a name="peer-to-peer-p2p-synchronization"></a>
+### Peer-to-peer (P2P) synchronization
+Decentralized approach where servers (nodes) work collaboratively to synchronize the model. Each server communicates with its peers to gather and share updates, ensuring everyone stays on the same page. There are many sub-types of P2P model synchronization, including:
   - AllReduce: The simplest approach in P2P data parallelism is where every node contributes its local gradients to its peers, and a global average is calculated. This guarantees that all workers operate on identical updated gradients after synchronization. This is efficient for small clusters and eliminates the single point of failure, but its communication and complexity overhead quickly adds up.
   - Ring AllReduce: This is a specialized implementation of AllReduce, which organizes workers in a virtual ring topology to reduce communication overhead. Each worker communicates only with its two neighbors, passing gradients sequentially. This scales efficiently with more training servers and has lower bandwidth requirements than basic AllReduce. However, this sequential information passing can sometimes be slower, especially if one server lags.
   - Hierarchical AllReduce: When scaling to thousands of GPUs, the communication demands of basic AllReduce or ring AllReduce become overwhelming. Hierarchical AllReduce introduces intermediate aggregation steps by grouping workers into smaller subgroups.
     - Cluster coordinators: The GPUs are divided into smaller groups, each managed by a coordinator. Think of these coordinators as team leaders.
     - Within-cluster aggregation: A simpler method like AllReduce or ring AllReduce combines updates inside each cluster. It’s easier to manage things within smaller teams.
     - Coordinator communication: The coordinators then use AllReduce to communicate and combine the aggregated updates from each group, creating a streamlined flow of information.
-- Model parallelism
+<!-- TOC --><a name="model-parallelism"></a>
+### Model parallelism
   - Layer-wise partitioning: This strategy divides the model into distinct layers, assigning each layer to a different device. For example, the input, hidden, and output layers could be placed on separate GPUs in a neural network. This straightforward approach can lead to communication bottlenecks if layers have strong dependencies.
   - Operator-wise partitioning: This finer-grained strategy breaks down individual operations within a layer across multiple devices. For example, a matrix multiplication operation within a layer could be split across several GPUs. This can improve efficiency for computationally intensive operations but requires more careful management of data flow and synchronization.
 
@@ -205,19 +210,6 @@ We built a text-to-video system using the Mochi 1 model, trained on a diverse da
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-<img src="https://github.com/user-attachments/assets/5ca7557b-ef9a-4e9e-be21-8d2c623aa89c" width="50%" height="50%">
 
 
 
