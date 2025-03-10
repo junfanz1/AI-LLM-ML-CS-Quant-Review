@@ -19,18 +19,17 @@ Taking notes on AI, LLM, Machine Learning, Computer Science & Quant Finance.
    * [RAG](#rag)
    * [Cheat Sheet](#cheat-sheet)
 - [5. NVIDIA GTC | AI Conference for Developers](#5-nvidia-gtc-ai-conference-for-developers)
-- [6. Computer Systems](#6-computer-systems)
-- [7. System Design Interview](#7-system-design-interview)
+- [6. System Design Interview](#6-system-design-interview)
    * [Book](#book)
    * [Educative](#educative)
    * [GenAI System Design](#genai-system-design)
+- [7. Computer Systems](#7-computer-systems)
 - [8. Big Data and AI in Finance, Econometrics and Statistics Conference, UChicago 2024](#8-big-data-and-ai-in-finance-econometrics-and-statistics-conference-uchicago-2024)
 - [9. C++ Design Patterns and Derivatives Pricing](#9-c-design-patterns-and-derivatives-pricing)
 - [10. High-Frequency Finance](#10-high-frequency-finance)
 - [11. Machine Learning for Algorithmic Trading](#11-machine-learning-for-algorithmic-trading)
 - [12. Stochastic Volatility Modeling](#12-stochastic-volatility-modeling)
 - [13. Quant Job Interview Questions](#13-quant-job-interview-questions)
-   * [Star History](#star-history)
 - [100. Distributed Systems](#100-distributed-systems)
 - [101. Language Models](#101-language-models)
 - [102. Designing Machine Learning Systems](#102-designing-machine-learning-systems)
@@ -38,7 +37,6 @@ Taking notes on AI, LLM, Machine Learning, Computer Science & Quant Finance.
 - [104. Distributed Machine Learning](#104-distributed-machine-learning)
 - [105. The Elements of Quantitative Investing](#105-the-elements-of-quantitative-investing)
 
-## Star History
 <!-- TOC end -->
 
 [![Star History Chart](https://api.star-history.com/svg?repos=junfanz1/AI-ML-CS-Quant-Readings&type=Date)](https://star-history.com/#junfanz1/AI-ML-CS-Quant-Readings&Date)
@@ -92,11 +90,9 @@ Projects
 
 大模型基础，毛玉仁等 - 2024，浙大
 
-> [Course Github](https://github.com/ZJU-LLMs/Foundations-of-LLMs) | [Course Video](https://www.bilibili.com/video/BV1PB6XYFET2) | [Textbook](https://github.com/ZJU-LLMs/Foundations-of-LLMs/blob/main/%E3%80%8A%E5%A4%A7%E6%A8%A1%E5%9E%8B%E5%9F%BA%E7%A1%80%E3%80%8B%E6%95%99%E6%9D%90/%E5%A4%A7%E6%A8%A1%E5%9E%8B%E5%9F%BA%E7%A1%80%20%E5%AE%8C%E6%95%B4%E7%89%88.pdf)
+> [Course Github](https://github.com/ZJU-LLMs/Foundations-of-LLMs) | [Course Video](https://www.bilibili.com/video/BV1PB6XYFET2) | [Textbook](https://github.com/ZJU-LLMs/Foundations-of-LLMs/blob/main/%E3%80%8A%E5%A4%A7%E6%A8%A1%E5%9E%8B%E5%9F%BA%E7%A1%80%E3%80%8B%E6%95%99%E6%9D%90/%E5%A4%A7%E6%A8%A1%E5%9E%8B%E5%9F%BA%E7%A1%80%20%E5%AE%8C%E6%95%B4%E7%89%88.pdf) | [__PDF Notes__](https://github.com/junfanz1/AI-ML-CS-Quant-Readings/blob/main/Foundations%20of%20LLMs/%E6%B5%99%E5%A4%A7%E5%A4%A7%E6%A8%A1%E5%9E%8B%E8%AF%BE%E7%AC%94%E8%AE%B0.pdf)
 
 <img src="https://github.com/user-attachments/assets/0c35d5d0-f8e0-4b64-9d93-2240c628feaa" width="50%" height="50%">
-
-- [__PDF Notes__](https://github.com/junfanz1/AI-ML-CS-Quant-Readings/blob/main/Foundations%20of%20LLMs/%E6%B5%99%E5%A4%A7%E5%A4%A7%E6%A8%A1%E5%9E%8B%E8%AF%BE%E7%AC%94%E8%AE%B0.pdf)
 
 <!-- TOC --><a name="4-ai-llm"></a>
 # 4. AI LLM
@@ -132,32 +128,18 @@ Projects
 - [__GTC 2024 Notes__](https://github.com/junfanz1/AI-LLM-ML-CS-Quant-Readings/blob/main/NVIDIA%20GTC/GTC%202024.md)
 - [__GTC 2025 Notes__](https://github.com/junfanz1/AI-LLM-ML-CS-Quant-Readings/blob/main/NVIDIA%20GTC/GTC%202025.md)
 
-<!-- TOC --><a name="6-computer-systems"></a>
-# 6. Computer Systems
-
-计算机底层的秘密，陆小风 - 2023，电子工业出版社
-
-> [Book Link](https://book.douban.com/subject/36370606/)
-
-![image](https://github.com/user-attachments/assets/5d41a90f-1188-42d2-9a08-b5b3efc33130)
-
-
-- [__PDF Notes__](https://github.com/junfanz1/Quant-Books-Notes/blob/main/Computer%20Systems/Notes%20on%20Computer%20Systems%20-%20Chinese.pdf)
-  
-<!-- TOC --><a name="7-system-design-interview"></a>
-# 7. System Design Interview
+<!-- TOC --><a name="6-system-design-interview"></a>
+# 6. System Design Interview
 
 <!-- TOC --><a name="book"></a>
 ## Book
 
 System Design Interview, An Insider's Guide, Second Edition - by Alex Xu 2020, Chinese translation 2023
 
-> [Book Link](https://www.amazon.com/System-Design-Interview-insiders-Second/dp/B08CMF2CQF)
+> [Book Link](https://www.amazon.com/System-Design-Interview-insiders-Second/dp/B08CMF2CQF) | [__PDF Notes__](https://github.com/junfanz1/Quant-Books-Notes/blob/main/System%20Design/Notes%20on%20System%20Design.pdf)
 
 
 <img src="https://github.com/user-attachments/assets/8cfad2aa-2ad3-4c97-af88-79c98f369e33" width="50%" height="50%">
-
-- [__PDF Notes__](https://github.com/junfanz1/Quant-Books-Notes/blob/main/System%20Design/Notes%20on%20System%20Design.pdf)
 
 <!-- TOC --><a name="educative"></a>
 ## Educative
@@ -168,6 +150,16 @@ System Design Interview, An Insider's Guide, Second Edition - by Alex Xu 2020, C
 ## GenAI System Design
 
 - [Educative - GenAI System Design](https://www.educative.io/verify-certificate/RgxzXQFQkKyYgKrGjTX1RQpE9J3vT6) | [__Markdown Notes__](https://github.com/junfanz1/AI-LLM-ML-CS-Quant-Readings/blob/main/System%20Design/GenAI%20System%20Design.md)
+
+<!-- TOC --><a name="7-computer-systems"></a>
+# 7. Computer Systems
+
+计算机底层的秘密，陆小风 - 2023，电子工业出版社
+
+> [Book Link](https://book.douban.com/subject/36370606/) | [__PDF Notes__](https://github.com/junfanz1/Quant-Books-Notes/blob/main/Computer%20Systems/Notes%20on%20Computer%20Systems%20-%20Chinese.pdf)
+  
+![image](https://github.com/user-attachments/assets/5d41a90f-1188-42d2-9a08-b5b3efc33130)
+
 
 <!-- TOC --><a name="8-big-data-and-ai-in-finance-econometrics-and-statistics-conference-uchicago-2024"></a>
 # 8. Big Data and AI in Finance, Econometrics and Statistics Conference, UChicago 2024
@@ -187,25 +179,19 @@ BDAI Conference, 2024 Oct 3-5, UChicago
 
 C++ Design Patterns and Derivatives Pricing (Mathematics, Finance and Risk, Series Number 2) 2nd Edition, by M. S. Joshi
 
-> [Book Link](https://www.amazon.com/Patterns-Derivatives-Pricing-Mathematics-Finance/dp/0521721628) 
+> [Book Link](https://www.amazon.com/Patterns-Derivatives-Pricing-Mathematics-Finance/dp/0521721628) | [__PDF Notes__](https://github.com/junfanz1/Quant-Books-Notes/blob/main/C%2B%2B%20Design%20Patterns%20Derivatives%20Pricing/C%2B%2B%20Design%20Patterns%20Derivatives%20Pricing.pdf) | [__Markdown Notes__](https://github.com/junfanz1/Quant-Books-Notes/blob/main/C%2B%2B%20Design%20Patterns%20Derivatives%20Pricing/C%2B%2B%20Design%20Patterns%20Derivatives%20Pricing.md)
 
 <img src="https://github.com/user-attachments/assets/c16d6c10-2dbf-44a4-9651-3917c039d2cc" width="50%" height="50%">
 
-
-
-- [__PDF Notes__](https://github.com/junfanz1/Quant-Books-Notes/blob/main/C%2B%2B%20Design%20Patterns%20Derivatives%20Pricing/C%2B%2B%20Design%20Patterns%20Derivatives%20Pricing.pdf) | [__Markdown Notes__](https://github.com/junfanz1/Quant-Books-Notes/blob/main/C%2B%2B%20Design%20Patterns%20Derivatives%20Pricing/C%2B%2B%20Design%20Patterns%20Derivatives%20Pricing.md)
 
 <!-- TOC --><a name="10-high-frequency-finance"></a>
 # 10. High-Frequency Finance
 
 An Introduction to High-Frequency Finance, by Ramazan Gençay, et al.
 
-> [Book Link](https://www.amazon.com/Introduction-High-Frequency-Finance-Ramazan-Gen%C3%A7ay/dp/0122796713)
+> [Book Link](https://www.amazon.com/Introduction-High-Frequency-Finance-Ramazan-Gen%C3%A7ay/dp/0122796713) | [__PDF Notes__](https://github.com/junfanz1/Quant-Books-Notes/blob/main/An%20Intro%20to%20High-Frequency%20Finance/Notes%20on%20An%20Introduction%20to%20High-Frequency%20Finance.pdf) | [__Markdown Notes__](https://github.com/junfanz1/Quant-Books-Notes/blob/main/An%20Intro%20to%20High-Frequency%20Finance/An%20Introduction%20to%20High-Frequency%20Financ.md)
 
 <img src="https://github.com/user-attachments/assets/587c8e69-f785-4137-b9f6-c809bb87bb90" width="50%" height="50%">
-
-- [__PDF Notes__](https://github.com/junfanz1/Quant-Books-Notes/blob/main/An%20Intro%20to%20High-Frequency%20Finance/Notes%20on%20An%20Introduction%20to%20High-Frequency%20Finance.pdf) | [__Markdown Notes__](https://github.com/junfanz1/Quant-Books-Notes/blob/main/An%20Intro%20to%20High-Frequency%20Finance/An%20Introduction%20to%20High-Frequency%20Financ.md)
-
 
 
 <!-- TOC --><a name="11-machine-learning-for-algorithmic-trading"></a>
@@ -213,12 +199,11 @@ An Introduction to High-Frequency Finance, by Ramazan Gençay, et al.
 
 Machine Learning for Algorithmic Trading: Predictive models to extract signals from market and alternative data for systematic trading strategies with Python, 2nd Edition Paperback – by Stefan Jansen 2020 
 
-> [Book Link](https://www.amazon.com/Machine-Learning-Algorithmic-Trading-alternative/dp/1839217715)
+> [Book Link](https://www.amazon.com/Machine-Learning-Algorithmic-Trading-alternative/dp/1839217715) | [__PDF Notes__](https://github.com/junfanz1/Quant-Books-Notes/blob/main/ML%20for%20Algorithmic%20Trading/Notes%20on%20Machine%20Learning%20for%20Algorithmic%20Trading.pdf) | [__Markdown Notes__](https://github.com/junfanz1/Quant-Books-Notes/blob/main/ML%20for%20Algorithmic%20Trading/Notes%20on%20Machine%20Learning%20for%20Algorithmic%20Trading.md)
+
 
 
 <img src="https://github.com/user-attachments/assets/5c2a9362-211e-4372-ac51-1653031e5f7b" width="50%" height="50%">
-
-- [__PDF Notes__](https://github.com/junfanz1/Quant-Books-Notes/blob/main/ML%20for%20Algorithmic%20Trading/Notes%20on%20Machine%20Learning%20for%20Algorithmic%20Trading.pdf) | [__Markdown Notes__](https://github.com/junfanz1/Quant-Books-Notes/blob/main/ML%20for%20Algorithmic%20Trading/Notes%20on%20Machine%20Learning%20for%20Algorithmic%20Trading.md)
 
 <!-- TOC --><a name="12-stochastic-volatility-modeling"></a>
 # 12. Stochastic Volatility Modeling
