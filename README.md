@@ -75,14 +75,14 @@ Taking notes on AI, LLM, Machine Learning, Computer Science & Quant Finance.
 <!-- TOC --><a name="deepseek-theory-research-paper-notes"></a>
 ## DeepSeek Theory & Research Paper Notes
 
-- [Educative: Everything You Need to Know About DeepSeek](https://www.educative.io/verify-certificate/GZjlABCqZ1G2n7mWjuroy1MXK2GBIm) | [__Markdown Notes__](https://github.com/junfanz1/AI-LLM-ML-CS-Quant-Readings/blob/main/DeepSeek/DeepSeek%20Essentials.md)
+> [Educative: Everything You Need to Know About DeepSeek](https://www.educative.io/verify-certificate/GZjlABCqZ1G2n7mWjuroy1MXK2GBIm) | [__Markdown Notes__](https://github.com/junfanz1/AI-LLM-ML-CS-Quant-Readings/blob/main/DeepSeek/DeepSeek%20Essentials.md)
 
-- [Zomi酱-Bilibili](https://space.bilibili.com/517221395/upload/video) | [Github](https://github.com/chenzomi12/AIFoundation/) | [__Markdown Notes__](https://github.com/junfanz1/AI-ML-CS-Quant-Readings/blob/main/DeepSeek/DeepSeek%20Theory.md)
+> [Zomi酱-Bilibili](https://space.bilibili.com/517221395/upload/video) | [Github](https://github.com/chenzomi12/AIFoundation/) | [__Markdown Notes__](https://github.com/junfanz1/AI-ML-CS-Quant-Readings/blob/main/DeepSeek/DeepSeek%20Theory.md)
 
 <!-- TOC --><a name="deepseek-developer-practice"></a>
 ## DeepSeek Developer Practice
 
-- [DeepSeek应用开发实战-极客时间-邢云阳](https://time.geekbang.org/column/intro/100995901) | [__Markdown Notes__](https://github.com/junfanz1/AI-ML-CS-Quant-Readings/blob/main/DeepSeek/DeepSeek%20Developer%20Practice.md)
+> [DeepSeek应用开发实战-极客时间-邢云阳](https://time.geekbang.org/column/intro/100995901) | [__Markdown Notes__](https://github.com/junfanz1/AI-ML-CS-Quant-Readings/blob/main/DeepSeek/DeepSeek%20Developer%20Practice.md)
 
 <!-- TOC --><a name="3-foundations-of-llms"></a>
 # 3. Foundations of LLMs
@@ -99,24 +99,24 @@ Taking notes on AI, LLM, Machine Learning, Computer Science & Quant Finance.
 <!-- TOC --><a name="llm-systems"></a>
 ## LLM Systems
 
-- [AI大模型系统实战-极客时间-Tyler](https://time.geekbang.org/column/article/852628) | [__Markdown Notes__](https://github.com/junfanz1/AI-ML-CS-Quant-Readings/blob/main/AI%20LLM/AI%20System.md)
+> [AI大模型系统实战-极客时间-Tyler](https://time.geekbang.org/column/article/852628) | [__Markdown Notes__](https://github.com/junfanz1/AI-ML-CS-Quant-Readings/blob/main/AI%20LLM/AI%20System.md)
 
 <!-- TOC --><a name="llm-projects"></a>
 ## LLM Projects
 
-- [AI大模型项目落地实战-极客时间-蓝金伟](https://time.geekbang.org/column/article/801454) | [__Markdown Notes__](https://github.com/junfanz1/AI-ML-CS-Quant-Readings/blob/main/AI%20LLM/LLM%20Project.md)
-- [大模型应用开发实战-极客时间-黄佳](https://time.geekbang.org/column/intro/100764201) | [__Markdown Notes__](https://github.com/junfanz1/AI-LLM-ML-CS-Quant-Readings/blob/main/AI%20LLM/LLM%20App.md)
-- [AI Agent智能体实战-极客时间-周文洋](https://time.geekbang.org/course/intro/100775901?tab=catalog) | [__Markdown Notes__](https://github.com/junfanz1/AI-LLM-ML-CS-Quant-Readings/blob/main/AI%20LLM/AI%20Agent.md)
+> [AI大模型项目落地实战-极客时间-蓝金伟](https://time.geekbang.org/column/article/801454) | [__Markdown Notes__](https://github.com/junfanz1/AI-ML-CS-Quant-Readings/blob/main/AI%20LLM/LLM%20Project.md)
+> [大模型应用开发实战-极客时间-黄佳](https://time.geekbang.org/column/intro/100764201) | [__Markdown Notes__](https://github.com/junfanz1/AI-LLM-ML-CS-Quant-Readings/blob/main/AI%20LLM/LLM%20App.md)
+> [AI Agent智能体实战-极客时间-周文洋](https://time.geekbang.org/course/intro/100775901?tab=catalog) | [__Markdown Notes__](https://github.com/junfanz1/AI-LLM-ML-CS-Quant-Readings/blob/main/AI%20LLM/AI%20Agent.md)
 
 <!-- TOC --><a name="rag"></a>
 ## RAG
 
-- [RAG快速开发实战-极客时间-常扬](https://time.geekbang.org/column/intro/100804101?tab=catalog) | [__Markdown Notes__](https://github.com/junfanz1/AI-ML-CS-Quant-Readings/edit/main/AI%20LLM/RAG.md)
+> [RAG快速开发实战-极客时间-常扬](https://time.geekbang.org/column/intro/100804101?tab=catalog) | [__Markdown Notes__](https://github.com/junfanz1/AI-ML-CS-Quant-Readings/edit/main/AI%20LLM/RAG.md)
 
 <!-- TOC --><a name="cheat-sheet"></a>
 ## Cheat Sheet
 
-- [__Markdown Notes__](https://github.com/junfanz1/AI-ML-CS-Quant-Readings/tree/main/AI%20LLM)
+> [__Markdown Notes__](https://github.com/junfanz1/AI-ML-CS-Quant-Readings/tree/main/AI%20LLM)
 
 <!-- TOC --><a name="5-nvidia-gtc-ai-conference-for-developers"></a>
 # 5. NVIDIA GTC | AI Conference for Developers
@@ -124,8 +124,9 @@ Taking notes on AI, LLM, Machine Learning, Computer Science & Quant Finance.
 ![image](https://github.com/user-attachments/assets/73e41194-64af-45ad-9d1b-6e7f61f49f4a)
 
 
-- [__GTC 2024 Notes__](https://github.com/junfanz1/AI-LLM-ML-CS-Quant-Readings/blob/main/NVIDIA%20GTC/GTC%202024.md)
-- [__GTC 2025 Notes__](https://github.com/junfanz1/AI-LLM-ML-CS-Quant-Readings/blob/main/NVIDIA%20GTC/GTC%202025.md)
+> [__GTC 2024 Notes__](https://github.com/junfanz1/AI-LLM-ML-CS-Quant-Readings/blob/main/NVIDIA%20GTC/GTC%202024.md)
+
+> [__GTC 2025 Notes__](https://github.com/junfanz1/AI-LLM-ML-CS-Quant-Readings/blob/main/NVIDIA%20GTC/GTC%202025.md)
 
 <!-- TOC --><a name="6-system-design-interview"></a>
 # 6. System Design Interview
