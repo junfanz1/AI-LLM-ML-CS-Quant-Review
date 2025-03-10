@@ -19,10 +19,6 @@
 - [5. Text-to-Image](#5-text-to-image)
    * [High Level](#high-level-2)
    * [Design](#design-2)
-      + [Prompt processing and embedding system](#prompt-processing-and-embedding-system)
-      + [Dynamic contextualizer system](#dynamic-contextualizer-system)
-      + [Model hosting and content moderation system](#model-hosting-and-content-moderation-system)
-      + [Inference strategies](#inference-strategies)
 - [6. Text-to-Video](#6-text-to-video)
    * [High Level](#high-level-3)
    * [Design](#design-3)
@@ -184,6 +180,42 @@ We built a text-to-video system using the Mochi 1 model, trained on a diverse da
 # Acknowledgements
 
 [Educative Certificate](https://www.educative.io/verify-certificate/RgxzXQFQkKyYgKrGjTX1RQpE9J3vT6)
+
+<img src="https://github.com/user-attachments/assets/5ca7557b-ef9a-4e9e-be21-8d2c623aa89c" width="50%" height="50%">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 <img src="https://github.com/user-attachments/assets/5ca7557b-ef9a-4e9e-be21-8d2c623aa89c" width="50%" height="50%">
 
