@@ -170,9 +170,7 @@ BDAI Conference, 2024 Oct 3-5, UChicago
 
 > [Abstract PDF](https://github.com/junfanz1/Quant-Books-Notes/blob/main/Big%20Data%20AI%20in%20Finance%2C%20Econometrics%2C%20Statistics%20Conference%202024/BDAI-2024%20Abstracts.pdf) | [Agenda PDF](https://github.com/junfanz1/Quant-Books-Notes/blob/main/Big%20Data%20AI%20in%20Finance%2C%20Econometrics%2C%20Statistics%20Conference%202024/BDAI-2024%20Program.pdf)
 
-- [__High Level Overview Notes PDF__](https://github.com/junfanz1/Quant-Books-Notes/blob/main/Big%20Data%20AI%20in%20Finance%2C%20Econometrics%2C%20Statistics%20Conference%202024/Big_Data_Finance_Conference_High_Level_Overview.pdf)
-
-- [__Conference Review Notes PDF__](https://github.com/junfanz1/Quant-Books-Notes/blob/main/Big%20Data%20AI%20in%20Finance%2C%20Econometrics%2C%20Statistics%20Conference%202024/Big_Data_Finance_Conference_Notes.pdf) 
+- [__High Level Overview Notes PDF__](https://github.com/junfanz1/Quant-Books-Notes/blob/main/Big%20Data%20AI%20in%20Finance%2C%20Econometrics%2C%20Statistics%20Conference%202024/Big_Data_Finance_Conference_High_Level_Overview.pdf) | [__Conference Review Notes PDF__](https://github.com/junfanz1/Quant-Books-Notes/blob/main/Big%20Data%20AI%20in%20Finance%2C%20Econometrics%2C%20Statistics%20Conference%202024/Big_Data_Finance_Conference_Notes.pdf) 
 
 <!-- TOC --><a name="9-c-design-patterns-and-derivatives-pricing"></a>
 # 9. C++ Design Patterns and Derivatives Pricing
