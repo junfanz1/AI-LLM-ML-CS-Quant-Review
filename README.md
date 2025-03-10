@@ -113,6 +113,8 @@ Taking notes on AI, LLM, Machine Learning, Computer Science & Quant Finance.
 <!-- TOC --><a name="rag"></a>
 ## RAG
 
+> [Educative: Advanced RAG Techniques - Choosing the Right Approach](https://www.educative.io/verify-certificate/pg03nJFvpmPgN4W0Zuxy07pVPro3h2) | [__Markdown Notes__](https://github.com/junfanz1/AI-LLM-ML-CS-Quant-Readings/blob/main/AI%20LLM/Advanced%20RAG.md)
+
 > [RAG快速开发实战-极客时间-常扬](https://time.geekbang.org/column/intro/100804101?tab=catalog) | [__Markdown Notes__](https://github.com/junfanz1/AI-ML-CS-Quant-Readings/edit/main/AI%20LLM/RAG.md)
 
 <!-- TOC --><a name="cheat-sheet"></a>
