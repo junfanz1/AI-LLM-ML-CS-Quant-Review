@@ -23,6 +23,7 @@ Taking notes on AI, LLM, Machine Learning, Computer Science & Quant Finance.
 - [7. System Design Interview](#7-system-design-interview)
    * [Book](#book)
    * [Educative](#educative)
+   * [GenAI System Design](#genai-system-design)
 - [8. Big Data and AI in Finance, Econometrics and Statistics Conference, UChicago 2024](#8-big-data-and-ai-in-finance-econometrics-and-statistics-conference-uchicago-2024)
 - [9. C++ Design Patterns and Derivatives Pricing](#9-c-design-patterns-and-derivatives-pricing)
 - [10. High-Frequency Finance](#10-high-frequency-finance)
@@ -159,6 +160,7 @@ System Design Interview, An Insider's Guide, Second Edition - by Alex Xu 2020, C
 
 - [Educative - System Design Interview](https://www.educative.io/verify-certificate/B86jYxWPP3JhA8lAZw0B2Mhr92YjJNmG5Ty) | [__PDF Notes__](https://github.com/junfanz1/CS-Online-Course-Notes/blob/main/Grokking%20the%20System%20Design%20Interview/Grokking%20the%20System%20Design%20Interview.pdf) | [__Markdown Notes__](https://github.com/junfanz1/CS-Online-Course-Notes/blob/main/Grokking%20the%20System%20Design%20Interview/Grokking%20the%20System%20Design%20Interview.md)
 
+<!-- TOC --><a name="genai-system-design"></a>
 ## GenAI System Design
 
 - [Educative - GenAI System Design](https://www.educative.io/verify-certificate/RgxzXQFQkKyYgKrGjTX1RQpE9J3vT6) | [__Markdown Notes__](https://github.com/junfanz1/AI-LLM-ML-CS-Quant-Readings/blob/main/System%20Design/GenAI%20System%20Design.md)
