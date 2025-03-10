@@ -2,6 +2,7 @@
 
 <!-- TOC start (generated with https://github.com/derlin/bitdowntoc) -->
 
+- [Concepts](#concepts)
 - [Design Framework](#design-framework)
 - [Text-to-Text System design](#text-to-text-system-design)
 - [Text-to-Speech](#text-to-speech)
@@ -10,6 +11,9 @@
 - [Acknowledgements](#acknowledgements)
 
 <!-- TOC end -->
+
+<!-- TOC --><a name="concepts"></a>
+# Concepts
 
 Evaluation Metrics for GenAI Systems
 
