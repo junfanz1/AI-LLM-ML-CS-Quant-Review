@@ -51,12 +51,12 @@ Taking notes on AI, LLM, Machine Learning, Computer Science & Quant Finance.
 <!-- TOC --><a name="1-langgraph-cursor-ai"></a>
 # 1. LangGraph & Cursor AI
 
-- [__Markdown Notes__](https://github.com/junfanz1/AI-ML-CS-Quant-Readings/blob/main/LangChain/Projects.md)
+> [__Markdown Notes__](https://github.com/junfanz1/AI-ML-CS-Quant-Readings/blob/main/LangChain/Projects.md)
 
-> [Ed Donner: LLM Engineering: Master AI, Large Language Models & Agents](https://www.udemy.com/course/llm-engineering-master-ai-and-large-language-models)
-> [Eden Marco: LangChain-Develop LLM powered applications with LangChain](https://www.udemy.com/course/langchain/)
-> [Eden Marco: LangGraph-Develop LLM powered AI agents with LangGraph](https://www.udemy.com/course/langgraph)
-> [Eden Marco: Cursor Course: FullStack development with Cursor AI Copilot](https://www.udemy.com/course/cursor-ai-ide/)
+- [Ed Donner: LLM Engineering: Master AI, Large Language Models & Agents](https://www.udemy.com/course/llm-engineering-master-ai-and-large-language-models)
+- [Eden Marco: LangChain-Develop LLM powered applications with LangChain](https://www.udemy.com/course/langchain/)
+- [Eden Marco: LangGraph-Develop LLM powered AI agents with LangGraph](https://www.udemy.com/course/langgraph)
+- [Eden Marco: Cursor Course: FullStack development with Cursor AI Copilot](https://www.udemy.com/course/cursor-ai-ide/)
 
 <img src="https://github.com/user-attachments/assets/e5bb6fb6-9c70-42e6-9d4a-7603d9646b26" width="20%" height="20%">
 <img src="https://github.com/user-attachments/assets/545885af-9c0b-431c-b8d4-cc28a0b7d64f" width="20%" height="20%">
