@@ -39,6 +39,8 @@ Taking notes on AI, LLM, Machine Learning, Computer Science & Quant Finance.
 
 <!-- TOC end -->
 
+## Star History
+
 [![Star History Chart](https://api.star-history.com/svg?repos=junfanz1/AI-ML-CS-Quant-Readings&type=Date)](https://star-history.com/#junfanz1/AI-ML-CS-Quant-Readings&Date)
 
 
