@@ -38,7 +38,11 @@ Taking notes on AI, LLM, Machine Learning, Computer Science & Quant Finance.
 - [104. Distributed Machine Learning](#104-distributed-machine-learning)
 - [105. The Elements of Quantitative Investing](#105-the-elements-of-quantitative-investing)
 
+## Star History
 <!-- TOC end -->
+
+[![Star History Chart](https://api.star-history.com/svg?repos=junfanz1/AI-ML-CS-Quant-Readings&type=Date)](https://star-history.com/#junfanz1/AI-ML-CS-Quant-Readings&Date)
+
 
 ---
 
@@ -259,10 +263,6 @@ Leave a message to me:
 
 ---
 
-<!-- TOC --><a name="star-history"></a>
-## Star History
-
-[![Star History Chart](https://api.star-history.com/svg?repos=junfanz1/AI-ML-CS-Quant-Readings&type=Date)](https://star-history.com/#junfanz1/AI-ML-CS-Quant-Readings&Date)
 
 Future Readings:
 
