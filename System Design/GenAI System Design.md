@@ -2,28 +2,28 @@
 
 <!-- TOC start (generated with https://github.com/derlin/bitdowntoc) -->
 
-- [Concepts](#concepts)
+- [1. Concepts](#1-concepts)
    * [Evaluation Metrics for GenAI Systems](#evaluation-metrics-for-genai-systems)
    * [Parallelism in GenAI Models with Distributed Machine Learning](#parallelism-in-genai-models-with-distributed-machine-learning)
    * [Inference Optimization in GenAI Models](#inference-optimization-in-genai-models)
-- [Design Framework](#design-framework)
-- [Text-to-Text System design](#text-to-text-system-design)
+- [2. Design Framework](#2-design-framework)
+- [3. Text-to-Text System design](#3-text-to-text-system-design)
    * [High Level](#high-level)
    * [Design](#design)
       + [Prompt processing system](#prompt-processing-system)
       + [Long-term memory system](#long-term-memory-system)
       + [Model host and content moderation system](#model-host-and-content-moderation-system)
-- [Text-to-Speech](#text-to-speech)
+- [4. Text-to-Speech](#4-text-to-speech)
    * [High Level](#high-level-1)
    * [Design](#design-1)
-- [Text-to-Image](#text-to-image)
+- [5. Text-to-Image](#5-text-to-image)
    * [High Level](#high-level-2)
    * [Design](#design-2)
       + [Prompt processing and embedding system](#prompt-processing-and-embedding-system)
       + [Dynamic contextualizer system](#dynamic-contextualizer-system)
       + [Model hosting and content moderation system](#model-hosting-and-content-moderation-system)
       + [Inference strategies](#inference-strategies)
-- [Text-to-Video](#text-to-video)
+- [6. Text-to-Video](#6-text-to-video)
    * [High Level](#high-level-3)
    * [Design](#design-3)
 - [Acknowledgements](#acknowledgements)
@@ -32,8 +32,8 @@
 
 ---
 
-<!-- TOC --><a name="concepts"></a>
-# Concepts
+<!-- TOC --><a name="1-concepts"></a>
+# 1. Concepts
 
 <!-- TOC --><a name="evaluation-metrics-for-genai-systems"></a>
 ## Evaluation Metrics for GenAI Systems
@@ -66,8 +66,8 @@
 - Batching: involves combining multiple requests and processing them all at once.
 
 
-<!-- TOC --><a name="design-framework"></a>
-# Design Framework
+<!-- TOC --><a name="2-design-framework"></a>
+# 2. Design Framework
 
 - System Requirements:
 - Choose AI model
@@ -76,8 +76,8 @@
 - Estimate resources for System Design
 - Design system and evaluate requirements
 
-<!-- TOC --><a name="text-to-text-system-design"></a>
-# Text-to-Text System design
+<!-- TOC --><a name="3-text-to-text-system-design"></a>
+# 3. Text-to-Text System design
 
 <!-- TOC --><a name="high-level"></a>
 ## High Level
@@ -118,8 +118,8 @@ This service hosts the core model and generates results using the enhanced promp
   - Real-time content moderation service:
 
 
-<!-- TOC --><a name="text-to-speech"></a>
-# Text-to-Speech
+<!-- TOC --><a name="4-text-to-speech"></a>
+# 4. Text-to-Speech
 
 <!-- TOC --><a name="high-level-1"></a>
 ## High Level
@@ -137,8 +137,8 @@ We designed a text-to-speech system using the efficient and multilingual SOTA Fi
 - Finally, these codebook logits produce the output speech waveform. This Dual-AR structure allows Fish Speech to effectively model both the linguistic and acoustic aspects of speech, resulting in high-quality and natural-sounding synthesized speech.
 - In Fish Speech’s architecture, the slow transformer focuses on processing the linguistic features extracted by the LLM. It operates at a slower pace due to the complexity of language modeling. On the other hand, the “fast” transformer handles the acoustic information (mel spectrograms) and operates more quickly to generate the final speech waveform. A Firefly-GAN (FF-GAN) is used as the decoder.
 
-<!-- TOC --><a name="text-to-image"></a>
-# Text-to-Image
+<!-- TOC --><a name="5-text-to-image"></a>
+# 5. Text-to-Image
 
 <!-- TOC --><a name="high-level-2"></a>
 ## High Level
@@ -164,8 +164,8 @@ This subsystem combines dynamic prompt interpretation with user feedback, enabli
 ### Inference strategies
 We will use efficient denoising schedulers like the denoising diffusion implicit model (DDIM) or diffusion probabilistic model solver (DPM-Solver) to reduce steps and speed up image generation without sacrificing quality. As we have seen, the half-precision floating point is ideal for fast computation (and reducing the number of GPUs). Attention layers can be optimized with libraries like xFormers for better memory and speed performance. Using batching and parallelization can maximize GPU usage, especially in high-throughput scenarios.
 
-<!-- TOC --><a name="text-to-video"></a>
-# Text-to-Video
+<!-- TOC --><a name="6-text-to-video"></a>
+# 6. Text-to-Video
 
 <!-- TOC --><a name="high-level-3"></a>
 ## High Level
