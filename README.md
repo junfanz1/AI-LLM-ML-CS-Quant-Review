@@ -43,7 +43,7 @@ Taking notes on AI, LLM, Machine Learning, Computer Science & Quant Finance.
 <!-- TOC --><a name="1-langgraph-cursor-ai"></a>
 # 1. LangGraph & Cursor AI
 
-> [__Markdown Notes__](https://github.com/junfanz1/AI-ML-CS-Quant-Readings/blob/main/LangChain/Projects.md)
+> [__Notes__](https://github.com/junfanz1/AI-ML-CS-Quant-Readings/blob/main/LangChain/Projects.md)
 - [Ed Donner: LLM Engineering: Master AI, Large Language Models & Agents](https://www.udemy.com/course/llm-engineering-master-ai-and-large-language-models)
 - [Eden Marco: LangChain-Develop LLM powered applications with LangChain](https://www.udemy.com/course/langchain/)
 - [Eden Marco: LangGraph-Develop LLM powered AI agents with LangGraph](https://www.udemy.com/course/langgraph)
@@ -67,14 +67,14 @@ Taking notes on AI, LLM, Machine Learning, Computer Science & Quant Finance.
 <!-- TOC --><a name="deepseek-theory"></a>
 ## DeepSeek Theory
 
-> [Educative: Everything You Need to Know About DeepSeek](https://www.educative.io/verify-certificate/GZjlABCqZ1G2n7mWjuroy1MXK2GBIm) | [__Markdown Notes__](https://github.com/junfanz1/AI-LLM-ML-CS-Quant-Readings/blob/main/DeepSeek/DeepSeek%20Essentials.md)
+> [Educative: Everything You Need to Know About DeepSeek](https://www.educative.io/verify-certificate/GZjlABCqZ1G2n7mWjuroy1MXK2GBIm) | [__Notes__](https://github.com/junfanz1/AI-LLM-ML-CS-Quant-Readings/blob/main/DeepSeek/DeepSeek%20Essentials.md)
 
-> [Zomi酱-Bilibili](https://space.bilibili.com/517221395/upload/video) | [Github](https://github.com/chenzomi12/AIFoundation/) | [__Markdown Notes__](https://github.com/junfanz1/AI-ML-CS-Quant-Readings/blob/main/DeepSeek/DeepSeek%20Theory.md)
+> [Zomi酱-Bilibili](https://space.bilibili.com/517221395/upload/video) | [Github](https://github.com/chenzomi12/AIFoundation/) | [__Notes-Chinese__](https://github.com/junfanz1/AI-ML-CS-Quant-Readings/blob/main/DeepSeek/DeepSeek%20Theory.md)
 
 <!-- TOC --><a name="deepseek-applications"></a>
 ## DeepSeek Applications
 
-> [DeepSeek应用开发实战-极客时间-邢云阳](https://time.geekbang.org/column/intro/100995901) | [__Markdown Notes__](https://github.com/junfanz1/AI-ML-CS-Quant-Readings/blob/main/DeepSeek/DeepSeek%20Developer%20Practice.md)
+> [GeekBang: DeepSeek App Development](https://time.geekbang.org/column/intro/100995901) | [__Notes-Chinese__](https://github.com/junfanz1/AI-ML-CS-Quant-Readings/blob/main/DeepSeek/DeepSeek%20Developer%20Practice.md)
 
 <!-- TOC --><a name="3-nvidia-gtc-ai-conference-for-developers"></a>
 # 3. NVIDIA GTC | AI Conference for Developers
@@ -82,7 +82,7 @@ Taking notes on AI, LLM, Machine Learning, Computer Science & Quant Finance.
 ![image](https://github.com/user-attachments/assets/73e41194-64af-45ad-9d1b-6e7f61f49f4a)
 
 
-> [__GTC 2024 Notes__](https://github.com/junfanz1/AI-LLM-ML-CS-Quant-Readings/blob/main/NVIDIA%20GTC/GTC%202024.md)
+> [__GTC 2024 Notes-Chinese__](https://github.com/junfanz1/AI-LLM-ML-CS-Quant-Readings/blob/main/NVIDIA%20GTC/GTC%202024.md)
 
 > [__GTC 2025 Notes__](https://github.com/junfanz1/AI-LLM-ML-CS-Quant-Readings/blob/main/NVIDIA%20GTC/GTC%202025.md)
 
@@ -92,40 +92,40 @@ Taking notes on AI, LLM, Machine Learning, Computer Science & Quant Finance.
 <!-- TOC --><a name="ai-systems"></a>
 ## AI Systems
 
-> [AI大模型系统实战-极客时间-Tyler](https://time.geekbang.org/column/article/852628) | [__Markdown Notes__](https://github.com/junfanz1/AI-ML-CS-Quant-Readings/blob/main/AI%20LLM/AI%20System.md)
+> [GeekBang: AI LLM System](https://time.geekbang.org/column/article/852628) | [__Notes-Chinese__](https://github.com/junfanz1/AI-ML-CS-Quant-Readings/blob/main/AI%20LLM/AI%20System.md)
 
 <!-- TOC --><a name="llm-applications"></a>
 ## LLM Applications
 
-> [AI大模型项目落地实战-极客时间-蓝金伟](https://time.geekbang.org/column/article/801454) | [__Markdown Notes__](https://github.com/junfanz1/AI-ML-CS-Quant-Readings/blob/main/AI%20LLM/LLM%20Project.md)
+> [GeekBang: AI LLM Project Implementation](https://time.geekbang.org/column/article/801454) | [__Notes-Chinese__](https://github.com/junfanz1/AI-ML-CS-Quant-Readings/blob/main/AI%20LLM/LLM%20Project.md)
 
-> [大模型应用开发实战-极客时间-黄佳](https://time.geekbang.org/column/intro/100764201) | [__Markdown Notes__](https://github.com/junfanz1/AI-LLM-ML-CS-Quant-Readings/blob/main/AI%20LLM/LLM%20App.md)
+> [GeekBang: LLM App Developmenmt](https://time.geekbang.org/column/intro/100764201) | [__Notes-Chinese__](https://github.com/junfanz1/AI-LLM-ML-CS-Quant-Readings/blob/main/AI%20LLM/LLM%20App.md)
 
 <!-- TOC --><a name="rag"></a>
 ## RAG
 
-> [Educative: Advanced RAG Techniques - Choosing the Right Approach](https://www.educative.io/verify-certificate/pg03nJFvpmPgN4W0Zuxy07pVPro3h2) | [__Markdown Notes__](https://github.com/junfanz1/AI-LLM-ML-CS-Quant-Readings/blob/main/AI%20LLM/Advanced%20RAG.md)
+> [Educative: Advanced RAG Techniques - Choosing the Right Approach](https://www.educative.io/verify-certificate/pg03nJFvpmPgN4W0Zuxy07pVPro3h2) | [__Notes__](https://github.com/junfanz1/AI-LLM-ML-CS-Quant-Readings/blob/main/AI%20LLM/Advanced%20RAG.md)
 
-> [RAG快速开发实战-极客时间-常扬](https://time.geekbang.org/column/intro/100804101?tab=catalog) | [__Markdown Notes__](https://github.com/junfanz1/AI-ML-CS-Quant-Readings/edit/main/AI%20LLM/RAG.md)
+> [GeekBang: RAG Development](https://time.geekbang.org/column/intro/100804101?tab=catalog) | [__Notes-Chinese__](https://github.com/junfanz1/AI-ML-CS-Quant-Readings/edit/main/AI%20LLM/RAG.md)
 
 <!-- TOC --><a name="multi-agent-systems"></a>
 ## Multi-Agent Systems
 
-> [Educative: Build AI Agents and Multi-Agent Systems with CrewAI](https://www.educative.io/verify-certificate/k5m3gACoj1xDYoOq7c0Kjk4y2AoGTn) | [__Markdown Notes__](https://github.com/junfanz1/AI-LLM-ML-CS-Quant-Readings/blob/main/AI%20LLM/CrewAI.md)
+> [Educative: Build AI Agents and Multi-Agent Systems with CrewAI](https://www.educative.io/verify-certificate/k5m3gACoj1xDYoOq7c0Kjk4y2AoGTn) | [__Notes__](https://github.com/junfanz1/AI-LLM-ML-CS-Quant-Readings/blob/main/AI%20LLM/CrewAI.md)
 
-> [AI Agent智能体实战-极客时间-周文洋](https://time.geekbang.org/course/intro/100775901?tab=catalog) | [__Markdown Notes__](https://github.com/junfanz1/AI-LLM-ML-CS-Quant-Readings/blob/main/AI%20LLM/AI%20Agent.md)
+> [GeekBang: AI Agents](https://time.geekbang.org/course/intro/100775901?tab=catalog) | [__Notes-Chinese__](https://github.com/junfanz1/AI-LLM-ML-CS-Quant-Readings/blob/main/AI%20LLM/AI%20Agent.md)
 
 <!-- TOC --><a name="cheat-sheet"></a>
 ## Cheat Sheet
 
-> [__Markdown Notes__](https://github.com/junfanz1/AI-ML-CS-Quant-Readings/tree/main/AI%20LLM)
+> [__Notes-Chinese__](https://github.com/junfanz1/AI-ML-CS-Quant-Readings/tree/main/AI%20LLM)
 
 <!-- TOC --><a name="5-llm-foundations"></a>
 # 5. LLM Foundations 
 
 大模型基础，毛玉仁等 - 2024，浙大
 
-> [Course Github](https://github.com/ZJU-LLMs/Foundations-of-LLMs) | [Course Video](https://www.bilibili.com/video/BV1PB6XYFET2) | [Textbook](https://github.com/ZJU-LLMs/Foundations-of-LLMs/blob/main/%E3%80%8A%E5%A4%A7%E6%A8%A1%E5%9E%8B%E5%9F%BA%E7%A1%80%E3%80%8B%E6%95%99%E6%9D%90/%E5%A4%A7%E6%A8%A1%E5%9E%8B%E5%9F%BA%E7%A1%80%20%E5%AE%8C%E6%95%B4%E7%89%88.pdf) | [__PDF Notes__](https://github.com/junfanz1/AI-ML-CS-Quant-Readings/blob/main/Foundations%20of%20LLMs/%E6%B5%99%E5%A4%A7%E5%A4%A7%E6%A8%A1%E5%9E%8B%E8%AF%BE%E7%AC%94%E8%AE%B0.pdf)
+> [Course Github](https://github.com/ZJU-LLMs/Foundations-of-LLMs) | [Course Video](https://www.bilibili.com/video/BV1PB6XYFET2) | [Textbook](https://github.com/ZJU-LLMs/Foundations-of-LLMs/blob/main/%E3%80%8A%E5%A4%A7%E6%A8%A1%E5%9E%8B%E5%9F%BA%E7%A1%80%E3%80%8B%E6%95%99%E6%9D%90/%E5%A4%A7%E6%A8%A1%E5%9E%8B%E5%9F%BA%E7%A1%80%20%E5%AE%8C%E6%95%B4%E7%89%88.pdf) | [__PDF Notes-Chinese__](https://github.com/junfanz1/AI-ML-CS-Quant-Readings/blob/main/Foundations%20of%20LLMs/%E6%B5%99%E5%A4%A7%E5%A4%A7%E6%A8%A1%E5%9E%8B%E8%AF%BE%E7%AC%94%E8%AE%B0.pdf)
 
 <img src="https://github.com/user-attachments/assets/0c35d5d0-f8e0-4b64-9d93-2240c628feaa" width="50%" height="50%">
 
@@ -135,9 +135,9 @@ Taking notes on AI, LLM, Machine Learning, Computer Science & Quant Finance.
 <!-- TOC --><a name="system-design-interview"></a>
 ## System Design Interview
 
-System Design Interview, An Insider's Guide, Second Edition - by Alex Xu 2020, Chinese translation 2023
+System Design Interview, An Insider's Guide, Second Edition - by Alex Xu 2020
 
-> [Book Link](https://www.amazon.com/System-Design-Interview-insiders-Second/dp/B08CMF2CQF) | [__PDF Notes__](https://github.com/junfanz1/Quant-Books-Notes/blob/main/System%20Design/Notes%20on%20System%20Design.pdf)
+> [Book Link](https://www.amazon.com/System-Design-Interview-insiders-Second/dp/B08CMF2CQF) | [__PDF Notes-Chinese__](https://github.com/junfanz1/Quant-Books-Notes/blob/main/System%20Design/Notes%20on%20System%20Design.pdf)
 
 
 <img src="https://github.com/user-attachments/assets/8cfad2aa-2ad3-4c97-af88-79c98f369e33" width="50%" height="50%">
@@ -150,14 +150,14 @@ System Design Interview, An Insider's Guide, Second Edition - by Alex Xu 2020, C
 <!-- TOC --><a name="genai-system-design"></a>
 ## GenAI System Design
 
-> [Educative - GenAI System Design](https://www.educative.io/verify-certificate/RgxzXQFQkKyYgKrGjTX1RQpE9J3vT6) | [__Markdown Notes__](https://github.com/junfanz1/AI-LLM-ML-CS-Quant-Readings/blob/main/System%20Design/GenAI%20System%20Design.md)
+> [Educative - GenAI System Design](https://www.educative.io/verify-certificate/RgxzXQFQkKyYgKrGjTX1RQpE9J3vT6) | [__Notes__](https://github.com/junfanz1/AI-LLM-ML-CS-Quant-Readings/blob/main/System%20Design/GenAI%20System%20Design.md)
 
 <!-- TOC --><a name="7-computer-systems"></a>
 # 7. Computer Systems
 
 计算机底层的秘密，陆小风 - 2023，电子工业出版社
 
-> [Book Link](https://book.douban.com/subject/36370606/) | [__PDF Notes__](https://github.com/junfanz1/Quant-Books-Notes/blob/main/Computer%20Systems/Notes%20on%20Computer%20Systems%20-%20Chinese.pdf)
+> [Book Link](https://book.douban.com/subject/36370606/) | [__PDF Notes-Chinese__](https://github.com/junfanz1/Quant-Books-Notes/blob/main/Computer%20Systems/Notes%20on%20Computer%20Systems%20-%20Chinese.pdf)
   
 ![image](https://github.com/user-attachments/assets/5d41a90f-1188-42d2-9a08-b5b3efc33130)
 
