@@ -98,6 +98,8 @@ Taking notes on AI, LLM, Machine Learning, Computer Science & Quant Finance.
 <!-- TOC --><a name="ai-systems"></a>
 ## AI Systems
 
+> [GeekBang: AI LLM Practice](https://time.geekbang.org/column/intro/100770601) | [__Notes-Chinese__](https://github.com/junfanz1/AI-LLM-ML-CS-Quant-Readings/blob/main/AI%20LLM/AI%20LLM%20Practice.md)
+
 > [GeekBang: AI LLM System](https://time.geekbang.org/column/article/852628) | [__Notes-Chinese__](https://github.com/junfanz1/AI-ML-CS-Quant-Readings/blob/main/AI%20LLM/AI%20System.md)
 
 <!-- TOC --><a name="llm-applications"></a>
