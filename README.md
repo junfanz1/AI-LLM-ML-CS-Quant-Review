@@ -84,6 +84,8 @@ Taking notes on AI, LLM, Machine Learning, Computer Science & Quant Finance.
 <!-- TOC --><a name="deepseek-applications"></a>
 ## DeepSeek Applications
 
+> [GeekBang: DeepSeek HandsOn](https://time.geekbang.org/column/101000501) | [__Notes-Chinese__](https://github.com/junfanz1/AI-LLM-ML-CS-Quant-Readings/blob/main/DeepSeek/DeepSeek%20HandsOn.md)
+
 > [GeekBang: DeepSeek App Development](https://time.geekbang.org/column/intro/100995901) | [__Notes-Chinese__](https://github.com/junfanz1/AI-ML-CS-Quant-Readings/blob/main/DeepSeek/DeepSeek%20Developer%20Practice.md)
 
 <!-- TOC --><a name="3-nvidia-gtc-ai-conference-for-developers"></a>
