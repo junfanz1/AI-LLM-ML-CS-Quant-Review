@@ -41,6 +41,10 @@ Taking notes on AI, LLM, Machine Learning, Computer Science & Quant Finance.
 
 <!-- TOC end -->
 
+## Star History
+
+[![Star History Chart](https://api.star-history.com/svg?repos=junfanz1/AI-LLM-ML-CS-Quant-Readings&type=Date)](https://www.star-history.com/#junfanz1/AI-LLM-ML-CS-Quant-Readings&Date)
+
 <!-- TOC --><a name="1-langgraph-cursor-ai"></a>
 # 1. LangGraph & Cursor AI
 
