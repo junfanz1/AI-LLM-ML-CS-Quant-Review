@@ -10,6 +10,7 @@ Taking notes on AI, LLM, Machine Learning, Computer Science & Quant Finance.
 
 - [1. LangGraph & Cursor AI](#1-langgraph-cursor-ai)
 - [2. DeepSeek ](#2-deepseek)
+   * [MoE (Mixture of Experts)](#moe-mixture-of-experts)
    * [DeepSeek Theory](#deepseek-theory)
    * [DeepSeek Applications](#deepseek-applications)
 - [3. NVIDIA GTC | AI Conference for Developers](#3-nvidia-gtc-ai-conference-for-developers)
@@ -38,10 +39,6 @@ Taking notes on AI, LLM, Machine Learning, Computer Science & Quant Finance.
 - [104. Distributed Machine Learning](#104-distributed-machine-learning)
 - [105. The Elements of Quantitative Investing](#105-the-elements-of-quantitative-investing)
 
-## Star History
-
-[![Star History Chart](https://api.star-history.com/svg?repos=junfanz1/AI-LLM-ML-CS-Quant-Readings&type=Date)](https://www.star-history.com/#junfanz1/AI-LLM-ML-CS-Quant-Readings&Date)
-
 <!-- TOC end -->
 
 <!-- TOC --><a name="1-langgraph-cursor-ai"></a>
@@ -68,10 +65,13 @@ Taking notes on AI, LLM, Machine Learning, Computer Science & Quant Finance.
 <!-- TOC --><a name="2-deepseek"></a>
 # 2. DeepSeek 
 
-<!-- TOC --><a name="deepseek-theory"></a>
-## DeepSeek Theory
+<!-- TOC --><a name="moe-mixture-of-experts"></a>
+## MoE (Mixture of Experts)
 
 > [Github: Mixture-of-Experts (MoE) Implementation in PyTorch](https://github.com/junfanz1/MoE-Mixture-of-Experts)
+
+<!-- TOC --><a name="deepseek-theory"></a>
+## DeepSeek Theory
 
 > [Educative: Everything You Need to Know About DeepSeek](https://www.educative.io/verify-certificate/GZjlABCqZ1G2n7mWjuroy1MXK2GBIm) | [__Notes__](https://github.com/junfanz1/AI-LLM-ML-CS-Quant-Readings/blob/main/DeepSeek/DeepSeek%20Essentials.md)
 
