@@ -263,7 +263,7 @@ DeepSpeed 是由微软开发的一个非常优秀的分布式训练库，专为�
 
 [Ten Levels of AI Alignment Difficulty](https://www.alignmentforum.org/posts/EjgfreeibTXRx9Ham/ten-levels-of-ai-alignment-difficulty)
 
-![image](https://github.com/user-attachments/assets/3ca13da9-966d-43b4-b4ff-5bb41f58d95c)
+![image](https://github.com/user-attachments/assets/0c0b453f-7a59-4d97-b2b5-9a1f8ff5d4f5)
 
 
 <!-- TOC --><a name="6-"></a>
@@ -368,10 +368,11 @@ Transformer 模型中自注意力机制的计算量会随着上下文长度的�
 
 <!-- TOC --><a name="92-mambassm"></a>
 ## 9.2 Mamba架构状态空间模型（SSM）
-- SSM 描述的是动态系统，例如在 3D 空间中移动的物体，可以通过两个方程根据其在时间 t 的状态进行预测，其核心是两个方程：状态方程和输出方程（或者也可以称为：观测方程）。h’(t)=Ah(t)+Bx(t)，y(t)=Ch(t)+Dx(t)，目标是找到这个状态 h(t)，以便我们可以从输入计算得出输出序列。状态方程描述的是，矩阵 A 和 B 如何根据输入值和上一个状态值推导当前状态的值。输出方程描述的是，矩阵 C 和 D 如何通过状态值和输入值推导输出值的过程。矩阵 A、B、C 和 D 就是我们常说的参数，它们是可学习的。矩阵 D 实际上没有参与 SSM，直接从输入到输出，所以关于矩阵 D 的连接被称为跳跃连接。而矩阵 D 没有参与到 SSM 序列计算，所以我们说 SSM 是没有跳跃连接的。
+- SSM 描述的是动态系统，例如在 3D 空间中移动的物体，可以通过两个方程根据其在时间 t 的状态进行预测，其核心是两个方程：状态方程和输出方程（或者也可以称为：观测方程）。`h’(t)=Ah(t)+Bx(t)，y(t)=Ch(t)+Dx(t)`，目标是找到这个状态 `h(t)`，以便我们可以从输入计算得出输出序列。状态方程描述的是，矩阵 A 和 B 如何根据输入值和上一个状态值推导当前状态的值。输出方程描述的是，矩阵 C 和 D 如何通过状态值和输入值推导输出值的过程。矩阵 A、B、C 和 D 就是我们常说的参数，它们是可学习的。矩阵 D 实际上没有参与 SSM，直接从输入到输出，所以关于矩阵 D 的连接被称为跳跃连接。而矩阵 D 没有参与到 SSM 序列计算，所以我们说 SSM 是没有跳跃连接的。
 ![image](https://github.com/user-attachments/assets/783fe14f-4746-499c-a1e3-cff73ee0871a)
 
-- 连续信号离散化：通过连续信号去计算状态是有一定的难度的，而通常我们的输入是离散的，所以我们需要将模型就行离散化。为了实现离散化，使用了一个叫 Zero-order hold 的技术，工作流程大概是这样的：每当接收到离散信号，先保留其值，直到收到新的离散信号，这样的话，使得 SSM 可以使用连续信号。离散化 SSM 使我们能够以特定的时间步长而不是连续信号来处理问题，这一点类似于我们前面讲过的循环神经网络 RNN，循环方法在这里也适用，在每个时间步，我们计算当前输入 $B_x_k​$ 如何影响之前的状态 $A_h_{k−1}$​，然后计算预测输出 $C_h_k​$
+- 连续信号离散化：通过连续信号去计算状态是有一定的难度的，而通常我们的输入是离散的，所以我们需要将模型就行离散化。为了实现离散化，使用了一个叫 Zero-order hold 的技术，工作流程大概是这样的：每当接收到离散信号，先保留其值，直到收到新的离散信号，这样的话，使得 SSM 可以使用连续信号。离散化 SSM 使我们能够以特定的时间步长而不是连续信号来处理问题，这一点类似于我们前面讲过的循环神经网络 RNN，循环方法在这里也适用，在每个时间步，我们计算当前输入 $$B_x_k​$$ 如何影响之前的状态 $$A_h_{k−1}$$​，然后计算预测输出 $$C_h_k​$$
+
 ![image](https://github.com/user-attachments/assets/66c07a40-c3f6-4945-8910-0410bba174a2)
 
 - SSM 厉害之处在于，在训练的时候，我们可以使用卷积表示，而在推理的时候，可以选择使用循环表示，这一点使 Mamba 具备了训练和推理都很高效的特性。该模型被称为线性状态空间层（LSSL），这些表示具有一个重要特性，即线性时间不变性（LTI）。LTI 指出，SSM 的参数 A、B 和 C 在所有时间步长上都是固定的。这意味着对于 SSM 生成的每个 token，矩阵 A、B 和 C 都是相同的。
@@ -422,7 +423,6 @@ Transformer 模型中自注意力机制的计算量会随着上下文长度的�
 <!-- TOC --><a name="acknowledgements"></a>
 # Acknowledgements
 
-[GeekBang: AI LLM Practice](https://time.geekbang.org/column/intro/100770601)
+- [GeekBang: AI LLM Practice](https://time.geekbang.org/column/intro/100770601)
 
-![image](https://github.com/user-attachments/assets/f0d30f01-1892-4af9-804a-e3d0d41a9b48)
-
+<img src="https://github.com/user-attachments/assets/f0d30f01-1892-4af9-804a-e3d0d41a9b48" width="50%" height="50%">
