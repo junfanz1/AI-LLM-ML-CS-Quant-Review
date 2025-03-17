@@ -446,6 +446,7 @@ Let’s assume that user A wants to send a message to a group with some unique I
 | Availability                | * Provide multiple WebSocket servers and managers to establish connections between users. <br> * Replication of messages and data associated with users and groups on different servers. <br> * Follow disaster recovery protocols. |
 | Security                    | * Via end-to-end encryption.                                                                                     |
 | Scalability                 | * Performance tuning of servers. <br> * Horizontal scalability of services.                                         |
+
 ![image](https://github.com/user-attachments/assets/df5a0ba0-3b05-4701-ae1c-a3466b585c1c)
 
 <!-- TOC --><a name="16-typeahead-suggestion-system"></a>
@@ -478,26 +479,31 @@ Why should we use strong consistency instead of eventual consistency for conflic
 - From Amazon’s Dynamo system, we learn that if we use eventual consistency for conflict resolution, we might have multiple versions of a document that are eventually reconciled, either automatically or manually. In the case of automatic reconciliation, the document might update abruptly, which defeats the purpose of collaboration. The second case, manual resolution, is tedious labor that we want to avoid.
 - Therefore, we use strong consistency for conflict resolution, and the logically centralized server provides the final order of events to all clients. We use a replicated operations queue so that even if our ordering service dies, it can easily restart on a new server and resume where it left off. Clients might encounter short service unavailability while the failed component is being respawned.
 
-| Requirements | Techniques |
-|---|---|
-| Consistency | Gossip protocol to replicate operations of a document within the same data center |
-|  | Concurrency techniques like OT and CRDTs |
-|  | Usage of time series database for maintaining the order of operations |
-|  | Replication between data centers |
-| Latency | Employing WebSockets |
-|  | Asynchronous replication of data |
-|  | Choosing optimal location for document creation and serving |
-|  | Using CDNs for serving videos and images |
-|  | Using Redis to store different data structures including CRDTs |
-|  | Appropriate NoSQL databases for the required functionality |
-| Availability | Replication of components to avoid SPOFs |
-|  | Using multiple WebSocket servers for users that may occasionally disconnect |
-|  | Component isolation improves availability |
-|  | Implementing disaster recovery protocols like backup, replication to different zones, and global server load balancing |
-|  | Using monitoring and configuration services |
-| Scalability | Different data stores for different purposes enable scalability |
-|  | Horizontal sharding of RDBMS |
-|  | CDNs capable of handling a large number of requests for big files |
+- **Consistency**  
+  - Gossip protocol to replicate operations of a document within the same data center  
+  - Concurrency techniques like OT and CRDTs  
+  - Usage of time series database for maintaining the order of operations  
+  - Replication between data centers  
+
+- **Latency**  
+  - Employing WebSockets  
+  - Asynchronous replication of data  
+  - Choosing optimal location for document creation and serving  
+  - Using CDNs for serving videos and images  
+  - Using Redis to store different data structures including CRDTs  
+  - Appropriate NoSQL databases for the required functionality  
+
+- **Availability**  
+  - Replication of components to avoid SPOFs  
+  - Using multiple WebSocket servers for users that may occasionally disconnect  
+  - Component isolation improves availability  
+  - Implementing disaster recovery protocols like backup, replication to different zones, and global server load balancing  
+  - Using monitoring and configuration services  
+
+- **Scalability**  
+  - Different data stores for different purposes enable scalability  
+  - Horizontal sharding of RDBMS  
+  - CDNs capable of handling a large number of requests for big files  
 
 
 
