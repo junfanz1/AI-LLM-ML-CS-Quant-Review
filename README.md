@@ -23,6 +23,7 @@ Overview notes on AI, LLM, Machine Learning, Computer Science & Quant Finance.
 - [6. System Design](#6-system-design)
    * [System Design Interview](#system-design-interview)
    * [Educative Grokking System Design](#educative-grokking-system-design)
+   * [Educative Grokking Modern System Design](#educative-grokking-modern-system-design)
    * [GenAI System Design](#genai-system-design)
 - [7. Computer Systems](#7-computer-systems)
 - [8. Big Data and AI in Finance, Econometrics and Statistics Conference, UChicago 2024](#8-big-data-and-ai-in-finance-econometrics-and-statistics-conference-uchicago-2024)
@@ -40,6 +41,7 @@ Overview notes on AI, LLM, Machine Learning, Computer Science & Quant Finance.
 
 <!-- TOC end -->
 
+<!-- TOC --><a name="star-history"></a>
 ## Star History
 
 [![Star History Chart](https://api.star-history.com/svg?repos=junfanz1/AI-LLM-ML-CS-Quant-Readings&type=Date)](https://www.star-history.com/#junfanz1/AI-LLM-ML-CS-Quant-Readings&Date)
@@ -159,6 +161,11 @@ System Design Interview, An Insider's Guide, Second Edition - by Alex Xu 2020
 ## Educative Grokking System Design
 
 > [Educative - System Design Interview](https://www.educative.io/verify-certificate/B86jYxWPP3JhA8lAZw0B2Mhr92YjJNmG5Ty) | [__PDF Notes__](https://github.com/junfanz1/CS-Online-Course-Notes/blob/main/Grokking%20the%20System%20Design%20Interview/Grokking%20the%20System%20Design%20Interview.pdf) | [__Markdown Notes__](https://github.com/junfanz1/CS-Online-Course-Notes/blob/main/Grokking%20the%20System%20Design%20Interview/Grokking%20the%20System%20Design%20Interview.md)
+
+<!-- TOC --><a name="educative-grokking-modern-system-design"></a>
+## Educative Grokking Modern System Design
+
+> [Educative - Grokking the Modern System Design Interview](https://www.educative.io/courses/grokking-the-system-design-interview) | [__Markdown Notes__](https://github.com/junfanz1/AI-LLM-ML-CS-Quant-Overview/blob/main/System%20Design/Modern%20System%20Design.md)
 
 <!-- TOC --><a name="genai-system-design"></a>
 ## GenAI System Design
