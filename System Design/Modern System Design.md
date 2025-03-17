@@ -1,8 +1,6 @@
 <!-- TOC --><a name="grokking-modern-system-design"></a>
 # Grokking Modern System Design
 
-[Grokking the Modern System Design Interview](https://www.educative.io/courses/grokking-the-system-design-interview)
-
 <!-- TOC --><a name="contents"></a>
 # Contents
 
@@ -475,10 +473,6 @@ We’ve looked at how we’ll achieve strong consistency for conflict resolution
 
 We’re also interested in keeping the document state consistent across different servers in a data center. To replicate an updated state of a document within the same data center at the same time, we can use peer-to-peer protocols like Gossip protocol. Not only will this strategy improve consistency, it will also improve availability.
 
-Why should we use strong consistency instead of eventual consistency for conflict resolution in a collaborative document editing service?
-- From Amazon’s Dynamo system, we learn that if we use eventual consistency for conflict resolution, we might have multiple versions of a document that are eventually reconciled, either automatically or manually. In the case of automatic reconciliation, the document might update abruptly, which defeats the purpose of collaboration. The second case, manual resolution, is tedious labor that we want to avoid.
-- Therefore, we use strong consistency for conflict resolution, and the logically centralized server provides the final order of events to all clients. We use a replicated operations queue so that even if our ordering service dies, it can easily restart on a new server and resume where it left off. Clients might encounter short service unavailability while the failed component is being respawned.
-
 - **Consistency**  
   - Gossip protocol to replicate operations of a document within the same data center  
   - Concurrency techniques like OT and CRDTs  
@@ -505,7 +499,13 @@ Why should we use strong consistency instead of eventual consistency for conflic
   - Horizontal sharding of RDBMS  
   - CDNs capable of handling a large number of requests for big files  
 
+Why should we use strong consistency instead of eventual consistency for conflict resolution in a collaborative document editing service?
+- From Amazon’s Dynamo system, we learn that if we use eventual consistency for conflict resolution, we might have multiple versions of a document that are eventually reconciled, either automatically or manually. In the case of automatic reconciliation, the document might update abruptly, which defeats the purpose of collaboration. The second case, manual resolution, is tedious labor that we want to avoid.
+- Therefore, we use strong consistency for conflict resolution, and the logically centralized server provides the final order of events to all clients. We use a replicated operations queue so that even if our ordering service dies, it can easily restart on a new server and resume where it left off. Clients might encounter short service unavailability while the failed component is being respawned.
 
+# References
+
+[Grokking the Modern System Design Interview](https://www.educative.io/courses/grokking-the-system-design-interview)
 
 
 
