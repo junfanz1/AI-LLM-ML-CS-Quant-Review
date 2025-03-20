@@ -7,12 +7,13 @@ Overview notes on AI, LLM, Machine Learning, Computer Science & Quant Finance.
 ## Contents
 <!-- TOC start (generated with https://github.com/derlin/bitdowntoc) -->
 
-- [1. LangGraph & Cursor AI](#1-langgraph-cursor-ai)
+   * [Star History](#star-history)
+- [1. NVIDIA GTC | AI Conference for Developers](#1-nvidia-gtc-ai-conference-for-developers)
 - [2. DeepSeek ](#2-deepseek)
    * [MoE (Mixture of Experts)](#moe-mixture-of-experts)
    * [DeepSeek Theory](#deepseek-theory)
    * [DeepSeek Applications](#deepseek-applications)
-- [3. NVIDIA GTC | AI Conference for Developers](#3-nvidia-gtc-ai-conference-for-developers)
+- [3. LangGraph & Cursor AI](#3-langgraph-cursor-ai)
 - [4. LLM Essentials](#4-llm-essentials)
    * [AI Systems](#ai-systems)
    * [LLM Applications](#llm-applications)
@@ -46,26 +47,15 @@ Overview notes on AI, LLM, Machine Learning, Computer Science & Quant Finance.
 
 [![Star History Chart](https://api.star-history.com/svg?repos=junfanz1/AI-LLM-ML-CS-Quant-Readings&type=Date)](https://www.star-history.com/#junfanz1/AI-LLM-ML-CS-Quant-Readings&Date)
 
-<!-- TOC --><a name="1-langgraph-cursor-ai"></a>
-# 1. LangGraph & Cursor AI
+<!-- TOC --><a name="1-nvidia-gtc-ai-conference-for-developers"></a>
+# 1. NVIDIA GTC | AI Conference for Developers
 
-> [__Notes__](https://github.com/junfanz1/AI-ML-CS-Quant-Readings/blob/main/LangChain/Projects.md)
-- [Ed Donner: LLM Engineering: Master AI, Large Language Models & Agents](https://www.udemy.com/course/llm-engineering-master-ai-and-large-language-models)
-- [Eden Marco: LangChain-Develop LLM powered applications with LangChain](https://www.udemy.com/course/langchain/)
-- [Eden Marco: LangGraph-Develop LLM powered AI agents with LangGraph](https://www.udemy.com/course/langgraph)
-- [Eden Marco: Cursor Course: FullStack development with Cursor AI Copilot](https://www.udemy.com/course/cursor-ai-ide/)
+![image](https://github.com/user-attachments/assets/73e41194-64af-45ad-9d1b-6e7f61f49f4a)
 
-<img src="https://github.com/user-attachments/assets/e5bb6fb6-9c70-42e6-9d4a-7603d9646b26" width="20%" height="20%">
-<img src="https://github.com/user-attachments/assets/545885af-9c0b-431c-b8d4-cc28a0b7d64f" width="20%" height="20%">
-<img src="https://github.com/user-attachments/assets/0511a3b1-a5d4-4255-8916-fc9cb2d08e99" width="20%" height="20%">
-<img src="https://github.com/user-attachments/assets/71c2bd39-a1a1-410c-a541-0615e4608995" width="20%" height="20%">
+> [__GTC 2025 Notes__](https://github.com/junfanz1/AI-LLM-ML-CS-Quant-Readings/blob/main/NVIDIA%20GTC/GTC%202025.md)
 
-> GitHub Projects
-- [Code-Interpreter-ReAct-LangChain-Agent](https://github.com/junfanz1/Code-Interpreter-ReAct-LangChain-Agent)
-- [LLM-Documentation-Chatbot](https://github.com/junfanz1/LLM-Documentation-Chatbot)
-- [Cognito-LangGraph-RAG](https://github.com/junfanz1/Cognito-LangGraph-RAG)
-- [LangGraph-Reflection-Researcher](https://github.com/junfanz1/LangGraph-Reflection-Researcher)
-- [Cursor-FullStack-AI-App](https://github.com/junfanz1/Cursor-FullStack-AI-App)
+> [__GTC 2024 Notes-Chinese__](https://github.com/junfanz1/AI-LLM-ML-CS-Quant-Readings/blob/main/NVIDIA%20GTC/GTC%202024.md)
+
 
 <!-- TOC --><a name="2-deepseek"></a>
 # 2. DeepSeek 
@@ -89,15 +79,27 @@ Overview notes on AI, LLM, Machine Learning, Computer Science & Quant Finance.
 
 > [GeekBang: DeepSeek App Development](https://time.geekbang.org/column/intro/100995901) | [__Notes-Chinese__](https://github.com/junfanz1/AI-ML-CS-Quant-Readings/blob/main/DeepSeek/DeepSeek%20Developer%20Practice.md)
 
-<!-- TOC --><a name="3-nvidia-gtc-ai-conference-for-developers"></a>
-# 3. NVIDIA GTC | AI Conference for Developers
+<!-- TOC --><a name="3-langgraph-cursor-ai"></a>
+# 3. LangGraph & Cursor AI
 
-![image](https://github.com/user-attachments/assets/73e41194-64af-45ad-9d1b-6e7f61f49f4a)
+> [__Notes__](https://github.com/junfanz1/AI-ML-CS-Quant-Readings/blob/main/LangChain/Projects.md)
+- [Ed Donner: LLM Engineering: Master AI, Large Language Models & Agents](https://www.udemy.com/course/llm-engineering-master-ai-and-large-language-models)
+- [Eden Marco: LangChain-Develop LLM powered applications with LangChain](https://www.udemy.com/course/langchain/)
+- [Eden Marco: LangGraph-Develop LLM powered AI agents with LangGraph](https://www.udemy.com/course/langgraph)
+- [Eden Marco: Cursor Course: FullStack development with Cursor AI Copilot](https://www.udemy.com/course/cursor-ai-ide/)
 
+<img src="https://github.com/user-attachments/assets/e5bb6fb6-9c70-42e6-9d4a-7603d9646b26" width="20%" height="20%">
+<img src="https://github.com/user-attachments/assets/545885af-9c0b-431c-b8d4-cc28a0b7d64f" width="20%" height="20%">
+<img src="https://github.com/user-attachments/assets/0511a3b1-a5d4-4255-8916-fc9cb2d08e99" width="20%" height="20%">
+<img src="https://github.com/user-attachments/assets/71c2bd39-a1a1-410c-a541-0615e4608995" width="20%" height="20%">
 
-> [__GTC 2024 Notes-Chinese__](https://github.com/junfanz1/AI-LLM-ML-CS-Quant-Readings/blob/main/NVIDIA%20GTC/GTC%202024.md)
+> GitHub Projects
+- [Code-Interpreter-ReAct-LangChain-Agent](https://github.com/junfanz1/Code-Interpreter-ReAct-LangChain-Agent)
+- [LLM-Documentation-Chatbot](https://github.com/junfanz1/LLM-Documentation-Chatbot)
+- [Cognito-LangGraph-RAG](https://github.com/junfanz1/Cognito-LangGraph-RAG)
+- [LangGraph-Reflection-Researcher](https://github.com/junfanz1/LangGraph-Reflection-Researcher)
+- [Cursor-FullStack-AI-App](https://github.com/junfanz1/Cursor-FullStack-AI-App)
 
-> [__GTC 2025 Notes__](https://github.com/junfanz1/AI-LLM-ML-CS-Quant-Readings/blob/main/NVIDIA%20GTC/GTC%202025.md)
 
 <!-- TOC --><a name="4-llm-essentials"></a>
 # 4. LLM Essentials
