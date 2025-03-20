@@ -7,7 +7,6 @@ Overview notes on AI, LLM, Machine Learning, Computer Science & Quant Finance.
 ## Contents
 <!-- TOC start (generated with https://github.com/derlin/bitdowntoc) -->
 
-   * [Star History](#star-history)
 - [1. NVIDIA GTC | AI Conference for Developers](#1-nvidia-gtc-ai-conference-for-developers)
 - [2. DeepSeek ](#2-deepseek)
    * [MoE (Mixture of Experts)](#moe-mixture-of-experts)
@@ -33,6 +32,7 @@ Overview notes on AI, LLM, Machine Learning, Computer Science & Quant Finance.
 - [11. Machine Learning for Algorithmic Trading](#11-machine-learning-for-algorithmic-trading)
 - [12. Stochastic Volatility Modeling](#12-stochastic-volatility-modeling)
 - [13. Quant Job Interview Questions](#13-quant-job-interview-questions)
+   * [Star History](#star-history)
 - [100. Distributed Systems](#100-distributed-systems)
 - [101. Language Models](#101-language-models)
 - [102. Designing Machine Learning Systems](#102-designing-machine-learning-systems)
@@ -41,11 +41,6 @@ Overview notes on AI, LLM, Machine Learning, Computer Science & Quant Finance.
 - [105. The Elements of Quantitative Investing](#105-the-elements-of-quantitative-investing)
 
 <!-- TOC end -->
-
-<!-- TOC --><a name="star-history"></a>
-## Star History
-
-[![Star History Chart](https://api.star-history.com/svg?repos=junfanz1/AI-LLM-ML-CS-Quant-Readings&type=Date)](https://www.star-history.com/#junfanz1/AI-LLM-ML-CS-Quant-Readings&Date)
 
 <!-- TOC --><a name="1-nvidia-gtc-ai-conference-for-developers"></a>
 # 1. NVIDIA GTC | AI Conference for Developers
@@ -266,6 +261,12 @@ Connect me:
 
 Leave a message to me:
 [junfanzhu98@gmail.com](mailto:junfanzhu98@gmail.com)
+
+<!-- TOC --><a name="star-history"></a>
+## Star History
+
+[![Star History Chart](https://api.star-history.com/svg?repos=junfanz1/AI-LLM-ML-CS-Quant-Readings&type=Date)](https://www.star-history.com/#junfanz1/AI-LLM-ML-CS-Quant-Readings&Date)
+
 
 ---
 
