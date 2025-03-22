@@ -262,31 +262,33 @@ Leave a message to me:
 ---
 
 
-Future Readings:
+
 
 <!-- 
-<!-- TOC --><a name="100-distributed-systems"></a>
+
+Future Readings:
+
 # 100. Distributed Systems
 
 深入理解分布式系统，唐伟志 - 2022，电子工业出版社
 
 > [Book Link](https://book.douban.com/subject/35794814/)
 
-<!-- TOC --><a name="101-language-models"></a>
+
 # 101. Language Models
 
 预训练语言模型，邵浩 刘一烽 - 2021，电子工业出版社
 
 > [Book Link](https://book.douban.com/subject/35458428/)
 
-<!-- TOC --><a name="102-designing-machine-learning-systems"></a>
+
 # 102. Designing Machine Learning Systems
 
 Designing Machine Learning Systems: An Iterative Process for Production-Ready Applications - by Chip Huyen
 
 > [Book Link](https://www.amazon.com/Designing-Machine-Learning-Systems-Production-Ready/dp/1098107969)
 
-<!-- TOC --><a name="103-designing-data-intensive-applications-ddia"></a>
+
 # 103. Designing Data-Intensive Applications (DDIA)
 
 Designing Data-Intensive Applications: The Big Ideas Behind Reliable, Scalable, and Maintainable Systems
@@ -294,14 +296,14 @@ Book - by Martin Kleppmann
 
 > [Book Link](https://www.amazon.com/Designing-Data-Intensive-Applications-Reliable-Maintainable/dp/1449373321)
 
-<!-- TOC --><a name="104-distributed-machine-learning"></a>
+
 # 104. Distributed Machine Learning
 
 分布式机器学习，刘铁岩等 - 2018，机械工业出版社
 
 > [Book Link](https://book.douban.com/subject/30360968/)
 
-<!-- TOC --><a name="105-the-elements-of-quantitative-investing"></a>
+
 # 105. The Elements of Quantitative Investing
 
 The Elements of Quantitative Investing - by Giuseppe Paleologo 2025
