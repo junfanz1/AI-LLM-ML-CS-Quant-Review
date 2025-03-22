@@ -42,7 +42,7 @@ Overview notes on AI, LLM, Machine Learning, Computer Science & Quant Finance.
 
 ![image](https://github.com/user-attachments/assets/73e41194-64af-45ad-9d1b-6e7f61f49f4a)
 
-> [__GTC 2025 Notes__](https://github.com/junfanz1/AI-LLM-ML-CS-Quant-Readings/blob/main/NVIDIA%20GTC/GTC%202025.md)
+> <mark>[__GTC 2025 Overview & Takeaways__](https://github.com/junfanz1/AI-LLM-ML-CS-Quant-Overview/blob/main/NVIDIA%20GTC/GTC%202025.md)</mark> <img src="https://img.shields.io/github/stars/junfanz1%2FAI-LLM-ML-CS-Quant-Overview" alt="GitHub Stars" />
 
 > [__GTC 2024 Notes-Chinese__](https://github.com/junfanz1/AI-LLM-ML-CS-Quant-Readings/blob/main/NVIDIA%20GTC/GTC%202024.md)
 
