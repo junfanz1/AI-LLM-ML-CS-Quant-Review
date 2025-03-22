@@ -35,6 +35,8 @@ Overview notes on AI, LLM, Machine Learning, Computer Science & Quant Finance.
 
 <!-- TOC end -->
 
+---
+
 <!-- TOC --><a name="1-nvidia-gtc-ai-conference-for-developers"></a>
 # 1. NVIDIA GTC | AI Conference for Developers
 
