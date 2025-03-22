@@ -32,12 +32,6 @@ Overview notes on AI, LLM, Machine Learning, Computer Science & Quant Finance.
 - [12. Stochastic Volatility Modeling](#12-stochastic-volatility-modeling)
 - [13. Quant Job Interview Questions](#13-quant-job-interview-questions)
    * [Star History](#star-history)
-- [100. Distributed Systems](#100-distributed-systems)
-- [101. Language Models](#101-language-models)
-- [102. Designing Machine Learning Systems](#102-designing-machine-learning-systems)
-- [103. Designing Data-Intensive Applications (DDIA)](#103-designing-data-intensive-applications-ddia)
-- [104. Distributed Machine Learning](#104-distributed-machine-learning)
-- [105. The Elements of Quantitative Investing](#105-the-elements-of-quantitative-investing)
 
 <!-- TOC end -->
 
@@ -270,6 +264,7 @@ Leave a message to me:
 
 Future Readings:
 
+<!-- 
 <!-- TOC --><a name="100-distributed-systems"></a>
 # 100. Distributed Systems
 
@@ -312,3 +307,5 @@ Book - by Martin Kleppmann
 The Elements of Quantitative Investing - by Giuseppe Paleologo 2025
 
 > [Book Link](https://booksonfirst.com/book/9781394265459)
+
+-->
