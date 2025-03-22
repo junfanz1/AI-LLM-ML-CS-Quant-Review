@@ -58,7 +58,7 @@ Overview notes on AI, LLM, Machine Learning, Computer Science & Quant Finance.
 
 > [Educative: Everything You Need to Know About DeepSeek](https://www.educative.io/verify-certificate/GZjlABCqZ1G2n7mWjuroy1MXK2GBIm) | [__Notes__](https://github.com/junfanz1/AI-LLM-ML-CS-Quant-Readings/blob/main/DeepSeek/DeepSeek%20Essentials.md)
 
-> [Zomi酱-Bilibili](https://space.bilibili.com/517221395/upload/video) | [Github](https://github.com/chenzomi12/AIFoundation/) | [__Notes-Chinese__](https://github.com/junfanz1/AI-ML-CS-Quant-Readings/blob/main/DeepSeek/DeepSeek%20Theory.md)
+> [Zomi-Bilibili](https://space.bilibili.com/517221395/upload/video) | [Github](https://github.com/chenzomi12/AIFoundation/) | [__Notes-Chinese__](https://github.com/junfanz1/AI-ML-CS-Quant-Readings/blob/main/DeepSeek/DeepSeek%20Theory.md)
 
 <!-- TOC --><a name="deepseek-applications"></a>
 ## DeepSeek Applications
