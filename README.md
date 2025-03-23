@@ -5,7 +5,7 @@ Industrial trends in AI, LLM, Machine Learning, Computer Science & Quant Finance
 
 <div align="left">
   <marquee behavior="alternate" scrollamount="3">
-    <strong>Profile Views:</strong>
+    <strong>Views:</strong>
     <img src="https://img.shields.io/github/watchers/junfanz1/AI-LLM-ML-CS-Quant-Overview?label=Profile%20Views&style=flat-square&color=blue" alt="Repository Views" />
     &nbsp;•&nbsp;
     <strong>Followers:</strong>
