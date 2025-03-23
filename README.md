@@ -6,7 +6,7 @@ Industrial trends in AI, LLM, Machine Learning, Computer Science & Quant Finance
 <div align="left">
   <marquee behavior="alternate" scrollamount="3">
     <strong>Views:</strong>
-    <img src="https://img.shields.io/github/watchers/junfanz1/AI-LLM-ML-CS-Quant-Overview?label=Profile%20Views&style=flat-square&color=blue" alt="Repository Views" />
+    <img src="https://komarev.com/ghpvc/?username=junfanz1&color=blue" alt="Profile Views" />
     &nbsp;•&nbsp;
     <strong>Followers:</strong>
     <img src="https://img.shields.io/github/followers/junfanz1?style=social" alt="GitHub Followers" />
