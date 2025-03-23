@@ -1,7 +1,20 @@
 
 <!-- TOC --><a name="ai-ml-cs-quant-readings-notes"></a>
 # AI-LLM-ML-CS-Quant-Overview
-Overview notes on AI, LLM, Machine Learning, Computer Science & Quant Finance.
+Industrial trends in AI, LLM, Machine Learning, Computer Science & Quant Finance.
+
+<div align="left">
+  <marquee behavior="alternate" scrollamount="3">
+    <strong>Profile Views:</strong>
+    <img src="https://img.shields.io/github/watchers/junfanz1/AI-LLM-ML-CS-Quant-Overview?label=Profile%20Views&style=flat-square&color=blue" alt="Repository Views" />
+    &nbsp;•&nbsp;
+    <strong>Followers:</strong>
+    <img src="https://img.shields.io/github/followers/junfanz1?style=social" alt="GitHub Followers" />
+    &nbsp;•&nbsp;
+    <strong>Stars:</strong>
+    <img src="https://img.shields.io/github/stars/junfanz1/AI-LLM-ML-CS-Quant-Overview?style=social" alt="Repository Stars" />
+  </marquee>
+</div>
 
 <!-- TOC --><a name="contents"></a>
 ## Contents
