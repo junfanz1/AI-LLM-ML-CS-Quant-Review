@@ -54,7 +54,7 @@ Overview notes on AI, LLM, Machine Learning, Computer Science & Quant Finance.
     </tr>
     <tr>
       <td style="padding: 2px 0 0 0;">
-        <em style="display: block; font-size: 12px; line-height: 1; margin: 0;">Project integrating Generative AI, RLHF Humanoid Robotics, and Low-Altitude Economy.</em>
+        <em style="display: block; font-size: 12px; line-height: 1; margin: 0;">Project integrating Generative AI, Humanoid Robotics (RLHF), and Low-Altitude Economy.</em>
       </td>
     </tr>
   </table>
