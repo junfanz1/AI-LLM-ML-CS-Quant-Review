@@ -1,6 +1,5 @@
 
 <!-- TOC --><a name="ai-ml-cs-quant-readings-notes"></a>
-# AI-LLM-ML-CS-Quant-Overview
 
 <div align="left">
   <marquee behavior="alternate" scrollamount="3">
@@ -14,6 +13,9 @@
     <img src="https://img.shields.io/github/stars/junfanz1/AI-LLM-ML-CS-Quant-Overview?style=social" alt="Repository Stars" />
   </marquee>
 </div>
+
+
+# AI-LLM-ML-CS-Quant-Overview
 
 In-depth overview of industry trends in AI, LLMs, Machine Learning, Computer Science, and Quantitative Finance. 
   - <mark>[__GTC 2025 Overview & Takeaways__](https://github.com/junfanz1/AI-LLM-ML-CS-Quant-Overview/blob/main/NVIDIA%20GTC/GTC%202025.md)</mark> <img src="https://img.shields.io/github/stars/junfanz1%2FAI-LLM-ML-CS-Quant-Overview" alt="GitHub Stars" />
