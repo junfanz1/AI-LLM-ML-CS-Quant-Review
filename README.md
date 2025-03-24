@@ -10,7 +10,7 @@
     <img src="https://img.shields.io/github/followers/junfanz1?style=social" alt="GitHub Followers" />
     &nbsp;•&nbsp;
     <strong>Stars:</strong>
-    <img src="https://img.shields.io/github/stars/junfanz1/AI-LLM-ML-CS-Quant-Overview?style=social" alt="Repository Stars" />
+    <img src="https://img.shields.io/github/stars/junfanz1/AI-LLM-ML-CS-Quant-Review?style=social" alt="Repository Stars" />
   </marquee>
 </div>
 
