@@ -19,6 +19,18 @@
    * [2.2 Transformer Architecture](#22-transformer-architecture)
    * [2.3 Evaluation Metrics](#23-evaluation-metrics)
 - [3. Google Translate](#3-google-translate)
+   * [3.1 Architecture](#31-architecture)
+   * [3.2 Training ](#32-training)
+   * [3.3 Evaluation](#33-evaluation)
+- [4. ChatGPT: Personal Assistant Chatbot ](#4-chatgpt-personal-assistant-chatbot)
+   * [4.1 Positional Encoding](#41-positional-encoding)
+   * [4.2 Training](#42-training)
+   * [4.3 Sampling ](#43-sampling)
+   * [4.4 ML System Design Pipeline ](#44-ml-system-design-pipeline)
+- [5. Image Captioning (Image2Text)](#5-image-captioning-image2text)
+   * [5.1 Image Encoder ](#51-image-encoder)
+   * [5.2 Pipeline](#52-pipeline)
+- [6. RAG ](#6-rag)
 
 <!-- TOC end -->
 
@@ -142,6 +154,7 @@ Online
 <!-- TOC --><a name="3-google-translate"></a>
 # 3. Google Translate
 
+<!-- TOC --><a name="31-architecture"></a>
 ## 3.1 Architecture
 
 - Encoder: Input Sequence -> Text Embedding -> Positional Encoding -> Transformer ([Self Attention (MHA), Normalization, Feed Forward, Normalization] * N) -> Output Sequence
@@ -151,6 +164,7 @@ Difference: Encoder, Decoder
 - Cross-attention layer: Each token in decoder can attend to all embeddings in encoder, can integrate info from input sequence during output.
 - Self-attention: Encoder, each token attends to all other tokens, to understand entire sequence. Decoder, each token is restricted to only tokens come before.
 
+<!-- TOC --><a name="32-training"></a>
 ## 3.2 Training 
 
 Next-token prediction is not ideal for encoder-decoder pretraining, because it's unsupervised training and decoder prediction will cause cheating. So we use masked language modeling (MLM).
@@ -164,6 +178,7 @@ Fine-tuning stage is supervised.
 
 Sampling with beam search for accuracy and consistency.
 
+<!-- TOC --><a name="33-evaluation"></a>
 ## 3.3 Evaluation
 
 Offline evaluation metrics
@@ -176,8 +191,10 @@ Offline evaluation metrics
 Online evaluation metrics
 - User feedback/engagements
 
+<!-- TOC --><a name="4-chatgpt-personal-assistant-chatbot"></a>
 # 4. ChatGPT: Personal Assistant Chatbot 
 
+<!-- TOC --><a name="41-positional-encoding"></a>
 ## 4.1 Positional Encoding
 
 - Relative positional encoding: encode differences in two tokens' positions
@@ -186,6 +203,7 @@ Online evaluation metrics
   - Relative position representation
   - Generalization to unseen positions across varying sequence lengths 
 
+<!-- TOC --><a name="42-training"></a>
 ## 4.2 Training
 
 3 stage training: pretraining (on large corpus), SFT (finetunes model to adapt output to prompt-response format), RLHF (further refines model response with human alignment).
@@ -198,6 +216,7 @@ RLHF: Alignment stage, final stage in training process.
   - Proximal Policy Optimization (PPO), to max scores predicted by reward model. Update model weights to max the expected reward that scores the responses.
   - Direct Policy Optimization (DPO)
 
+<!-- TOC --><a name="43-sampling"></a>
 ## 4.3 Sampling 
 
 How we select tokens from model's predicted probability distribution to generate response.
@@ -205,13 +224,16 @@ How we select tokens from model's predicted probability distribution to generate
 - temperature: control randomness by scaling logits (raw scores) of model's output before applying softmax to generate prob.
 - repetition penalty 
 
+<!-- TOC --><a name="44-ml-system-design-pipeline"></a>
 ## 4.4 ML System Design Pipeline 
 
 - Training pipeline: pretraining, SFT, RLHF
 - Inference pipeline: safety filterinng, prompt enhancer, response generator (choose one from multiple responses), response safety evaluator (detect harmful content), rejection response generator (generate a proper response when input prompt is unsafe or generated response is unsuitable, explain why request can't be fulfilled), session management 
 
+<!-- TOC --><a name="5-image-captioning-image2text"></a>
 # 5. Image Captioning (Image2Text)
 
+<!-- TOC --><a name="51-image-encoder"></a>
 ## 5.1 Image Encoder 
 
 Attention mechanism works best with sequence inputs, as it enables decoder to focus dynamically on different regions of image during caption generation. This selectively attending to various parts of image leads to more accurate captions.
@@ -228,6 +250,7 @@ Transformer-based
   - learnable: learns positional encoding during training; fixed: positional encoding determined by sine-cosine fixed functions.
 - Can capture both local and global relationships with self-attention, context aware.
 
+<!-- TOC --><a name="52-pipeline"></a>
 ## 5.2 Pipeline
 
 - Training: Supervised finetuning on 400 million image-caption pairs with cross entropy loss on next-token prediction.
@@ -236,6 +259,7 @@ Transformer-based
   - Represent captions using TF-IDF (good that sensitive to important words, but bad that lack of semantic understanding), calculate cosine similarities, aggregate similarity scores
 - System Design: Image preprocessing -> caption generator (beam search for trained model) -> post-processing (fairness, inclusivity)
 
+<!-- TOC --><a name="6-rag"></a>
 # 6. RAG 
 
 Company-wide StackOverflow system.
