@@ -18,7 +18,7 @@
 # AI-LLM-ML-CS-Quant-Review
 
 In-depth review of industry trends in AI, LLMs, Machine Learning, Computer Science, and Quantitative Finance. 
-  - <mark>[__GTC 2025 Overview & Takeaways__](https://github.com/junfanz1/AI-LLM-ML-CS-Quant-Overview/blob/main/NVIDIA%20GTC/GTC%202025.md)</mark> <img src="https://img.shields.io/github/stars/junfanz1%2FAI-LLM-ML-CS-Quant-Overview" alt="GitHub Stars" />
+  - <mark>[__GTC 2025 Review & Takeaways__](https://github.com/junfanz1/AI-LLM-ML-CS-Quant-Review/blob/main/NVIDIA%20GTC/GTC%202025.md)</mark> <img src="https://img.shields.io/github/stars/junfanz1%2FAI-LLM-ML-CS-Quant-Review" alt="GitHub Stars" />
 
 <!-- TOC --><a name="contents"></a>
 ## Contents
