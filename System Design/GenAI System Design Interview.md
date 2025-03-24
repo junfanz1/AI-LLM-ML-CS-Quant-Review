@@ -1,19 +1,16 @@
-# Contents
+[Book: Generative AI System Design Interview](https://www.amazon.com/Generative-AI-System-Design-Interview/dp/1736049143)
 
-[Generative AI System Design Interview](https://www.amazon.com/Generative-AI-System-Design-Interview/dp/1736049143)
+
+# Contents
 
 <!-- TOC start (generated with https://github.com/derlin/bitdowntoc) -->
 
 - [1. Introduction](#1-introduction)
-   * [1.1 Transformer's Self-attention Architecture](#11-transformers-self-attention-architecture)
-   * [1.2 Model Training Techniques for Large-scale models](#12-model-training-techniques-for-large-scale-models)
-      + [1.2.1 Pipeline Parallelism (PP), inter-layer](#121-pipeline-parallelism-pp-inter-layer)
-      + [1.2.2 Tensor Parallelsim (TP), intra-layer](#122-tensor-parallelsim-tp-intra-layer)
-      + [1.2.3 Hybrid Parallelism](#123-hybrid-parallelism)
-   * [1.3 Model Sampling Methods](#13-model-sampling-methods)
-   * [1.4 Evaluation](#14-evaluation)
-      + [1.4.1 Offline Evaluation](#141-offline-evaluation)
-      + [1.4.2 Online Evaluation](#142-online-evaluation)
+   * [1.1 Transformer](#11-transformer)
+   * [1.2 Training](#12-training)
+   * [1.3 Parallelism](#13-parallelism)
+   * [1.4 Sampling](#14-sampling)
+   * [1.5 Evaluation](#15-evaluation)
 - [2. Gmail Smart Compose](#2-gmail-smart-compose)
    * [2.1 Positional encoding](#21-positional-encoding)
    * [2.2 Transformer Architecture](#22-transformer-architecture)
@@ -31,15 +28,20 @@
    * [5.1 Image Encoder ](#51-image-encoder)
    * [5.2 Pipeline](#52-pipeline)
 - [6. RAG ](#6-rag)
+   * [6.1 Model Architecture](#61-model-architecture)
+   * [6.2 Sampling](#62-sampling)
+   * [6.3 Evaluation](#63-evaluation)
+- [7. Realistic Face Generation](#7-realistic-face-generation)
 
 <!-- TOC end -->
 
 <!-- TOC --><a name="1-introduction"></a>
 # 1. Introduction
 
-<!-- TOC --><a name="11-transformers-self-attention-architecture"></a>
-## 1.1 Transformer's Self-attention Architecture
+<!-- TOC --><a name="11-transformer"></a>
+## 1.1 Transformer
 
+Transformer's Self-attention Architecture
 - Self-attention: each element in the input sequence can focus on every other element, by converting inpupt embeddings for each token into 3 vectors: query Q, key K, value V.
 - Attention score has scaling factor to prevent dot-product being too large (causing very small gradients during backpropagation).
 - Softmax function ensures attention scores are normalized, summing to 1. Producing weighted sum of the value vectors V, where weights are determined by relevance of each input token indicated by attention scores.
@@ -47,31 +49,32 @@
 - Results of different heads are concatenated and then linearly transformed using output weight matrix W_O. Allowing model to jointly attend to info from different representation subspaces and capture richer dependencies.
 - While Transformers are parallelizable due to lack of strict sequential dependencies, their self-attention has O(n^2) complexity, as self-attention requires calculation of attention scores between every pair of tokens in the sequence. So we have Group Attention and Flash Attention.
 
-<!-- TOC --><a name="12-model-training-techniques-for-large-scale-models"></a>
-## 1.2 Model Training Techniques for Large-scale models
+<!-- TOC --><a name="12-training"></a>
+## 1.2 Training
 
+Model Training Techniques for Large-scale models
 - Gradient checkpointing: reduce memory usage during model training by saving only a selected subset of activations. During the backward pass, missing activations are recomputed. This reduces memory usage.
 - Automatic mixed precision (AMP) training: automatically handles transition between half and single precision, optimizing where to use each precision type and applying scaling techniques to maintain numerical stability during training.
 - Distributed training: Model(Tensor+Pipeline)/Data/Hybrid Parallelism
 
-<!-- TOC --><a name="121-pipeline-parallelism-pp-inter-layer"></a>
-### 1.2.1 Pipeline Parallelism (PP), inter-layer
+<!-- TOC --><a name="13-parallelism"></a>
+## 1.3 Parallelism
+
+Pipeline Parallelism (PP), inter-layer
 - Model layers are split across multiple devices, computations in pipeline.
 - Forward pass: each device forwards intermediate activation to next device in pipeline; Backward pass: reverse. Good for 
 - Good for deep models, as it allows multiple devices to work concurrently, reducing idle time and improving training efficiency.
 
-<!-- TOC --><a name="122-tensor-parallelsim-tp-intra-layer"></a>
-### 1.2.2 Tensor Parallelsim (TP), intra-layer
+Tensor Parallelsim (TP), intra-layer
 - Each device handles a portion of computaions for that layer, and outputs are combined before moving to next layer. Different part of matrix processed in parallel across multiple devices.
 - Good when single layer is too large to fit in memory.
 
-<!-- TOC --><a name="123-hybrid-parallelism"></a>
-### 1.2.3 Hybrid Parallelism
+Hybrid Parallelism
 - ZeRO (Zero Redundancy Optimizer)
 - FSDP (Fully Sharded Data Parallel)
 
-<!-- TOC --><a name="13-model-sampling-methods"></a>
-## 1.3 Model Sampling Methods
+<!-- TOC --><a name="14-sampling"></a>
+## 1.4 Sampling
 
 Deterministic
 - greedy search
@@ -79,19 +82,14 @@ Deterministic
   - produce coherent and relevant text but with limited diversity (not open-ended)
   - improves greedy search by considering multiple sequences simultaneously, each step tracking top-k most probable sequences
 
-
 Stochastic
 - Top-k sampling: balance coherence and diversity by picking top-k tokens, but predicted token prob can be sharply or evenly distribued.
 - Top-p (nucleus) sampling: dynamically adjust number of tokens considered based on combined probabilities, choose smallest possible set of tokens whose cumulative prob > probability p. More adaptive and flexible than top-k sampling (selecting fixed number of tokens).
 
-<!-- TOC --><a name="14-evaluation"></a>
-## 1.4 Evaluation
+<!-- TOC --><a name="15-evaluation"></a>
+## 1.5 Evaluation
 
-<!-- TOC --><a name="141-offline-evaluation"></a>
-### 1.4.1 Offline Evaluation
-
-Evalute using pre-collected data without deploying to real-time environment. 
-
+Offline Evaluation: Evalute using pre-collected data without deploying to real-time environment. 
 - Discriminative Tasks Metrics
   - Classification: Precision, Recall, F1, Accuracy, Confusion matrix
   - Regression: MSE, MAE, RMSE
@@ -101,11 +99,7 @@ Evalute using pre-collected data without deploying to real-time environment.
   - Image Generation: FID, IS, KID, SWD, PPL, LPIPS
   - Text-to-Video: FVD, CLIPScore, FID, LPIPS, KID
 
-<!-- TOC --><a name="142-online-evaluation"></a>
-### 1.4.2 Online Evaluation
-
-How models perform after deployment to production.
-
+Online Evaluation: How models perform after deployment to production.
 - Click Through Rate (CTR)
 - Conversion Rate
 - Latency (Inference time)
@@ -246,7 +240,7 @@ CNN-based
 Transformer-based 
 - Patchify: Divide image to fixed-size patches, flatten each patch, linearly project each patch.
 - Positional-encoding: Assign position info to each patch
-  - 2D positional-encoding: maps 2 integers (row, column), preserving spatial structure; 1D: maps integer to c-dimensional vector, e.g. ViT.
+  - 2D positional-encoding: maps 2 integers (row, column), preserving spatial structure; 1D: maps integer to c-dimensional vector, e.g., ViT.
   - learnable: learns positional encoding during training; fixed: positional encoding determined by sine-cosine fixed functions.
 - Can capture both local and global relationships with self-attention, context aware.
 
@@ -262,7 +256,52 @@ Transformer-based
 <!-- TOC --><a name="6-rag"></a>
 # 6. RAG 
 
-Company-wide StackOverflow system.
+Company-wide StackOverflow ChatPDF system: Indexing process (data chunks embedded using CLIP text encoder) -> Safety input filtering -> Query expansion (expand user's query to have a better flow, broaden scope of search) -> Retrieval (user query embedded, then use ANN to retrieve similar data chunks in index table) -> Generation (CoT prompt engineering, LLM with top-p sampling)
+
+- PDF document parsing: OCR (Optical Character Recognition) to identify texts, tables, diagrams from docs.
+- Doc chunking (index them into searchable database): length-based (LangChain RecursiveCharacterTextSplitter), regex-based (semantic logical breaks), html markdown code (LangChain PythonCodeTextSplitter)
+- Indexing (organize chunked data into structure for retrieval): knowledge-graph based (relationship), vector-based (good for semantic understanding, scalability, efficiency)
+
+<!-- TOC --><a name="61-model-architecture"></a>
+## 6.1 Model Architecture
+
+- Indexing: text encoder + image encoder (CLIP provides pretrained encoders with a shared embedding space, enabling cross-modal retrieval where text and data shares embedding space; or image captioning to generate textual description of image)
+- Retrieval: convert user query into the same embedding space as indexed data
+- Generation: by LLM 
+
+RAFT (Retrieval-Augmented Finetuning)
+- Document labeling: relevant doc or not
+- Joint training: LLM trained on relevant docs, minimizing influence of irrelevant docs, by penalizing irrelevant docs in loss function 
+
+<!-- TOC --><a name="62-sampling"></a>
+## 6.2 Sampling
+
+RAG system, multiple components work together to produce response.
+
+- Retrieval stage: compute query embedding (capture semantic meaning of query), use FAISS/Elasticsearch frameworks for ANN (approximate nearest neighbor) to find data similar to query, retrieve close-enough neighbors without searchign entire datasets.
+  - ANN Tree-based (data space into multiple partitions), locality-sensitive hashing (LSH, points close in space are hased into same bucket)
+  - ANN clustering-based (clusters using distance metrics like cosine similarity). Two step process (inter-cluster and intra-cluster search): narrowing down the search to a cluster, then finer search within that cluster.
+  - ANN graph-based (Hierarchical nagivable small world, HNSW): begin with higher-level coarse graph, then gradually move down to finer levels. Search refined at each level, exploring only nearby nodes, thus reducing search space.
+- Generation stage:
+  - prompt engineering (CoT, few-shot providing some examples, role-specific with necessary style, user-context)
+
+<!-- TOC --><a name="63-evaluation"></a>
+## 6.3 Evaluation
+
+- context relevance: hit rate, mean reciprocal rank (MRR), normalized discounted cumulative gain (NDCG), Precision@k
+- faithfulness: human evaluation, automated fact-checking tools, consistency checks
+- answer relevance/correctness: BLUE, ROGUE, METEOR to measure how closely the answer matches correct reference answer
+
+<!-- TOC --><a name="7-realistic-face-generation"></a>
+# 7. Realistic Face Generation
+
+
+
+
+
+
+
+
 
 
 
