@@ -133,12 +133,41 @@ Online
 <!-- TOC --><a name="3-google-translate"></a>
 # 3. Google Translate
 
+## 3.1 Architecture
 
+- Encoder: Input Sequence -> Text Embedding -> Positional Encoding -> Transformer ([Self Attention (MHA), Normalization, Feed Forward, Normalization] * N) -> Output Sequence
+- Decoder: Previously generated tokens -> Positional Encoding -> Transformer ([Self Attention (MHA), Normalization, Cross Attention (MHA), Feed Forward, Normalization] * N) -> Prediction head (linear layer + softmax to convert Transformer's output to probabilities over vocabulary) -> Predicted next token 
 
+Difference: Encoder, Decoder 
+- Cross-attention layer: Each token in decoder can attend to all embeddings in encoder, can integrate info from input sequence during output.
+- Self-attention: Encoder, each token attends to all other tokens, to understand entire sequence. Decoder, each token is restricted to only tokens come before.
 
+## 3.2 Training 
 
+Next-token prediction is not ideal for encoder-decoder pretraining, because it's unsupervised training and decoder prediction will cause cheating. So we use masked language modeling (MLM).
+- Randomly select a subset of tokens in input, and mask them.
+- Feed masked sequence to encoder to understand context
+- Feed decoder with the same input, but none of tokens are mased and sequence has been shift one position to the right by insertion of a start token.
+- Decoder predicts next token for each position in sequence. Each prediction uses all previous input tokens from encoder.
+- Calculate cross-entropy loss over predicted probabilities.
 
+Fine-tuning stage is supervised.
 
+Sampling with beam search for accuracy and consistency.
+
+## 3.3 Evaluation
+
+Offline evaluation metrics
+- BLEU (BiLingual Evaluation Understudy): count the ratio of matches, with brevity penalty, n-grams precision, weight for different n-gram precisions
+- ROUGE (Recall-Oriented Understudy for Gisting Evaluation): recall = # matching n-grams / total # n-grams in reference. Lack of contextual understanding.
+- METEOR (Metric for Evaluation of Translation with Explicit ORdering): combines precision, recall using weighted harmonic mean.
+  - Pros: Semantic understanding, balanced evaluation, correlation with human judgements
+  - Cons: Computational complexity, resource dependence.
+
+Online evaluation metrics
+- User feedback/engagements
+
+# 4. ChatGPT: Personal Assistant Chatbot 
 
 
 
