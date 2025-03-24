@@ -61,7 +61,16 @@
 <!-- TOC --><a name="13-model-sampling-methods"></a>
 ## 1.3 Model Sampling Methods
 
-Text generation: greedy search, beam search (produce coherent and relevant text but with limited diversity, track multiple potential sequences of tokens simultaneously, each step select top-k most probable sequences), top-k sampling.
+Deterministic
+- greedy search
+- beam search
+  - produce coherent and relevant text but with limited diversity (not open-ended)
+  - improves greedy search by considering multiple sequences simultaneously, each step tracking top-k most probable sequences
+
+
+Stochastic
+- Top-k sampling: balance coherence and diversity by picking top-k tokens, but predicted token prob can be sharply or evenly distribued.
+- Top-p (nucleus) sampling: dynamically adjust number of tokens considered based on combined probabilities, choose smallest possible set of tokens whose cumulative prob > probability p. More adaptive and flexible than top-k sampling (selecting fixed number of tokens).
 
 <!-- TOC --><a name="14-evaluation"></a>
 ## 1.4 Evaluation
@@ -169,17 +178,67 @@ Online evaluation metrics
 
 # 4. ChatGPT: Personal Assistant Chatbot 
 
+## 4.1 Positional Encoding
 
+- Relative positional encoding: encode differences in two tokens' positions
+- Rotary positional encoding (RoPE): represent positional info as rotation matrix applied to token embeddings.
+  - Translational invariance: encodes positional info that remains consistent even when positions of tokens shift, can handle changes in position.
+  - Relative position representation
+  - Generalization to unseen positions across varying sequence lengths 
 
+## 4.2 Training
 
+3 stage training: pretraining (on large corpus), SFT (finetunes model to adapt output to prompt-response format), RLHF (further refines model response with human alignment).
 
+RLHF: Alignment stage, final stage in training process.
+- Training reward model
+  - loss function to penalize the model when difference between winning and losinng scores is too small, with hyperparameter defining the margin (min desired diff between scores of winning and losing responses).
+  - Output: predicts relevance scores for (prompt, response) pairs, reflects human judgements.
+- Optimizing SFT model with RL
+  - Proximal Policy Optimization (PPO), to max scores predicted by reward model. Update model weights to max the expected reward that scores the responses.
+  - Direct Policy Optimization (DPO)
 
+## 4.3 Sampling 
 
+How we select tokens from model's predicted probability distribution to generate response.
 
+- temperature: control randomness by scaling logits (raw scores) of model's output before applying softmax to generate prob.
+- repetition penalty 
 
+## 4.4 ML System Design Pipeline 
 
+- Training pipeline: pretraining, SFT, RLHF
+- Inference pipeline: safety filterinng, prompt enhancer, response generator (choose one from multiple responses), response safety evaluator (detect harmful content), rejection response generator (generate a proper response when input prompt is unsafe or generated response is unsuitable, explain why request can't be fulfilled), session management 
 
+# 5. Image Captioning (Image2Text)
 
+## 5.1 Image Encoder 
+
+Attention mechanism works best with sequence inputs, as it enables decoder to focus dynamically on different regions of image during caption generation. This selectively attending to various parts of image leads to more accurate captions.
+
+CNN-based
+- Process input image, output a grid of feature vectors.
+- CNN produces 3 x 3 x c output. Transformer in the text decoder needs a sequence of features (9 x c) by flattening/reshaping operation that reorganizes features from each of 9 positions in 3 x 3 grid into a sequential format.
+- Good to capture local patterns in images, but bad at long-range dependencies between distant regions of image.
+
+Transformer-based 
+- Patchify: Divide image to fixed-size patches, flatten each patch, linearly project each patch.
+- Positional-encoding: Assign position info to each patch
+  - 2D positional-encoding: maps 2 integers (row, column), preserving spatial structure; 1D: maps integer to c-dimensional vector, e.g. ViT.
+  - learnable: learns positional encoding during training; fixed: positional encoding determined by sine-cosine fixed functions.
+- Can capture both local and global relationships with self-attention, context aware.
+
+## 5.2 Pipeline
+
+- Training: Supervised finetuning on 400 million image-caption pairs with cross entropy loss on next-token prediction.
+- Sampling: beam search for coherence
+- Offline evaluation metric: CIDEr, use consensus to evaluate similarity of generated caption to a set of reference captions (robust to different caption variations).
+  - Represent captions using TF-IDF (good that sensitive to important words, but bad that lack of semantic understanding), calculate cosine similarities, aggregate similarity scores
+- System Design: Image preprocessing -> caption generator (beam search for trained model) -> post-processing (fairness, inclusivity)
+
+# 6. RAG 
+
+Company-wide StackOverflow system.
 
 
 
