@@ -276,11 +276,21 @@ Quant Job Interview Questions and Answers (Second Edition) – by Mark Joshi 201
 
 ---
 
-Connect me: 
-[LinkedIn](https://www.linkedin.com/in/junfan-zhu/)
-
-Leave a message to me:
-[junfanzhu98@gmail.com](mailto:junfanzhu98@gmail.com)
+<div align="left">
+  <marquee behavior="alternate" scrollamount="3">
+    <strong>Connect with me:</strong>
+    &nbsp;
+    <a href="https://github.com/junfanz1">GitHub</a> •
+    <a href="https://www.overleaf.com/read/jcgfkzhyfvdv#57139d">Resume</a> •
+    <a href="https://www.linkedin.com/in/junfan-zhu/">LinkedIn</a> •
+    <a href="https://x.com/junfanzhu98">X</a> •
+    <a href="mailto:junfanzhu98@gmail.com">Email</a> •
+    <a href="https://www.instagram.com/junfan_zhu/">Instagram</a> •
+    <a href="https://www.facebook.com/junfan.zhu.961/">Facebook</a> •
+    <a href="https://www.douban.com/people/junfanz/">Douban</a> •
+    <a href="junfanzhu98">WeChat</a>
+  </marquee>
+</div>
 
 <!-- TOC --><a name="star-history"></a>
 ## Star History
