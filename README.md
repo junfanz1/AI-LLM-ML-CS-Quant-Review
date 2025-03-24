@@ -15,9 +15,9 @@
 </div>
 
 
-# AI-LLM-ML-CS-Quant-Overview
+# AI-LLM-ML-CS-Quant-Review
 
-In-depth overview of industry trends in AI, LLMs, Machine Learning, Computer Science, and Quantitative Finance. 
+In-depth review of industry trends in AI, LLMs, Machine Learning, Computer Science, and Quantitative Finance. 
   - <mark>[__GTC 2025 Overview & Takeaways__](https://github.com/junfanz1/AI-LLM-ML-CS-Quant-Overview/blob/main/NVIDIA%20GTC/GTC%202025.md)</mark> <img src="https://img.shields.io/github/stars/junfanz1%2FAI-LLM-ML-CS-Quant-Overview" alt="GitHub Stars" />
 
 <!-- TOC --><a name="contents"></a>
@@ -35,7 +35,6 @@ In-depth overview of industry trends in AI, LLMs, Machine Learning, Computer Sci
    * [LLM Applications](#llm-applications)
    * [RAG](#rag)
    * [Multi-Agent Systems](#multi-agent-systems)
-   * [Cheat Sheet](#cheat-sheet)
 - [5. LLM Foundations ](#5-llm-foundations)
 - [6. System Design](#6-system-design)
    * [System Design Interview](#system-design-interview)
@@ -154,11 +153,6 @@ In-depth overview of industry trends in AI, LLMs, Machine Learning, Computer Sci
 > [Educative: Build AI Agents and Multi-Agent Systems with CrewAI](https://www.educative.io/verify-certificate/k5m3gACoj1xDYoOq7c0Kjk4y2AoGTn) | [__Notes__](https://github.com/junfanz1/AI-LLM-ML-CS-Quant-Readings/blob/main/AI%20LLM/CrewAI.md)
 
 > [GeekBang: AI Agents](https://time.geekbang.org/course/intro/100775901?tab=catalog) | [__Notes-Chinese__](https://github.com/junfanz1/AI-LLM-ML-CS-Quant-Readings/blob/main/AI%20LLM/AI%20Agent.md)
-
-<!-- TOC --><a name="cheat-sheet"></a>
-## Cheat Sheet
-
-> [__Notes-Chinese__](https://github.com/junfanz1/AI-ML-CS-Quant-Readings/tree/main/AI%20LLM)
 
 <!-- TOC --><a name="5-llm-foundations"></a>
 # 5. LLM Foundations 
