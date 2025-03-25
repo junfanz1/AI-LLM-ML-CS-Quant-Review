@@ -1,5 +1,6 @@
 [Book: Generative AI System Design Interview](https://www.amazon.com/Generative-AI-System-Design-Interview/dp/1736049143)
 
+ <img src="https://github.com/user-attachments/assets/74e6f3ad-b189-4aa1-b5f4-43ecac9a5b9c" width="30%">
 
 # Contents
 
@@ -44,6 +45,19 @@
       + [7.3.1 Training Challenges](#731-training-challenges)
    * [7.4 Sampling](#74-sampling)
    * [7.5 Evaluation](#75-evaluation)
+- [8. High-Resolution Image Synthesis ](#8-high-resolution-image-synthesis)
+   * [8.1 Architecture](#81-architecture)
+   * [8.2 Training ](#82-training)
+   * [8.3 Sampling](#83-sampling)
+- [9. Text2Image](#9-text2image)
+   * [9.1 Diffusion vs. Autoregressive](#91-diffusion-vs-autoregressive)
+   * [9.2 Model Architecture](#92-model-architecture)
+   * [9.3 Training ](#93-training)
+   * [9.4 Sampling](#94-sampling)
+   * [9.5 Challenges](#95-challenges)
+   * [9.6 Evaluation ](#96-evaluation)
+- [10. Personalized Text2Image](#10-personalized-text2image)
+   * [10.1 ](#101)
 
 <!-- TOC end -->
 
@@ -426,6 +440,7 @@ Frechet inception distance (FID): how similar the distribution of generated imag
 - calculate mean and covariance: summarize distribution of features for both sets of images
 - compute Frechet distance between mean and covariance of generated and real images, that how close two distributions are, lower FID means more similar.  
 
+<!-- TOC --><a name="8-high-resolution-image-synthesis"></a>
 # 8. High-Resolution Image Synthesis 
 
 Generation service, decoding service, super-resolution service
@@ -434,6 +449,7 @@ As resolution increases, need decoder with high capacity to capture details, but
 
 Autoregressive models are slow due to sequential nature, where each pixel depends on the ones generated before it with O(N^2) complexity. We can use Transformer-based autoregressive model to fastly generate image chunk by chunk instead of pixel by pixel. Diffusion model increase complexity super-linearly with image size with O(TN^2) complexity, N = pixels, T = denoising steps.
 
+<!-- TOC --><a name="81-architecture"></a>
 ## 8.1 Architecture
 
 Image tokenizer
@@ -454,6 +470,7 @@ Image generator, with decoder-only Transformer
 - transformer = N * [Multi-head Attention + Normalization + Feed Forward + Normalization]: process input sequence and outputs updated sequence of vectors
 - prediction head: use updated embeddings to predict next token
 
+<!-- TOC --><a name="82-training"></a>
 ## 8.2 Training 
 
 Image tokenizer
@@ -471,14 +488,101 @@ loss function = weighted sum of below 4
 
 Image generator: cross-entropy loss function to measure how accurate predicted prob are compared to correct visual tokens
 
+<!-- TOC --><a name="83-sampling"></a>
 ## 8.3 Sampling
 
 - generate sequence of discrete tokens: randomly select token from codebook as initial token, seed for the rest of generation. Then augoregressively generate tokens one by one (predict prob distribution over codebook, top-p sampling for next token).
 - decode discrete tokens into image
 
+<!-- TOC --><a name="9-text2image"></a>
 # 9. Text2Image
 
-## 
+Data pipeline (use pretrained model like T5), training pipeline (diffusion), model optimization pipeline (model compression, distillation, faster algorithms for sampling), inference pipeline (prompt enhancement, harm detection, super-resolution service)
+
+<!-- TOC --><a name="91-diffusion-vs-autoregressive"></a>
+## 9.1 Diffusion vs. Autoregressive
+- Autoregressive:
+  - frame text2image as sequence generation task, simple to implement, uniform architecture for different modalities
+  - simpler to implement during training: can obtain useful gradient signals from all steps in single forward-backward pass, while diffusion is less statistically efficient, requiring sampling of different noise levels for each training example.
+- Diffusion: is an iterative refinement process, good for exceptional realism and details, flexible in trading off sampling speed and image quality, can adjust samplings steps with more steps for higher-quality.
+- Both are slow, with billions parameters, expensive to train
+
+<!-- TOC --><a name="92-model-architecture"></a>
+## 9.2 Model Architecture
+
+Use pretrained model (CLIP) to score relevance of each image-caption pair. For pairs scoring below threshold, replace original caption with auto-generated one using BLIP-3.
+
+U-Net = N * Downsampling blocks + M * Upsampling blocks
+- Downsampling blocks: progressively reduce spatial dimensions (height, width) while increasing depth (# channels), leading to compressed representation of input.
+  - convolution operation `Conv2D`: extract visual features from input
+  - batch normalization `BatchNorm2D`: normalize feature maps to stabilize training
+  - nonlinear activation `ReLU`
+  - max-pooling `MaxPool2D`: reduce feature map dimensions
+  - cross-attention: to additional conditions like text prompt tokens, to ensure text prompt influence predicted noise.
+    - Transformer encoder converts tokens into a sequence of continuous embeddings, capturing semantic meaning.
+    - During each denoising step of diffusion process, model receives noisy image as input and process through `Conv2D` and `BatchNorm2D` to extract visual features.
+    - Can align and integrate info from text into image featuers, using queries from image features and keys/values from text embeddings.
+- Upsampling blocks: increase dimensions and decrease feature map depth
+  - transposed convolution `ConvTranspose2D`: increase feature map's dimensions
+  - batch normalization, to stablize training
+  - nonlinear activation
+  - cross-attention
+
+DiT
+- Patchify: convert input image to sequence of patch embeddings
+- Positional encoding: attach position info to each patch embedding
+- Transformer: process sequence of embeddings and conditional signals (text prompt), to predict noise for each patch
+- Unpatchify: convert sequence of predicted noise vectors into image
+
+<!-- TOC --><a name="93-training"></a>
+## 9.3 Training 
+
+Concepts
+- Forward process (noising): add noise over multiple steps, until image completely noisy
+- Backward process (denoising): predict noise in noisy image, to reduce noise in input image
+
+Steps
+- Noise addition: corrupt image slightly by adding Gaussian noise, smaller noise in early steps to preserve original image, larger noise in later steps to accelerate diffusion.
+- Preparation of conditional signals: image caption and sampled timestep (noise level), use separate encoders to prepare
+- Noise prediction
+- Loss calculation: MSE between true noise and predicted noise 
+
+<!-- TOC --><a name="94-sampling"></a>
+## 9.4 Sampling
+
+- Classifier-free guidance (CFG): improve alignment between images and text prompts in diffusion models. During training, model learns to generate images with and without text prompt. During sampling, adjust balance between two modes.
+- Reduce diffusion steps: sampling algorithm like DDIM reduce number of diffusion steps from 1000 to 20.
+
+<!-- TOC --><a name="95-challenges"></a>
+## 9.5 Challenges
+
+- resource-intensive training: can use mixed precision training, model/data parallelism, latent diffusion model
+- slow: parallel sampling, model distillation, model quantization
+
+<!-- TOC --><a name="96-evaluation"></a>
+## 9.6 Evaluation 
+
+Offline: Image-text alignment
+- CLIP (learn to align embeddings by bringing related text and image embeddings closer, and pushing unrelated apart), CLIPScore (cosine similarity between CLIP embeddings of a text and image).
+
+Online: CTR, conversion rate, latency, throughput, resource utilization, avg cost per user per month, etc.
+
+<!-- TOC --><a name="10-personalized-text2image"></a>
+# 10. Personalized Text2Image
+
+<!-- TOC --><a name="101"></a>
+## 10.1 
+
+
+
+
+
+
+
+
+
+
+
 
 
 
