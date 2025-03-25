@@ -208,7 +208,7 @@ Machine Learning System Design Interview - by Ali Aminian, Alex Xu, 2023
 
 > [Book Link](https://book.douban.com/subject/36370606/) | [__PDF Notes-Chinese__](https://github.com/junfanz1/Quant-Books-Notes/blob/main/Computer%20Systems/Notes%20on%20Computer%20Systems%20-%20Chinese.pdf)
   
-<img src="https://github.com/user-attachments/assets/5d41a90f-1188-42d2-9a08-b5b3efc33130" width="30%" height="30%">
+<img src="https://github.com/user-attachments/assets/5d41a90f-1188-42d2-9a08-b5b3efc33130" width="35%" height="35%">
 
 <!-- TOC --><a name="8-big-data-and-ai-in-finance-econometrics-and-statistics-conference-uchicago-2024"></a>
 # 8. Big Data and AI in Finance, Econometrics and Statistics Conference, UChicago 2024
@@ -308,62 +308,3 @@ Quant Job Interview Questions and Answers (Second Edition) – by Mark Joshi 201
 
 [![Star History Chart](https://api.star-history.com/svg?repos=junfanz1/AI-LLM-ML-CS-Quant-Readings&type=Date)](https://www.star-history.com/#junfanz1/AI-LLM-ML-CS-Quant-Readings&Date)
 
-
----
-
-
-
-
-<!-- 
-
-Future Readings:
-
-<!-- TOC --><a name="100-distributed-systems"></a>
-# 100. Distributed Systems
-
-深入理解分布式系统，唐伟志 - 2022，电子工业出版社
-
-> [Book Link](https://book.douban.com/subject/35794814/)
-
-
-<!-- TOC --><a name="101-language-models"></a>
-# 101. Language Models
-
-预训练语言模型，邵浩 刘一烽 - 2021，电子工业出版社
-
-> [Book Link](https://book.douban.com/subject/35458428/)
-
-
-<!-- TOC --><a name="102-designing-machine-learning-systems"></a>
-# 102. Designing Machine Learning Systems
-
-Designing Machine Learning Systems: An Iterative Process for Production-Ready Applications - by Chip Huyen
-
-> [Book Link](https://www.amazon.com/Designing-Machine-Learning-Systems-Production-Ready/dp/1098107969)
-
-
-<!-- TOC --><a name="103-designing-data-intensive-applications-ddia"></a>
-# 103. Designing Data-Intensive Applications (DDIA)
-
-Designing Data-Intensive Applications: The Big Ideas Behind Reliable, Scalable, and Maintainable Systems
-Book - by Martin Kleppmann
-
-> [Book Link](https://www.amazon.com/Designing-Data-Intensive-Applications-Reliable-Maintainable/dp/1449373321)
-
-
-<!-- TOC --><a name="104-distributed-machine-learning"></a>
-# 104. Distributed Machine Learning
-
-分布式机器学习，刘铁岩等 - 2018，机械工业出版社
-
-> [Book Link](https://book.douban.com/subject/30360968/)
-
-
-<!-- TOC --><a name="105-the-elements-of-quantitative-investing"></a>
-# 105. The Elements of Quantitative Investing
-
-The Elements of Quantitative Investing - by Giuseppe Paleologo 2025
-
-> [Book Link](https://booksonfirst.com/book/9781394265459)
-
--->
