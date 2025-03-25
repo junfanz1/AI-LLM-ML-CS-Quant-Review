@@ -187,7 +187,7 @@ Machine Learning System Design Interview - by Ali Aminian, Alex Xu, 2023
 > [Book Link](https://www.amazon.com/Machine-Learning-System-Design-Interview/dp/1736049127) | [__Markdown Notes__]
 
 <div style="display: flex; justify-content: space-around;">
-  <img src="https://github.com/user-attachments/assets/2bc97b4d-565b-4c8e-9915-23d1693635aa" width="30%">
+  <img src="https://github.com/user-attachments/assets/2bc97b4d-565b-4c8e-9915-23d1693635aa" width="25%">
   <img src="https://github.com/user-attachments/assets/74e6f3ad-b189-4aa1-b5f4-43ecac9a5b9c" width="30%">
   <img src="https://github.com/user-attachments/assets/78c720a1-2823-4dbe-854c-3e9936abd407" width="30%">
 </div>
