@@ -208,8 +208,7 @@ Machine Learning System Design Interview - by Ali Aminian, Alex Xu, 2023
 
 > [Book Link](https://book.douban.com/subject/36370606/) | [__PDF Notes-Chinese__](https://github.com/junfanz1/Quant-Books-Notes/blob/main/Computer%20Systems/Notes%20on%20Computer%20Systems%20-%20Chinese.pdf)
   
-![image](https://github.com/user-attachments/assets/5d41a90f-1188-42d2-9a08-b5b3efc33130)
-
+<img src="https://github.com/user-attachments/assets/5d41a90f-1188-42d2-9a08-b5b3efc33130" width="60%" height="60%">
 
 <!-- TOC --><a name="8-big-data-and-ai-in-finance-econometrics-and-statistics-conference-uchicago-2024"></a>
 # 8. Big Data and AI in Finance, Econometrics and Statistics Conference, UChicago 2024
