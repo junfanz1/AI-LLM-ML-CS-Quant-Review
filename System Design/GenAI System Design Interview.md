@@ -420,9 +420,7 @@ Inception score: evaluate quality of generated images in GAN, in diversity (chec
 - compute KL divergence: how different the predicted class distribution for each image is from the marginal distribution. High quality image has distribution different from marginal distribution, because it has a peak in distribution, not uniform, if image is diverse.
 - calculate inception score: exponentiated average of KL divergence across all images. High inception score = individual images are confidently classified into various classes, and generated images are diverse and high quality.
 
-Frechet inception distance (FID): how similar the distribution of generated images is to the distribution of real images. Unlike Inception score using class probabilities, FID considers the statistics of features extracted by pretrained model (Inception v3, trained on large diverse dataset ImageNet and can extract meaningful features of content/style of images). 
-
-FID measures diversity (covaraince of features reflect spread and variation in image) and quality (FID ensures generated images are high-quality by comparing their feature distribution to real images).
+Frechet inception distance (FID): how similar the distribution of generated images is to the distribution of real images. Unlike Inception score using class probabilities, FID considers the statistics of features extracted by pretrained model (Inception v3, trained on large diverse dataset ImageNet and can extract meaningful features of content/style of images). FID measures diversity (covaraince of features reflect spread and variation in image) and quality (FID ensures generated images are high-quality by comparing their feature distribution to real images).
 - generating images
 - extracting features: pass (generated and real) images through Inception v3 and extract features (activations) from specific layer (one near the end of network). Features from this deep layer capture high-level info (shapes, textures, objects) to assess realism of images.
 - calculate mean and covariance: summarize distribution of features for both sets of images
@@ -430,20 +428,57 @@ FID measures diversity (covaraince of features reflect spread and variation in i
 
 # 8. High-Resolution Image Synthesis 
 
+Generation service, decoding service, super-resolution service
 
+As resolution increases, need decoder with high capacity to capture details, but decoder can be powerful to ignore input from latent space, so latent variables contribute little to generation process, reducing diversity of images. 
 
+Autoregressive models are slow due to sequential nature, where each pixel depends on the ones generated before it with O(N^2) complexity. We can use Transformer-based autoregressive model to fastly generate image chunk by chunk instead of pixel by pixel. Diffusion model increase complexity super-linearly with image size with O(TN^2) complexity, N = pixels, T = denoising steps.
 
+## 8.1 Architecture
 
+Image tokenizer
+- encode image into sequence of discrete tokens
+- decode sequence of discrete tokens back to image
 
+Vector-Quantized VAE (VQ-VAE)
+- encoder (deep CNN): image -> N * [Conv2D + ReLU] -> Conv2D -> Encoded representation in lower-dimensional latent space
+- quantizer: convert continuous latent vectors to discrete tokens and output a collection of token IDs, it's an embedding table with sole parameter being a codebook, which is learned during training.
+  - avoid posterior collapse: decoder generate accurate outputs without using latent space, quantization force model to use discrete latent variables during reconstruction so decoder doesn't overpower the latent space, and keep latent variables actively involved in shaping outputs.
+  - reduce learning space: continuous vectors are difficult to predict sequentially as they have endless possibilities and small differences, quantizer allow Transformer to focus on fewer options.
+- decoder (deep CNN) : codebook -> embedding lookup -> N * [Transposed conv `ConvTranspose2d` + ReLU] -> image 
 
+Image generator, with decoder-only Transformer
+- embedding lookup: replace each discrete token with its embedding from codebook
+- projection: project each token embedding into dimensionality 
+- positionnal encoding: adds positional encodings to sequence to add spatial info
+- transformer = N * [Multi-head Attention + Normalization + Feed Forward + Normalization]: process input sequence and outputs updated sequence of vectors
+- prediction head: use updated embeddings to predict next token
 
+## 8.2 Training 
 
+Image tokenizer
 
+- encoder process input image and convert to continuous representation
+- quantizer replace continuous representation with discrete tokens using internal cookbook
+- decoder use discrete tokens to reconstruct original image
 
+loss function = weighted sum of below 4
+- reconstruction loss: difference between original and reconstructed images
+- quantization loss: distance between encoder's outputs and nearest embeddings in codebook, encourage encoder to produce outputs closer to codebook embeddings
+- For high resolutions
+  - perceptual loss: difference between features of original and reconstructed images extracted from a specific layer of pretrained model (VGG)
+  - adversarial loss: how well image reconstructed by image tokenizer can fool discriminator
 
+Image generator: cross-entropy loss function to measure how accurate predicted prob are compared to correct visual tokens
 
+## 8.3 Sampling
 
+- generate sequence of discrete tokens: randomly select token from codebook as initial token, seed for the rest of generation. Then augoregressively generate tokens one by one (predict prob distribution over codebook, top-p sampling for next token).
+- decode discrete tokens into image
 
+# 9. Text2Image
+
+## 
 
 
 
