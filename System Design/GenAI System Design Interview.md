@@ -32,17 +32,18 @@
    * [6.2 Sampling](#62-sampling)
    * [6.3 Evaluation](#63-evaluation)
 - [7. Realistic Face Generation](#7-realistic-face-generation)
-   * [VAE](#vae)
-   * [GAN ](#gan)
-   * [Autoregressive (DALL-E)](#autoregressive-dall-e)
-   * [Diffusion](#diffusion)
-   * [GAN Architecture ](#gan-architecture)
-      + [Generator](#generator)
-      + [Discriminator ](#discriminator)
-   * [Adversarial Training ](#adversarial-training)
-      + [Training Challenges](#training-challenges)
-   * [Sampling](#sampling)
-   * [Evaluation](#evaluation)
+   * [7.1 Choose ML](#71-choose-ml)
+      + [7.1.1 VAE](#711-vae)
+      + [7.1.2 GAN ](#712-gan)
+      + [7.1.3 Autoregressive (DALL-E)](#713-autoregressive-dall-e)
+      + [7.1.4 Diffusion](#714-diffusion)
+   * [7.2 GAN Architecture ](#72-gan-architecture)
+      + [7.2.1 Generator](#721-generator)
+      + [7.2.2 Discriminator ](#722-discriminator)
+   * [7.3 Adversarial Training ](#73-adversarial-training)
+      + [7.3.1 Training Challenges](#731-training-challenges)
+   * [7.4 Sampling](#74-sampling)
+   * [7.5 Evaluation](#75-evaluation)
 
 <!-- TOC end -->
 
@@ -306,24 +307,27 @@ RAG system, multiple components work together to produce response.
 <!-- TOC --><a name="7-realistic-face-generation"></a>
 # 7. Realistic Face Generation
 
-<!-- TOC --><a name="vae"></a>
-## VAE
+<!-- TOC --><a name="71-choose-ml"></a>
+## 7.1 Choose ML
+
+<!-- TOC --><a name="711-vae"></a>
+### 7.1.1 VAE
 VAE can generate new images by sampling points from learned distribution and use decoder to map these points into image.
 - Encoder: NN that maps input image into lower-dimensiona space (latent space, as an output).
 - Decoder: Another NN that maps encoded representation into an image.
 - Pros: simple architecture, fast image generation, stable training, compression capability
 - Cons: less realistic images, blurriness, limited novelty, limited control in generation
 
-<!-- TOC --><a name="gan"></a>
-## GAN 
+<!-- TOC --><a name="712-gan"></a>
+### 7.1.2 GAN 
 
 - Generator: NN that converts random noise into image. Learn to make realistic images.
 - Discriminator: Another NN that determines whether a given image is real or human-generated. Distinguish real from generated ones.
 - Pros: high-quality, fast generation, attribute control (e.g. age, expression in face)
 - Cons: training instability (mode collapse, non-convergence), limited control, limited novelty
 
-<!-- TOC --><a name="autoregressive-dall-e"></a>
-## Autoregressive (DALL-E)
+<!-- TOC --><a name="713-autoregressive-dall-e"></a>
+### 7.1.3 Autoregressive (DALL-E)
 
 Each part of image is generated sequentially using Transformer.
 - Autoregressive training: Image -> convert to sequence -> Transformer
@@ -331,18 +335,18 @@ Each part of image is generated sequentially using Transformer.
 - Pros: high detail and realism, stable training, control over generation using additional inputs (text prompts), support multimodal conditioning (audio, etc), novelty
 - Cons: slow, resource-intensive, limited image manipulation (no strucuted latent space like VAE or GAN)
 
-<!-- TOC --><a name="diffusion"></a>
-## Diffusion
+<!-- TOC --><a name="714-diffusion"></a>
+### 7.1.4 Diffusion
 
 Formulate image generation as iterative process. Noise is gradually added to images, NN is trained to predict this noise, beginning with random noise and iteratively denoise the image.
 - Pros: high detail and realism, stable training, control over generation, novelty, robustness to noisy images
 - Cons: slow, resource-intensive, limited image manipulation
 
-<!-- TOC --><a name="gan-architecture"></a>
-## GAN Architecture 
+<!-- TOC --><a name="72-gan-architecture"></a>
+## 7.2 GAN Architecture 
 
-<!-- TOC --><a name="generator"></a>
-### Generator
+<!-- TOC --><a name="721-generator"></a>
+### 7.2.1 Generator
 
 Transform low-dimensional noise vector into 2D image, generator = N * upsampling blocks [= ConvTranspose2D + BatchNorm2D + ReLU], where final block uses Tanh instead of ReLU (to ensure output range [-1, 1], matching range of image pixels).
 - Transposed/Upsampling convolution (Deconvolution): to increase spatial resolution of feature maps. For image generation, semantic segmentaion, super-resolution.
@@ -363,15 +367,15 @@ Transform low-dimensional noise vector into 2D image, generator = N * upsampling
     - Used when Batch Normalization fails due to small batch size, or layer behavior consistency is needed across groups of features
 - Nonlinear activation (ReLU) 
 
-<!-- TOC --><a name="discriminator"></a>
-### Discriminator 
+<!-- TOC --><a name="722-discriminator"></a>
+### 7.2.2 Discriminator 
 
 Binary classifier, take in image, output prob that image is real discriminator = N * downsampling blocks [= Conv2D + BatchNorm2D + ReLU] + classification head = [Fully Connected + Sigmoid activation function] (ensure prob output in [0, 1]).
 - Downsampling blocks: reduce spatial dimensions of input image while extracing features, with convolution. PyTorch layer name `Conv2D` with stride = 2 to have spatial dimensions.
 - Classification head: given extracted features, predict prob that it's real. 
 
-<!-- TOC --><a name="adversarial-training"></a>
-## Adversarial Training 
+<!-- TOC --><a name="73-adversarial-training"></a>
+## 7.3 Adversarial Training 
 
 Generator-discriminator trained simultaneously, avoid one dominates the other, ensure both improve together. Alternative between 2 steps:
 - Train discriminator for a few iterations, freeze generator.
@@ -382,8 +386,8 @@ Loss function
 - Generator: max for all fake images
 - GAN's minimax loss: unify generator's and discriminator's losses into a single function: discriminator max the loss and generator min the loss.
 
-<!-- TOC --><a name="training-challenges"></a>
-### Training Challenges
+<!-- TOC --><a name="731-training-challenges"></a>
+### 7.3.1 Training Challenges
 
 - Vanishing gradients: when discriminator too good at distinguishing fake and reak, it provides small gradient for generator. Solution:
   - Modify minimax loss (generator to max prob of fake images being identified as real, rather than min the prob of fake images being identified as fake)
@@ -395,8 +399,8 @@ Loss function
   - regularization (weight decay) prevents overfitting
   - add noise to discriminator inputs to prevent it being too powerful early on, balance competition
 
-<!-- TOC --><a name="sampling"></a>
-## Sampling
+<!-- TOC --><a name="74-sampling"></a>
+## 7.4 Sampling
 
 Sampling process to generate new images from trained GAN.
 
@@ -404,7 +408,7 @@ Sample a latent vector from a learned latent space.
   - random sampling (ensure diversity by exploring entire latent space), by Gaussian distribution to draw latent vectors from latent space. 
   - truncated sampling (focus on high-prob region to enhance realism), to restrict latent vectors to samller, high-prob region of latent space. Can reduce generating outliers, high-quality images, good for realism.
 
-<!-- TOC --><a name="evaluation"></a>
-## Evaluation
+<!-- TOC --><a name="75-evaluation"></a>
+## 7.5 Evaluation
 
 
