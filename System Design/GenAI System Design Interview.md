@@ -32,6 +32,17 @@
    * [6.2 Sampling](#62-sampling)
    * [6.3 Evaluation](#63-evaluation)
 - [7. Realistic Face Generation](#7-realistic-face-generation)
+   * [VAE](#vae)
+   * [GAN ](#gan)
+   * [Autoregressive (DALL-E)](#autoregressive-dall-e)
+   * [Diffusion](#diffusion)
+   * [GAN Architecture ](#gan-architecture)
+      + [Generator](#generator)
+      + [Discriminator ](#discriminator)
+   * [Adversarial Training ](#adversarial-training)
+      + [Training Challenges](#training-challenges)
+   * [Sampling](#sampling)
+   * [Evaluation](#evaluation)
 
 <!-- TOC end -->
 
@@ -295,13 +306,105 @@ RAG system, multiple components work together to produce response.
 <!-- TOC --><a name="7-realistic-face-generation"></a>
 # 7. Realistic Face Generation
 
+<!-- TOC --><a name="vae"></a>
+## VAE
+VAE can generate new images by sampling points from learned distribution and use decoder to map these points into image.
+- Encoder: NN that maps input image into lower-dimensiona space (latent space, as an output).
+- Decoder: Another NN that maps encoded representation into an image.
+- Pros: simple architecture, fast image generation, stable training, compression capability
+- Cons: less realistic images, blurriness, limited novelty, limited control in generation
 
+<!-- TOC --><a name="gan"></a>
+## GAN 
 
+- Generator: NN that converts random noise into image. Learn to make realistic images.
+- Discriminator: Another NN that determines whether a given image is real or human-generated. Distinguish real from generated ones.
+- Pros: high-quality, fast generation, attribute control (e.g. age, expression in face)
+- Cons: training instability (mode collapse, non-convergence), limited control, limited novelty
 
+<!-- TOC --><a name="autoregressive-dall-e"></a>
+## Autoregressive (DALL-E)
 
+Each part of image is generated sequentially using Transformer.
+- Autoregressive training: Image -> convert to sequence -> Transformer
+- Autoregressive inference: Transformer (random seed to start, ..., end token) -> convert back to image -> generated image 
+- Pros: high detail and realism, stable training, control over generation using additional inputs (text prompts), support multimodal conditioning (audio, etc), novelty
+- Cons: slow, resource-intensive, limited image manipulation (no strucuted latent space like VAE or GAN)
 
+<!-- TOC --><a name="diffusion"></a>
+## Diffusion
 
+Formulate image generation as iterative process. Noise is gradually added to images, NN is trained to predict this noise, beginning with random noise and iteratively denoise the image.
+- Pros: high detail and realism, stable training, control over generation, novelty, robustness to noisy images
+- Cons: slow, resource-intensive, limited image manipulation
 
+<!-- TOC --><a name="gan-architecture"></a>
+## GAN Architecture 
 
+<!-- TOC --><a name="generator"></a>
+### Generator
+
+Transform low-dimensional noise vector into 2D image, generator = N * upsampling blocks [= ConvTranspose2D + BatchNorm2D + ReLU], where final block uses Tanh instead of ReLU (to ensure output range [-1, 1], matching range of image pixels).
+- Transposed/Upsampling convolution (Deconvolution): to increase spatial resolution of feature maps. For image generation, semantic segmentaion, super-resolution.
+  -  Insert zeroes between pixels of input feature map, expanded input is convolved with a filter, where stride (controls how much filter moves across the input during convolution, larger strides skip more pixels) and paddling (adds extra borders around input to control output size during convolution) are adjusted to achieve desired output size.
+  -  PyTorch layer name `ConvTranspose2d`
+- Normalization layer: scale input data to have consistent distribution to improve training stability, as GAN is unstable due to generator-discriminator compete against each other, causing mode collapse, oscillations. Normalization stabilize training by scaling activations at each layer, reducing risk of vanishing/exploding gradients, balance competition between generator-discriminator. We can use high learning rate, speed up training, reduce time for convergence. 
+  - Batch Normalization: normalize inputs of a layer across the batch dimension by calculating mean and variance for each feature, normalized data then scaled and shifted using learnable parameters.
+    - Good: allow for higher learning rates, speed up training. Regularizer, reduce overfitting.
+    - Used in deep NN like CNN, GAN.
+  - Layer Normalization: normalize inputs across features of each individual sample, rather than across batch dimension, by calculating mean and variance for each feature across entire feature vector of each sample.
+    - Good: effective in settings where batch sizes are small or variable, like RNN, Transformer.
+    - Used in sequence models and consistent-behavior across samples.
+  - Instance Normalization: normalize across each feature map individually for each sample
+    - Good: for appearance of individual samples varies widely, allowing network to focus on content rather than style
+    - Used in style transfer, image generation
+  - Group Normalization: divide features into groups and normalize within each group, a balance between Batch Normalization and Layer Normalization.
+    - Good: for small batch sizes, where batch normalization is not effective
+    - Used when Batch Normalization fails due to small batch size, or layer behavior consistency is needed across groups of features
+- Nonlinear activation (ReLU) 
+
+<!-- TOC --><a name="discriminator"></a>
+### Discriminator 
+
+Binary classifier, take in image, output prob that image is real discriminator = N * downsampling blocks [= Conv2D + BatchNorm2D + ReLU] + classification head = [Fully Connected + Sigmoid activation function] (ensure prob output in [0, 1]).
+- Downsampling blocks: reduce spatial dimensions of input image while extracing features, with convolution. PyTorch layer name `Conv2D` with stride = 2 to have spatial dimensions.
+- Classification head: given extracted features, predict prob that it's real. 
+
+<!-- TOC --><a name="adversarial-training"></a>
+## Adversarial Training 
+
+Generator-discriminator trained simultaneously, avoid one dominates the other, ensure both improve together. Alternative between 2 steps:
+- Train discriminator for a few iterations, freeze generator.
+- Train generator for a few iterations, freeze discriminator.
+
+Loss function
+- Discriminator: min binary cross-entropy, loss contribution from real images + loss contribution from fake images
+- Generator: max for all fake images
+- GAN's minimax loss: unify generator's and discriminator's losses into a single function: discriminator max the loss and generator min the loss.
+
+<!-- TOC --><a name="training-challenges"></a>
+### Training Challenges
+
+- Vanishing gradients: when discriminator too good at distinguishing fake and reak, it provides small gradient for generator. Solution:
+  - Modify minimax loss (generator to max prob of fake images being identified as real, rather than min the prob of fake images being identified as fake)
+  - Wasserstein GAN. Discriminator for WGAN (critic) outputs a score representing realness of image, instead of classifying image as real/fake, objective is to max the critic loss. WGAN generator to max prob of fake images being identified as eral.
+- Mode collapse: generator produce limited variety of images to trick the system by keep producing same image to fool discriminator, and never learns to generate other images. Solution: WGAN, Unrolled GAN.
+- Not converge: as generator improves, discriminator declines, because of difficulty, and it can't converge as feedback becomes less useful to generator but generator keep training on useless feedback. Solution:
+  - batch normalization to stablize training by ensuring consistent distributions across layers.
+  - different learning rates to balance their progress and avoid instability
+  - regularization (weight decay) prevents overfitting
+  - add noise to discriminator inputs to prevent it being too powerful early on, balance competition
+
+<!-- TOC --><a name="sampling"></a>
+## Sampling
+
+Sampling process to generate new images from trained GAN.
+
+Sample a latent vector from a learned latent space. 
+  - random sampling (ensure diversity by exploring entire latent space), by Gaussian distribution to draw latent vectors from latent space. 
+  - truncated sampling (focus on high-prob region to enhance realism), to restrict latent vectors to samller, high-prob region of latent space. Can reduce generating outliers, high-quality images, good for realism.
+
+<!-- TOC --><a name="evaluation"></a>
+## Evaluation
 
 
