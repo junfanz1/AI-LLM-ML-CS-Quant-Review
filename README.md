@@ -61,7 +61,7 @@ In-depth review of industry trends in AI, LLMs, Machine Learning, Computer Scien
 <!-- TOC --><a name="1-nvidia-gtc-ai-conference-for-developers"></a>
 # 1. NVIDIA GTC | AI Conference for Developers
 
-![image](https://github.com/user-attachments/assets/73e41194-64af-45ad-9d1b-6e7f61f49f4a)
+<img src="https://github.com/user-attachments/assets/73e41194-64af-45ad-9d1b-6e7f61f49f4a" width="60%" height="60%">
 
 > <mark>[__GTC 2025 Review__](https://github.com/junfanz1/AI-LLM-ML-CS-Quant-Review/blob/main/NVIDIA%20GTC/GTC%202025.md)</mark> <img src="https://img.shields.io/github/stars/junfanz1%2FAI-LLM-ML-CS-Quant-Overview" alt="GitHub Stars" />
 
@@ -166,7 +166,7 @@ In-depth review of industry trends in AI, LLMs, Machine Learning, Computer Scien
 
 > [Course Github](https://github.com/ZJU-LLMs/Foundations-of-LLMs) | [Course Video](https://www.bilibili.com/video/BV1PB6XYFET2) | [Textbook](https://github.com/ZJU-LLMs/Foundations-of-LLMs/blob/main/%E3%80%8A%E5%A4%A7%E6%A8%A1%E5%9E%8B%E5%9F%BA%E7%A1%80%E3%80%8B%E6%95%99%E6%9D%90/%E5%A4%A7%E6%A8%A1%E5%9E%8B%E5%9F%BA%E7%A1%80%20%E5%AE%8C%E6%95%B4%E7%89%88.pdf) | [__PDF Notes-Chinese__](https://github.com/junfanz1/AI-ML-CS-Quant-Readings/blob/main/Foundations%20of%20LLMs/%E6%B5%99%E5%A4%A7%E5%A4%A7%E6%A8%A1%E5%9E%8B%E8%AF%BE%E7%AC%94%E8%AE%B0.pdf)
 
-<img src="https://github.com/user-attachments/assets/0c35d5d0-f8e0-4b64-9d93-2240c628feaa" width="50%" height="50%">
+<img src="https://github.com/user-attachments/assets/0c35d5d0-f8e0-4b64-9d93-2240c628feaa" width="30%" height="30%">
 
 <!-- TOC --><a name="6-system-design"></a>
 # 6. System Design
@@ -187,7 +187,7 @@ Machine Learning System Design Interview - by Ali Aminian, Alex Xu, 2023
 > [Book Link](https://www.amazon.com/Machine-Learning-System-Design-Interview/dp/1736049127) | [__Markdown Notes__]
 
 <div style="display: flex; justify-content: space-around;">
-  <img src="https://github.com/user-attachments/assets/8cfad2aa-2ad3-4c97-af88-79c98f369e33" width="30%">
+  <img src="https://github.com/user-attachments/assets/2bc97b4d-565b-4c8e-9915-23d1693635aa" width="30%">
   <img src="https://github.com/user-attachments/assets/74e6f3ad-b189-4aa1-b5f4-43ecac9a5b9c" width="30%">
   <img src="https://github.com/user-attachments/assets/78c720a1-2823-4dbe-854c-3e9936abd407" width="30%">
 </div>
@@ -229,7 +229,7 @@ C++ Design Patterns and Derivatives Pricing (Mathematics, Finance and Risk, Seri
 
 > [Book Link](https://www.amazon.com/Patterns-Derivatives-Pricing-Mathematics-Finance/dp/0521721628) | [__PDF Notes__](https://github.com/junfanz1/Quant-Books-Notes/blob/main/C%2B%2B%20Design%20Patterns%20Derivatives%20Pricing/C%2B%2B%20Design%20Patterns%20Derivatives%20Pricing.pdf) | [__Markdown Notes__](https://github.com/junfanz1/Quant-Books-Notes/blob/main/C%2B%2B%20Design%20Patterns%20Derivatives%20Pricing/C%2B%2B%20Design%20Patterns%20Derivatives%20Pricing.md)
 
-<img src="https://github.com/user-attachments/assets/c16d6c10-2dbf-44a4-9651-3917c039d2cc" width="50%" height="50%">
+<img src="https://github.com/user-attachments/assets/c16d6c10-2dbf-44a4-9651-3917c039d2cc" width="30%" height="30%">
 
 
 <!-- TOC --><a name="10-high-frequency-finance"></a>
@@ -239,7 +239,7 @@ An Introduction to High-Frequency Finance, by Ramazan Gençay, et al.
 
 > [Book Link](https://www.amazon.com/Introduction-High-Frequency-Finance-Ramazan-Gen%C3%A7ay/dp/0122796713) | [__PDF Notes__](https://github.com/junfanz1/Quant-Books-Notes/blob/main/An%20Intro%20to%20High-Frequency%20Finance/Notes%20on%20An%20Introduction%20to%20High-Frequency%20Finance.pdf) | [__Markdown Notes__](https://github.com/junfanz1/Quant-Books-Notes/blob/main/An%20Intro%20to%20High-Frequency%20Finance/An%20Introduction%20to%20High-Frequency%20Financ.md)
 
-<img src="https://github.com/user-attachments/assets/587c8e69-f785-4137-b9f6-c809bb87bb90" width="50%" height="50%">
+<img src="https://github.com/user-attachments/assets/587c8e69-f785-4137-b9f6-c809bb87bb90" width="30%" height="30%">
 
 
 <!-- TOC --><a name="11-machine-learning-for-algorithmic-trading"></a>
@@ -251,7 +251,7 @@ Machine Learning for Algorithmic Trading: Predictive models to extract signals f
 
 
 
-<img src="https://github.com/user-attachments/assets/5c2a9362-211e-4372-ac51-1653031e5f7b" width="50%" height="50%">
+<img src="https://github.com/user-attachments/assets/5c2a9362-211e-4372-ac51-1653031e5f7b" width="30%" height="30%">
 
 <!-- TOC --><a name="12-stochastic-volatility-modeling"></a>
 # 12. Stochastic Volatility Modeling
@@ -260,7 +260,7 @@ Stochastic Volatility Modeling (Chapman and Hall/CRC Financial Mathematics Serie
 
 > [Book Link](https://www.amazon.com/Stochastic-Volatility-Modeling-Financial-Mathematics/dp/1482244063)
 
-<img src="https://github.com/user-attachments/assets/6c275c02-a757-49bc-9417-d7be1fc709df" width="50%" height="50%">
+<img src="https://github.com/user-attachments/assets/6c275c02-a757-49bc-9417-d7be1fc709df" width="30%" height="30%">
 
 - [__PDF Char 1 Intro__](https://github.com/junfanz1/Quant-Books-Notes/blob/main/Stochastic%20Volatility%20Modeling/Stochastic%20Volatility%20Modeling%20-%20Char%201%20Introduction%20Notes.pdf) | [__Markdown Char 1 Intro__](https://github.com/junfanz1/Quant-Books-Notes/blob/main/Stochastic%20Volatility%20Modeling/Stochastic%20Volatility%20Modeling%20-%20Char%201%20Introduction%20Notes.md)
   
@@ -273,7 +273,7 @@ Quant Job Interview Questions and Answers (Second Edition) – by Mark Joshi 201
 
 > [Book Link](https://www.amazon.com/Quant-Interview-Questions-Answers-Second/dp/0987122827)
 
-<img src="https://github.com/user-attachments/assets/8051e593-da43-4b72-95c3-02a1fb9d5b95" width="50%" height="50%">
+<img src="https://github.com/user-attachments/assets/8051e593-da43-4b72-95c3-02a1fb9d5b95" width="30%" height="30%">
 
 - [__Markdown Notes__](https://github.com/junfanz1/Quant-Books-Notes/blob/main/Quant%20Job%20Interview%20Q%26A/Quant%20Essentials%20Takeaways.md)
 
