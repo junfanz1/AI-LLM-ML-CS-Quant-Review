@@ -248,13 +248,9 @@ Machine Learning for Algorithmic Trading: Predictive models to extract signals f
 
 Stochastic Volatility Modeling (Chapman and Hall/CRC Financial Mathematics Series) 1st Edition, by Lorenzo Bergomi
 
-> [Book Link](https://www.amazon.com/Stochastic-Volatility-Modeling-Financial-Mathematics/dp/1482244063)
+> [Book Link](https://www.amazon.com/Stochastic-Volatility-Modeling-Financial-Mathematics/dp/1482244063) | [__PDF Char 1 Intro__](https://github.com/junfanz1/Quant-Books-Notes/blob/main/Stochastic%20Volatility%20Modeling/Stochastic%20Volatility%20Modeling%20-%20Char%201%20Introduction%20Notes.pdf) | [__Markdown Char 1 Intro__](https://github.com/junfanz1/Quant-Books-Notes/blob/main/Stochastic%20Volatility%20Modeling/Stochastic%20Volatility%20Modeling%20-%20Char%201%20Introduction%20Notes.md) | [__PDF Char 2 Local Vol__](https://github.com/junfanz1/Quant-Books-Notes/blob/main/Stochastic%20Volatility%20Modeling/Stochastic%20Volatility%20Modeling%20-%20Char%202%20Local%20Volatility%20Notes.pdf) | [__Markdown Char 2 Local Vol__](https://github.com/junfanz1/Quant-Books-Notes/blob/main/Stochastic%20Volatility%20Modeling/Stochastic%20Volatility%20Modeling%20-%20Char%202%20Local%20Volatility%20Notes.md)
 
 <img src="https://github.com/user-attachments/assets/6c275c02-a757-49bc-9417-d7be1fc709df" width="30%" height="30%">
-
-- [__PDF Char 1 Intro__](https://github.com/junfanz1/Quant-Books-Notes/blob/main/Stochastic%20Volatility%20Modeling/Stochastic%20Volatility%20Modeling%20-%20Char%201%20Introduction%20Notes.pdf) | [__Markdown Char 1 Intro__](https://github.com/junfanz1/Quant-Books-Notes/blob/main/Stochastic%20Volatility%20Modeling/Stochastic%20Volatility%20Modeling%20-%20Char%201%20Introduction%20Notes.md)
-  
-- [__PDF Char 2 Local Vol__](https://github.com/junfanz1/Quant-Books-Notes/blob/main/Stochastic%20Volatility%20Modeling/Stochastic%20Volatility%20Modeling%20-%20Char%202%20Local%20Volatility%20Notes.pdf) | [__Markdown Char 2 Local Vol__](https://github.com/junfanz1/Quant-Books-Notes/blob/main/Stochastic%20Volatility%20Modeling/Stochastic%20Volatility%20Modeling%20-%20Char%202%20Local%20Volatility%20Notes.md)
 
 <!-- TOC --><a name="12-quant-job-interview-questions"></a>
 # 12. Quant Job Interview Questions
