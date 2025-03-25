@@ -206,11 +206,11 @@ Machine Learning System Design Interview - by Ali Aminian, Alex Xu, 2023
 
 BDAI Conference, 2024 Oct 3-5, UChicago
 
-> [Abstract PDF](https://github.com/junfanz1/Quant-Books-Notes/blob/main/Big%20Data%20AI%20in%20Finance%2C%20Econometrics%2C%20Statistics%20Conference%202024/BDAI-2024%20Abstracts.pdf) | [Agenda PDF](https://github.com/junfanz1/Quant-Books-Notes/blob/main/Big%20Data%20AI%20in%20Finance%2C%20Econometrics%2C%20Statistics%20Conference%202024/BDAI-2024%20Program.pdf)
+> [Abstract PDF](https://github.com/junfanz1/Quant-Books-Notes/blob/main/Big%20Data%20AI%20in%20Finance%2C%20Econometrics%2C%20Statistics%20Conference%202024/BDAI-2024%20Abstracts.pdf) | [Agenda PDF](https://github.com/junfanz1/Quant-Books-Notes/blob/main/Big%20Data%20AI%20in%20Finance%2C%20Econometrics%2C%20Statistics%20Conference%202024/BDAI-2024%20Program.pdf) | [__High Level Overview Notes PDF__](https://github.com/junfanz1/Quant-Books-Notes/blob/main/Big%20Data%20AI%20in%20Finance%2C%20Econometrics%2C%20Statistics%20Conference%202024/Big_Data_Finance_Conference_High_Level_Overview.pdf) | [__Conference Review Notes PDF__](https://github.com/junfanz1/Quant-Books-Notes/blob/main/Big%20Data%20AI%20in%20Finance%2C%20Econometrics%2C%20Statistics%20Conference%202024/Big_Data_Finance_Conference_Notes.pdf) 
+
 
 <img src="https://github.com/user-attachments/assets/b1ff9d58-2deb-4caa-8370-115539c18abf" width="50%" height="50%">
 
-- [__High Level Overview Notes PDF__](https://github.com/junfanz1/Quant-Books-Notes/blob/main/Big%20Data%20AI%20in%20Finance%2C%20Econometrics%2C%20Statistics%20Conference%202024/Big_Data_Finance_Conference_High_Level_Overview.pdf) | [__Conference Review Notes PDF__](https://github.com/junfanz1/Quant-Books-Notes/blob/main/Big%20Data%20AI%20in%20Finance%2C%20Econometrics%2C%20Statistics%20Conference%202024/Big_Data_Finance_Conference_Notes.pdf) 
 
 <!-- TOC --><a name="8-c-design-patterns-and-derivatives-pricing"></a>
 # 8. C++ Design Patterns and Derivatives Pricing
@@ -261,19 +261,11 @@ Stochastic Volatility Modeling (Chapman and Hall/CRC Financial Mathematics Serie
 
 Quant Job Interview Questions and Answers (Second Edition) – by Mark Joshi 2013 
 
-> [Book Link](https://www.amazon.com/Quant-Interview-Questions-Answers-Second/dp/0987122827)
+> [Book Link](https://www.amazon.com/Quant-Interview-Questions-Answers-Second/dp/0987122827) | [__Markdown Notes__](https://github.com/junfanz1/Quant-Books-Notes/blob/main/Quant%20Job%20Interview%20Q%26A/Quant%20Essentials%20Takeaways.md)
 
 <img src="https://github.com/user-attachments/assets/8051e593-da43-4b72-95c3-02a1fb9d5b95" width="30%" height="30%">
 
-- [__Markdown Notes__](https://github.com/junfanz1/Quant-Books-Notes/blob/main/Quant%20Job%20Interview%20Q%26A/Quant%20Essentials%20Takeaways.md)
-
-- [__Cloud Platform PDF Notes__](https://github.com/junfanz1/AI-ML-CS-Quant-Readings/blob/main/Quant%20Job%20Interview%20Q%26A/Cloud.pdf)
-
-- [__Quant PDF Notes__](https://github.com/junfanz1/AI-ML-CS-Quant-Readings/blob/main/Quant%20Job%20Interview%20Q%26A/Quant.pdf)
-
-- [__FX Exotic Derivatives PDF Notes__](https://github.com/junfanz1/AI-ML-CS-Quant-Readings/blob/main/Quant%20Job%20Interview%20Q%26A/FX%20Exotic%20Derivatives.pdf)
-
-- [__Risk Methodologies PDF Notes__](https://github.com/junfanz1/AI-ML-CS-Quant-Readings/blob/main/Quant%20Job%20Interview%20Q%26A/Risk%20Methodologies.pdf)
+- [__Cloud Platform Notes__](https://github.com/junfanz1/AI-ML-CS-Quant-Readings/blob/main/Quant%20Job%20Interview%20Q%26A/Cloud.pdf) | [__Quant Notes__](https://github.com/junfanz1/AI-ML-CS-Quant-Readings/blob/main/Quant%20Job%20Interview%20Q%26A/Quant.pdf) | [__FX Exotic Derivatives Notes__](https://github.com/junfanz1/AI-ML-CS-Quant-Readings/blob/main/Quant%20Job%20Interview%20Q%26A/FX%20Exotic%20Derivatives.pdf) | [__Risk Methodologies Notes__](https://github.com/junfanz1/AI-ML-CS-Quant-Readings/blob/main/Quant%20Job%20Interview%20Q%26A/Risk%20Methodologies.pdf)
 
 
 ---
