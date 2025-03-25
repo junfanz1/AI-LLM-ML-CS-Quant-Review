@@ -420,7 +420,9 @@ Inception score: evaluate quality of generated images in GAN, in diversity (chec
 - compute KL divergence: how different the predicted class distribution for each image is from the marginal distribution. High quality image has distribution different from marginal distribution, because it has a peak in distribution, not uniform, if image is diverse.
 - calculate inception score: exponentiated average of KL divergence across all images. High inception score = individual images are confidently classified into various classes, and generated images are diverse and high quality.
 
-Frechet inception distance (FID): how similar the distribution of generated images is to the distribution of real images. Unlike Inception score using class probabilities, FID considers the statistics of features extracted by pretrained model (Inception v3, trained on large diverse dataset ImageNet and can extract meaningful features of content/style of images). FID measures diversity (covaraince of features reflect spread and variation in image) and quality (FID ensures generated images are high-quality by comparing their feature distribution to real images).
+Frechet inception distance (FID): how similar the distribution of generated images is to the distribution of real images. Unlike Inception score using class probabilities, FID considers the statistics of features extracted by pretrained model (Inception v3, trained on large diverse dataset ImageNet and can extract meaningful features of content/style of images). 
+
+FID measures diversity (covaraince of features reflect spread and variation in image) and quality (FID ensures generated images are high-quality by comparing their feature distribution to real images).
 - generating images
 - extracting features: pass (generated and real) images through Inception v3 and extract features (activations) from specific layer (one near the end of network). Features from this deep layer capture high-level info (shapes, textures, objects) to assess realism of images.
 - calculate mean and covariance: summarize distribution of features for both sets of images
