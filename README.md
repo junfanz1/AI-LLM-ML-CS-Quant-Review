@@ -29,13 +29,12 @@ In-depth review of industry trends in AI, LLMs, Machine Learning, Computer Scien
    * [MoE (Mixture of Experts)](#moe-mixture-of-experts)
    * [DeepSeek Theory](#deepseek-theory)
    * [DeepSeek Applications](#deepseek-applications)
-- [3. LangGraph & Cursor AI](#3-langgraph-cursor-ai)
+- [3. LangGraph & Cursor AI Projects](#3-langgraph-cursor-ai-projects)
 - [4. LLM Essentials](#4-llm-essentials)
-   * [AI Systems](#ai-systems)
+   * [LLM Theory](#llm-theory)
    * [LLM Applications](#llm-applications)
    * [RAG](#rag)
    * [Multi-Agent](#multi-agent)
-- [5. LLM Foundations ](#5-llm-foundations)
 - [6. System Design](#6-system-design)
    * [ByteByteGo - GenAI/ML/Modern System Design Interview](#bytebytego-genaimlmodern-system-design-interview)
    * [Educative - GenAI/Modern System Design Interview](#educative-genaimodern-system-design-interview)
@@ -47,12 +46,6 @@ In-depth review of industry trends in AI, LLMs, Machine Learning, Computer Scien
 - [12. Stochastic Volatility Modeling](#12-stochastic-volatility-modeling)
 - [13. Quant Job Interview Questions](#13-quant-job-interview-questions)
    * [Star History](#star-history)
-- [100. Distributed Systems](#100-distributed-systems)
-- [101. Language Models](#101-language-models)
-- [102. Designing Machine Learning Systems](#102-designing-machine-learning-systems)
-- [103. Designing Data-Intensive Applications (DDIA)](#103-designing-data-intensive-applications-ddia)
-- [104. Distributed Machine Learning](#104-distributed-machine-learning)
-- [105. The Elements of Quantitative Investing](#105-the-elements-of-quantitative-investing)
 
 <!-- TOC end -->
 
@@ -106,8 +99,8 @@ In-depth review of industry trends in AI, LLMs, Machine Learning, Computer Scien
 
 > [GeekBang: DeepSeek App Development](https://time.geekbang.org/column/intro/100995901) | [__Notes-Chinese__](https://github.com/junfanz1/AI-ML-CS-Quant-Readings/blob/main/DeepSeek/DeepSeek%20Developer%20Practice.md)
 
-<!-- TOC --><a name="3-langgraph-cursor-ai"></a>
-# 3. LangGraph & Cursor AI
+<!-- TOC --><a name="3-langgraph-cursor-ai-projects"></a>
+# 3. LangGraph & Cursor AI Projects
 
 > [__Notes__](https://github.com/junfanz1/AI-ML-CS-Quant-Readings/blob/main/LangChain/Projects.md)
 - [Ed Donner: LLM Engineering: Master AI, Large Language Models & Agents](https://www.udemy.com/course/llm-engineering-master-ai-and-large-language-models)
@@ -131,8 +124,14 @@ In-depth review of industry trends in AI, LLMs, Machine Learning, Computer Scien
 <!-- TOC --><a name="4-llm-essentials"></a>
 # 4. LLM Essentials
 
-<!-- TOC --><a name="ai-systems"></a>
-## AI Systems
+<!-- TOC --><a name="llm-theory"></a>
+## LLM Theory
+
+大模型基础，毛玉仁等 - 2024，浙大
+
+> [Course Github](https://github.com/ZJU-LLMs/Foundations-of-LLMs) | [Course Video](https://www.bilibili.com/video/BV1PB6XYFET2) | [Textbook](https://github.com/ZJU-LLMs/Foundations-of-LLMs/blob/main/%E3%80%8A%E5%A4%A7%E6%A8%A1%E5%9E%8B%E5%9F%BA%E7%A1%80%E3%80%8B%E6%95%99%E6%9D%90/%E5%A4%A7%E6%A8%A1%E5%9E%8B%E5%9F%BA%E7%A1%80%20%E5%AE%8C%E6%95%B4%E7%89%88.pdf) | [__PDF Notes-Chinese__](https://github.com/junfanz1/AI-ML-CS-Quant-Readings/blob/main/Foundations%20of%20LLMs/%E6%B5%99%E5%A4%A7%E5%A4%A7%E6%A8%A1%E5%9E%8B%E8%AF%BE%E7%AC%94%E8%AE%B0.pdf)
+
+<img src="https://github.com/user-attachments/assets/0c35d5d0-f8e0-4b64-9d93-2240c628feaa" width="30%" height="30%">
 
 > [GeekBang: AI LLM Practice](https://time.geekbang.org/column/intro/100770601) | [__Notes-Chinese__](https://github.com/junfanz1/AI-LLM-ML-CS-Quant-Readings/blob/main/AI%20LLM/AI%20LLM%20Practice.md)
 
@@ -159,14 +158,6 @@ In-depth review of industry trends in AI, LLMs, Machine Learning, Computer Scien
 
 > [GeekBang: AI Agents](https://time.geekbang.org/course/intro/100775901?tab=catalog) | [__Notes-Chinese__](https://github.com/junfanz1/AI-LLM-ML-CS-Quant-Readings/blob/main/AI%20LLM/AI%20Agent.md)
 
-<!-- TOC --><a name="5-llm-foundations"></a>
-# 5. LLM Foundations 
-
-大模型基础，毛玉仁等 - 2024，浙大
-
-> [Course Github](https://github.com/ZJU-LLMs/Foundations-of-LLMs) | [Course Video](https://www.bilibili.com/video/BV1PB6XYFET2) | [Textbook](https://github.com/ZJU-LLMs/Foundations-of-LLMs/blob/main/%E3%80%8A%E5%A4%A7%E6%A8%A1%E5%9E%8B%E5%9F%BA%E7%A1%80%E3%80%8B%E6%95%99%E6%9D%90/%E5%A4%A7%E6%A8%A1%E5%9E%8B%E5%9F%BA%E7%A1%80%20%E5%AE%8C%E6%95%B4%E7%89%88.pdf) | [__PDF Notes-Chinese__](https://github.com/junfanz1/AI-ML-CS-Quant-Readings/blob/main/Foundations%20of%20LLMs/%E6%B5%99%E5%A4%A7%E5%A4%A7%E6%A8%A1%E5%9E%8B%E8%AF%BE%E7%AC%94%E8%AE%B0.pdf)
-
-<img src="https://github.com/user-attachments/assets/0c35d5d0-f8e0-4b64-9d93-2240c628feaa" width="30%" height="30%">
 
 <!-- TOC --><a name="6-system-design"></a>
 # 6. System Design
