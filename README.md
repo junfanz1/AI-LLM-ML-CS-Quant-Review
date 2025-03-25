@@ -34,12 +34,11 @@ In-depth review of industry trends in AI, LLMs, Machine Learning, Computer Scien
    * [AI Systems](#ai-systems)
    * [LLM Applications](#llm-applications)
    * [RAG](#rag)
-   * [Multi-Agent Systems](#multi-agent-systems)
+   * [Multi-Agent](#multi-agent)
 - [5. LLM Foundations ](#5-llm-foundations)
 - [6. System Design](#6-system-design)
-   * [System Design Interview](#system-design-interview)
-   * [Educative Grokking Modern System Design](#educative-grokking-modern-system-design)
-   * [GenAI System Design](#genai-system-design)
+   * [ByteByteGo - GenAI/ML/Modern System Design Interview](#bytebytego-genaimlmodern-system-design-interview)
+   * [Educative - GenAI/Modern System Design Interview](#educative-genaimodern-system-design-interview)
 - [7. Computer Systems](#7-computer-systems)
 - [8. Big Data and AI in Finance, Econometrics and Statistics Conference, UChicago 2024](#8-big-data-and-ai-in-finance-econometrics-and-statistics-conference-uchicago-2024)
 - [9. C++ Design Patterns and Derivatives Pricing](#9-c-design-patterns-and-derivatives-pricing)
@@ -48,6 +47,12 @@ In-depth review of industry trends in AI, LLMs, Machine Learning, Computer Scien
 - [12. Stochastic Volatility Modeling](#12-stochastic-volatility-modeling)
 - [13. Quant Job Interview Questions](#13-quant-job-interview-questions)
    * [Star History](#star-history)
+- [100. Distributed Systems](#100-distributed-systems)
+- [101. Language Models](#101-language-models)
+- [102. Designing Machine Learning Systems](#102-designing-machine-learning-systems)
+- [103. Designing Data-Intensive Applications (DDIA)](#103-designing-data-intensive-applications-ddia)
+- [104. Distributed Machine Learning](#104-distributed-machine-learning)
+- [105. The Elements of Quantitative Investing](#105-the-elements-of-quantitative-investing)
 
 <!-- TOC end -->
 
@@ -147,8 +152,8 @@ In-depth review of industry trends in AI, LLMs, Machine Learning, Computer Scien
 
 > [GeekBang: RAG Development](https://time.geekbang.org/column/intro/100804101?tab=catalog) | [__Notes-Chinese__](https://github.com/junfanz1/AI-ML-CS-Quant-Readings/edit/main/AI%20LLM/RAG.md)
 
-<!-- TOC --><a name="multi-agent-systems"></a>
-## Multi-Agent Systems
+<!-- TOC --><a name="multi-agent"></a>
+## Multi-Agent
 
 > [Educative: Build AI Agents and Multi-Agent Systems with CrewAI](https://www.educative.io/verify-certificate/k5m3gACoj1xDYoOq7c0Kjk4y2AoGTn) | [__Notes__](https://github.com/junfanz1/AI-LLM-ML-CS-Quant-Readings/blob/main/AI%20LLM/CrewAI.md)
 
@@ -166,26 +171,33 @@ In-depth review of industry trends in AI, LLMs, Machine Learning, Computer Scien
 <!-- TOC --><a name="6-system-design"></a>
 # 6. System Design
 
-<!-- TOC --><a name="system-design-interview"></a>
-## System Design Interview
+<!-- TOC --><a name="bytebytego-genaimlmodern-system-design-interview"></a>
+## ByteByteGo - GenAI/ML/Modern System Design Interview
 
-System Design Interview, An Insider's Guide, Second Edition - by Alex Xu 2020
+System Design Interview, An Insider's Guide, Second Edition - by Alex Xu, 2020
 
 > [Book Link](https://www.amazon.com/System-Design-Interview-insiders-Second/dp/B08CMF2CQF) | [__PDF Notes-Chinese__](https://github.com/junfanz1/Quant-Books-Notes/blob/main/System%20Design/Notes%20on%20System%20Design.pdf)
 
+Generative AI System Design Interview - by Ali Aminian, Hao Sheng, 2024
 
-<img src="https://github.com/user-attachments/assets/8cfad2aa-2ad3-4c97-af88-79c98f369e33" width="50%" height="50%">
+> [Book Link](https://www.amazon.com/Machine-Learning-System-Design-Interview/dp/1736049127) | [__Markdown Notes__](https://github.com/junfanz1/AI-LLM-ML-CS-Quant-Review/blob/main/System%20Design/GenAI%20System%20Design%20Interview.md)
 
+Machine Learning System Design Interview - by Ali Aminian, Alex Xu, 2023
 
-<!-- TOC --><a name="educative-grokking-modern-system-design"></a>
-## Educative - Grokking Modern System Design
+> [Book Link](https://www.amazon.com/Machine-Learning-System-Design-Interview/dp/1736049127) | [__Markdown Notes__]
+
+<div style="display: flex; justify-content: space-around;">
+  <img src="https://github.com/user-attachments/assets/8cfad2aa-2ad3-4c97-af88-79c98f369e33" width="30%">
+  <img src="https://github.com/user-attachments/assets/74e6f3ad-b189-4aa1-b5f4-43ecac9a5b9c" width="30%">
+  <img src="https://github.com/user-attachments/assets/78c720a1-2823-4dbe-854c-3e9936abd407" width="30%">
+</div>
+
+<!-- TOC --><a name="educative-genaimodern-system-design-interview"></a>
+## Educative - GenAI/Modern System Design Interview
 
 > [Educative - Grokking System Design Interview](https://www.educative.io/verify-certificate/B86jYxWPP3JhA8lAZw0B2Mhr92YjJNmG5Ty) | [__PDF Notes__](https://github.com/junfanz1/CS-Online-Course-Notes/blob/main/Grokking%20the%20System%20Design%20Interview/Grokking%20the%20System%20Design%20Interview.pdf) | [__Markdown Notes__](https://github.com/junfanz1/CS-Online-Course-Notes/blob/main/Grokking%20the%20System%20Design%20Interview/Grokking%20the%20System%20Design%20Interview.md)
 
 > [Educative - Grokking the Modern System Design Interview](https://www.educative.io/courses/grokking-the-system-design-interview) | [__Markdown Notes__](https://github.com/junfanz1/AI-LLM-ML-CS-Quant-Overview/blob/main/System%20Design/Modern%20System%20Design.md)
-
-<!-- TOC --><a name="genai-system-design"></a>
-## Educative - GenAI System Design
 
 > [Educative - GenAI System Design](https://www.educative.io/verify-certificate/RgxzXQFQkKyYgKrGjTX1RQpE9J3vT6) | [__Notes__](https://github.com/junfanz1/AI-LLM-ML-CS-Quant-Readings/blob/main/System%20Design/GenAI%20System%20Design.md)
 
@@ -307,6 +319,7 @@ Quant Job Interview Questions and Answers (Second Edition) – by Mark Joshi 201
 
 Future Readings:
 
+<!-- TOC --><a name="100-distributed-systems"></a>
 # 100. Distributed Systems
 
 深入理解分布式系统，唐伟志 - 2022，电子工业出版社
@@ -314,6 +327,7 @@ Future Readings:
 > [Book Link](https://book.douban.com/subject/35794814/)
 
 
+<!-- TOC --><a name="101-language-models"></a>
 # 101. Language Models
 
 预训练语言模型，邵浩 刘一烽 - 2021，电子工业出版社
@@ -321,6 +335,7 @@ Future Readings:
 > [Book Link](https://book.douban.com/subject/35458428/)
 
 
+<!-- TOC --><a name="102-designing-machine-learning-systems"></a>
 # 102. Designing Machine Learning Systems
 
 Designing Machine Learning Systems: An Iterative Process for Production-Ready Applications - by Chip Huyen
@@ -328,6 +343,7 @@ Designing Machine Learning Systems: An Iterative Process for Production-Ready Ap
 > [Book Link](https://www.amazon.com/Designing-Machine-Learning-Systems-Production-Ready/dp/1098107969)
 
 
+<!-- TOC --><a name="103-designing-data-intensive-applications-ddia"></a>
 # 103. Designing Data-Intensive Applications (DDIA)
 
 Designing Data-Intensive Applications: The Big Ideas Behind Reliable, Scalable, and Maintainable Systems
@@ -336,6 +352,7 @@ Book - by Martin Kleppmann
 > [Book Link](https://www.amazon.com/Designing-Data-Intensive-Applications-Reliable-Maintainable/dp/1449373321)
 
 
+<!-- TOC --><a name="104-distributed-machine-learning"></a>
 # 104. Distributed Machine Learning
 
 分布式机器学习，刘铁岩等 - 2018，机械工业出版社
@@ -343,6 +360,7 @@ Book - by Martin Kleppmann
 > [Book Link](https://book.douban.com/subject/30360968/)
 
 
+<!-- TOC --><a name="105-the-elements-of-quantitative-investing"></a>
 # 105. The Elements of Quantitative Investing
 
 The Elements of Quantitative Investing - by Giuseppe Paleologo 2025
