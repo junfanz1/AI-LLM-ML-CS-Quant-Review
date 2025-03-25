@@ -307,6 +307,8 @@ RAG system, multiple components work together to produce response.
 <!-- TOC --><a name="7-realistic-face-generation"></a>
 # 7. Realistic Face Generation
 
+Face generator (StyleGAN), Training service, Evaluation service, Deployment service
+
 <!-- TOC --><a name="71-choose-ml"></a>
 ## 7.1 Choose ML
 
@@ -410,5 +412,39 @@ Sample a latent vector from a learned latent space.
 
 <!-- TOC --><a name="75-evaluation"></a>
 ## 7.5 Evaluation
+
+Inception score: evaluate quality of generated images in GAN, in diversity (check if generated images has a nearly uniform marginal distribution across classes, that images are spread evenly across different classes), and quality (high quality images have sharp, peaked prob distribution that's clearly recognized as belonging to a particular class, compares this distribution with marginal distribution to assess quality).
+- generating images
+- compute class probability distribution: high quality image has a distribution with a peak (high prob for one class) that the model recognizes it as clear instance of a class.
+- calculate marginal distribution: average of predicted class probabilities across all images, to understand overall distribution of classes. If images are diverse, marginal distribution is flat and spread across many classes.
+- compute KL divergence: how different the predicted class distribution for each image is from the marginal distribution. High quality image has distribution different from marginal distribution, because it has a peak in distribution, not uniform, if image is diverse.
+- calculate inception score: exponentiated average of KL divergence across all images. High inception score = individual images are confidently classified into various classes, and generated images are diverse and high quality.
+
+Frechet inception distance (FID): how similar the distribution of generated images is to the distribution of real images. Unlike Inception score using class probabilities, FID considers the statistics of features extracted by pretrained model (Inception v3, trained on large diverse dataset ImageNet and can extract meaningful features of content/style of images). FID measures diversity (covaraince of features reflect spread and variation in image) and quality (FID ensures generated images are high-quality by comparing their feature distribution to real images).
+- generating images
+- extracting features: pass (generated and real) images through Inception v3 and extract features (activations) from specific layer (one near the end of network). Features from this deep layer capture high-level info (shapes, textures, objects) to assess realism of images.
+- calculate mean and covariance: summarize distribution of features for both sets of images
+- compute Frechet distance between mean and covariance of generated and real images, that how close two distributions are, lower FID means more similar.  
+
+# 8. High-Resolution Image Synthesis 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
