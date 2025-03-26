@@ -1,5 +1,5 @@
 
-[Book Link](https://www.amazon.com/Machine-Learning-System-Design-Interview/dp/1736049127) 
+[Book Link: Machine Learning System Design Interview](https://www.amazon.com/Machine-Learning-System-Design-Interview/dp/1736049127) 
 
 <img src="https://github.com/user-attachments/assets/78c720a1-2823-4dbe-854c-3e9936abd407" width="30%">
 
