@@ -56,8 +56,15 @@
    * [9.4 Sampling](#94-sampling)
    * [9.5 Challenges](#95-challenges)
    * [9.6 Evaluation ](#96-evaluation)
-- [10. Personalized Text2Image](#10-personalized-text2image)
-   * [10.1 ](#101)
+- [10. Personalized Text2Image Headshot](#10-personalized-text2image-headshot)
+   * [10.1 ML Model](#101-ml-model)
+   * [Training](#training)
+   * [Evaluation](#evaluation)
+- [11. Text2Video](#11-text2video)
+   * [11.1 Latent diffusion model (LDM) to generate video](#111-latent-diffusion-model-ldm-to-generate-video)
+   * [11.2 Choose ML](#112-choose-ml)
+   * [11.3 Training video diffusion models](#113-training-video-diffusion-models)
+   * [11.4 Evalution](#114-evalution)
 
 <!-- TOC end -->
 
@@ -567,23 +574,97 @@ Offline: Image-text alignment
 
 Online: CTR, conversion rate, latency, throughput, resource utilization, avg cost per user per month, etc.
 
-<!-- TOC --><a name="10-personalized-text2image"></a>
-# 10. Personalized Text2Image
+<!-- TOC --><a name="10-personalized-text2image-headshot"></a>
+# 10. Personalized Text2Image Headshot
 
-<!-- TOC --><a name="101"></a>
-## 10.1 
+data pipeline, training pipeline, inference pipeline (image generator, quality assessment, uploader service)
 
+<!-- TOC --><a name="101-ml-model"></a>
+## 10.1 ML Model
 
+- Tuning-free (only need to train once): bypass finetuning Text2Image, but finetune pretrained Text2Image and visual encoder once. After this training, visual encoder extracts features from new reference image and injects them into Text2Image model, so model generate personalized images without adjusting internal weights for each identity.
+- Tuning-based: can capture more detailed features, more versatile
+ - textual inversion: personalize Text2Image by introducing new special token representing the subject and learning its embedding.
+  - During fine-tuning, model updates special token's embedding, while diffusion, text encoder and other token embeddings remain unchanged.
+  - Good for efficiency, preservation of original model capability, min storage requirements. Bad for difficulty in learning subject details.
+ - DreamBooth (Google 2023): update all diffusion model's parameters during finetuning, to capture new subject's details more effectively.
+  - Rare-token identifier: select rare tokens (appear infrequently in training data) to represent the subject of interest, as they're distinct to avoid strong prior associations but cohesive.
+  - Class-specific prior preservation loss: to maintain general class characters, to prevent finetuning all layers that can overfit and reduce diversity. Effective at learning subject details, fewer images required, but with high storage requirement and resource-intensive.
+ - LoRA: adapt a large model to a new task by introducing small set of parameters and update only those, to reduce computation. Good for preserving original model capabilities, reduce memory and computation, min storage requirements. Bad with less effective (than DreamBooth as it finetunes only few parameters) learning and slight inference time increase (negligible compared to overall benefits).
 
+<!-- TOC --><a name="training"></a>
+## Training
 
+DreamBooth finetunes a pretrained diffusion. We use U-Net architecture, pretrained to output 1024 x 1024 images.
+- Noise addition
+- Conditioning signals preparation:
+- Noise prediction
 
+loss function: weighted average of 
+- reconstruction loss
+- class-specific prior preservation loss: difference between generated images and actual images of generic faces
 
+<!-- TOC --><a name="evaluation"></a>
+## Evaluation
 
+Image alignment
+- CLIP score: 2 encoders (1 for image, 1 for text) to ensure image and text embeddings of a image-text pair are close in embedding space, calculate cosine similarity. Good for comparing image with text, matching descriptions with visuals.
+- DINO score: contrastive learning to distinguish between similar and dissimilar images by organizing them in embedding space. Good for comparing images, capturing detailed visual features
 
+<!-- TOC --><a name="11-text2video"></a>
+# 11. Text2Video
 
+data pipeline, training pipeline, inference pipeline (visual decoder use compression network to convert latent representation back to pixel space)
 
+<!-- TOC --><a name="111-latent-diffusion-model-ldm-to-generate-video"></a>
+## 11.1 Latent diffusion model (LDM) to generate video
 
+Diffusion learns to denoise lower-dimensional latent representations rather than original video pixels in training dataset.
+- compression network based on VAE: maps video pixels to latent space, input raw video and output compressed latent representation, reducing frame count (temporal dimension) and resolution (spatial dimension). Less computation heavy than standard diffusion.
+- LDM refine latent space noise into denoised latent representation, then visual decoder converts latent representation back to pixel space for final video
 
+<!-- TOC --><a name="112-choose-ml"></a>
+## 11.2 Choose ML
+
+U-Net, based on convolutions
+- Downsampling blocks = Conv2D + BatchNorm2D + ReLU + MaxPool2D + Cross-Attention
+- Upsampling blocks = TransposedConv + BatchNorm2D + ReLU + Cross-Attention
+- These layers focus on capturing relationships between pixels within single image, not good for video. Can modify it to understand relationship across frames by injecting temporal layers into U-Net:
+ - Temporal attention: use attention mechanism across frames, each feature is updated by attending to relevant features across other frames
+ - Temporal convolution: apply convolution operator to 3D segment of data, to capture temporal dimension
+
+DiT (Sora), based on Transformer
+- patchify: convert input to sequence of embedding vectors, small 3D video patches flattened to sequence of vectors, then transformed to embeddings using projection layer.
+- RoPE positional encoding
+- Transformer = Multi-head attention + Normalization + Cross-Attention + Feed Forward + Normalization
+- unpatchify: convert predicted noise vector back to input dimensions, with LayerNorm for normalization, linear layer to adjust vector length, reshape operation to form final output
+
+<!-- TOC --><a name="113-training-video-diffusion-models"></a>
+## 11.3 Training video diffusion models
+
+loss function: reconstruction loss with MSE
+
+Challenges
+- lack of large-scale video-text data. Solution:
+ - train DiT model on both image and video data, treating each image as a single-frame video
+ - pretrain DiT model on image-text pairs for strong visual foundation, then finetuned on video-text pairs
+- computational cost. Solution:
+ - LDM-based approach: instead of training DiT directly in pixel space, we use compression network to convert video into lower-dimensional latent space, for training diffusion
+ - precompute video representations in latent space before training, avoid repetitive computations using cached data
+ - spatial super-resolution model: DiT to generate 720p low-resolution video, then use separately trained model to upscale resolution of generated videos
+ - temporal super-resolution model: DiT to generate 60 frames video, then temporal super-resolution model interpolate to 120 frames, with smoother motion in video
+ - more efficient architecture: MoE to accelerate
+ - distributed training: tensor parallelism across multiple divices
+
+<!-- TOC --><a name="114-evalution"></a>
+## 11.4 Evalution
+
+- frame quality
+ - FID, Inception score, LPIPS, KID: averaging scores of all frames, but not accounting for temporal consistency (high quality frame but lack smooth transitions, has high FID)
+- temporal consistency
+ - Frechet video distance (FVD): evalute both visual and temporal consistency: generate videos, extract features, calculate mean and covariance, compute frechet distance between mean and covariance of generated and real videos. Low FVD has more similarity between distributions, hence realistic and temporally consistent.
+- video-text alignment
+ - CLIP similarity score: extract frame-level features, calculate similarity, aggregate per-frame similarities
 
 
 
