@@ -584,13 +584,13 @@ data pipeline, training pipeline, inference pipeline (image generator, quality a
 
 - Tuning-free (only need to train once): bypass finetuning Text2Image, but finetune pretrained Text2Image and visual encoder once. After this training, visual encoder extracts features from new reference image and injects them into Text2Image model, so model generate personalized images without adjusting internal weights for each identity.
 - Tuning-based: can capture more detailed features, more versatile
- - textual inversion: personalize Text2Image by introducing new special token representing the subject and learning its embedding.
-  - During fine-tuning, model updates special token's embedding, while diffusion, text encoder and other token embeddings remain unchanged.
-  - Good for efficiency, preservation of original model capability, min storage requirements. Bad for difficulty in learning subject details.
- - DreamBooth (Google 2023): update all diffusion model's parameters during finetuning, to capture new subject's details more effectively.
-  - Rare-token identifier: select rare tokens (appear infrequently in training data) to represent the subject of interest, as they're distinct to avoid strong prior associations but cohesive.
-  - Class-specific prior preservation loss: to maintain general class characters, to prevent finetuning all layers that can overfit and reduce diversity. Effective at learning subject details, fewer images required, but with high storage requirement and resource-intensive.
- - LoRA: adapt a large model to a new task by introducing small set of parameters and update only those, to reduce computation. Good for preserving original model capabilities, reduce memory and computation, min storage requirements. Bad with less effective (than DreamBooth as it finetunes only few parameters) learning and slight inference time increase (negligible compared to overall benefits).
+  - textual inversion: personalize Text2Image by introducing new special token representing the subject and learning its embedding.
+    - During fine-tuning, model updates special token's embedding, while diffusion, text encoder and other token embeddings remain unchanged.
+    - Good for efficiency, preservation of original model capability, min storage requirements. Bad for difficulty in learning subject details.
+  - DreamBooth (Google 2023): update all diffusion model's parameters during finetuning, to capture new subject's details more effectively.
+    - Rare-token identifier: select rare tokens (appear infrequently in training data) to represent the subject of interest, as they're distinct to avoid strong prior associations but cohesive.
+    - Class-specific prior preservation loss: to maintain general class characters, to prevent finetuning all layers that can overfit and reduce diversity. Effective at learning subject details, fewer images required, but with high storage requirement and resource-intensive.
+  - LoRA: adapt a large model to a new task by introducing small set of parameters and update only those, to reduce computation. Good for preserving original model capabilities, reduce memory and computation, min storage requirements. Bad with less effective (than DreamBooth as it finetunes only few parameters) learning and slight inference time increase (negligible compared to overall benefits).
 
 <!-- TOC --><a name="training"></a>
 ## Training
