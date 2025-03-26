@@ -630,8 +630,8 @@ U-Net, based on convolutions
 - Downsampling blocks = Conv2D + BatchNorm2D + ReLU + MaxPool2D + Cross-Attention
 - Upsampling blocks = TransposedConv + BatchNorm2D + ReLU + Cross-Attention
 - These layers focus on capturing relationships between pixels within single image, not good for video. Can modify it to understand relationship across frames by injecting temporal layers into U-Net:
- - Temporal attention: use attention mechanism across frames, each feature is updated by attending to relevant features across other frames
- - Temporal convolution: apply convolution operator to 3D segment of data, to capture temporal dimension
+  - Temporal attention: use attention mechanism across frames, each feature is updated by attending to relevant features across other frames
+  - Temporal convolution: apply convolution operator to 3D segment of data, to capture temporal dimension
 
 DiT (Sora), based on Transformer
 - patchify: convert input to sequence of embedding vectors, small 3D video patches flattened to sequence of vectors, then transformed to embeddings using projection layer.
@@ -646,25 +646,25 @@ loss function: reconstruction loss with MSE
 
 Challenges
 - lack of large-scale video-text data. Solution:
- - train DiT model on both image and video data, treating each image as a single-frame video
- - pretrain DiT model on image-text pairs for strong visual foundation, then finetuned on video-text pairs
+  - train DiT model on both image and video data, treating each image as a single-frame video
+  - pretrain DiT model on image-text pairs for strong visual foundation, then finetuned on video-text pairs
 - computational cost. Solution:
- - LDM-based approach: instead of training DiT directly in pixel space, we use compression network to convert video into lower-dimensional latent space, for training diffusion
- - precompute video representations in latent space before training, avoid repetitive computations using cached data
- - spatial super-resolution model: DiT to generate 720p low-resolution video, then use separately trained model to upscale resolution of generated videos
- - temporal super-resolution model: DiT to generate 60 frames video, then temporal super-resolution model interpolate to 120 frames, with smoother motion in video
- - more efficient architecture: MoE to accelerate
- - distributed training: tensor parallelism across multiple divices
+  - LDM-based approach: instead of training DiT directly in pixel space, we use compression network to convert video into lower-dimensional latent space, for training diffusion
+  - precompute video representations in latent space before training, avoid repetitive computations using cached data
+  - spatial super-resolution model: DiT to generate 720p low-resolution video, then use separately trained model to upscale resolution of generated videos
+  - temporal super-resolution model: DiT to generate 60 frames video, then temporal super-resolution model interpolate to 120 frames, with smoother motion in video
+  - more efficient architecture: MoE to accelerate
+  - distributed training: tensor parallelism across multiple divices
 
 <!-- TOC --><a name="114-evalution"></a>
 ## 11.4 Evalution
 
 - frame quality
- - FID, Inception score, LPIPS, KID: averaging scores of all frames, but not accounting for temporal consistency (high quality frame but lack smooth transitions, has high FID)
+  - FID, Inception score, LPIPS, KID: averaging scores of all frames, but not accounting for temporal consistency (high quality frame but lack smooth transitions, has high FID)
 - temporal consistency
- - Frechet video distance (FVD): evalute both visual and temporal consistency: generate videos, extract features, calculate mean and covariance, compute frechet distance between mean and covariance of generated and real videos. Low FVD has more similarity between distributions, hence realistic and temporally consistent.
+  - Frechet video distance (FVD): evalute both visual and temporal consistency: generate videos, extract features, calculate mean and covariance, compute frechet distance between mean and covariance of generated and real videos. Low FVD has more similarity between distributions, hence realistic and temporally consistent.
 - video-text alignment
- - CLIP similarity score: extract frame-level features, calculate similarity, aggregate per-frame similarities
+  - CLIP similarity score: extract frame-level features, calculate similarity, aggregate per-frame similarities
 
 
 
