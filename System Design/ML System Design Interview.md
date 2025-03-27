@@ -45,9 +45,26 @@ Performance of Nearest Neighbor algorithms: Approximate nearest neighbor (ANN), 
 
 # Google Street View Blurring System
 
+Object detection system
+- predict location of each object in image: regression to location (x, y)
+- predict class of each bounding box (dog, cat): multi-class classification
 
+One-stage network: use single network, bounding boxes and object classes are generated simultaneously.
 
+Two-stage networks (R-CNN, Fast R-CNN, Faster-RCNN): two components running sequentially, slower but accurate
+- Region proposal network (RPN): scan image and process candidate regions likely to be objects
+- Classifier: process each region and classify into object class
 
+Feature engineering
+- Data augmentation: random crop, random saturation, vertical/horizontol flip, rotation/translation, affine transformation, changing brighness saturation contrast
+  - offline: augment images before training, faster, need additional storage to store augmented images.
+  - online: augment images on the fly during training, slow training, doens't consume additional storage.
+
+## Two-stage Network
+
+Stage 1 [input image -> convolutional layers -> feature map -> region proposal network -> candidate regions] -> Stage 2 [classifier -> objects]
+
+- region proposal network (RPN): 
 
 
 
