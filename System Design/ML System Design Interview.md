@@ -7,13 +7,20 @@
 
 <!-- TOC start (generated with https://github.com/derlin/bitdowntoc) -->
 
-- [Content](#content)
-- [1. Introduction](#1-introduction)
+- [1. Visual Search System](#1-visual-search-system)
+- [2. Google Street View Blurring System](#2-google-street-view-blurring-system)
+   * [2.1 Two-stage Network](#21-two-stage-network)
+   * [2.2 Model training](#22-model-training)
+   * [2.3 Evaluation](#23-evaluation)
+   * [2.4 Serving](#24-serving)
+   * [2.5 ML System Design](#25-ml-system-design)
+- [3. YouTube Video Search](#3-youtube-video-search)
+   * [3.1 ML](#31-ml)
 
 <!-- TOC end -->
 
 
-<!-- TOC --><a name="1-introduction"></a>
+<!-- TOC --><a name="1-visual-search-system"></a>
 # 1. Visual Search System
 
 Representation learning: transform input data (image) into representations called embeddings.
@@ -43,7 +50,8 @@ Performance of Nearest Neighbor algorithms: Approximate nearest neighbor (ANN), 
 - Locality sensitive hashing (LSH): hash function to reduce dimensions of points and group close-proximity points into buckets.
 - Cluster-based ANN
 
-# Google Street View Blurring System
+<!-- TOC --><a name="2-google-street-view-blurring-system"></a>
+# 2. Google Street View Blurring System
 
 Object detection system
 - predict location of each object in image: regression to location (x, y)
@@ -60,11 +68,56 @@ Feature engineering
   - offline: augment images before training, faster, need additional storage to store augmented images.
   - online: augment images on the fly during training, slow training, doens't consume additional storage.
 
-## Two-stage Network
+<!-- TOC --><a name="21-two-stage-network"></a>
+## 2.1 Two-stage Network
 
-Stage 1 [input image -> convolutional layers -> feature map -> region proposal network -> candidate regions] -> Stage 2 [classifier -> objects]
+Stage 1 [input image -> convolutional layers -> feature map -> region proposal network -> candidate regions] -> Stage 2 [classifier -> object classes]
 
-- region proposal network (RPN): 
+- region proposal network (RPN): take feature map produced by convolutional layers as input, and output candidate regions in image.
+- classifier: determine object class of each candidate region, take feature map and proposed candidate region as input, and assign object class to each region.
+
+<!-- TOC --><a name="22-model-training"></a>
+## 2.2 Model training
+
+- forward propagation
+- loss calculation
+  - regression loss with MSE: bounding boxes of objects predicted should have high overlap with ground truth bounding box, how aligned they are.
+  - classification loss with cross-entropy: how accurate the predicted probs are for each detected object.
+- backward propagation
+
+<!-- TOC --><a name="23-evaluation"></a>
+## 2.3 Evaluation
+
+- Intersection over union (IOU): overlap between two bounding boxes
+- Precision = correct / total detections
+- Average precision: summarize model overall precision for specific object class (human face).
+- Mean average precision (mAP): overall precision for all object classes (human face, cat face).
+
+<!-- TOC --><a name="24-serving"></a>
+## 2.4 Serving
+
+Non-maximum suppression (NMS): post-processing algorithm to select most appropriate bounding boxes, keep highly confident bounding box and remove overlapping bounding box.
+
+<!-- TOC --><a name="25-ml-system-design"></a>
+## 2.5 ML System Design
+
+Data pipeline: User image -> Kafka -> Hard negative mining (explicitly created as negatives out of incorrectly predicted examples, then added to training dataset) -> Hard dataset + original dataset -> Preprosessing -> Augmentation -> ML model training -> Blurring service
+
+Batch prediction pipeline: Raw street view image -> preprocessing (CPU) -> Blurring service (GPU) <-> NMS -> Blurred street view images -> Fetching service
+
+<!-- TOC --><a name="3-youtube-video-search"></a>
+# 3. YouTube Video Search
+
+
+<!-- TOC --><a name="31-ml"></a>
+## 3.1 ML
+
+- visual search by representation learning: input text and output videos, ranking based on similarity between text and visual content.
+
+
+
+
+
 
 
 
