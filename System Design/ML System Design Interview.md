@@ -109,19 +109,43 @@ Batch prediction pipeline: Raw street view image -> preprocessing (CPU) -> Blurr
 # 3. YouTube Video Search
 
 
-<!-- TOC --><a name="31-ml"></a>
-## 3.1 ML
-
 - visual search by representation learning: input text and output videos, ranking based on similarity between text and visual content.
+- text search
 
+Feature engineering
+- text normalization, tokenization, token-to-id
+- feature hashing, to convert workd to ids.
 
+Workflow: decode frames -> sample frames -> resizing -> scaling, normalizing, correcting color mode -> frames.npy
 
+## 3.1 Model Development 
 
+Text encoder, convert text into vector representation
+- Statstics: Bag of Words, Term Frequency Inverse Document Frequency (TF-IDF)
+- ML: Embedding (lookup) layer, Word2vec, Transformer-based (sentence -> embedding for each word)
 
+Video encoder
+- video-level models: 3D convolutions/Transformers
+- frame-level models (ViT): aggregate/average frame embeddings to generate video embedding, though don't understand temporal aspects of video (actions, motions), but good to improve training/serving speed, reduce # computations.
 
+Model training: video + text encoders -> compute similarities -> softmax -> cross-entropy -> ground truth.
 
+Evaluation
+- Precision@k and mAP not helpful (because too low)
+- Recall@k, effective but depends on k choosing
+- Mean Reciprocal Rank (MRR), address cons of recall@k
 
+## 3.2 Serving 
 
+- Prediction pipeline
+  - visual search: ANN to find most similar video embeddings to text embedding
+  - text search: Elasticsearch, find videos with title and tags that overlap text query
+  - fusion layer: take two lists of relevant videos from previous step, and combine them into a new list of videos. Can rerank videos based on weighted sum of their predicted relevance scores.
+  - reranking service: modify ranked list of videos by incorporating business logic.
+- Video indexing pipeline
+- Text indexing pipeline: use Elasticsearch for indexing titles, manual tags, auto-generated tags
+
+# 4. Harmful Content Detection
 
 
 
