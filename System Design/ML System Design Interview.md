@@ -169,9 +169,69 @@ Model development
   - optimization: Stochastic Gradient Descent (SGD) to minimize loss; Weighted Alternating Least Squares (WALS) to converge matrix factorization faster.
   - inference: calculate similarity between user-video embeddings with similarity measure like dot product.
   - Good: efficient training, fast. Bad: only rely on user-video interactions not using other features, cold start.
-- two-tower NN: distance between user embedding and video embedding
-  - 
+- two-tower NN: distance between user encoer->embedding and video encoder->embedding, to predict binary labels with cross-entropy loss
+  - inference time: use embedding to find most relevant videos, Nearest neighbor problem, use ANN to find top k most similar video.
+  - Good to handle new users with better recommendation as it relies on user features, but slow in serving.
 
+Evaluation
+- Precision@k, mAP, diversity (how dissimilar recommend videos are)
+
+Serving: > 1 model in multi-stage design (lightweight model quickly narrows down as candidate generation, then heavier model accurately scores/ranks videos as scoring) work together
+- candidate generation: retrieve most similar videos (k candidates) from ANN service, ranked based on similarity in embedding space
+- scoring/ranking: content-based filtering and two-tower NN.
+- re-ranking: based on region-restricted videos, freshness, spread misinformation, duplicate, fairness/bias.
+
+Challenges
+- serving speed: two-stage design to recommend fast
+- precision: scoring based on video features
+- diversity: multiple candidate generators
+- cold-start
+  - new users: two-tower NN based on features like age, location, etc.
+  - new videos: use heuristics to display videos to randome users and collect interaction data, then fine-tune two-tower NN
+
+# 6. Eventbrite Recommendation System
+
+Ranking problem with learning to rank (LTR): having query and list of items, what's optimal ordering of items from most relevant to query?
+- pointwise ranking: item + query -> pointwise ranking model -> relevance score
+- pairwise ranking: <item x, item y> + query -> pairwise ranking model -> item y > item x
+- listwise ranking: <item 1, ..., item N> + query -> listwise ranking model -> item 5 > item 2 > item 8
+
+Feature engineering
+- location: walkable score, walk score similarity between event's and user's average walkable score, transit score, etc. Concatenated features = accessibility + geography + distance
+- time: remaining time until event begins, difference between remaining time and average remaining time by user, travel time and similarity, etc. Concatenated features = remaining time + event's day/hour
+- social: how many people, attendance by friends, invitation, how often
+- user: age, gender
+- event: price, price similarity
+- batch (static, like age, event description) features can be computed periodically. vs. streaming (dynamic, like number of users registered) features.
+- decay factor: for features that rely on user's recent X interactions
+- embedded learning: to convert event and user into embedding vector
+
+Model
+- logistic regression: good for efficient and interpretability, bad for nonlinear problems (as it use linear combination of input features) and multicollinearity (two features highly correlated)
+- decision tree: good for fast and interpretability, bad for overfitting (sensitive to small variation of data, to reduce sensitivity we use boosting and bagging) and non-optimal decision boundary.
+- bagging (random forest): ensemble learning, predictions of all trained models are combined to make final prediction, can reduce variance/overfitting with efficiency, but bad for underfitting (high bias).
+- boosting (XGBoost, GBDT): train several weak classifiers (simple classifier slightly better than random guess) sequentially to reduce prediction error. Good for boosting reduces bias and variance, bad for slower training and inference.
+- GBDT: reduce prediction error by several weak classifiers iteratively improving on misclassified data from previous classifiers. Good to reduce variance and bias, bad for tuning lots of hyperparameters and not good for continual learning from streaming data (recommendation system).
+- NN: can learn nonlinearity and can fine-tune on new data easily, good for continual learning and unstructured data.
+
+Training
+- <user, event> class imbalance issue (tons of events but user only register a few): use focal loss or class-balanced loss to train classifier, undersample majority class.
+- binary cross-entropy loss for classification
+
+Evalution
+- Recall@k, Precision@k: bad as not considering ranking quality
+- MRR: rank of first relevant item, but not good as several recommended events may be relevant
+- nDCG: good when relevance score between user and item is non-binary
+- mAP: good only when relevance scores are binary. Good fit, as events are relavant or irrelevant.
+- online metrics: CTR, conversion rate, bookmark rate, revenue lift
+
+Serving
+- online learning pipeline: dataset -> learner -> trained ML model -> evaluator -> deploy
+- prediction pipeline: event filtering + candidate events -> with trained ML model -> ranking service <-> feature computation with raw data and feature store -> top k events
+  - event filtering: narrow down millions of events
+  - ranking service: compute features for each <user, event> pair and sort top k
+
+# 7. Ad Click Prediction on Social Platforms
 
 
 
