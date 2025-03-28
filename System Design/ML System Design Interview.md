@@ -233,6 +233,51 @@ Serving
 
 # 7. Ad Click Prediction on Social Platforms
 
+Feature engineering
+- ads concatednated features = textual (categories -> tokenization -> pretrained text model) + engagement features (ad impressions, clicks) + IDs (Ad ID, advertiser ID, group ID -> embedding) + image/video features -> pretrained model
+- user concatednated features = demographics (age, gender, city) + contextual info (morning, mobile -> bucketize + one-hot) + interactions (ad click rate, total views, clicked 
+IDs -> ad-related feeature computation -> aggregate)
+
+Model
+- Logistic regression: can't solve nonlinear, and capture feature interactions
+- Feature crossing (create new features from existing features by product or sum) + Logistic regression: use feature crossing on original set of features to extract new crossed features, use original and crossed features as input for Logistic regression. Bad for manual process, can't capture complex interactions, sparsity of orginal features and need domain knowledge
+- Gradient-boosted decision trees (GBDT): inefficient for continual learning (finetune with new data), can't train embedding layers for predictions sytems with sparse categorical features.
+- GBDT + Logistic regression: train GBDT to learn task, not using trained model to predict, but use it to extract new predictive features, then with all features as input to logistic regression.
+  - GBDT -> feature selection (based on importance by decision tree) + feature extraction (those features with better predictive power by GBDT) -> Logistic regression -> prob.
+  - More predictive, but can't capture complex, continual learning is slow. 
+- Two-tower encoders NN: user encoder->embedding + ad encoder->embedding. Bad for sparsity feature space, can't capture all pairwise feature interactions.
+- Deep & Cross Network (DCN): DNN to learn complex and generalizable features, cross network to automatically captures feature interactions and learn feature crosses.
+  - Parallel DCN architecture: sparse input features -> embedding layers -> dense feature embeddigns + dense input features -> cross network + deep NN -> concatinate -> sigmoid -> prob.
+- Factorization machine (FM): embedding-based model with logistic regression + pairwise feature interactions. Widely used on ad click prediction systems, as it model complex interactions between features.
+  - model all pairwise feature interactions by learning an embedding vector for each feature, interaction between 2 features is determined by dot product of their embeddings.
+- Deep Factorization machine (DeepFM): combine FM for low-level pairwise feature interactions + DNN to learn higher-order interactions from features.
+  - Architecture: sparse input features -> embedding layers -> dense feature embdddings -> deep NN + pairwise feature interactions + per feature weights -> sigmoid -> prob.
+  - improvement: GBDT + DeepFM, GBDT to convert original features to predictive features, DeepFM for new features.
+  - More variants: XDeepFM, Field-aware FM (FFM).
+
+Training
+- positive/negative label (click ad or not)
+- cross-entropy as classification loss function
+
+Evaluation
+- cross-entropy (CE): how close model's predicted probs are to ground truth labels, the lower the better
+- normalized cross-entropy = CE of ML model / CE of simple baseline (e.g., average CTR in training data)
+
+Serving
+- data preparation pipeline: data lake + stream of new data -> batch feature computation + online feature computation -> feature store -> dataset generation
+  - batch feature computation for static feature, online feature computation for frequently-changing features.
+- continual learning pipeline (to finetune/evaluate/deploy model on new training data): training dataset -> model training -> model validation and deployment -> ML model -> model registry
+- prediction pipeline: pool of ads -> candidate generation service -> ranking service (given feature store + online feature computation) + ML model -> reranking service -> ranked ads
+  - can't use batch prediction as some features are dynamic. 
+  - Two-stage architecture: candidate generation service to narrow down, then rank them with static and dynamic features to predict.
+  - Finally rerank with additional logic and heuristics.
+
+# 8. Airbnb: Similar Listings on Vacation Rental
+
+
+
+
+
 
 
 
