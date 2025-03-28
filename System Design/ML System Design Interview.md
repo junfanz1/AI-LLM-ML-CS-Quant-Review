@@ -79,11 +79,11 @@ Stage 1 [input image -> convolutional layers -> feature map -> region proposal n
 <!-- TOC --><a name="22-model-training"></a>
 ## 2.2 Model training
 
-- forward propagation
-- loss calculation
+- forward propagation: make prediction
+- loss calculation: measure correctness of prediction
   - regression loss with MSE: bounding boxes of objects predicted should have high overlap with ground truth bounding box, how aligned they are.
   - classification loss with cross-entropy: how accurate the predicted probs are for each detected object.
-- backward propagation
+- backward propagation: optimize model parameters to reduce loss in next iteration
 
 <!-- TOC --><a name="23-evaluation"></a>
 ## 2.3 Evaluation
@@ -146,6 +146,39 @@ Evaluation
 - Text indexing pipeline: use Elasticsearch for indexing titles, manual tags, auto-generated tags
 
 # 4. Harmful Content Detection
+
+- Late fusion: process different modalities (image, text, author) independently, then combine their predictions to make final prediction. We can train, evaluate, improve each model independently. But bad that we need to have separate training data for each modality, and combination of modalities might be harmful even if each modality is good.
+- Early fusion: modalities are combined first, then make prediction. Good that it's unnecessary to collect training data for each modality, also model can capture harmful combinations of good modalities in unified feature vector. But complex relationships are difficult to learn.
+
+ML
+- Single binary classifier: not easy to identify harmful classes
+- One binary classifier per harmful class: each model determines if it's violent/hate, etc.
+- Multi-label classifier, single shared model
+- Multi-task classifier: model learn multiple tasks simultaneously, can learn similarities between tasks, no unnecessary computations. Fused features -> Shared layers -> Transformed features -> Task specific layers -> Hate/violence probability
+  - shared layers: newly transformed features to make predictions for each harmful classes
+  - task-specifc layers: various Hate/violence/... classification head 
+
+Model 
+- Hyperparameters tuning: grid search.
+- Overfitting challenge: one modality can dominate learning process, solution: gradient blending, focal loss.
+
+Offline Evaluation of Classification model
+- precision-recall curve: tradeoff between precision and recall
+- receiver operating characteristic (ROC) curve: tradeoff between true positive (recall) and false positive.
+
+# 5. Video Recommendation System
+
+## 5.1 
+
+
+
+
+
+
+
+
+
+
 
 
 
