@@ -68,46 +68,34 @@ Feature engineering
   - offline: augment images before training, faster, need additional storage to store augmented images.
   - online: augment images on the fly during training, slow training, doens't consume additional storage.
 
-<!-- TOC --><a name="21-two-stage-network"></a>
-## 2.1 Two-stage Network
-
-Stage 1 [input image -> convolutional layers -> feature map -> region proposal network -> candidate regions] -> Stage 2 [classifier -> object classes]
+Two-stage Network: Stage 1 [input image -> convolutional layers -> feature map -> region proposal network -> candidate regions] -> Stage 2 [classifier -> object classes]
 
 - region proposal network (RPN): take feature map produced by convolutional layers as input, and output candidate regions in image.
 - classifier: determine object class of each candidate region, take feature map and proposed candidate region as input, and assign object class to each region.
 
-<!-- TOC --><a name="22-model-training"></a>
-## 2.2 Model training
-
+Model training
 - forward propagation: make prediction
 - loss calculation: measure correctness of prediction
   - regression loss with MSE: bounding boxes of objects predicted should have high overlap with ground truth bounding box, how aligned they are.
   - classification loss with cross-entropy: how accurate the predicted probs are for each detected object.
 - backward propagation: optimize model parameters to reduce loss in next iteration
 
-<!-- TOC --><a name="23-evaluation"></a>
-## 2.3 Evaluation
-
+Evaluation
 - Intersection over union (IOU): overlap between two bounding boxes
 - Precision = correct / total detections
 - Average precision: summarize model overall precision for specific object class (human face).
 - Mean average precision (mAP): overall precision for all object classes (human face, cat face).
 
-<!-- TOC --><a name="24-serving"></a>
-## 2.4 Serving
-
-Non-maximum suppression (NMS): post-processing algorithm to select most appropriate bounding boxes, keep highly confident bounding box and remove overlapping bounding box.
+Serving
+- Non-maximum suppression (NMS): post-processing algorithm to select most appropriate bounding boxes, keep highly confident bounding box and remove overlapping bounding box.
 
 <!-- TOC --><a name="25-ml-system-design"></a>
-## 2.5 ML System Design
-
-Data pipeline: User image -> Kafka -> Hard negative mining (explicitly created as negatives out of incorrectly predicted examples, then added to training dataset) -> Hard dataset + original dataset -> Preprosessing -> Augmentation -> ML model training -> Blurring service
-
-Batch prediction pipeline: Raw street view image -> preprocessing (CPU) -> Blurring service (GPU) <-> NMS -> Blurred street view images -> Fetching service
+ML System Design
+- Data pipeline: User image -> Kafka -> Hard negative mining (explicitly created as negatives out of incorrectly predicted examples, then added to training dataset) -> Hard dataset + original dataset -> Preprosessing -> Augmentation -> ML model training -> Blurring service
+- Batch prediction pipeline: Raw street view image -> preprocessing (CPU) -> Blurring service (GPU) <-> NMS -> Blurred street view images -> Fetching service
 
 <!-- TOC --><a name="3-youtube-video-search"></a>
 # 3. YouTube Video Search
-
 
 - visual search by representation learning: input text and output videos, ranking based on similarity between text and visual content.
 - text search
@@ -118,15 +106,13 @@ Feature engineering
 
 Workflow: decode frames -> sample frames -> resizing -> scaling, normalizing, correcting color mode -> frames.npy
 
-## 3.1 Model Development 
-
-Text encoder, convert text into vector representation
-- Statstics: Bag of Words, Term Frequency Inverse Document Frequency (TF-IDF)
-- ML: Embedding (lookup) layer, Word2vec, Transformer-based (sentence -> embedding for each word)
-
-Video encoder
-- video-level models: 3D convolutions/Transformers
-- frame-level models (ViT): aggregate/average frame embeddings to generate video embedding, though don't understand temporal aspects of video (actions, motions), but good to improve training/serving speed, reduce # computations.
+Model Development: 
+- Text encoder, convert text into vector representation
+  - Statstics: Bag of Words, Term Frequency Inverse Document Frequency (TF-IDF)
+  - ML: Embedding (lookup) layer, Word2vec, Transformer-based (sentence -> embedding for each word)
+- Video encoder
+  - video-level models: 3D convolutions/Transformers
+  - frame-level models (ViT): aggregate/average frame embeddings to generate video embedding, though don't understand temporal aspects of video (actions, motions), but good to improve training/serving speed, reduce # computations.
 
 Model training: video + text encoders -> compute similarities -> softmax -> cross-entropy -> ground truth.
 
@@ -135,8 +121,7 @@ Evaluation
 - Recall@k, effective but depends on k choosing
 - Mean Reciprocal Rank (MRR), address cons of recall@k
 
-## 3.2 Serving 
-
+Serving 
 - Prediction pipeline
   - visual search: ANN to find most similar video embeddings to text embedding
   - text search: Elasticsearch, find videos with title and tags that overlap text query
@@ -168,10 +153,24 @@ Offline Evaluation of Classification model
 
 # 5. Video Recommendation System
 
-## 5.1 
+Hybrid Filtering Model
+- collaborative filtering (first stage): not use video features but relies exclusively on user's historical interactions for recommendation. Good that no need domain knowledge, easy to discover user's new interest. Bad at cold start, can't handle niche interest.
+- content-based filtering (second stage): good to capture user interest, bad at discover user's new interest
 
+Feature engineering
+- video concatenated features: language -> embedding, video i -> embeddingd, duration, title -> pre-trained BERT, tags -> CBOW -> aggregate
+- user concatenated features: user id -> embedding, age -> bucketize + one-hot, gender -> one-hot, language -> embedding, city/country -> embedding
+- user-video interactions (search history) concatenated features: search queries -> pretrained text model -> aggregate, watched/liked videos -> embedding -> aggregate
 
-
+Model development
+- matrix factorization: embedding model to decompose user feedback matrix into product of two lower-dimension matrices = user embedding + video embedding. Learn to map each user and video into embedding vector, distance represents relevance.
+  - feedback matrix: positive or negative feedback (click, like, share)
+  - calculation: initialize 2 random embedding matrices, iteratively optimize embeddings to decrease loss between predicted scores matrix and feedback matrix, loss function is suqared distance over observed and unobserved <user, video> pairs.
+  - optimization: Stochastic Gradient Descent (SGD) to minimize loss; Weighted Alternating Least Squares (WALS) to converge matrix factorization faster.
+  - inference: calculate similarity between user-video embeddings with similarity measure like dot product.
+  - Good: efficient training, fast. Bad: only rely on user-video interactions not using other features, cold start.
+- two-tower NN: distance between user embedding and video embedding
+  - 
 
 
 
