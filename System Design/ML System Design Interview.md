@@ -9,13 +9,14 @@
 
 - [1. Visual Search System](#1-visual-search-system)
 - [2. Google Street View Blurring System](#2-google-street-view-blurring-system)
-   * [2.1 Two-stage Network](#21-two-stage-network)
-   * [2.2 Model training](#22-model-training)
-   * [2.3 Evaluation](#23-evaluation)
-   * [2.4 Serving](#24-serving)
-   * [2.5 ML System Design](#25-ml-system-design)
 - [3. YouTube Video Search](#3-youtube-video-search)
-   * [3.1 ML](#31-ml)
+- [4. Harmful Content Detection](#4-harmful-content-detection)
+- [5. Video Recommendation System](#5-video-recommendation-system)
+- [6. Eventbrite Recommendation System](#6-eventbrite-recommendation-system)
+- [7. Ad Click Prediction on Social Platforms](#7-ad-click-prediction-on-social-platforms)
+- [8. Airbnb: Similar Listings on Vacation Rental](#8-airbnb-similar-listings-on-vacation-rental)
+- [9. Personalized News Feed](#9-personalized-news-feed)
+- [10. People You May Know](#10-people-you-may-know)
 
 <!-- TOC end -->
 
@@ -89,7 +90,6 @@ Evaluation
 Serving
 - Non-maximum suppression (NMS): post-processing algorithm to select most appropriate bounding boxes, keep highly confident bounding box and remove overlapping bounding box.
 
-<!-- TOC --><a name="25-ml-system-design"></a>
 ML System Design
 - Data pipeline: User image -> Kafka -> Hard negative mining (explicitly created as negatives out of incorrectly predicted examples, then added to training dataset) -> Hard dataset + original dataset -> Preprosessing -> Augmentation -> ML model training -> Blurring service
 - Batch prediction pipeline: Raw street view image -> preprocessing (CPU) -> Blurring service (GPU) <-> NMS -> Blurred street view images -> Fetching service
@@ -130,6 +130,7 @@ Serving
 - Video indexing pipeline
 - Text indexing pipeline: use Elasticsearch for indexing titles, manual tags, auto-generated tags
 
+<!-- TOC --><a name="4-harmful-content-detection"></a>
 # 4. Harmful Content Detection
 
 - Late fusion: process different modalities (image, text, author) independently, then combine their predictions to make final prediction. We can train, evaluate, improve each model independently. But bad that we need to have separate training data for each modality, and combination of modalities might be harmful even if each modality is good.
@@ -151,6 +152,7 @@ Offline Evaluation of Classification model
 - precision-recall curve: tradeoff between precision and recall
 - receiver operating characteristic (ROC) curve: tradeoff between true positive (recall) and false positive.
 
+<!-- TOC --><a name="5-video-recommendation-system"></a>
 # 5. Video Recommendation System
 
 Hybrid Filtering Model
@@ -189,6 +191,7 @@ Challenges
   - new users: two-tower NN based on features like age, location, etc.
   - new videos: use heuristics to display videos to randome users and collect interaction data, then fine-tune two-tower NN
 
+<!-- TOC --><a name="6-eventbrite-recommendation-system"></a>
 # 6. Eventbrite Recommendation System
 
 Ranking problem with learning to rank (LTR): having query and list of items, what's optimal ordering of items from most relevant to query?
@@ -231,6 +234,7 @@ Serving
   - event filtering: narrow down millions of events
   - ranking service: compute features for each <user, event> pair and sort top k
 
+<!-- TOC --><a name="7-ad-click-prediction-on-social-platforms"></a>
 # 7. Ad Click Prediction on Social Platforms
 
 Feature engineering
@@ -272,6 +276,7 @@ Serving
   - Two-stage architecture: candidate generation service to narrow down, then rank them with static and dynamic features to predict.
   - Finally rerank with additional logic and heuristics.
 
+<!-- TOC --><a name="8-airbnb-similar-listings-on-vacation-rental"></a>
 # 8. Airbnb: Similar Listings on Vacation Rental
 
 - traditional recommendation systems: contect-independent user interests, not changing frequently
@@ -292,7 +297,40 @@ Serving
 - indexing pipeline: trained model + listings -> indexer -> index table
 - prediction pipeline: currently-viewing listing + index table ->  embedding featcher service (input listing is seen or not) + listing embedding -> nearest neighbor service -> reranking service -> recommended similar listings
 
+<!-- TOC --><a name="9-personalized-news-feed"></a>
 # 9. Personalized News Feed
+
+Model
+- N independent DNNs, one for each reaction (click, like, share): expensive
+- Multi-task DNN: input features -> DNN [shared layers -> click/like/share classification head] -> click/like/share prob. Learn similarities between tasks to avoid unnecessary computations.
+  - consider passive users and implicit reactions: dwell-time (time spent on post,), skip (spend less time)
+- loss function for each task depending on ML category: binary cross-entropy for classification, regression (MAE, MSE, Huber loss) for regression (dwell-time prediction)
+- evaluation: binary classification metric (precision, recall), ROC curve to understand tradeoff between true/false positive, ROC-AUC for performance of classification with numerical value
+
+Serving
+- data preparation pipeline: stream of new data -> data store -> batch feature computation -> feature store + online feature computation -> ranking service
+- prediction pipeline: user -> retrieval service -> ranking service <-> ML model -> reranking service -> personalized feed for user
+
+<!-- TOC --><a name="10-people-you-may-know"></a>
+# 10. People You May Know
+
+
+- pointwise LTR (learning to rank): binary classification, input two users, output their prob of connection
+- edge prediction
+- Model: Graph NN (GNN)
+- Evaluation: ROC-AUC or mAP for binary classification
+- batch prediction: precomputed in database (online prediction is slow for millions users) can have instantaneous experience for users, social graph not evolve quickly so precomputed recommendations are still relevant for 7 days, but bad for unnecessary computations.
+
+ML system design
+- prediction pipeline: user -> PYMK service (<- pre-computed PYMK)
+- PYMK generation pipeline: data lake -> feature computation -> scoring service + FriendsofFriends service  <-> GNN model -> Pre-computed PYMK
+
+
+
+
+
+
+
 
 
 
