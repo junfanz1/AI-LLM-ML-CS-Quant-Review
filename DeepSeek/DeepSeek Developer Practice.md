@@ -40,8 +40,47 @@ vLLM分布式部署DeepSeek
 - 单节点多 GPU（张量并行推理）的情况，这种情况适用于一张卡无法承载模型的运行。例如，如果我要运行一个 32 B 的模型，需要显存为 64 G，则我至少需要 5 张 T4 卡（4 张卡是 64 G，考虑到通常要设置显存只能占用 95% 的阈值，防止推理时将显存压爆，造成模型运行崩溃，不能可丁可卯），才能运行。vLLM 提供了一个参数，–tensor-parallel-size，用于设置张量并行数量。例如 5 张卡，就设置 --tensor-parallel-size 为 5。NVlink 相当于用一条高速公路，将多张卡串在了一起，保证了多卡之间数据交换的效率。
 - 多节点单（多） GPU（张量并行加管道并行推理）的情况，当我们的单台节点上没有这么多卡了，就需要多个节点来凑。例如，我要部署一个 DeepSeek-R1 671B，需要 16 张 A100，则此时一般会使用两个节点，每个节点上 8 张卡。我们把多节点的并行推理，叫做管道并行。
 
+vLLM + Ray集群，分布式部署计算框架。 llama.cpp，模型轻量化部署开箱即用。Llama-factory，一站式微调和评估平台。
 
+# MCP
 
+- MCP，统一LLM与外部数据源和工具之间的通信协议，AI连接万物的接口。MCP 把工具调用程序做成了一个 C-S 架构，工具的实际调用由 MCP Server 来完成。
+- 当大模型选择了合适的能力后，MCP Hosts 会调用 MCP Cient 与 MCP Server 进行通信，由 MCP Server 调用工具或者读取资源后，反馈给 MCP Client，然后再由 MCP Hosts 反馈给大模型，由大模型判断是否能解决用户的问题。如果解决了，则会生成自然语言响应，最终由 MCP Hosts 将响应展示给用户。
+- MCP Server 的 Python SDK，分为 FastMCP SDK 和 Low-Lever SDK 两种。FastMCP 是在 Low-Level 的基础上又做了一层封装，不论是写代码，还是项目依赖等，操作起来都更加简单。
+
+MCP能力
+- Tool，是直接对接大模型的，可以由大模型自主选择工具，无需人类进行干涉，整个过程是全自动的。Tool 更偏标准化接入，而且供应和消费分离，别人写了某个提供 Tool 的 MCP Server，其他人也可以直接用。
+- Resource，定义了大模型可以只读访问的数据源，可以用于为大模型提供上下文。这个功能类似于文件对话功能，Resource 对接的是 MCP Hosts，需要 MCP Hosts 额外开发与 Resouce 的交互功能，并且由用户进行选择，才能直接使用。
+
+通信方式
+- 标准输入输出（Standard Input/Output, stdio）：客户端通过启动服务器子进程并使用标准输入（stdin）和标准输出（stdout）建立双向通信，一个服务器进程只能与启动它的客户端通信（1:1 关系）。stdio 适用于本地快速集成的场景。
+- 服务器发送事件（Server-Sent Events, SSE）：服务器作为独立进程运行，客户端和服务器代码完全解耦，支持多个客户端随时连接和断开。是一种基于 HTTP 协议的技术，允许服务器向客户端单向、实时地推送数据。在 SSE 模式下，客户端通过创建一个  EventSource  对象与服务器建立持久连接，服务器则通过该连接持续发送数据流，而无需客户端反复发送请求。
+
+![image](https://github.com/user-attachments/assets/f24f7b3e-b6b7-4b73-812d-7d18fb20cd8e)
+
+# Job Seeking Project
+
+- 无头浏览器，比较常用的框架，叫做 Selenium，它是一个自动化测试和浏览器自动化的开源框架。它允许开发人员编写脚本，并借助浏览器和浏览器的驱动，来模拟在浏览器中的行为，自动执行一些列的操作，比如点击按钮、填写表单、导航到不同的页面等。
+- uv项目管理配置
+
+```bash
+.
+|-- src
+| |-- jobsearch_mcp_server
+| | |-- llm
+| | | |-- llm.py
+| | |-- prompt
+| | | |-- prompt.py
+| | |-- tools
+| | | |-- job.py
+| | |-- server.py
+| | |-- __init__.py
+|-- .env
+|-- pyproject.toml
+|-- LICENSE
+```
+
+- 求职助手 MCP Server。通过该 MCP Server，我们只需将简历丢给大模型，大模型就会帮我们匹配到合适的工作，并给出求职建议。
 
 # Acknowledgements
 
