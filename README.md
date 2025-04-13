@@ -26,7 +26,7 @@ In-depth review of industry trends in AI, LLMs, Machine Learning, Computer Scien
 
 - [1. NVIDIA GTC | AI Conference for Developers](#1-nvidia-gtc-ai-conference-for-developers)
 - [2. DeepSeek Trends 2025](#2-deepseek-trends-2025)
-   * [MoE (Mixture of Experts)](#moe-mixture-of-experts)
+   * [Research Implementation](#research)
    * [DeepSeek Theory](#deepseek-theory)
    * [DeepSeek Applications](#deepseek-applications)
 - [3. LangGraph & Cursor AI Projects](#3-langgraph-cursor-ai-projects)
@@ -80,10 +80,12 @@ In-depth review of industry trends in AI, LLMs, Machine Learning, Computer Scien
 <!-- TOC --><a name="2-deepseek-trends-2025"></a>
 # 2. DeepSeek Trends 2025
 
-<!-- TOC --><a name="moe-mixture-of-experts"></a>
-## MoE (Mixture of Experts)
+<!-- TOC --><a name="research"></a>
+## Research Implementation
 
 > [Github: Mixture-of-Experts (MoE) Implementation in PyTorch](https://github.com/junfanz1/MoE-Mixture-of-Experts)
+
+> [Github: MiniGPT-and-DeepSeek-MLA-Multi-Head-Latent-Attention](https://github.com/junfanz1/DeepSeek-MLA)
 
 <!-- TOC --><a name="deepseek-theory"></a>
 ## DeepSeek Theory
@@ -114,6 +116,8 @@ In-depth review of industry trends in AI, LLMs, Machine Learning, Computer Scien
 <img src="https://github.com/user-attachments/assets/71c2bd39-a1a1-410c-a541-0615e4608995" width="20%" height="20%">
 
 > GitHub Projects
+
+- [MCP-MultiServer-Interoperable-Agent2Agent-LangGraph-AI-System](https://github.com/junfanz1/MCP-Servers)
 - [Code-Interpreter-ReAct-LangChain-Agent](https://github.com/junfanz1/Code-Interpreter-ReAct-LangChain-Agent)
 - [LLM-Documentation-Chatbot](https://github.com/junfanz1/LLM-Documentation-Chatbot)
 - [Cognito-LangGraph-RAG](https://github.com/junfanz1/Cognito-LangGraph-RAG)
