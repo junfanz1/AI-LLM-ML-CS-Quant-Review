@@ -18,7 +18,7 @@
 # AI-LLM-ML-CS-Quant-Review
 
 In-depth review of industry trends in AI, LLMs, Machine Learning, Computer Science, and Quantitative Finance. 
-  - <mark>[__GTC 2025 Review__](https://github.com/junfanz1/AI-LLM-ML-CS-Quant-Review/blob/main/NVIDIA%20GTC/GTC%202025.md)</mark> <img src="https://img.shields.io/github/stars/junfanz1%2FAI-LLM-ML-CS-Quant-Review" alt="GitHub Stars" />
+  - <mark>[__2025 NVIDIA GTC Conference − Technical & Industrial Insight__](https://github.com/junfanz1/AI-LLM-ML-CS-Quant-Review/blob/main/NVIDIA%20GTC/GTC%202025.md)</mark> <img src="https://img.shields.io/github/stars/junfanz1%2FAI-LLM-ML-CS-Quant-Review" alt="GitHub Stars" />
 
 <!-- TOC --><a name="contents"></a>
 ## Contents
@@ -56,7 +56,7 @@ In-depth review of industry trends in AI, LLMs, Machine Learning, Computer Scien
 
 <img src="https://github.com/user-attachments/assets/73e41194-64af-45ad-9d1b-6e7f61f49f4a" width="80%" height="80%">
 
-> <mark>[__GTC 2025 Review__](https://github.com/junfanz1/AI-LLM-ML-CS-Quant-Review/blob/main/NVIDIA%20GTC/GTC%202025.md)</mark> <img src="https://img.shields.io/github/stars/junfanz1%2FAI-LLM-ML-CS-Quant-Overview" alt="GitHub Stars" />
+> <mark>[__2025 NVIDIA GTC Conference − Technical & Industrial Insight__](https://github.com/junfanz1/AI-LLM-ML-CS-Quant-Review/blob/main/NVIDIA%20GTC/GTC%202025.md)</mark> <img src="https://img.shields.io/github/stars/junfanz1%2FAI-LLM-ML-CS-Quant-Overview" alt="GitHub Stars" />
 
 <div style="display: inline-block; border: 1px solid lightgray; padding: 0;">
   <table style="border-collapse: collapse; transform: scale(0.5); transform-origin: 0 0;">
