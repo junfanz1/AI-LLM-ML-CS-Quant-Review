@@ -25,16 +25,16 @@ In-depth review of industry trends in AI, LLMs, Machine Learning, Computer Scien
 <!-- TOC start (generated with https://github.com/derlin/bitdowntoc) -->
 
 - [1. NVIDIA GTC | AI Conference for Developers](#1-nvidia-gtc-ai-conference-for-developers)
-- [2. DeepSeek Trends 2025](#2-deepseek-trends-2025)
-   * [Research Implementation](#research)
-   * [DeepSeek Theory](#deepseek-theory)
-   * [DeepSeek Applications](#deepseek-applications)
-- [3. LangGraph & Cursor AI Projects](#3-langgraph-cursor-ai-projects)
-- [4. LLM Essentials](#4-llm-essentials)
+- [2. LLM Essentials](#2-llm-essentials)
    * [LLM Theory](#llm-theory)
    * [LLM Applications](#llm-applications)
    * [RAG](#rag)
    * [Multi-Agent](#multi-agent)
+- [3. DeepSeek Trends 2025](#3-deepseek-trends-2025)
+   * [Research Implementation](#research-implementation)
+   * [DeepSeek Theory](#deepseek-theory)
+   * [DeepSeek Applications](#deepseek-applications)
+- [4. LangGraph & Cursor AI Projects](#4-langgraph-cursor-ai-projects)
 - [5. System Design](#5-system-design)
    * [ByteByteGo - GenAI/ML/Modern System Design Interview](#bytebytego-genaimlmodern-system-design-interview)
    * [Educative - GenAI/Modern System Design Interview](#educative-genaimodern-system-design-interview)
@@ -76,57 +76,8 @@ In-depth review of industry trends in AI, LLMs, Machine Learning, Computer Scien
 
 > [__GTC 2024 Notes-Chinese__](https://github.com/junfanz1/AI-LLM-ML-CS-Quant-Readings/blob/main/NVIDIA%20GTC/GTC%202024.md)
 
-
-<!-- TOC --><a name="2-deepseek-trends-2025"></a>
-# 2. DeepSeek Trends 2025
-
-<!-- TOC --><a name="research"></a>
-## Research Implementation
-
-> [Github: Mixture-of-Experts (MoE) Implementation in PyTorch](https://github.com/junfanz1/MoE-Mixture-of-Experts)
-
-> [Github: MiniGPT-and-DeepSeek-MLA-Multi-Head-Latent-Attention](https://github.com/junfanz1/DeepSeek-MLA)
-
-<!-- TOC --><a name="deepseek-theory"></a>
-## DeepSeek Theory
-
-> [Educative: Everything You Need to Know About DeepSeek](https://www.educative.io/verify-certificate/GZjlABCqZ1G2n7mWjuroy1MXK2GBIm) | [__Notes__](https://github.com/junfanz1/AI-LLM-ML-CS-Quant-Readings/blob/main/DeepSeek/DeepSeek%20Essentials.md)
-
-> [Zomi-Bilibili](https://space.bilibili.com/517221395/upload/video) | [Github](https://github.com/chenzomi12/AIFoundation/) | [__Notes-Chinese__](https://github.com/junfanz1/AI-ML-CS-Quant-Readings/blob/main/DeepSeek/DeepSeek%20Theory.md)
-
-<!-- TOC --><a name="deepseek-applications"></a>
-## DeepSeek Applications
-
-> [GeekBang: DeepSeek HandsOn](https://time.geekbang.org/column/101000501) | [__Notes-Chinese__](https://github.com/junfanz1/AI-LLM-ML-CS-Quant-Readings/blob/main/DeepSeek/DeepSeek%20HandsOn.md)
-
-> [GeekBang: DeepSeek App Development](https://time.geekbang.org/column/intro/100995901) | [__Notes-Chinese__](https://github.com/junfanz1/AI-ML-CS-Quant-Readings/blob/main/DeepSeek/DeepSeek%20Developer%20Practice.md)
-
-<!-- TOC --><a name="3-langgraph-cursor-ai-projects"></a>
-# 3. LangGraph & Cursor AI Projects
-
-> [__Notes__](https://github.com/junfanz1/AI-ML-CS-Quant-Readings/blob/main/LangChain/Projects.md)
-- [Ed Donner: LLM Engineering: Master AI, Large Language Models & Agents](https://www.udemy.com/course/llm-engineering-master-ai-and-large-language-models)
-- [Eden Marco: LangChain-Develop LLM powered applications with LangChain](https://www.udemy.com/course/langchain/)
-- [Eden Marco: LangGraph-Develop LLM powered AI agents with LangGraph](https://www.udemy.com/course/langgraph)
-- [Eden Marco: Cursor Course: FullStack development with Cursor AI Copilot](https://www.udemy.com/course/cursor-ai-ide/)
-
-<img src="https://github.com/user-attachments/assets/e5bb6fb6-9c70-42e6-9d4a-7603d9646b26" width="20%" height="20%">
-<img src="https://github.com/user-attachments/assets/545885af-9c0b-431c-b8d4-cc28a0b7d64f" width="20%" height="20%">
-<img src="https://github.com/user-attachments/assets/0511a3b1-a5d4-4255-8916-fc9cb2d08e99" width="20%" height="20%">
-<img src="https://github.com/user-attachments/assets/71c2bd39-a1a1-410c-a541-0615e4608995" width="20%" height="20%">
-
-> GitHub Projects
-
-- [MCP-MultiServer-Interoperable-Agent2Agent-LangGraph-AI-System](https://github.com/junfanz1/MCP-Servers)
-- [Code-Interpreter-ReAct-LangChain-Agent](https://github.com/junfanz1/Code-Interpreter-ReAct-LangChain-Agent)
-- [LLM-Documentation-Chatbot](https://github.com/junfanz1/LLM-Documentation-Chatbot)
-- [Cognito-LangGraph-RAG](https://github.com/junfanz1/Cognito-LangGraph-RAG)
-- [LangGraph-Reflection-Researcher](https://github.com/junfanz1/LangGraph-Reflection-Researcher)
-- [Cursor-FullStack-AI-App](https://github.com/junfanz1/Cursor-FullStack-AI-App)
-
-
-<!-- TOC --><a name="4-llm-essentials"></a>
-# 4. LLM Essentials
+<!-- TOC --><a name="2-llm-essentials"></a>
+# 2. LLM Essentials
 
 <!-- TOC --><a name="llm-theory"></a>
 ## LLM Theory
@@ -137,9 +88,19 @@ Foundations of LLMs - by Yuren Mao, Zhejiang University, 2024
 
 30 Essential Questions and Answers on Machine Learning and AI - by Sebastian Raschka, 2025
 
+> [__Notes__](https://github.com/junfanz1/AI-LLM-ML-CS-Quant-Review/blob/main/Foundations%20of%20LLMs/30MLAI.md)
+
 Efficient Training in PyTorch, by Ailing Zhang, 2024
 
+> [__Notes__](https://github.com/junfanz1/AI-LLM-ML-CS-Quant-Review/blob/main/Foundations%20of%20LLMs/Efficient%20Training%20PyTorch.md)
+
 DeepSeek Large Model High-Performance Core Technology and Multimodal Fusion Development, by Xiaohua Wang, 2025
+
+> [__Notes__](https://github.com/junfanz1/AI-LLM-ML-CS-Quant-Review/blob/main/Foundations%20of%20LLMs/DeepSeek%20Large%20Model.md)
+
+Unveiling Large Model, by Liang Wen, 2025
+
+> [__Notes__](https://github.com/junfanz1/AI-LLM-ML-CS-Quant-Review/blob/main/Foundations%20of%20LLMs/Unveiling%20Large%20Model.md)
 
 <img src="https://github.com/user-attachments/assets/0c35d5d0-f8e0-4b64-9d93-2240c628feaa" width="20%" height="20%">
 
@@ -149,6 +110,7 @@ DeepSeek Large Model High-Performance Core Technology and Multimodal Fusion Deve
 
 <img src="https://github.com/user-attachments/assets/1c3c59ff-4b22-4163-a12b-cfc027950602" width="22%" height="22%">
 
+<img src="https://github.com/user-attachments/assets/65fd0bf1-dde7-4282-a7aa-fd413812c686" width="22%" height="22%">
 
 
 > [GeekBang: AI LLM Practice](https://time.geekbang.org/column/intro/100770601) | [__Notes-Chinese__](https://github.com/junfanz1/AI-LLM-ML-CS-Quant-Readings/blob/main/AI%20LLM/AI%20LLM%20Practice.md)
@@ -175,6 +137,57 @@ DeepSeek Large Model High-Performance Core Technology and Multimodal Fusion Deve
 > [Educative: Build AI Agents and Multi-Agent Systems with CrewAI](https://www.educative.io/verify-certificate/k5m3gACoj1xDYoOq7c0Kjk4y2AoGTn) | [__Notes__](https://github.com/junfanz1/AI-LLM-ML-CS-Quant-Readings/blob/main/AI%20LLM/CrewAI.md)
 
 > [GeekBang: AI Agents](https://time.geekbang.org/course/intro/100775901?tab=catalog) | [__Notes-Chinese__](https://github.com/junfanz1/AI-LLM-ML-CS-Quant-Readings/blob/main/AI%20LLM/AI%20Agent.md)
+
+
+
+<!-- TOC --><a name="3-deepseek-trends-2025"></a>
+# 3. DeepSeek Trends 2025
+
+<!-- TOC --><a name="research-implementation"></a>
+## Research Implementation
+
+> [Github: Mixture-of-Experts (MoE) Implementation in PyTorch](https://github.com/junfanz1/MoE-Mixture-of-Experts)
+
+> [Github: MiniGPT-and-DeepSeek-MLA-Multi-Head-Latent-Attention](https://github.com/junfanz1/DeepSeek-MLA)
+
+<!-- TOC --><a name="deepseek-theory"></a>
+## DeepSeek Theory
+
+> [Educative: Everything You Need to Know About DeepSeek](https://www.educative.io/verify-certificate/GZjlABCqZ1G2n7mWjuroy1MXK2GBIm) | [__Notes__](https://github.com/junfanz1/AI-LLM-ML-CS-Quant-Readings/blob/main/DeepSeek/DeepSeek%20Essentials.md)
+
+> [Zomi-Bilibili](https://space.bilibili.com/517221395/upload/video) | [Github](https://github.com/chenzomi12/AIFoundation/) | [__Notes-Chinese__](https://github.com/junfanz1/AI-ML-CS-Quant-Readings/blob/main/DeepSeek/DeepSeek%20Theory.md)
+
+<!-- TOC --><a name="deepseek-applications"></a>
+## DeepSeek Applications
+
+> [GeekBang: DeepSeek HandsOn](https://time.geekbang.org/column/101000501) | [__Notes-Chinese__](https://github.com/junfanz1/AI-LLM-ML-CS-Quant-Readings/blob/main/DeepSeek/DeepSeek%20HandsOn.md)
+
+> [GeekBang: DeepSeek App Development](https://time.geekbang.org/column/intro/100995901) | [__Notes-Chinese__](https://github.com/junfanz1/AI-ML-CS-Quant-Readings/blob/main/DeepSeek/DeepSeek%20Developer%20Practice.md)
+
+<!-- TOC --><a name="4-langgraph-cursor-ai-projects"></a>
+# 4. LangGraph & Cursor AI Projects
+
+> [__Notes__](https://github.com/junfanz1/AI-ML-CS-Quant-Readings/blob/main/LangChain/Projects.md)
+- [Ed Donner: LLM Engineering: Master AI, Large Language Models & Agents](https://www.udemy.com/course/llm-engineering-master-ai-and-large-language-models)
+- [Eden Marco: LangChain-Develop LLM powered applications with LangChain](https://www.udemy.com/course/langchain/)
+- [Eden Marco: LangGraph-Develop LLM powered AI agents with LangGraph](https://www.udemy.com/course/langgraph)
+- [Eden Marco: Cursor Course: FullStack development with Cursor AI Copilot](https://www.udemy.com/course/cursor-ai-ide/)
+
+<img src="https://github.com/user-attachments/assets/e5bb6fb6-9c70-42e6-9d4a-7603d9646b26" width="20%" height="20%">
+<img src="https://github.com/user-attachments/assets/545885af-9c0b-431c-b8d4-cc28a0b7d64f" width="20%" height="20%">
+<img src="https://github.com/user-attachments/assets/0511a3b1-a5d4-4255-8916-fc9cb2d08e99" width="20%" height="20%">
+<img src="https://github.com/user-attachments/assets/71c2bd39-a1a1-410c-a541-0615e4608995" width="20%" height="20%">
+
+> GitHub Projects
+
+- [MCP-MultiServer-Interoperable-Agent2Agent-LangGraph-AI-System](https://github.com/junfanz1/MCP-Servers)
+- [Code-Interpreter-ReAct-LangChain-Agent](https://github.com/junfanz1/Code-Interpreter-ReAct-LangChain-Agent)
+- [LLM-Documentation-Chatbot](https://github.com/junfanz1/LLM-Documentation-Chatbot)
+- [Cognito-LangGraph-RAG](https://github.com/junfanz1/Cognito-LangGraph-RAG)
+- [LangGraph-Reflection-Researcher](https://github.com/junfanz1/LangGraph-Reflection-Researcher)
+- [Cursor-FullStack-AI-App](https://github.com/junfanz1/Cursor-FullStack-AI-App)
+
+
 
 
 <!-- TOC --><a name="5-system-design"></a>
