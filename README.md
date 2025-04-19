@@ -147,7 +147,8 @@ DeepSeek Large Model High-Performance Core Technology and Multimodal Fusion Deve
 
 <img src="https://github.com/user-attachments/assets/7295d359-d625-4930-802d-03f1ddcd8ed3" width="22%" height="22%">
 
-<img src="https://github.com/user-attachments/assets/d601da65-e21c-42e9-951f-19d12c019add" width="29%" height="29%">
+<img src="https://github.com/user-attachments/assets/1c3c59ff-4b22-4163-a12b-cfc027950602" width="27%" height="27%">
+
 
 
 > [GeekBang: AI LLM Practice](https://time.geekbang.org/column/intro/100770601) | [__Notes-Chinese__](https://github.com/junfanz1/AI-LLM-ML-CS-Quant-Readings/blob/main/AI%20LLM/AI%20LLM%20Practice.md)
