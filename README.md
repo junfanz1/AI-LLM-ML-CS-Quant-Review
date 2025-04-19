@@ -88,21 +88,21 @@ Foundations of LLMs - by Yuren Mao, Zhejiang University, 2024
 
 > 30 Essential Questions and Answers on Machine Learning and AI - by Sebastian Raschka, 2025 | [__Notes-Chinese__](https://github.com/junfanz1/AI-LLM-ML-CS-Quant-Review/blob/main/Foundations%20of%20LLMs/30MLAI.md)
 
-> Efficient Training in PyTorch, by Ailing Zhang, 2024 | [__Notes-Chinese__](https://github.com/junfanz1/AI-LLM-ML-CS-Quant-Review/blob/main/Foundations%20of%20LLMs/Efficient%20Training%20PyTorch.md)
+> Unveiling Large Model, by Liang Wen, 2025 | [__Notes-Chinese__](https://github.com/junfanz1/AI-LLM-ML-CS-Quant-Review/blob/main/Foundations%20of%20LLMs/Unveiling%20Large%20Model.md)
 
 > DeepSeek Large Model High-Performance Core Technology and Multimodal Fusion Development, by Xiaohua Wang, 2025 | [__Notes-Chinese__](https://github.com/junfanz1/AI-LLM-ML-CS-Quant-Review/blob/main/Foundations%20of%20LLMs/DeepSeek%20Large%20Model.md)
 
-> Unveiling Large Model, by Liang Wen, 2025 | [__Notes-Chinese__](https://github.com/junfanz1/AI-LLM-ML-CS-Quant-Review/blob/main/Foundations%20of%20LLMs/Unveiling%20Large%20Model.md)
+> Efficient Training in PyTorch, by Ailing Zhang, 2024 | [__Notes-Chinese__](https://github.com/junfanz1/AI-LLM-ML-CS-Quant-Review/blob/main/Foundations%20of%20LLMs/Efficient%20Training%20PyTorch.md)
 
 <img src="https://github.com/user-attachments/assets/0c35d5d0-f8e0-4b64-9d93-2240c628feaa" width="30%" height="30%">
 
 <img src="https://github.com/user-attachments/assets/05c0f747-7448-4d4e-b338-aae832a86b8b" width="35%" height="35%">
 
-<img src="https://github.com/user-attachments/assets/7295d359-d625-4930-802d-03f1ddcd8ed3" width="33%" height="33%">
+<img src="https://github.com/user-attachments/assets/65fd0bf1-dde7-4282-a7aa-fd413812c686" width="33%" height="33%">
 
 <img src="https://github.com/user-attachments/assets/1c3c59ff-4b22-4163-a12b-cfc027950602" width="33%" height="33%">
 
-<img src="https://github.com/user-attachments/assets/65fd0bf1-dde7-4282-a7aa-fd413812c686" width="33%" height="33%">
+<img src="https://github.com/user-attachments/assets/7295d359-d625-4930-802d-03f1ddcd8ed3" width="33%" height="33%">
 
 > [GeekBang: AI LLM Practice](https://time.geekbang.org/column/intro/100770601) | [__Notes-Chinese__](https://github.com/junfanz1/AI-LLM-ML-CS-Quant-Readings/blob/main/AI%20LLM/AI%20LLM%20Practice.md)
 
