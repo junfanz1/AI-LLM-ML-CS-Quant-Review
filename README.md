@@ -141,11 +141,11 @@ Efficient Training in PyTorch, by Ailing Zhang, 2024
 
 DeepSeek Large Model High-Performance Core Technology and Multimodal Fusion Development, by Xiaohua Wang, 2025
 
-<img src="https://github.com/user-attachments/assets/0c35d5d0-f8e0-4b64-9d93-2240c628feaa" width="30%" height="30%">
+<img src="https://github.com/user-attachments/assets/0c35d5d0-f8e0-4b64-9d93-2240c628feaa" width="20%" height="20%">
 
-<img src="https://github.com/user-attachments/assets/05c0f747-7448-4d4e-b338-aae832a86b8b" width="30%" height="30%">
+<img src="https://github.com/user-attachments/assets/05c0f747-7448-4d4e-b338-aae832a86b8b" width="25%" height="25%">
 
-<img src="https://github.com/user-attachments/assets/7295d359-d625-4930-802d-03f1ddcd8ed3" width="30%" height="30%">
+<img src="https://github.com/user-attachments/assets/7295d359-d625-4930-802d-03f1ddcd8ed3" width="25%" height="25%">
 
 <img src="https://github.com/user-attachments/assets/d601da65-e21c-42e9-951f-19d12c019add" width="30%" height="30%">
 
