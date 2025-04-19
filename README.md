@@ -86,7 +86,7 @@ Foundations of LLMs - by Yuren Mao, Zhejiang University, 2024
 
 > [Course Github](https://github.com/ZJU-LLMs/Foundations-of-LLMs) | [Course Video](https://www.bilibili.com/video/BV1PB6XYFET2) | [Textbook](https://github.com/ZJU-LLMs/Foundations-of-LLMs/blob/main/%E3%80%8A%E5%A4%A7%E6%A8%A1%E5%9E%8B%E5%9F%BA%E7%A1%80%E3%80%8B%E6%95%99%E6%9D%90/%E5%A4%A7%E6%A8%A1%E5%9E%8B%E5%9F%BA%E7%A1%80%20%E5%AE%8C%E6%95%B4%E7%89%88.pdf) | [__PDF Notes-Chinese__](https://github.com/junfanz1/AI-ML-CS-Quant-Readings/blob/main/Foundations%20of%20LLMs/%E6%B5%99%E5%A4%A7%E5%A4%A7%E6%A8%A1%E5%9E%8B%E8%AF%BE%E7%AC%94%E8%AE%B0.pdf)
 
-> 30 Essential Questions and Answers on Machine Learning and AI - by Sebastian Raschka, 2025 | [__Notes-Chinese__](https://github.com/junfanz1/AI-LLM-ML-CS-Quant-Review/blob/main/Foundations%20of%20LLMs/30MLAI.md)
+> 30 Essential Questions and Answers on Machine Learning and AI - by Sebastian Raschka, 2025 | [__Notes-Chinese__](https://github.com/junfanz1/AI-LLM-ML-CS-Quant-Review/blob/main/Foundations%20of%20LLMs/30%20ML%20AI.md)
 
 > Unveiling Large Model, by Liang Wen, 2025 | [__Notes-Chinese__](https://github.com/junfanz1/AI-LLM-ML-CS-Quant-Review/blob/main/Foundations%20of%20LLMs/Unveiling%20Large%20Model.md)
 
