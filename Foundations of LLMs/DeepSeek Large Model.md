@@ -1,8 +1,30 @@
+
 DeepSeek Large Model High-Performance Core Technology and Multimodal Fusion Development, by Xiaohua Wang, 2025
 
 <img src="https://github.com/user-attachments/assets/1c3c59ff-4b22-4163-a12b-cfc027950602" width="32%" height="32%">
 
-## 3. 注意力1
+# Contents
+
+<!-- TOC start (generated with https://github.com/derlin/bitdowntoc) -->
+
+- [3. Attention 1](#3-attention-1)
+- [4. Attention 2：RoPE](#4-attention-2rope)
+- [5. Attention 3：MoE](#5-attention-3moe)
+- [6. Attention 4：MLA](#6-attention-4mla)
+- [7. DeepSeek API Calling](#7-deepseek-api-calling)
+- [8. DeepSeek Fine-tuning](#8-deepseek-fine-tuning)
+- [9. Diffusion](#9-diffusion)
+- [10. Multimodal Fusion](#10-multimodal-fusion)
+- [11. Cross-Attention, Audio](#11-cross-attention-audio)
+- [12. Token Compression](#12-token-compression)
+- [13. Image Encoder: VQ-VAE, FSQ](#13-image-encoder-vq-vae-fsq)
+- [14. torchvision Video Classification](#14-torchvision-video-classification)
+- [15. DeepSeek Agents](#15-deepseek-agents)
+
+<!-- TOC end -->
+
+<!-- TOC --><a name="3-attention-1"></a>
+## 3. Attention 1
 
 - 注意力机制是从大量信息中选择筛选出少量重要信息，并聚焦在重要信息上，忽略不重要信息。
 - Layer Normalization是对同一序列不同位置的数据进行归一化，Batch Normalization是对一个batch中不同序列中处于同一位置的数据进行归一化。
@@ -185,7 +207,8 @@ if __name__ == '__main__':
     print(logits.shape)
 ```
 
-## 4. 注意力2：RoPE
+<!-- TOC --><a name="4-attention-2rope"></a>
+## 4. Attention 2：RoPE
 
 旋转位置编码RoPE：构建位置相关的投影矩阵，让Q和K在计算时达到平衡
 
@@ -239,7 +262,8 @@ Case Study
 - Hotel comments sentiment analysis. Clean code (P69 - 77).
 - 自回归文本生成模型：Block模块化设计思想，堆叠多个Block对文本特征逐层抽取，并在logits层进行转换后输出。
 
-## 5. 注意力3：MoE
+<!-- TOC --><a name="5-attention-3moe"></a>
+## 5. Attention 3：MoE
 
 稀疏MoE = 专家 + 路由（调度员：输入数据与路由权重矩阵乘法，得出专家适配的得分，然后激活一部分专家来处理，将这些专家的输出与其对应的门控得分相乘进行加权，合并输出）
 - Dense MoE考虑所有专家，但根据不同权重选择各专家，可以全面整合各专家意见，适合复杂任务。Sparse MoE只激活少数专家，适合效率提升
@@ -406,3 +430,33 @@ class MOE(torch.nn.Module):
         enc_out = self.moe_linear(enc_out)
         return enc_out
 ```
+
+<!-- TOC --><a name="6-attention-4mla"></a>
+## 6. Attention 4：MLA
+
+<!-- TOC --><a name="7-deepseek-api-calling"></a>
+## 7. DeepSeek API Calling
+
+<!-- TOC --><a name="8-deepseek-fine-tuning"></a>
+## 8. DeepSeek Fine-tuning
+
+<!-- TOC --><a name="9-diffusion"></a>
+## 9. Diffusion
+
+<!-- TOC --><a name="10-multimodal-fusion"></a>
+## 10. Multimodal Fusion
+
+<!-- TOC --><a name="11-cross-attention-audio"></a>
+## 11. Cross-Attention, Audio
+
+<!-- TOC --><a name="12-token-compression"></a>
+## 12. Token Compression
+
+<!-- TOC --><a name="13-image-encoder-vq-vae-fsq"></a>
+## 13. Image Encoder: VQ-VAE, FSQ
+
+<!-- TOC --><a name="14-torchvision-video-classification"></a>
+## 14. torchvision Video Classification
+
+<!-- TOC --><a name="15-deepseek-agents"></a>
+## 15. DeepSeek Agents
