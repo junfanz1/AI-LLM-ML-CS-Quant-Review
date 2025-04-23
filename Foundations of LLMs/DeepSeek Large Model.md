@@ -318,7 +318,8 @@ class SparseMoE(torch.nn.Module):
         return final_output 
 ```
 
-Case Study：把上一章情感分类任务的注意力层换成MoE层。
+Case Study：把上一章情感分类任务的注意力层换成MoE层，相比单一FFN可以更好捕捉复杂性（很多专家竞争机制），而且高效（不用每次前向传播都激活所有神经元），还可扩展（根据数据量增减专家数量，无需从头训练整个网络）。不同token可能被不同专家处理，导致模型内部形成多样化路径，这给模型提供了灵活的动态特征选择机制，在面对不同输入时可以精准聚焦关键信息、调整关注重点，提高泛化和复杂任务能力。
+
 
 修正MoE门控函数：避免所有token都集中在热门expert，让token分配不集中也不分散 -> 在门控线性层logits上添加标准正态噪声。噪声的随机性让token在选expert时不再完全依赖原始logits，可以打破热门expert垄断地位，提高鲁棒性并防止模型训练过早收敛/陷入局部最优。
 
@@ -345,7 +346,63 @@ class NoisyTopkRouter(torch.nn.Module):
         return router_output, indices 
 ```
 
+图像分类：通道注意力机制（CNN每个卷积层都输出feature maps，每个特征图对应一个channel，每个通道对最终决策的贡献是相同的，而Squeeze-and-Excitation Block可以通过Squeeze & Excitation对通道关系特征重新校准，提高性能）。
+- Squeeze：把全局空间信息压缩到一个通道描述符，用Global Average Pooling (GAP)
+- Excitation：Squeeze得到的通道描述符，学习通道间相互依赖关系，给每个通道生成权重，用两个全连接层+激活函数实现。
 
+ViT (Vision Transformer)：把图像分成小块Patch（一个token是一个矩阵），这些小块的线性映射序列作为自注意力模块传入网络，可以长距离依赖、可解释性、并行计算、全局感知、易于迁移学习。
+- V-MoE：把ViT密集的FFNN层替换为稀疏的MoE层，提高效率和性能。
 
+```py
+class VIT(torch.nn.Module):
+    def __init__(self, dim=312):
+        super(VIT, self).__init__()
+        self.patch_embedding = PatchEmbed()
+        self.position_embedding = torch.nn.Parameter(torch.rand(1, 16, dim))
+        self.vit_layers = VITBlock(d_model=312, num_heads=6)
+        self.logits_layer = torch.nn.Linear(4992,10)
+    def forward(self, x):
+        embedding = self.patch_embedding(x) + self.position_embedding
+        embedding = self.vit_layers(embedding)
+        embedding = torch.nn.Flatten()(embedding)
+        logits = self.logits_layer(embedding)
+        return logits 
+    
+# pip install st_moe_pytorch
+import torch 
+from st_moe_pytorch import MoE
+from st_moe_pytorch import SparseMoEBlock 
 
+class MOE(torch.nn.Module):
+    def __init__(self, dim=512):
+        super(MOE, self).__init__()
+        self.moe = MoE(
+            dim=dim,
+            num_experts = 16,
+            gating_top_n = 2,
+            # decide a token is routed to 2nd experts or after. For 2 experts, 0.2 is the best threshold
+            threshold_train = 0.2,
+            threshold_eval = 0.2,
+            # some extra capacity to avoid unbalanced routing 
+            capacity_factor_train = 1.25,
+            # capacity_factor_* >= 1 
+            capacity_factor_eval = 2.,
+            balance_loss_coef = 1e-2, # aux experts coef for balance loss
+            router_z_loss_coef = 1e-3,
+        )
+        self.moe_block = SparseMoEBlock(
+            self.moe,
+            add_ff_before=True,
+            add_ff_after=True
+        )
+        self.norm = torch.nn.RMSNorm(dim)
+        self.moe_linear = torch.nn.Linear(dim, dim, bias=False)
+        self.activity_layer = Swiglu(hidden_size = dim)
 
+    def forward(self, x):
+        x = self.norm(x)
+        enc_out = self.moe_block(x)[0]
+        enc_out = self.activity_layer(enc_out) # torch.nn.functional.gelu(enc_out)
+        enc_out = self.moe_linear(enc_out)
+        return enc_out
+```
