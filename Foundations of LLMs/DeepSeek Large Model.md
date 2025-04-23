@@ -242,6 +242,8 @@ Case Study
 ## 5. 注意力3：MoE
 
 稀疏MoE = 专家 + 路由（调度员：输入数据与路由权重矩阵乘法，得出专家适配的得分，然后激活一部分专家来处理，将这些专家的输出与其对应的门控得分相乘进行加权，合并输出）
+- Dense MoE考虑所有专家，但根据不同权重选择各专家，可以全面整合各专家意见，适合复杂任务。Sparse MoE只激活少数专家，适合效率提升
+- KeepTopK将每个token路由到选定专家（Token Choice）。而且可扩展，系统高峰时自动增加K值，容纳更多节点；低峰期减小K值，节省资源。
 
 ```py
 import torch
@@ -316,9 +318,32 @@ class SparseMoE(torch.nn.Module):
         return final_output 
 ```
 
+Case Study：把上一章情感分类任务的注意力层换成MoE层。
 
+修正MoE门控函数：避免所有token都集中在热门expert，让token分配不集中也不分散 -> 在门控线性层logits上添加标准正态噪声。噪声的随机性让token在选expert时不再完全依赖原始logits，可以打破热门expert垄断地位，提高鲁棒性并防止模型训练过早收敛/陷入局部最优。
 
+```py
+class NoisyTopkRouter(torch.nn.Module):
+    def __init__(self, n_embed, num_experts, top_k):
+        super(NoisyTopkRouter, self).__init__()
+        self.top_k = top_k 
+        self.topkroute_linear = torch.nn.Linear(n_embed, num_experts)
+        # add noise 
+        self.noise_linear = torch.nn.Linear(n_embed, num_experts)
 
+    def forward(self, mh_output):
+        # mh_output: output tensor from multihead self attention block 
+        logits = self.topkroute_linear(mh_output)
+        noise_logits = self.noise_linear(mh_output)
+        # add scaled unit gaussian noise to logits 
+        noise = torch.randn_like(logits) * torch.nn.functional.softplus(noise_logits)
+        noisy_logits = logits + noise 
+        top_k_logits, indices = noisy_logits.topk(self.top_k, dim=-1)
+        zeros = torch.full_like(noisy_logits, float('-inf'))
+        sparse_logits = zeros.scatter(-1, indices, top_k_logits)
+        router_output = torch.nn.functional.softmax(sparse_logits, dim=-1)
+        return router_output, indices 
+```
 
 
 
