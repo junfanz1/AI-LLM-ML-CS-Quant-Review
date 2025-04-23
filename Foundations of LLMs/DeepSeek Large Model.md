@@ -185,7 +185,7 @@ if __name__ == '__main__':
     print(logits.shape)
 ```
 
-## 4. 注意力2
+## 4. 注意力2：RoPE
 
 旋转位置编码RoPE：构建位置相关的投影矩阵，让Q和K在计算时达到平衡
 
@@ -234,6 +234,87 @@ class SwiGLU(torch.nn.Module):
 ```
 
 因果掩码causal mask：将当前token后所有内容掩码，让这些信息不参与损失函数计算，防止模型预测使用未来信息。
+
+Case Study
+- Hotel comments sentiment analysis. Clean code (P69 - 77).
+- 自回归文本生成模型：Block模块化设计思想，堆叠多个Block对文本特征逐层抽取，并在logits层进行转换后输出。
+
+## 5. 注意力3：MoE
+
+稀疏MoE = 专家 + 路由（调度员：输入数据与路由权重矩阵乘法，得出专家适配的得分，然后激活一部分专家来处理，将这些专家的输出与其对应的门控得分相乘进行加权，合并输出）
+
+```py
+import torch
+
+# Expert is a fully connected network
+class Expert(torch.nn.Module):
+    def __init__(self, n_embd):
+        super().__init__()
+        self.net = torch.nn.Sequential(
+            torch.nn.Linear(n_embd, 4 * n_embd) # linear layer, dim * 4 
+            torch.nn.ReLU(),
+            torch.nn.Linear(4 * n_embd, n_embd) # linear layer, dim return to original
+            torch.nn.Dropout(0.1), # dropout to avoid overfitting
+        )
+
+    def forward(self, x):
+        return self.net(x) 
+    
+# select top k experts
+class TopkRouter(torch.nn.Module):
+    def __init__(self, n_embd, num_experts, top_k):
+        super(TopkRouter, self).__init__()
+        self.top_k = top_k 
+        self.linear = torch.nn.Linear(n_embd, num_experts) # linear layer, output num of experts
+
+    def forward(self, mh_output):
+        logits = self.linear(mh_output) # linear layer -> each expert score 
+        # select top k experts and their indices 
+        top_k_logits, indices = logits.topk(self.top_k, dim=-1)
+        # tensor with same shape of logits, all -inf values 
+        zeros = torch.full_like(logits, float('-inf'))
+        # k experts scores -> zeros with according locations
+        sparse_logits = zeros.scatter(-1, indices, top_k_logits)
+        # softmax for sparse_logits, scores -> prob distribution 
+        router_output = torch.nn.functional.softmax(sparse_logits, dim=-1)
+        return router_output, indices 
+    
+class SparseMoE(torch.nn.Module):
+    def __init__(self, n_embd, num_experts, top_k):
+        super(SparseMoE, self).__init__()
+        # router to select experts
+        self.router = TopkRouter(n_embd, num_experts, top_k)
+        # a list of experts
+        self.experts = torch.nn.ModuleList([Expert(n_embd) for _ in range(num_experts)])
+        self.top_k = top_k 
+
+    def forward(self, x):
+        # router -> expert prob distribution and indices
+        gating_output, indices = self.router(x)
+        final_output = torch.zeros_like(x) # initialize outputs with all-0 tensor
+        # flatten input and router's output, for convenience 
+        flat_x = x.view(-1, x.size(-1))
+        flat_gating_output = gating_output.view(-1, gating_output.size(-1))
+
+        # for each expert, process input based on their prob distribution 
+        for i, expert in enumerate(self.experts):
+            # find k-th expert token
+            expert_mask = (indices == i).any(dim=-1)
+            flat_mask = expert_mask.view(-1) # flatten 
+            # if current expert has at least one token being one of top-k experts 
+            if flat_mask.any():
+                # select these tokens' input 
+                expert_input = flat_x[flat_mask]
+                # given these token inputs to current expert to work on 
+                expert_output = expert(expert_input)
+                # current expert prob distribution for these tokens
+                gating_scores = flat_gating_output[flat_mask, i].unsqueeze(1)
+                # weighted average based on experts' prob distribution 
+                weighted_output = expert_output * gating_scores
+                # cumulate weighted scores, then output to corresponding locations 
+                final_output[expert_mask] += weighted_output.squeeze(1)
+        return final_output 
+```
 
 
 
