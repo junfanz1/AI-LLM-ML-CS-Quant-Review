@@ -2,7 +2,7 @@ DeepSeek Large Model High-Performance Core Technology and Multimodal Fusion Deve
 
 <img src="https://github.com/user-attachments/assets/1c3c59ff-4b22-4163-a12b-cfc027950602" width="32%" height="32%">
 
-## 3. 注意力
+## 3. 注意力1
 
 - 注意力机制是从大量信息中选择筛选出少量重要信息，并聚焦在重要信息上，忽略不重要信息。
 - Layer Normalization是对同一序列不同位置的数据进行归一化，Batch Normalization是对一个batch中不同序列中处于同一位置的数据进行归一化。
@@ -185,13 +185,55 @@ if __name__ == '__main__':
     print(logits.shape)
 ```
 
+## 4. 注意力2
 
+旋转位置编码RoPE：构建位置相关的投影矩阵，让Q和K在计算时达到平衡
 
+```py
+class RotaryEmbedding(torch.nn.Module):
+    def __init__(self, dim, scale_base=model_config.scale_base, use_xpos=True):
+        super().__init__()
+        inv_freq = 1.0 / (10000 ** (torch.arange(0, dim, 2).float() / dim))
+        self.register_buffer("inv_freq", inv_freq)
+        self.use_xpos = use_xpos 
+        self.scale_base = scale_base 
+        scale = (torch.arange(0, dim, 2) + 0.4 * dim) / (1.4 * dim)
+        self.register_buffer('scale', scale)
 
+    def forward(self, seq_len, device=all_config.device):
+        t = torch.arange(seq_len, device=device).type_as(self.inv_freq)
+        freqs = torch.enisum('i, j -> i j', t, self.inv_freq)
+        freqs = torch.cat((freqs, freqs), dim=-1)
+        if not self.use_xpos:
+            return freqs, torch.ones(1, device=device)
+        power = (t - (seq_len // 2)) / self.scale_base
+        scale = self.scale ** elt.Rearrange('n -< n 1')(power) # rearrange (power, )
+        scale = torch.cat((scale, scale), dim=-1)
+        return freqs, scale 
+    
+    def rotate_half(x):
+        x1, x2 = x.chunk(2, dim=-1)
+        return torch.cat((-x2, x1), dim=-1)
+    def apply_rotary_pos_emb(pos, t, scale=1.):
+        return (t * pos.cos() * scale) + (rotate_half(t) * pos.sin() * scale)
+    
+if __name__ == '__main__':
+    embedding = torch.randn(size=(5, 128, 512))
+    print(rotate_half(embedding).shape)
+```
 
+SwiGLU (Swish-Gated Linear Unit)：基于门控机制的激活函数，可以捕捉序列长依赖关系。
+- GLU用sigmoid激活函数把信号转换为0~1值（表示重要性），乘以门控值来选择性放大或抑制输入，根据上下文选择性关注某些句子语义。
+- Swish：类似ReLU的非线性函数 = x * sigmoid(x)，输入正数时趋向于线性变换，负数时有非线性抑制效果。
 
+```py
+class SwiGLU(torch.nn.Module):
+    def forward(self, x):
+        x, gate = x.chunk(2, dim=-1)
+        return torch.nn.functional.silu(gate) * x
+```
 
-
+因果掩码causal mask：将当前token后所有内容掩码，让这些信息不参与损失函数计算，防止模型预测使用未来信息。
 
 
 
