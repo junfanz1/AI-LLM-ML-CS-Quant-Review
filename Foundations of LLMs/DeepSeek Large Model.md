@@ -568,14 +568,10 @@ Multi Head Differential Attention差分注意力机制：对于长文本，Trans
 
 Case Study：基于MLA的语音情感分类。
 
-<!-- TOC --><a name="7-deepseek-api-calling"></a>
-## 7. DeepSeek API Calling
-
-<!-- TOC --><a name="8-deepseek-fine-tuning"></a>
-## 8. DeepSeek Fine-tuning
-
 <!-- TOC --><a name="9-diffusion"></a>
 ## 9. Diffusion
+
+
 
 <!-- TOC --><a name="10-multimodal-fusion"></a>
 ## 10. Multimodal Fusion
