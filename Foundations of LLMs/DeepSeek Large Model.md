@@ -610,8 +610,75 @@ for epoch in range(epochs):
 ```
 
 融合特征的注意力机制DiT：基于Transformer的Diffusion，特征融合是把文本和图像特征的先验信息融合到Diffusion，如特征拼接、加权平均、卷积。要想Diffusion结果可控，要嵌入额外条件信息（timesteps、类别标签，可以用embedding编码）。
+- 图像被`nn.Conv2d`划分patches小块后，用`nn.Linear`嵌入高维空间，用位置嵌入参数赋予每个小块的位置信息。
+- 时间嵌入层，用TimeEmbedding处理时间信息，把时间和标签嵌入组合，处理完所有DiT块后，`nn.LayerNorm`层归一化，再将嵌入空间还原至原始的图像小块空间。
 
 ```py
+from torch import nn 
+import torch 
+from time_emb import TimeEmbedding 
+from dit_block import DiTBlock 
+
+T = 1000 
+
+class DiT(nn.Module):
+    def __init__(self, img_size, patch_size, channel, emb_size, label_num, dit_num, head):
+        super().__init__()
+        self.patch_size = patch_size
+        self.patch_count = img_size // self.patch_size 
+        self.channel = channel 
+
+        # patchify layer to split image to patches 
+        self.conv = nn.Conv2d(in_channels=channel, out_channels=channel * patch_size ** 2,
+                              kernel_size=patch_size, padding=0, stride=patch_size)
+        self.patch_emb = nn.Linear(in_features=channel * patch_size ** 2, out_features=emb_size)
+        # position embedding for each patch 
+        self.patch_pos_emb = nn.Parameter(torch.rand(1, self.patch_count ** 2, emb_size))
+        # time embedding 
+        self.time_emb = nn.Sequential(
+            TimeEmbedding(emb_size),
+            nn.Linear(emb_size, emb_size),
+            nn.ReLU(),
+            nn.Linear(emb_size, emb_size)
+        )
+
+        # label embedding 
+        self.label_emb = nn.Embedding(num_embeddings=label_num, embedding_dim=emb_size)
+        # DiT blocks 
+        self.dits = nn.ModuleList()
+        for _ in range(dit_num):
+            self.dits.append(DiTBlock(emb_size, head))
+
+        # normalization layer 
+        self.ln = nn.LayerNorm(emb_size)
+        # linear layer, to convert embedding space back to original patch space
+        self.linear = nn.Linear(emb_size, channel * patch_size ** 2)
+
+    def forward(self, x, t, y): # x: image input, t: timestep, y: label
+        # label embedding
+        y_emb = self.label_emb(y) # (batch, emb_size)
+        # time embedding 
+        t_emb = self.time_emb(t) # (batch, emb_size)
+        # condition embedding = sum of two embeddings
+        cond = y_emb + t_emb 
+        # image Patch embedding 
+        x = self.conv(x) # split image to patches and apply convolution
+        x = x.permute(0, 2, 3, 1) # change tensor shape and dim order 
+        x = x.view(x.size(0), self.patch_count * self.patch_count, x.size(3)) # reshape tensor
+        x = self.patch_emb(x) # embedding for each patch 
+        x = x + self.patch_pos_emb # add position embedding 
+        
+        for dit in self.dits:
+            x = dit(x, cond) # pass patch (after embedding) and condition embedding to DiT blocks
+            x = self.ln(x) # layer normalization
+            x = self.linear(x) # linear layer to convert embedding space back to original patch space
+            # convert to original shape
+            x = x.view(x.size(0), self.patch_count, self.patch_count, self.channel, self.patch_size, self.patch_size)
+            x = x.permute(0, 3, 1, 2, 4, 5)
+            x = x.permute(0, 1, 2, 4, 3, 5)
+            x = x.reshape(x.size(0), self.channel, self.patch_count * self.patch_size, self.patch_count * self.patch_size)
+            return x
+
 class DiTBlock(torch.nn.Module):
     def __init__(self, emb_size=64, head_num=4):
         super().__init__()
@@ -647,6 +714,8 @@ class DiTBlock(torch.nn.Module):
 
 <!-- TOC --><a name="10-multimodal-fusion"></a>
 ## 10. Multimodal Fusion
+
+
 
 <!-- TOC --><a name="11-cross-attention-audio"></a>
 ## 11. Cross-Attention, Audio
