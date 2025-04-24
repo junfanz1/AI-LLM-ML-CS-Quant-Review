@@ -952,12 +952,70 @@ def pixel_shuffle(x, scale_factor=2):
     return x
 ```
 
-Cross-layer Token Fusion
-- 评估各token对模型效率和准确性的共享，在特定网络层事实token fusion，多模态模型中token合并及相似token识别是基于余弦相似度。
+- Cross-layer Token Fusion：评估各token对模型效率和准确性的共享，在特定网络层事实token fusion，多模态模型中token合并及相似token识别是基于余弦相似度。
+- AvgPoolProjector：取代cross-attention的图像token压缩，用自适应平均池化技术，保留关键视觉信息同时减少图片token数量，简化模型且提高效率，因为无参特性可以避免参数调优。直接在patch级别下采样，避免语义信息损失，确保视觉与文本准确对应。（代码略）
 
 
 <!-- TOC --><a name="13-image-encoder-vq-vae-fsq"></a>
 ## 13. Image Encoder: VQ-VAE, FSQ
+
+VQ-VAE (Vector Quantized Variational Autoencoder) 向量量化变分自编码：先把原图压缩到小尺寸，对小尺寸离散化处理，再还原到原始大小。
+- 构建图像特征codebook（就像NLP的词嵌入层），是科学系的张量，CNN编码器提取的图特征向量在codebook中找到最接近的向量索引，得到量化后特征图送入解码器，输出重构图像。
+- loss = reconstruction loss（优化Encoder-Decoder性能，确保还原原始信息） + embedding loss （优化codebook，使编码后的特征向量准确映射到codebook嵌入向量；stop gradient在前向传播时不变，反向传播时偏导设为0，这样优化时某些参数的梯度不会影响其他参数更新，实现模型训练的精细控制） + commitment loss（正则化项，约束Encoder训练，防止过拟合）
+
+```py
+import torch 
+from typing import Tuple, Mapping, Text 
+from einops import rearrange 
+
+class VectorQuantizer(torch.nn.Module):
+    def __init__(
+            self,
+            codebook_size: int = 1024 # numbers of embedding vectors in codebook
+            embedding_dim: int = 256, 
+            commitment_cost: float = 0.25, # loss weight
+    ):
+        super().__init__()
+        self.commitment_cost = commitment_cost
+        # initialize embedding table to store codebook embedding vectors
+        self.embedding_table = torch.nn.Embedding(codebook_size, embedding_dim)
+        # normal distribution to initialize embedding weight
+        self.embedding_table.weight.data.uniform_(-1.0 / codebook_size, 1.0 / codebook_size)
+    
+    def forward(self, z: torch.Tensor) -> Tuple[torch.Tensor, Mapping[Text, torch.Tensor]]:
+        z = z.float()
+        z = rearrange(z, "B C T -> B T C").contiguous() # reorder tensor, make channel at the end 
+        z_flattened = rearrange(z, "B T C -> (B T) C") # flatten for future calculation
+        embedding = self.embedding_table.weight
+        # KNN embedding search, calculate input vector and embedding vector distance 
+        d = (
+            torch.sum(z_flattened ** 2, dim=1, keepdim=True)
+            + torch.sum(embedding ** 2, dim=1)
+            - 2 * torch.einsum("bd,dn->bn", z_flattened, embedding.T)
+        )
+        # find closest distance embedding index 
+        closest_embedding_ids = torch.argmin(d, dim=1)
+        # find embedding vector by index, revert back to original shape 
+        z_q = self.get_codebook_entry(closest_embedding_ids).view(z.shape)
+        
+        commitment_loss = torch.nn.functional.mse_loss(z, z_q.detach()) * 0.33
+        codebook_loss = torch.nn.functional.mse_loss(z.detach(), z_q)
+        loss = commitment_loss + codebook_loss
+
+        # make sure gradient can be passed by z 
+        z_q = z + (z_q - z).detach()
+        z_q = rearrange(z_q, "B T C -> B C T").contiguous()
+        result_dict = dict(
+            quantizer_loss=loss, # total loss 
+            commitment_loss=commitment_loss
+            codebook_loss=codebook_loss,
+            embedding_ids=closest_embedding_ids,
+        )
+        return z_q, result_dict
+    
+    def get_codebook_entry(self, ids: torch.Tensor):
+        return self.embedding_table(ids)
+```
 
 <!-- TOC --><a name="14-torchvision-video-classification"></a>
 ## 14. torchvision Video Classification
