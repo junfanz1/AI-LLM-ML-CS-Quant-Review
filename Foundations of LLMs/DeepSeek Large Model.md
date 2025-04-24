@@ -10,16 +10,13 @@ DeepSeek Large Model High-Performance Core Technology and Multimodal Fusion Deve
 - [3. Attention 1](#3-attention-1)
 - [4. Attention 2：RoPE](#4-attention-2rope)
 - [5. Attention 3：MoE](#5-attention-3moe)
-- [6. Attention 4：MLA](#6-attention-4mla)
-- [7. DeepSeek API Calling](#7-deepseek-api-calling)
-- [8. DeepSeek Fine-tuning](#8-deepseek-fine-tuning)
+- [6. Attention 4：MQA, MLA, GQA](#6-attention-4mqa-mla-gqa)
 - [9. Diffusion](#9-diffusion)
 - [10. Multimodal Fusion](#10-multimodal-fusion)
 - [11. Cross-Attention, Audio](#11-cross-attention-audio)
 - [12. Token Compression](#12-token-compression)
 - [13. Image Encoder: VQ-VAE, FSQ](#13-image-encoder-vq-vae-fsq)
 - [14. torchvision Video Classification](#14-torchvision-video-classification)
-- [15. DeepSeek Agents](#15-deepseek-agents)
 
 <!-- TOC end -->
 
@@ -431,7 +428,7 @@ class MOE(torch.nn.Module):
         return enc_out
 ```
 
-<!-- TOC --><a name="6-attention-4mla"></a>
+<!-- TOC --><a name="6-attention-4mqa-mla-gqa"></a>
 ## 6. Attention 4：MQA, MLA, GQA
 
 MQA (Multi-Query Attention) 多查询注意力：传统MHA中QKV根据每个头进行不同变换，但头数量众多时导致计算量太大。MQA增强关键信息捕捉能力，适合复杂任务，让所有头共享同一组KV矩阵，减少计算量和参数量，只有Q保留多头特性，但会牺牲精度。
@@ -612,7 +609,41 @@ for epoch in range(epochs):
     torch.save(model.state_dict(), save_path)
 ```
 
+融合特征的注意力机制DiT：基于Transformer的Diffusion，特征融合是把文本和图像特征的先验信息融合到Diffusion，如特征拼接、加权平均、卷积。要想Diffusion结果可控，要嵌入额外条件信息（timesteps、类别标签，可以用embedding编码）。
 
+```py
+class DiTBlock(torch.nn.Module):
+    def __init__(self, emb_size=64, head_num=4):
+        super().__init__()
+        self.emb_size = emb_size
+        self.head_num = head_num 
+        self.adaLN_modulation = torch.nn.Sequential(
+            torch.nn.Conv1d(in_channels=1, out_channels=6, kernel_size=3, padding=1),
+            torch.nn.Linear(emb_size, emb_size * 2, bias=True), torch.nn.SiLU(),
+            torch.nn.Linear(emb_size * 2, emb_size, bias=True)
+        )
+        d_model, attention_head_num = emb_size, head_num 
+        self.layer_norm = torch.nn.RMSNorm(emb_size)
+        self.mha = attention_module.MultiHeadAttention_MQA(d_model, attention_head_num)
+        self.mlp = feedforward_layer.Swiglu(hidden_size=d_model)
+        self.last_norm = torch.nn.RMSNorm(emb_size)
+
+    def forward(self, x, cond):
+        x_residual = x.clone()
+        cond = self.adaLN_modulation(torch.unsqueeze(cond, dim=1))
+        gamma1_val, beta1_val, alpha1_val, gamma2_val, beta2_val, alpha2_val = torch.split(cond, split_size_or_sections=1, dim=1)
+
+        x = self.layer_norm(x)
+        x = modulate(x, gamma1_val, beta1_val)
+        x = self.mha(x)
+        x *= alpha1_val
+        x += x_residual
+        x_residual = x.clone()
+        x = modulate(x, gamma2_val, beta2_val)
+        x = self.mlp(x) * alpha2_val 
+        x = self.last_norm(x_residual + x)
+        return x
+```
 
 <!-- TOC --><a name="10-multimodal-fusion"></a>
 ## 10. Multimodal Fusion
@@ -629,5 +660,3 @@ for epoch in range(epochs):
 <!-- TOC --><a name="14-torchvision-video-classification"></a>
 ## 14. torchvision Video Classification
 
-<!-- TOC --><a name="15-deepseek-agents"></a>
-## 15. DeepSeek Agents
