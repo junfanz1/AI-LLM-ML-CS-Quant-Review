@@ -571,6 +571,47 @@ Case Study：基于MLA的语音情感分类。
 <!-- TOC --><a name="9-diffusion"></a>
 ## 9. Diffusion
 
+Diffusion using UNet as generation model, from noise to generate image. UNet对训练数据要求少，因为大量参数共享和特征重用的结构，可扩展性（到不同尺寸）、适应性强（不同图像分割任务）。
+
+UNet：预测每个图片所添加的噪声，通过计算的方式去除对应的噪声，重现原始图像。
+- 初始化：卷积层`init_conv`、时间嵌入`time_mlp`、下采样`downs`、中间模块`mid_block1`, `mid_attn`, `mid_block2`、上采样`ups`
+
+```py
+import torch 
+import get_dataset 
+import cv2
+from tqdm import tqdm 
+import ddpm 
+
+batch_size = 48 
+dataloader = torch.utils.data.DataLoader(get_dataset.SamplerDataset(), batch_size=batch_size)
+
+# Unet as generative model, from noise to image generation
+import unet 
+device = "cuda" if torch.cuda.is_available() else "cpu"
+model = unet.Unet(dim=28, dim_mults=[1, 2, 4]).to(device)
+optimizer = torch.optim.AdamW(model.parameters(), lr=2e-4)
+
+epochs = 3 
+timesteps = 200 
+save_path = "./saver/ddpm_saver.pth"
+model.load_state_dict(torch.load(save_path), strict=False)
+for epoch in range(epochs):
+    pbar = tqdm(dataloader, total=len(dataloader))
+    # use DataLoader for iteration, get each batch data sample
+    for batch_sample, batch_label in pbar:
+        optimizer.zero_grad()
+        batch_size = batch_sample.size()[0]
+        batch = batch_sample.to(device)
+        optimizer.zero_grad()
+        t = torch.randint(0, timesteps, (batch_size,), device=device).long()
+        loss = ddpm.p_losses(model, batch, t, loss_type="huber")
+        loss.backward()
+        optimizer.step()
+        pbar.set_description(f"epoch:{epoch + 1}, train_loss: {loss.item():.5f}")
+    torch.save(model.state_dict(), save_path)
+```
+
 
 
 <!-- TOC --><a name="10-multimodal-fusion"></a>
