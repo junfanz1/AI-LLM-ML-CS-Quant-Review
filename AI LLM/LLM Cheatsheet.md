@@ -16,6 +16,306 @@ Cheat Sheet
 
 ---
 
+以下为高级 AI/ML 工程师岗位技术面试中常见核心问题及高水平参考答案，涵盖系统架构、模型调优、部署运维、评估监控等方面：
+
+---
+
+### 1. 如何设计一个支持多租户、多模型、多适配器的推理服务？如何隔离资源？
+**答：** 基于 vLLM + Triton，在 Kubernetes 中为每个租户创建独立 Namespace 并配置 `limitRange`、`ResourceQuota` 与 GPU `nodeSelector`；请求通过 BentoML/Ray Serve 路由到指定模型与 Adapter；Prometheus + Grafana 监控各租户 QPS、token 用量与时延。
+
+---
+
+### 2. 如何在生产环境实现 token billing 与准实时用量监控？
+**答：** 在推理中间件统计请求和响应的 token 使用（调用 HuggingFace tokenizer），将数据写入 Kafka；Flink 实时消费并存入 ClickHouse；Grafana 展示按租户、模型、时间粒度的 token 计费与错误率。
+
+---
+
+### 3. 如何无停机更新 embedding 模型并回填索引？
+**答：** 采用双写入与双索引：新 embedding 写入 shadow index，同时保留旧 index；批量回填完成后，通过 feature flag 或蓝绿部署切换查询路由；canary 验证无误后剔除旧索引。
+
+---
+
+### 4. LoRA 多任务微调后如何实现 Adapter Routing 或合并？
+**答：** 使用 PEFT 创建针对每个任务的 Adapter，并借助 Adapter Fusion 或 MergeKit 生成运行时路由表；通过前置分类器或 Prompt Meta 标签选取正确 Adapter，或将多个 Adapter 权重线性融合后部署。
+
+---
+
+### 5. 设计一个 RAG 系统：架构与性能优化。
+**答：**  
+- **Ingestion：** OCR/ETL → 文本清洗 → Sliding window chunking → Embedding (OpenAI/BGE)  
+- **Index：** FAISS + metadata filter 支持 hybrid 批量检索  
+- **Retriever：** Query rewrite → Dense retriever → Light-weight reranker (e.g. Cohere)  
+- **Generator：** MapReduce Chain 拼接 top-k 文档  
+
+优化：prompt compression、cache 热点查询、异步批量检索。
+
+---
+
+### 6. 如何检测与纠正 LLM 的 Hallucination？
+**答：**  
+- 在线：LLM-as-critic (GPT-4 judge) 给出 factuality score；  
+- 离线：收集错误案例，构造对比训练集，用 DPO/SLiC 精调；  
+- 结构化校验：Regex & JSON schema 验证 → 失败触发 retry 或 fallback。
+
+---
+
+### 7. 如何设计在线 A/B 实验评估模型迭代效果？
+**答：** Prompt hash router 将请求按比例分配至 control/candidate；在线收集 latency、token use、human feedback；使用 Uplift Modeling 分析差异；通过 DataDog/Grafana 仪表盘实时监控。
+
+---
+
+### 8. BPE 与 WordPiece 区别与自定义 tokenizer 实践。
+**答：**  
+- BPE 基于贪心合并高频子词，WordPiece 最优化语言模型似然；  
+- WordPiece 对低频语言兼容更好；  
+- 实践：使用 HuggingFace tokenizers 训练领域特定 tokenizer（定制 vocab、添加专有名词、设置特殊 tokens），提升下游召回与生成质量。
+
+---
+
+### 9. 性能优化与成本控制策略。
+**答：**  
+- INT4 或 GPTQ 量化推理；  
+- LoRA/QLoRA 代替全参微调；  
+- Batch & KV Cache；  
+- 异步任务与优先级队列；  
+- Cache 热点 prompts。
+
+---
+
+### 10. 延迟瓶颈定位与诊断方法。
+**答：**  
+- 链路追踪 (OpenTelemetry)：拆分 Tokenization→Embedding→Retrieval→Generation latency；  
+- GPU profiling (PyTorch Profiler)；  
+- 网络与 I/O 分析 (Wireshark, iostat)；  
+- 监控热点 slow requests。
+
+---
+
+### 11. Fine-tuned 模型业务价值评估。
+**答：**  
+- 定义核心 KPI：ROUGE/F1/Accuracy + 用户转化率；  
+- 对比基线模型表现与真实业务指标变化；  
+- 使用 RICE 排序与成本收益分析；  
+- Online A/B 验证及统计显著性检验。
+
+---
+
+### 12. LoRA vs QLoRA vs 全参微调权衡。
+**答：**  
+- LoRA 轻量、快速且易部署；  
+- QLoRA 适用于大模型与有限显存；  
+- 全参微调在高质量私有数据上表现最佳；  
+- 实践：小模型 LoRA，中模型 QLoRA，大模型全参或 Hybrid。
+
+---
+
+### 13. Embedding 压缩与索引优化。
+**答：**  
+- PCA 降维后使用 Product Quantization (Faiss PQ)；  
+- Optimized Product Quantization (SOPQ)；  
+- IVF+PQ 混合索引；  
+- 倒排表结合 metadata filter 提升精度。
+
+---
+
+### 14. MLOps：CI/CD、版本管理、灰度与回滚。
+**答：**  
+- 使用 GitOps (ArgoCD)，模型产物在 MLflow Registry；  
+- CI 触发单元/集成测试 + 模型校验；  
+- Canary Release via Flagger；  
+- 自动监控误差阈值触发 rollback。
+
+---
+
+### 15. 上线后评估指标设计。
+**答：**  
+- 技术指标：Latency, QPS, Outlier rate；  
+- 质量指标：Factuality score, BLEU/ROUGE；  
+- 业务指标：Click-through, Session length；  
+- 可靠性：MTTR, MTBF。
+
+---
+
+### 16. 用户反馈采集与闭环训练。
+**答：**  
+- UI 侧显式反馈 (👍/👎, correction)；  
+- 隐式反馈 (点击, 转化)；  
+- 收集到 Data Lake, 定期构造 SFT 和 PPO 训练集；  
+- 自动化 retraining pipeline (Airflow + Kubeflow)。
+
+---
+
+### 17. Fallback 机制设计。
+**答：**  
+- LLM 超时或失败 → 缓存回复 → 规则引擎回复；  
+- 输出校验失败 → 限制 sampling 参数重试；  
+- 频度监控触发流量削峰。
+
+---
+
+### 18. 无 LLM 场景解决方案。
+**答：**  
+- 经典 IR：Elasticsearch BM25 + TF-IDF；  
+- 规则引擎：基于 DSL 的模板匹配；  
+- 轻量 ML：sklearn TF-IDF + Logistic Regression；  
+- 混合方案：规则+相似度+简单 Seq2Seq 微调。
+
+---
+
+### 19. 结构化 Prompt 与 Prompt Injection 防护。
+**答：**  
+- 使用 Function Calling schema 强制返回 JSON；  
+- 添加 prompt guardrails (sanitize user input)；  
+- 对可调参数使用 allowlist；  
+- 监控 injection 历史案例并更新 blacklist。
+
+---
+
+### 20. 数据集构建与 Loss 设计。
+**答：**  
+- 从日志提取 `<prompt, response, feedback>` triplets；  
+- 使用 Pairwise Ranking Loss 或 DPO Loss；  
+- 对抗性样本增强与负例采样；  
+- Loss 加权：质量反馈高的样本权重更大。
+
+---
+
+### 21. 向量数据库对比：Qdrant vs Weaviate vs Pinecone。
+**答：**  
+- Qdrant 性能高、Rust 实现、社区活跃；  
+- Weaviate 支持 GraphQL 查询、多模态；  
+- Pinecone SaaS 便捷、专有优化；  
+- 选型考虑延迟、过滤能力、成本与运维投入。
+
+---
+
+### 22. Embedding Drift 检测与治理。
+**答：**  
+- 定期计算 embedding distribution stats；  
+- 使用 KL divergence 或 Wasserstein 距离；  
+- Drift 超阈值触发模型更新或人工审核；  
+- 实时报警与可视化追踪。
+
+---
+
+### 23. 多模态系统设计：VLM/VLA 架构。
+**答：**  
+- Early Fusion：拼接图像与文本 embedding；  
+- Late Fusion：独立编码后融合 logits 或 cross-attention；  
+- CLIP+LLaVA Pipeline：CLIP 图像 encode → LLM cross-attend；  
+- 提取 OCR、图像区域特征结合 Retrieval。
+
+---
+
+### 24. VQA 系统中的 Attention 联结原理。
+**答：**  
+- 使用 Visual Transformer 获得 patch-level embedding；  
+- Text-Image Cross Attention 在 QKV 上计算 attention maps；  
+- Align 图文 token via multi-head softmax weight；  
+- 可视化 attention heatmap 辅助 debug。
+
+---
+
+### 25. 系统观察性：监控、Tracing、Logging。
+**答：**  
+- 全链路 trace ID（OpenTelemetry）  
+- 结构化日志 (JSON) 写入 ELK  
+- 指标采集 (Prometheus) + Dashboard(Grafana)  
+- Alerts (Slack, PagerDuty)
+
+---
+
+### 26. 可确定性：Token Sampling 控制策略。
+**答：**  
+- 设置 top-k、top-p、temperature=0 限制随机性；  
+- 强制 seed 与 deterministic operators；  
+- Prompt 工具链固定化；  
+- 对多步骤 chain-of-thought 输出进行校验。
+
+---
+
+### 27. Embedding 模型替换与无缝回填。
+**答：**  
+- 双版本 embedding 列：`embedding_v1` & `embedding_v2`；  
+- 在检索阶段均查询两版结果，基于阈值动态合并；  
+- 后台批量 backfill，监控插入速率与效果；  
+- 切换时更新路由表，无需停机。
+
+---
+
+### 28. Tokenizer 与 Positional Encoding 底层原理。
+**答：**  
+- Tokenizer：BPE/WordPiece 基于最大似然或频率合并子词；  
+- Positional Encoding：sinusoidal 通过不同频率编码位置信息，或 learnable embeddings；  
+- 公式：  
+PE(pos, 2i) = sin(pos / 10000^(2i/d_model))
+PE(pos, 2i+1) = cos(pos / 10000^(2i/d_model))
+
+
+---
+
+### 29. Fine-tuning 过程：Optimizer、LR、Layer Freezing。
+**答：**  
+- 使用 AdamW + weight decay；  
+- Warmup + cosine decay LR schedule；  
+- 冻结底层 layers 保留预训练知识，仅微调高层；  
+- 使用 gradient accumulation 支持大 batch。
+
+---
+
+### 30. Function Calling 与 Tool-Use 策略。
+**答：**  
+- 利用 OpenAI function schema 声明接口；  
+- Prompt 先调用判断函数，再拼接参数执行；  
+- 异常 fallback 到自然语言模式；  
+- 确保函数签名与 API 文档一致。
+
+---
+
+### 31. 多智能体系统设计：LangGraph vs CrewAI vs AutoGen。
+**答：**  
+- LangGraph 侧重反射与回溯，多节点图结构；  
+- CrewAI 强调 Guardrail 安全与任务分工；  
+- AutoGen 提供 Prompt templates + orchestration；  
+- 选型基于任务耦合度、可解释性与扩展性。
+
+---
+
+### 32. Hallucination 评估：GPT-Judge vs 自动验证。
+**答：**  
+- GPT-Judge：批量给出评价标签；  
+- Schema 验证：Regex/JSON检查；  
+- 知识库对照检索，自动对齐事实；  
+- 使用 True/False QA tasks 验证输出准确性。
+
+---
+
+### 33. RLHF / DPO 训练管道设计。
+**答：**  
+- 收集人类偏好数据或模拟评分数据；  
+- SFT 初始微调，再用 DPO/PPO做策略优化；  
+- 使用 trlX 管道管理训练任务；  
+- Model registry 记录版本与评估结果。
+
+---
+
+### 34. 在线学习与增量更新。
+**答：**  
+- 微批量增量 fine-tune（Adapter 或少数层）；  
+- Drift 检测触发自动训练；  
+- 在线参数服务器（如 TorchServe warm reload）；  
+- 半结构化日志驱动持续优化。
+
+---
+
+### 35. 灾难恢复与高可用性设计。
+**答：**  
+- 跨区部署推理与存储（multi-zone cluster）；  
+- 定期备份 embedding、模型与配置；  
+- 自动化健康检查 + 自愈（K8s liveness/readiness probes）；  
+- Chaos engineering 验证故障恢复流程。  
+
+
 <!-- TOC --><a name="101-transformerlearning-rate"></a>
 # 101. Transformer如何设定learning rate?
 
