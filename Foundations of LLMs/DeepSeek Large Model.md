@@ -784,13 +784,15 @@ class ViLT(nn.Module):
 <!-- TOC --><a name="11-cross-attention-audio"></a>
 ## 11. Cross-Attention, Audio
 
-Automatic Speech Recognition (ASR)：输入音频数据，用特征提取器提炼特征，通过Encoder深层特征抽取；文本数据离散化token，由word embedding转换为数值张量，与Encoder输入合并一同送入Decoder，然后Encoder-Decoder分别前向传播，计算损失函数，用反向传播计算梯度，更新模型参数。
+Automatic Speech Recognition (ASR)
+- 输入音频数据，用特征提取器提炼特征，通过Encoder深层特征抽取；文本数据离散化token，由word embedding转换为数值张量，与Encoder输入合并一同送入Decoder，然后Encoder-Decoder分别前向传播，计算损失函数，用反向传播计算梯度，更新模型参数。
 - 梅尔频谱图Mel Spectrogram (librosa库)：把音频信号分帧，对每帧进行短时傅里叶变换，得到对应频谱图。每个频谱图用梅尔滤波器变换，得到每个频率对应的梅尔功率谱密度。将所有频率对应的梅尔功率谱密度合并成二维数组，即梅尔频谱图。
 - 因果注意力GLMBlock：将向量化后的可变文本特征与一维语音特征相加后，输入因果注意力模型计算。（代码略）
 - `torchaudio`音频处理，提取底层人工特征：MFCC (Mel Frequency Cepstral Coefficients 梅尔频率倒谱系数)或FBank (Filter Bank滤波器组特征)，然后传给Transformer Encoder.
 - 特征融合：`torch.concat`维度叠加（先池化压缩，多维到一维，然后与输入文本向量叠加），交叉注意力Cross-Attention（不同信息源的融合：把输入张量拆分两部分，query和context，将一部分作为查询集合，一部分作为键值集合，输出张量对每个行向量都有它对于所有行向量的注意力权重）
 
 Cross Attention：多头交叉注意力机制
+- 捕捉不同模态或序列之间的交互关系，将一个序列的注意力权重应用于另一个序列，实现跨序列信息流动融合，可用于语音识别、图像生成。
 - 输入嵌入维度、隐藏维度、头数，初始化4个线性层（QKV和一个将多头注意力结果投影回原始嵌入维度）
 - 前向传播forward：输入query和context，对其线性变换并将结果重塑，适应多头注意力结构。然后计算查询和键之间的注意力分数，用softmax归一化获得注意力权重
 - 将不同头的上下文向量合并，通过输出线性层将其投影回原始嵌入维度。
@@ -854,7 +856,12 @@ print(output.size()) # (batch_size, query_len, embed_dim)
 print(attn_weights.size()) # (batch_size, num_heads, query_len, context_len)
 ```
 
-带掩码的交叉注意力机制：忽略输入序列的零值位置，只关注有意义的内容，用掩码矩阵指示哪些位置有效，计算注意力分数时将掩码矩阵应用在查询和键的乘积，确保填充位置不对注意力权重分配产生影响，可以提高文本生成任务的性能效率。
+带掩码的交叉注意力机制：文本语音融合
+- 忽略输入序列的零值位置，只关注有意义的内容，用掩码矩阵指示哪些位置有效，计算注意力分数时将掩码矩阵应用在查询和键的乘积，确保填充位置不对注意力权重分配产生影响，可以提高文本生成任务的性能效率。
+- `einops`库，重排张量维度：对多头注意力计算很重要，允许模型在同时处理多个注意力头，每个头都独立学习不同注意力模式，这种维度变换可以有效捕捉融合多模态信息。
+- `pad_mask`：因为句子长度不一致所以要对短句进行padding填充达到批处理的统一长度，而padding却不包含有效信息，因此在计算注意力时不予考虑，softmax归一化时极大抑制（接近0）防止对结果产生误导性影响。
+- 输出经过交叉注意力机制增强后的embedding：不仅保留原始文本信息，也融入了图像数据上下文，提高多模态理解。
+- 传统交叉注意力的缺点：过分关注局部细节，忽略特征整体结构，可以改进为基于特征拼接concat的Embedding，保留原信息同时加入上下文，然后加掩码的自注意力来处理拼接后的特征，完成端到端语音融合。
 
 ```py
 from speed2text import all_config 
@@ -922,6 +929,32 @@ class GLMSimple(torch.nn.Module):
 
 <!-- TOC --><a name="12-token-compression"></a>
 ## 12. Token Compression
+
+Pixel-Shuffle图像token压缩
+- 通过像素重组转换数据维度，用通道于空间之间的转换关系，牺牲空间分辨率换取通道数增加，从而降低数据空间维度，让每个token蕴含丰富紧凑的特征，减少token并保证信息质量。
+- 原图在通道维度扩展，在空间维度缩减。通过重新拍了和调整张量形状，实现像素洗牌。可以用于图像上采样，增加图像空间分辨率而不增加计算量。
+
+```py
+def pixel_shuffle(x, scale_factor=2):
+    x = einops.rearrange(x, "b c h w -> b h w c")
+    # get tensor dim info after rearrange: batch, width, height, channel
+    n, w, h, c = x.size()
+    # rearrange tensor to (scale_factor, scale_factor) blocks, expand channels to scale_factor ^ 2 multiples
+    x = einops.rearrange(x, "b h (w s) c -> b h w (c s)", s = scale_factor)
+    # reorder tensor dim to (batch, width, height, channel), make sure contiguous in memory 
+    x = x.permute(0, 2, 1, 3).contiguous()
+    # reshape tensor, let its height and width // scale_factor, channel * scale_factor^2 
+    x = x.view(n, int(h // scale_factor), int(w // scale_factor), int(c * (scale_factor * scale_factor)))
+    # reorder tensor dim to (batch, height, width, channel), make sure contiguous in memory 
+    x = x.permute(0, 2, 1, 3).contiguous()
+    # rearrange tensor to (batch, channel, height, width)
+    x = einops.rearrange(x,"b h w c-> b c h w")
+    return x
+```
+
+Cross-layer Token Fusion
+- 评估各token对模型效率和准确性的共享，在特定网络层事实token fusion，多模态模型中token合并及相似token识别是基于余弦相似度。
+
 
 <!-- TOC --><a name="13-image-encoder-vq-vae-fsq"></a>
 ## 13. Image Encoder: VQ-VAE, FSQ
