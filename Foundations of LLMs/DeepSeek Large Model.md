@@ -715,10 +715,210 @@ class DiTBlock(torch.nn.Module):
 <!-- TOC --><a name="10-multimodal-fusion"></a>
 ## 10. Multimodal Fusion
 
+多模态视觉ViLT = 预训练Vision Transformer (ViT)初始化Transformer Encoder + ViT的Patch投影实现Image Embedding + 文本Tokenizer标记Word Embedding
 
+```py
+import torch
+import torch.nn as nn 
+import torch.nn.functional as F 
+
+import kan, mhsa 
+import timm 
+
+class ViLT(nn.Module):
+    def __init__(self, vocab_size=3120, num_layers=6, d_model=384, attention_head_num=6, hidden_dropout=0.1):
+        # Full Mamba model
+        super().__init__()
+        self.num_layers = num_layers
+        self.hidden_dropout = hidden_dropout
+        self.embedding = nn.Embedding(3120, d_model)
+        self.patch_embedding = timm.layers.PatchEmbed(28, patch_size=7, in_chans = 1, embed_dim=d_model)
+        self.image_patch_num = int((28/7)**2)
+        self.layers = torch.nn.ModuleList([mhsa.EncoderBlock(d_model, attention_head_num, hidden_dropout) for _ in range(num_layers)])
+        self.lm_head = kan.KAN([d_model, vocab_size])
+        # position_ids, to mark image and token_embedding formats 
+        self.position_embedding = nn.Embedding(2, d_model)
+
+    def forward(self, image, input_token):
+        token_embedding = self.embedding(input_token)
+        bs, seq_len, dim = token_embedding.shape 
+        image_embedding = self.patch_embedding(image).to(token_embedding.device)
+        bs, seq_len, dim = token_embedding.shape 
+        img_bs, image_len, dim = image_embedding.shape 
+        position_ids = torch.concat((torch.zeros(size=(bs, image_len), dtype=torch.int),
+                                     torch.ones(size=(bs, seq_len), dtype=torch.int)), dim=-1).to(token_embedding.device)
+        position_embedding = self.position_embedding(position_ids)
+        embedding = torch.cat((image_embedding, token_embedding), dim=1) + position_embedding
+
+        for i in range(self.num_layers):
+            embedding = self.layers[i](embedding, past_length = image_len)
+        x = torch.nn.functional.dropout(embedding, p=0.1)
+        logits = self.lm_head(x)
+        return logits 
+    
+    @torch.no_grad()
+    def generate(self, image, prompt=None, n_token_to_gen = 20, temperature=1., top_k=3, sample=False, eos_token=2, device="cuda"):
+        self.eval()
+        prompt = prompt.clone().detach().requires_grad_(False).to(device)
+        inputs_ids = prompt
+        for token_n in range(n_token_to_gen):
+            with torch.no_grad():
+                indices_to_input = input_ids 
+                next_token_logits = self.forward(image, indices_to_input)[:, -1]
+            probs = F.softmax(next_token_logits, dim=-1) * temperature
+            (batch, vocab_size) = probs.shape 
+            if top_k is not None:
+                (values, indices) = torch.topk(probs, k=top_k)
+                probs[probs < values[:, -1, None]] = 0 
+                probs = probs / probs.sum(axis=1, keepdims=True)
+            if sample:
+                next_indices = torch.multinomial(probs, num_samples=1)
+            else:
+                next_indices = torch.argmax(probs, dim=-1)[:, None]
+            input_ids = torch.cat([input_ids, next_indices], dim=1)
+        return input_ids
+```
+
+多模态融合：对输出logits进行截断，认为对齐多模态输入与输出维度一致。（代码太长，略）
 
 <!-- TOC --><a name="11-cross-attention-audio"></a>
 ## 11. Cross-Attention, Audio
+
+Automatic Speech Recognition (ASR)：输入音频数据，用特征提取器提炼特征，通过Encoder深层特征抽取；文本数据离散化token，由word embedding转换为数值张量，与Encoder输入合并一同送入Decoder，然后Encoder-Decoder分别前向传播，计算损失函数，用反向传播计算梯度，更新模型参数。
+- 梅尔频谱图Mel Spectrogram (librosa库)：把音频信号分帧，对每帧进行短时傅里叶变换，得到对应频谱图。每个频谱图用梅尔滤波器变换，得到每个频率对应的梅尔功率谱密度。将所有频率对应的梅尔功率谱密度合并成二维数组，即梅尔频谱图。
+- 因果注意力GLMBlock：将向量化后的可变文本特征与一维语音特征相加后，输入因果注意力模型计算。（代码略）
+- `torchaudio`音频处理，提取底层人工特征：MFCC (Mel Frequency Cepstral Coefficients 梅尔频率倒谱系数)或FBank (Filter Bank滤波器组特征)，然后传给Transformer Encoder.
+- 特征融合：`torch.concat`维度叠加（先池化压缩，多维到一维，然后与输入文本向量叠加），交叉注意力Cross-Attention（不同信息源的融合：把输入张量拆分两部分，query和context，将一部分作为查询集合，一部分作为键值集合，输出张量对每个行向量都有它对于所有行向量的注意力权重）
+
+Cross Attention：多头交叉注意力机制
+- 输入嵌入维度、隐藏维度、头数，初始化4个线性层（QKV和一个将多头注意力结果投影回原始嵌入维度）
+- 前向传播forward：输入query和context，对其线性变换并将结果重塑，适应多头注意力结构。然后计算查询和键之间的注意力分数，用softmax归一化获得注意力权重
+- 将不同头的上下文向量合并，通过输出线性层将其投影回原始嵌入维度。
+
+```py
+import torch 
+import torch.nn as nn 
+import torch.nn.functional as F 
+
+class CrossAttention(nn.Module):
+    def __init__(self, embed_dim, hidden_dim, num_heads):
+        super(CrossAttention, self).__init__()
+        self.embed_dim = embed_dim 
+        self.hidden_dim = hidden_dim 
+        self.num_heads = num_heads 
+        self.query_proj = nn.Linear(embed_dim, hidden_dim * num_heads)
+        self.key_proj = nn.Linear(embed_dim, hidden_dim * num_heads)
+        self.value_proj = nn.Linear(embed_dim, hidden_dim * num_heads)
+        self.out_proj = nn.Linear(hidden_dim * num_heads, embed_dim)
+
+    def forward(self, query, context):
+        """
+        query: (batch_size, query_len, embed_dim)
+        context: (batch_size, context_len, embed_dim)
+        """
+        batch_size, query_len, _ = query.size()
+        context_len = context.size(1)
+        # project input embeddings 
+        query_proj = self.query_proj(query).view(batch_size, query_len, self.num_heads, self.hidden_dim)
+        key_proj = self.key_proj(context).view(batch_size, context_len, self.num_heads, self.hidden_dim)
+        value_proj = self.value_proj(context).view(batch_size, context_len, self.num_heads, self.hidden_dim)
+        # transpose to get dimensions (batch_size, num_heads, len, hidden_dim)
+        query_proj = query_proj.permute(0, 2, 1, 3)
+        key_proj = key_proj.permute(0, 2, 1, 3)
+        value_proj = value_proj.permute(0, 2, 1, 3)
+
+        # compute attention scores 
+        scores = torch.matmul(query_proj, key_proj.transpose(-2, -1)) / (self.hidden_dim ** 0.5)
+        attn_weights = F.softmax(scores, dim=-1)
+
+        # weighted context
+        context = torch.matmul(attn_weights, value_proj)
+        # concatenate heads and project output 
+        context = context.permute(0, 2, 1, 3).contiguous().view(batch_size, query_len, -1)
+        output = self.out_proj(context)
+        return output, attn_weights
+    
+# example usage 
+embed_dim = 512 
+hidden_dim = 64 
+num_heads = 8 
+cross_attention = CrossAttention(embed_dim, hidden_dim, num_heads)
+# dummy data 
+batch_size = 2 
+query_len = 10 
+context_len = 20 
+query = torch.randn(batch_size, query_len, embed_dim)
+context = torch.randn(batch_size, context_len, embed_dim)
+output, attn_weights = cross_attention(query, context)
+print(output.size()) # (batch_size, query_len, embed_dim)
+print(attn_weights.size()) # (batch_size, num_heads, query_len, context_len)
+```
+
+带掩码的交叉注意力机制：忽略输入序列的零值位置，只关注有意义的内容，用掩码矩阵指示哪些位置有效，计算注意力分数时将掩码矩阵应用在查询和键的乘积，确保填充位置不对注意力权重分配产生影响，可以提高文本生成任务的性能效率。
+
+```py
+from speed2text import all_config 
+model_cfg = all_config.ModelConfig 
+from spped2text.module import blocks 
+
+class GLMSimple(torch.nn.Module):
+    def __init__(self, dim=model_cfg.dim, num_tokens = model_cfg.num_tokens, device=all_config.device):
+        super().__init__()
+        self.num_tokens = num_tokens
+        self.causal = model_cfg.causal 
+        self.device = device 
+        self.head_num = model_cfg.head_num
+        self.token_emb = torch.nn.Embedding(num_tokens, dim)
+        self.layers = torch.nn.ModuleList([])
+        self.dim = model_cfg.dim 
+        self.reshape_layer = torch.nn.Linear(688, model_cfg.dim)
+        self.cross_head_talk = torch.nn.Conv2d(self.head_num, self.head_num, kernel_size=1)
+        for _ in range(model_cfg.depth):
+            block = blocks.ResidualAttention(dim, self.head_num)
+            self.layers.append(block)
+
+        self.norm = torch.nn.RMSNorm(dim)
+        self.to_logits = torch.nn.Linear(dim, num_tokens, bias=False)
+
+    def forward(self, token_inps, image=None):
+        image = self.reshape_layer(image)
+        embedding = self.token_emb(token_inps)
+        # make token_inps 0-values as true, and make them mask, expand mask to 3D shape [b, l, 1]
+        pad_mask = token_inps.eq(0)
+        embedding = self.cross_attention(embedding, image, pad_mask)
+        for id, layer in enumerate(self.layers):
+            embedding = self.norm(embedding)
+            embedding = layer(embedding)
+        embedding = torch.nn.Dropout(0.1)(embedding)
+        logits = self.to_logits(embedding)
+        return logits 
+    
+    def cross_attention(embedding, image, pad_mask):
+        # keep original embedding for residual connection
+        residual = embedding 
+        # expand pad_mask dimension, for future attention weight calculation 
+        # pad_mask shape from [b, l] to [b, l, l, w], b = batch_size, l = embedding length, w = image width 
+        pad_mask = pad_mask.unsqueeze(-1).repeat(l, 1, image.shape[l]).unsqueeze(1)
+        
+        # use einops to rearrange embedding and image dimension, for multi-head attention 
+        # embedding shape from [b, l, h*d] to [b, h, l, d], h = head, d = each head dimension 
+        # image shape from [b, w, h*d] to [b, h, w, d]
+        embedding = einops.rearrange(embedding, 'b l (h d) -> b h l d', h=self.head_num)
+        image = einops.rearrange(image, 'b w (h d) -> b h w d', h=self.head_num)
+
+        # calculate attention weight, use torch.einsum for high efficiency matmul
+        # att_weight shape [b, h, l, w]
+        att_weights = torch.einsum('b h l d, b h w d -> b h l w', embedding, image) * (self.dim ** -0.5)
+        # pad_mask to fill attention weight with small number (-1e9) to make sure after softmax these positions weight close to 0
+        att_weights = att_weights.masked_fill(pad_mask, -1e9)
+        # attention softmax
+        att_weights = F.softmax(att_weights, dim=-1)
+        # use attention weight to weighted sum for image, get new embedding, shape [b, h, l, d]
+        embedding = torch.einsum('b h l w, b h w d -> b h l d', att_weights, image)
+        # new embeddign rearrange to original shape, add residual connection, output embedding shape [b, l, h*d]
+        embedding = residual + einops.rearrange(embedding, 'b h l d -> b l (h d)')
+        return embedding
+```
 
 <!-- TOC --><a name="12-token-compression"></a>
 ## 12. Token Compression
