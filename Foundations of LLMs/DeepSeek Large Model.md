@@ -432,7 +432,141 @@ class MOE(torch.nn.Module):
 ```
 
 <!-- TOC --><a name="6-attention-4mla"></a>
-## 6. Attention 4：MLA
+## 6. Attention 4：MQA, MLA, GQA
+
+MQA (Multi-Query Attention) 多查询注意力：传统MHA中QKV根据每个头进行不同变换，但头数量众多时导致计算量太大。MQA增强关键信息捕捉能力，适合复杂任务，让所有头共享同一组KV矩阵，减少计算量和参数量，只有Q保留多头特性，但会牺牲精度。
+
+```py
+import torch 
+import torch.nn as nn 
+import einops 
+
+class MultiHeadAttention_MQA(torch.nn.Module):
+    def __init__(self, d_model, attention_head_num):
+        super(MultiHeadAttention_MQA, self).__init__()
+        self.attention_head_num = attention_head_num
+        self.d_model = d_model 
+
+        assert d_model % attention_head_num == 0 
+        self.scale = d_model ** -0.5 # scale attention score 
+        self.per_head_dmodel = d_model // attention_head_num # each attention head dim 
+        # linear layer for QKV, note that K and V dim are reduced 
+        self.qkv_layer = torch.nn.Linear(d_model, (d_model + 2 * self.per_head_dmodel))
+        # rotary embedding layer, to rotate Q, K 
+        self.rotary_embedding = RotaryEmbedding(self.per_head_dmodel // 2, use_xpos=True)
+        self.out_layer = torch.nn.Linear(d_model, d_model) # output linear layer 
+
+    def forward(self, embedding, past_length=0):
+        B, S, D = embdding.shape # tensor shape: batch size, sequence length, dim 
+        # linear layer for QKV 
+        qky_x = self.qkv_layer(embedding)
+        q, k, v = torch.split(qky_x, [self.d_model, self.per_head_dmodel, self.per_head_dmodel], dim=-1)
+        # rearrange Q, so each attention head can handle its work independently 
+        q = einops.rearrange(q, "b s (h d) -> b h s d", h=self.attention_head_num)
+        # K, V dim expansion, to broadcast with Q, this is the important part for MQA to share K and V 
+        k = k.unsqueeze(2).expand(B, -1, self.attention_head_num, -1).transpose(1, 2)
+        v = v.unsqueeze(2).expand(B, -1, self.attention_head_num, -1).transpose(1, 2)
+
+        # rotary embdding to rate Q and K 
+        q, k = self.rotary_embedding.rotate_queries_and_keys(q, k, seq_dim=2)
+        q = q * self.scale 
+        # attention score 
+        sim = eniops.einsum(q, k, 'b h i d, b h j d -> b h i j')
+
+        # causal mask to mask future position 
+        i, j = sim.shape[-2:]
+        causal_mask = torch.ones((i, j), dtype=torch.bool).triu(past_length).to(embedding.device)
+        # use big negative number to mask future position 
+        sim = sim.masked_fill(causal_mask, -torch.finfo(sim.dtype).max)
+        attn = sim.softmax(dim=-1)
+        # attention weight to get weighted sum for V 
+        out = einops.einsum(attn, v, 'b h i j, b h j d -> b h i d')
+        # rearrange output side to match input size 
+        embedding = einops.rearrange(out, "b h s d -> b s (h d)")
+        embedding = self.out_layer(embedding) 
+        return embedding
+```
+
+MLA用低秩键值联合压缩QKV到更低维度的潜空间，提高效率，优化模型内存和计算速度。
+
+```py
+class MultiHeadAttention_MLA(torch.nn.Module):
+    def __init__(self, d_model, attention_head_num):
+        super(MultiHeadAttention_MLA, self).__init__()
+        self.attention_head_num = attention_head_num 
+        self.d_model = d_model 
+        assert d_model % attention_head_num == 0 
+        self.scale = d_model ** -0.5
+        self.softcap_value = 50.
+        self.per_head_dmodel = d_model // attention_head_num # each attention head dim 
+
+        # Q linear layer and normalization layer
+        self.q_rope_dense = torch.nn.Linear(self.per_head_dmodel, self.per_head_dmodel * 2)
+        self.q_norm = torch.nn.RMSNorm(self.per_head_dmodel * 2)
+        # QK dim in low-rank latent space
+        self.qk_nope_dim = self.per_head_dmodel
+        self.qk_rope_dim = self.per_head_dmodel 
+        # KV projection dim and relevant layer 
+        self.kv_proj_dim = self.d_model 
+        self.kv_proj_dim_VS_qk_rope_dim = (self.kv_proj_dim + self.qk_rope_dim)
+        self.kv_layernorm = torch.nn.RMSNorm(self.kv_proj_dim)
+        self.kv_dense = torch.nn.Linear(self.kv_proj_dim, (self.d_model + self.attention_head_num * self.qk_nope_dim))
+
+        # linear layer for QKV initial representation 
+        self.qkv_layer = torch.nn.Linear(d_model, (d_model + self.kv_proj_dim_VS_qk_rope_dim))
+        self.rotary_embedding = RotaryEmbedding(self.per_head_dmodel // 2)
+        self.out_layer = torch.nn.Linear(d_model, d_model)
+
+    def forward(self, embedding, past_length=0):
+        B, S, D = embedding.shape
+        # get initial representation for QKV by linear layer
+        qky_x = self.qkv_layer(embedding)
+        # split q and compressed kv
+        q, compressed_kv = torch.split(qky_x, split_size_or_sections=[self.d_model, self.kv_proj_dim_VS_qk_rope_dim], dim=-1)
+        # rearrange Q and linear transformation, normalization 
+        q = einops.rearrange(q, "b s (h d) -> b h s d", h=self.attention_head_num)
+        q = self.q_norm(self.q_rope_dense(q))
+
+        # separate Q to 2 parts, apply rotary embedding for one part 
+        q, q_for_rope = torch.split(q, [self.qk_nope_dim, self.qk_rope_dim], dim=-1)
+        q_for_rope = self.rotary_embedding.rotate_queries_or_keys(q_for_rope)
+
+        # split compressed KV, normalization and linear transformation 
+        KV_for_lora, K_for_rope = torch.split(compressed_kv, [self.kv_proj_dim, self.qk_rope_dim], dim=-1)
+        KV_for_lora = self.kv_layernorm(KV_for_lora)
+        KV = self.kv_dense(KV_for_lora)
+        KV = einops.rearrange(KV, "b s (h d) -> b h s d", h=self.attention_head_num)
+        K, V = torch.split(KV, [self.qk_nope_dim, self.per_head_dmodel], dim=-1)
+
+        # expand K_for_rope to match attention head size 
+        K_for_rope = einops.repeat(K_for_rope, "b s d -> b h s d", h=self.attention_head_num)
+        # combine Q, K heads for attention score calculation 
+        q_heads = torch.cat([q, q_for_rope], dim=-1)
+        k_heads = torch.cat([K, K_for_rope], dim=-1)
+        v_heads = V # has been rearranged previously
+
+        # scale Q for attention score calculation
+        q_heads = q_heads * self.scale 
+        sim = einops.einsum(q_heads, k_heads, 'b h i d, b h j d -> b h i j')
+        # causal mask, calculate softmax attention weight 
+        mask_value = -torch.finfo(sim.dtype).max 
+        i, j = sim.shape[-2:]
+        causal_mask = torch.ones((i, j), dtype=torch.bool).triu(past_length).to(embedding.device)
+        sim = sim.masked_fill(causal_mask, mask_value)
+        attn = sim.softmax(dim=-1)
+
+        # attention weight for V, get embedding 
+        out = einops.einsum(attn, V_heads, 'b h i j, b h j d -> b h i d')
+        embedding = einops.rearrange(out, "b h s d -> b s (h d)")
+        embedding = self.out_layer(embedding)
+        return embedding
+```
+
+GQA分组查询注意力：全面优化，不仅改进了注意力计算方式，还引入全局信息，提高整体理解能力。查询头被分成G组，每个查询头都有独立的参数空间，每个组共享一套KV矩阵，可以保持注意力机制灵活性和参数高效利用。GQA比MQA（多头查询注意力）有更高插值模型质量且速度更快，H个键值头缩减为1个键值头，数据量减小H倍。（代码太长，略）
+
+Multi Head Differential Attention差分注意力机制：对于长文本，Transformer会注意力分散（关注与任务无关内容，注意力噪声干扰了对关键信息的捕捉），因此在注意力得分计算时引入差分思想，计算两个独立softmax注意力图之差，滤除噪声，强化对有效信号的捕捉。（代码太长，略）
+
+Case Study：基于MLA的语音情感分类。
 
 <!-- TOC --><a name="7-deepseek-api-calling"></a>
 ## 7. DeepSeek API Calling
