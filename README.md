@@ -92,6 +92,8 @@ In-depth review of industry trends in AI, LLMs, Machine Learning, Computer Scien
 
 > Efficient Training in PyTorch, by Ailing Zhang, 2024 | [__Notes-Chinese__](https://github.com/junfanz1/AI-LLM-ML-CS-Quant-Review/blob/main/Foundations%20of%20LLMs/Efficient%20Training%20PyTorch.md)
 
+> Dive into DeepSeek LLM, by Xiaojing Ding, 2025 | [__Notes-Chinese__](https://github.com/junfanz1/AI-LLM-ML-CS-Quant-Review/blob/main/Foundations%20of%20LLMs/Dive%20into%20DeepSeek%20LLM.md)
+
 <img src="https://github.com/user-attachments/assets/0c35d5d0-f8e0-4b64-9d93-2240c628feaa" width="30%" height="30%">
 
 <img src="https://github.com/user-attachments/assets/05c0f747-7448-4d4e-b338-aae832a86b8b" width="34%" height="34%">
@@ -101,6 +103,9 @@ In-depth review of industry trends in AI, LLMs, Machine Learning, Computer Scien
 <img src="https://github.com/user-attachments/assets/1c3c59ff-4b22-4163-a12b-cfc027950602" width="32%" height="32%">
 
 <img src="https://github.com/user-attachments/assets/7295d359-d625-4930-802d-03f1ddcd8ed3" width="32%" height="32%">
+
+<img src="https://github.com/user-attachments/assets/2f24506f-a460-40bd-b3d2-c113f3ef9143" width="32%" height="32%">
+
 
 > [GeekBang: AI LLM Practice](https://time.geekbang.org/column/intro/100770601) | [__Notes-Chinese__](https://github.com/junfanz1/AI-LLM-ML-CS-Quant-Readings/blob/main/AI%20LLM/AI%20LLM%20Practice.md)
 
