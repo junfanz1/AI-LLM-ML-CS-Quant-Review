@@ -1017,6 +1017,40 @@ class VectorQuantizer(torch.nn.Module):
         return self.embedding_table(ids)
 ```
 
+Case Study：基于Finite Scalar Quantization (FSQ)而非Vector Quantization的人脸生成，可以消除VQ辅助损失、提高codebook利用率，模型将信息分散到多个quantization bins，可以减少重构损失。（代码略）
+
 <!-- TOC --><a name="14-torchvision-video-classification"></a>
-## 14. torchvision Video Classification
+## 14. `torchvision` Video Classification
+
+视频Embedding编码器：把视频划分成一系列spatio-temporal patches时空块，生成一系列连续帧小块，然后通过Embedding层生成特征向量，作为注意力模型输入。
+
+```py
+import torch 
+from einops.layers.torch import Rearrange, Reduce 
+
+def pair(t):
+    return t if isinstance(t, tuple) else (t, t)
+
+class ViT3D(torch.nn.Module):
+    def __init__(self, image_size, image_patch_size, frames, frame_patch_size, dim, pool='cls', channels=3):
+        super().__init__()
+        image_height, image_width = pair(image_size) # e.g. (128, 128)
+        patch_height, patch_width = pair(image_patch_size) # e.g. (16, 16)
+        assert image_height % patch_height == 0 and image_width % patch_width == 0, 'Image dims must be divisible by patch size.'
+        assert frames % frame_patch_size == 0, 'Frames must be divisible by frame patch size'
+        num_patches = (image_height // patch_height) * (image_width // patch_width) * (frames // frame_patch_size)
+        patch_dim = channels * patch_height * patch_width * frame_patch_size # e.g. 3*16*16*2=1536
+        assert pool in {'cls', 'mean'}, 'pool type must be either cls token or mean pooling'
+        self.to_patch_embedding = torch.nn.Sequential(
+            Rearrange('b (f fp) (h p1) (w p2) c -> b (f h w) (p1 p2 pf c)', p1=patch_height, p2=patch_width, pf=frame_patch_size),
+            torch.nn.RMSNorm(patch_dim), # layer normalization for rearranged data 
+            torch.nn.Linear(patch_dim, dim), # dim transform to hidden dim, e.g. 1536 -> 1024
+        )
+
+    def forward(self, x):
+        x = self.to_patch_embedding(x.float()) # get patch embedding from sequence model
+        return x 
+```
+
+`torchvision.mvit_v2_s`：视频分类模型，视频通过Patch Partition (cube1)模块分块重塑reshape，然后拼接分类标记CLS，后续scale2~scale5用Multi-Head Pooling Attention (MHPA)，在逐步下采样时空分辨率的同时增加通道维度，每阶段由多个Transformer (MultiscaleBlock)块组成。（代码略）
 
