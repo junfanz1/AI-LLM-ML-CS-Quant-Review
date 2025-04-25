@@ -219,14 +219,30 @@ class PPO:
 - DPO (Differentially Private Optimization)：结合隐私保护和策略优化，在策略优化中引入差分隐私，通过加噪声（可能带来性能损失）或调整梯度来确保agent学习中不泄露太多用户信息，防止敏感数据泄露。
 - GRPO (Generalized Reinforcement Policy Optimization)：用灵活的优化框架，允许agent根据任务特定调整策略，能处理复杂约束条件（多目标优化），适合复杂任务。
 
+数据采样：Greedy Sampling（选当前最优动作）、epsilon-Greedy Sampling（大部分选最优，偶尔选随机探索）、Boltzmann采样（根据Q值计算概率，agent在各动作间进行概率选择）
+
 RL优化策略，提高收敛和稳定性
-- Experience Replay经验回放：存储历史经验
+- Experience Replay经验回放：存储历史经验，打破数据相关性，提高数据利用率，加速收敛。（代码见P121）
 - 目标网络Target Network：缓解Q值过度估计，每次更新不直接依赖当前策略结果，而是依赖目标网络输出
 - Entropy Regularization策略熵正则化：保持随机探索，避免太早收敛，适合基于梯度的方法（A3C、PPO）
 - n-step Learning：多步汇报来估计值函数，加速收敛
 - Adaptive Learning Rate
 
-DeepSeek-R1-Zero奖励模型
+DeepSeek-R1-Zero奖励模型：基于深度学习的动态奖励生成，通过对环境和agent行为深度建模，自适应地为每个决策过程设计合适的奖励。
+- `RewardModel`类：简单神经网络，预测给定状态-动作对的奖励信号（代码见P106）
+- `RewardBasedLearning`类：基于奖励建模的强化学习，计算每个动作返回值和优势函数，结合策略更新和奖励模型优化，改进策略并优化奖励机制。（代码见P106）
+- `AdaptiveRewardModel`类：自适应奖励模型，根据当前状态-动作对生成奖励信号，提供agent训练实时反馈。（代码见P110）
+- `AdaptiveRewardLearning`类：结合PPO策略优化和奖励建模的更新机制，训练agent策略网络，同时优化奖励生成模型。（代码见P110）
+
+奖励策略稀疏性的改进
+- Reward Shaping奖励塑形：设计潜在奖励函数引导agent行为，提供中间奖励。
+  - `RewardShapingModel`类：动态调整奖励信号，生成更适应当前学习阶段的奖励。（代码见P115）
+  - `RewardLearning`类：结合PPO策略优化与奖励塑形，对策略网络和奖励模型共同训练，优化agennt策略和奖励信号。（代码见P115）
+- 调整探索策略，如Entropy Regularization熵正则化，保持策略随机性，让agent全面探索
+- 基于模型的增强学习：构建环境模型，让agent在模拟环境中预测，获得更多训练样本和奖励信号，即便奖励信号稀疏也可以通过模拟环境来加速学习
+- n-step Learning：聚合未来多步的奖励信号
+- 多任务并行训练：多个相关人物通过共享模型参数加速学习.。（代码见P121）
+
 
 <!-- TOC --><a name="5-cold-start-rl-deepseek-r1"></a>
 ## 5. Cold-Start RL & DeepSeek-R1
