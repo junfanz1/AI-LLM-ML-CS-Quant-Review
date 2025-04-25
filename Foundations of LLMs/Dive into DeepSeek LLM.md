@@ -36,14 +36,18 @@ GPT = 多个Transformer Blocks（=Multi-Head Self Attention + Feed Forward Netwo
 
 模型初始化：防止梯度消失爆炸，Xavier/He初始化；DeepSeek-R1用动态权重初始化+RL，确保模型稳定收敛；DeepSeek-V3用MoE+分布式权重初始化，优化跨节点参数一致性。
 
-PEFT：DeepSeek-R1用LoRA + Adapter微调；DeepSeek-V3用Adapter + Prefix Tuning + MoE.
+PEFT：DeepSeek-R1用LoRA + Adapter微调；DeepSeek-V3用Adapter + Prefix Tuning + MoE。
 
 推理优化
 - 量化
+  - 后训练量化Post-Training Quantization：快速模型部署和推理加速，不用重新训练，可能出现精度下降。
+  - 量化感知训练Quantization Aware Training：在模型训练阶段就量化，在前向传播模拟量化Fake Quantization（用伪量化层模拟低精度计算）操作、反向传播仍用浮点数计算梯度。训练完后，模型可导出为低量化模型，供推理部署适用。适合精度敏感任务（语音识别图像分类），但训练成本高。
+  - Adaptive Quantization, Mixed-Precision Inference, Hardware-Aware Quantization
 - 剪枝（模型稀疏化）：Weight pruning去除近0权重；Structured pruning以卷积核、通道、层为单位剪枝，适合硬件加速
-- 知识蒸馏：Soft targets通过教师的概率分布（软标签或中间层特征）指导学生；Feature Distillation不仅关注输出层，还对中间层特征表示进行蒸馏，更好理解数据内部结构。
-- DeepSeek-R1：动态量化 + 自适应剪枝
-- DeepSeek-V3：MoE + 结构化剪枝、量化感知训练QAT + 跨模态知识蒸馏
+- 知识蒸馏
+  - Soft targets通过教师的概率分布（软标签或中间层特征）指导学生；Feature Distillation不仅关注输出层，还对中间层特征表示进行蒸馏，更好理解数据内部结构。
+  - Distillation loss = soft label loss（学生与老师差异，用温度调整的交叉熵）+ hard label loss（学生预测结果与真实标签差异，确保模型有基础分类能力）
+- DeepSeek-R1：动态量化 + 自适应剪枝；DeepSeek-V3：MoE + 结构化剪枝、量化感知训练QAT + 跨模态知识蒸馏
 
 性能优化
 - 模型结构：Sparsity（引入稀疏连接，减少计算，保留关键路径）；MoE（动态路由分配到子模型，只激活部分参数，减少计算）；轻量架构Lightweight Architecture（精简Transformer变体（MobileBERT, DistilBERT）减少模型层数和参数规模）
@@ -51,16 +55,22 @@ PEFT：DeepSeek-R1用LoRA + Adapter微调；DeepSeek-V3用Adapter + Prefix Tunin
 - 并行计算：模型并行、流水线并行、批量推理Batch Inference适用高并发场景、异步推理Asynchronous Inference适用多任务环境（减少任务间阻塞）
 - 低延迟：动态推理路径Dynamic Inference Pathways（基于输入数据复杂度动态调整推理路径，DeepSeek-V3动态路由仅激活相关的子模型）；模型裁剪Model Pruning（边缘设备上部署裁剪与量化的模型，减少开销）；缓存机制（DeepSeek-V3用KV缓存，多轮对话和连续推理中复用历史计算结果）
 
-量化
-- 后训练量化Post-Training Quantization：快速模型部署和推理加速，不用重新训练，可能出现精度下降。
-- 量化感知训练Quantization Aware Training：在模型训练阶段就量化，在前向传播模拟量化Fake Quantization（用伪量化层模拟低精度计算）操作、反向传播仍用浮点数计算梯度。训练完后，模型可导出为低量化模型，供推理部署适用。适合精度敏感任务（语音识别图像分类），但训练成本高。
-- Adaptive Quantization, Mixed-Precision Inference, Hardware-Aware Quantization
-
-知识蒸馏
-- Distillation loss = soft label loss（学生与老师差异，用温度调整的交叉熵）+ hard label loss（学生预测结果与真实标签差异，确保模型有基础分类能力）
-
 <!-- TOC --><a name="2-dl-rl"></a>
 ## 2. DL & RL
+
+优化器
+- 随机梯度下降SGD：受限于收敛速度和震荡问题，适用小模型小数据
+- Adam (Adaptive Momentum Estimation)：自动调整学习率（无需手动调节），更新参数时同时考虑一阶矩（均值）和二阶矩（方差），自适应调整每个参数的学习率。
+- LAMB (Layer-wise Adaptive Moments optimizer for Batch training）：适用大规模分布式训练，= Adam + 层级自适应学习率调整，保持稳定性同时扩展批量大小，提高分布式训练效率，对不同层的参数自适应缩放。
+
+PyTorch
+- 反向传播：计算图Computation Graph描述神经网络数据流动和运算过程，前向传播是图的自上而下计算，反向传播是图的逆向遍历（链式法则计算梯度）。PyTorch动态计算图，在运行时建图，灵活性高；TensorFlow是静态计算图，在模型定义阶段建图，适合大规模分布式训练。
+- Autograd自动求导：自动计算梯度，简化反向传播算法实现。
+
+学习率
+- 太小导致训练速度慢、局部最优；太大导致无法收敛，在最优解附近震荡。
+- 学习率Decay：动态调整学习率，有Step Decay, Exponential Decay, Cosine Annealing（先快速下降后缓慢收敛，适用训练周期长的大模型）, Adaptive Decay（根据在验证集上的性能调整，性能不提升时降低学习率）
+- 学习率Warm-up：参数不稳定时，大学习率会导致不稳定、损失爆炸，预热侧率可以初期稳定收敛，避免大梯度导致训练不稳定。
 
 <!-- TOC --><a name="3-nlp"></a>
 ## 3. NLP
