@@ -72,6 +72,19 @@ PyTorch
 - 学习率Decay：动态调整学习率，有Step Decay, Exponential Decay, Cosine Annealing（先快速下降后缓慢收敛，适用训练周期长的大模型）, Adaptive Decay（根据在验证集上的性能调整，性能不提升时降低学习率）
 - 学习率Warm-up：参数不稳定时，大学习率会导致不稳定、损失爆炸，预热侧率可以初期稳定收敛，避免大梯度导致训练不稳定。
 
+强化学习
+- Q-Learning：基于时间差分Temporal Difference（动态规划+蒙特卡洛方法，估计Agent与环境交互获得的状态值，不需要等完整回合结束再更新策略，而是实时更新）的RL，寻找最优动作。随着学习不断进行，Q值会逼近最优状态，Agent可在任何状态做出最优决策。
+- Deep Q-Network（DQN）：用深度神经网络作为函数逼近器来估计Q值函数，解决了Q-Learning在高位状态空间的维度灾难问题。但在连续动作空间和策略优化方面存在局限（策略不稳定、样本效率低），因此引入策略梯度方法（Actor-Critic）来优化策略函数，使其高效决策并且收敛。
+  - Experience Replay经验回放：Agent环境交互的状态、动作、奖励、下一状态、终止标志的交互数据以五元组存储到Replay Buffer缓冲区，每次模型参数更新都从缓冲区Replay Buffer随机采样mini-batch历史经验进行训练，可以降低样本间相关性，提高样本利用率，让数据分布更iid，提高泛化能力和稳定性。
+  - 目标网络Target Network：参数固定更新Hard Update（每隔几千步与主Q网络参数完全同步，可以减少快速参数更新的Q值震荡，但学习效率低）、软更新Soft Update（指数加权逐步调整参数，缓慢向主网络靠拢）、多目标网络Multi Target Networks、动态调整同步频率Dynamic Synchronization Frequency Adjustment（根据模型学习进展动态调整目标网络的更新频率）。
+  - Double DQN：缓解Q值的高估偏差，解耦动作选择和价值估计两个过程，缓解过度乐观。
+  - Dueling DQN：把Q值分解两部分（状态价值函数V + 优势函数A），共享前置特征提取层，适合状态空间大、冗余信息多的游戏场景，即使动作选择对最终奖励影响不大，也能有效评估状态价值。
+- Actor-Critic：Actor生成动作策略，Critic估计状态-动作值函数，策略与价值分离并协同优化，用DQN价值评估能力和策略梯度优化能力，高效稳定学习。
+  - Advantage Function衡量当前动作相对于平均水平的优势成都，帮Actor更精准调整策略，防止单一的即时奖励波动产生不必要的策略更新。
+  - 变体：A2C (Advantage Actor-Critic)、A3C (Asynchronous Advantage Actor-Critic)，引入异步并行更新机制和改进的优势估计策略，提高训练效率和泛化能力。
+- Multi-Agent RL (MARL)：每个智能体还要考虑其他智能体行为对环境和自身的奖励。挑战：非平稳环境、信用分配、协作与竞争平衡。
+
+
 <!-- TOC --><a name="3-nlp"></a>
 ## 3. NLP
 
