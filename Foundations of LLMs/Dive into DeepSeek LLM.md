@@ -88,8 +88,145 @@ PyTorch
 <!-- TOC --><a name="3-nlp"></a>
 ## 3. NLP
 
+缓解梯度消失（无法捕捉长距信息）梯度爆炸（参数更新不稳定不收敛）
+- LSTM记忆单元，保留长距信息
+- 梯度裁剪Gradient Clipping：若反向传播计算梯度的范数超过阈值，则缩放梯度
+- Xavier/He初始化权重，初始权重方差在网络层之间保持平衡
+- 残差连接：允许梯度直接传播，减少梯度衰减（ResNet）
+- Batch Normalization, Layer Normalization稳定激活值分布，缓解梯度爆炸。正则化方法（Dropout）防止过拟合，减少极端值，增加泛化能力
+- 调整学习率、优化器选择（Adam自动调整学习率，控制梯度波动）
+
+Transformer Encoder
+- 多头自注意力：从不同子空间学习多维度语义关联
+- 前馈神经网络：独立作用于每个位置，用GELU增加表达能力，进一步提取深层语义特征
+- 残差连接、层归一化：缓解梯度消失，促进模型收敛；稳定训练过程，加速模型优化
+
+Transformer Decoder
+- Masked Multi-Headed Self-Attention：生成过程的自回归性，防止模型访问未来词信息
+- Encoder-Decoder Attention：有效融合源语言信息，用编码器输出作为KV，解码器隐藏状态作为Q，实现跨序列以来建模
+- 前馈神经网络
+
 <!-- TOC --><a name="4-rl-deepseek-r1-zero"></a>
 ## 4. RL & DeepSeek-R1-Zero
+
+强化学习
+- PPO (Proximal Policy Optimization)：最大化策略的语气汇报，策略更新的目标是控制策略更新幅度（裁剪策略）避免不稳定
+  - 分布式强化学习：可以用`DistributedRLTrainer`类，管理分布式训练过程（计算优势函数、回报、更新策略），每个线程在环境中训练，并通过共享经验加速全局模型训练。训练时用Python threading多线程来模拟多智能体并行训练，每个智能体在自己环境训练，最终合并全局奖励。
+```py
+import numpy as np 
+import torch 
+import torch.nn as nn 
+import torch.optim as optim
+from torch.distributions import Categorical 
+import gym 
+from collections import deque 
+
+# MLP, to generate each timestep action distribution, output softmax prob distribution for sampling
+class PolicyNetwork(nn.Module):
+    def __init__(self, input_dim, output_dim):
+        super(PolicyNetwork, self).__init__()
+        self.fc1 = nn.Linear(input_dim, 64)
+        self.fc2 = nn.Linear(64, 64)
+        self.fc3 = nn.Linear(64, output_dim)
+
+    def forward(self, x):
+        x = torch.relu(self.fc1(x))
+        x = torch.relu(self.fc2(x))
+        x = self.fc3(x)
+        return torch.softmax(x, dim=-1)
+
+# compute returns, compute advantages, update with clippinng strategy to restrict each update size
+class PPO:
+    def __init__(self, env, policy_network, gamma = 0.99, lr=3e-4, epsilon=0.2, batch_size=64, epochs=10):
+        self.env = env 
+        self.policy_network = policy_network
+        self.gamma = gamma 
+        self.lr = lr 
+        self.epsilon = epsilon
+        self.batch_size = batch_size
+        self.epochs = epochs 
+        self.optimizer = optim.Adam(policy_network.parameters(), lr=lr)
+
+    def compute_returns(self, rewards, dones, values, next_value):
+        returns = []
+        R = next_value
+        for r, done in zip(rewards[::-1], dones[::-1]):
+            R = r + self.gamma * R * (1-done)
+            returns.insert(0, R)
+        return torch.tensor(returns)
+    
+    def compute_advantages(self, rewards, dones, values, next_value):
+        returns = self.compute_returns(rewards, dones, values, next_value)
+        advantages = returns - values 
+        return advantages
+    
+    def update(self, states, actions, log_probs_old, returns, advantages):
+        for _ in range(self.epochs):
+            log_probs = self.policy_network(states).gather(1, actions.unsqueeze(-1))
+            ratios = torch.exp(log_probs - log_probs_old)
+            surrogate = ratios * advantages
+            clipped_surrogate = torch.clamp(ratios, 1-self.epsilon, 1+self.epsilon) * advantages
+            loss = -torch.min(surrogate, clipped_surrogate).mean()
+
+            self.optimizer.zero_grad()
+            loss.backward()
+            self.optimizer.step()
+
+    def train(self, num_episodes):
+        all_rewards = []
+        for episode in range(num_episodes):
+            states = []
+            actions = []
+            rewards = []
+            log_probs = []
+            dones = []
+            values = []
+            state = self.env.reset()
+            state = torch.tensor(state, dtype=torch.float32)
+            done = False 
+            total_reward = 0 
+
+            while not done:
+                state = state.unsqueeze(0)
+                dist = self.policy_network(state)
+                m = Categorical(dist)
+                action = m.sample()
+                log_prob = m.log_prob(action)
+                value = dist[0, action]
+
+                next_state, reward, done, _ = self.env.step(action.item())
+                states.append(state)
+                actions.append(action)
+                rewards.append(reward)
+                log_probs.append(log_prob)
+                dones.append(done)
+                values.append(value)
+
+                state = torch.tensor(next_state, dtype=torch.float32)
+                total_reward += reward 
+
+            all_rewards.append(total_reward)
+            returns = self.compute_returns(rewards, dones, values, value)
+            advantages = self.compute_advantages(rewards, dones, values, value)
+            self.update(torch.stack(states), torch.tensor(actions), torch.stack(log_probs), returns, advantages)
+
+            if episode % 10 == 0:
+                print(f"Episode {episode}, Total Reward: {total_reward}")
+            return all_rewards
+```
+
+- TRPO (Trust Region Policy Optimization)：每次更新时限制策略变化，约束KL散度来保证策略处在信任范围内，避免参数大幅变化。
+- DPO (Differentially Private Optimization)：结合隐私保护和策略优化，在策略优化中引入差分隐私，通过加噪声（可能带来性能损失）或调整梯度来确保agent学习中不泄露太多用户信息，防止敏感数据泄露。
+- GRPO (Generalized Reinforcement Policy Optimization)：用灵活的优化框架，允许agent根据任务特定调整策略，能处理复杂约束条件（多目标优化），适合复杂任务。
+
+RL优化策略，提高收敛和稳定性
+- Experience Replay经验回放：存储历史经验
+- 目标网络Target Network：缓解Q值过度估计，每次更新不直接依赖当前策略结果，而是依赖目标网络输出
+- Entropy Regularization策略熵正则化：保持随机探索，避免太早收敛，适合基于梯度的方法（A3C、PPO）
+- n-step Learning：多步汇报来估计值函数，加速收敛
+- Adaptive Learning Rate
+
+DeepSeek-R1-Zero奖励模型
 
 <!-- TOC --><a name="5-cold-start-rl-deepseek-r1"></a>
 ## 5. Cold-Start RL & DeepSeek-R1
