@@ -241,11 +241,278 @@ DeepSeek-R1-Zero奖励模型：基于深度学习的动态奖励生成，通过�
 - 调整探索策略，如Entropy Regularization熵正则化，保持策略随机性，让agent全面探索
 - 基于模型的增强学习：构建环境模型，让agent在模拟环境中预测，获得更多训练样本和奖励信号，即便奖励信号稀疏也可以通过模拟环境来加速学习
 - n-step Learning：聚合未来多步的奖励信号
-- 多任务并行训练：多个相关人物通过共享模型参数加速学习.。（代码见P121）
+- 多任务并行训练：`MultiTaskModel`，多个相关任务通过共享模型参数加速学习（代码见P121）。用预训练BERT作为共享编码器，为数学推理和代码生成分别构建专用全连接层，输出层映射到词汇表大小用于模拟文本生成。（代码见136）
 
 
 <!-- TOC --><a name="5-cold-start-rl-deepseek-r1"></a>
 ## 5. Cold-Start RL & DeepSeek-R1
+
+DeepSeek-R1冷启动策略
+- 自监督预训练迁移学习
+  - `TransferLearningModel`类：全连接神经网络，前两层是加载预训练权重，最后一层是任务专用的分类层。（代码P130）
+  - `TransferLearningTrainer`类：迁移学习训练流程，包括预训练权重加载、模型微调、训练、验证。（代码P131）
+- 离线强化学习
+- 元学习快速适应（Model-Agnostic Meta-Learning：多个小样本快速迭代，学会高效参数调整，只要少量梯度更新即可快速适应模型初始化、策略优化）
+- 知识蒸馏
+- KV数据缓存与复用
+
+拒绝采样与监督微调
+- 拒绝采样：生成多个结果后基于一定评分准则筛选最优解，避免模型输出重复无意义内容。
+- 损失函数 = 监督学习用交叉熵损失 + 强化学习用策略梯度计算生成样本与目标奖励之间的偏差并反向传播。用预训练知识任务适配、训练中自适应探索更优输出策略。
+
+【监督学习+强化学习的微调】用DeepSeek-R1模型参数模拟加载，用合成数据监督微调，结合奖励信号进行策略优化，用Flask提供推理API服务。
+
+```py
+import os 
+import time 
+import random 
+import json 
+import numpy as np 
+from typing import Tuple, List 
+import torch 
+import torch.nn as nn 
+import torch.optim as optim 
+from torch.utils.data import Dataset, DataLoader, ConcatDataset 
+from torch.distributions import Categorical 
+from transformers import BertModel, BertTokenizer 
+from flask import Flask, request, jsonify
+
+# 1. Simulate DeepSeek-R1 API parameter loading and pre-training weights obtain
+def simulate_deepseek_r1_pretrained_weights() -> dict:
+    """
+    Simulate DeepSeek-R1 pretraining weights, return dictionary
+    Pretraining weight are reused to initialize model's shared encoder
+    """
+    weights = {
+        "encoder.fc.weight": torch.randn(768, 768),
+        "encoder.fc.bias": torch.randn(768),
+    }
+    print("Simulate obtaining DeepSeek-R1 pretraining weights, success!")
+    return weights 
+
+# 2. Dataset build: create Q&A mission dataset 
+class QA_Dataset(Dataset):
+    """
+    Synthesize Q&A dataset, each sample containing Q&A texts.
+    For SFT, small data, good for cold start.
+    """
+    def __init__(self, num_samples: int=300):
+        self.num_samples = num_samples
+        self.samples = []
+        # generate easy Q&A
+        for _ in range(num_samples):
+            a = random.randint(1, 50)
+            b = random.randint(1, 50)
+            question = f"Calculate {a} + {b} = ?"
+            answer = str(a + b)
+            self.samples.append((question, answer))
+        # non-math Q&A
+        extra_samples = [
+            ("Is Beijing the capital of China?", "Yes, Beijing is the capital of China."),
+            ("What's water's chemical representation?", "H2O"),
+            ("Where does the sun rise?", "East"),
+            ("Is the moon the satellite of earth?", "Yes.")
+        ]
+        self.samples.extend(extra_samples)
+
+    def __len__(self):
+        return len(self.samples)
+    
+    def __getitem__(self, idx):
+        return self.samples[idx]
+    
+# 3. Multi-task model definition: SFT + RL combined training 
+class FineTuneRLModel(nn.Module):
+    """
+    Model Architecture:
+    - Use pretrained BERT as shared encoder (simulate DeepSeek-R1)
+    - Task head: split to SFT task head and policy reward task head 
+    - Output layer will map task head outputs to vocabulary table size (simulate text generation)
+    """
+    def __init__(self, hidden_size: int=768, vocab_size: int=30522):
+        super(FineTuneRLModel, self).__init__()
+        # use pretrained BERT as encoder
+        self.encoder = BertModel.from_pretrained("bert-base-chinese")
+        # SFT head: for supervised learning part, share encoder outputs then fullly-connected layer 
+        self.supervised_head = nn.Sequential(
+            nn.Linear(hidden_size, hidden_size),
+            nn.ReLU(),
+            nn.Linear(hidden_size, hidden_size)
+        )
+        # policy head: for RL part, similar structure
+        self.rl_head = nn.Sequential(
+            nn.Linear(hidden_size, hidden_size),
+            nn.ReLU(),
+            nn.Linear(hidden_size, hidden_size)
+        )
+        # output layer, map task head output to vocabulary table
+        self.output_layer = nn.Linear(hidden_size, vocab_size)
+
+    def forward(self, input_ids, attention_mask, mode="supervised"):
+        """
+        Forward propagation, select different task head according to mode 
+        mode="supervised": use supervised tuning task head 
+        mode="rl": use policy reward task head
+        """
+        # use shared encoder to get text representation 
+        encoder_outputs = self.encoder(input_ids=input_ids, attention_mask=attention_mask)
+        cls_representation = encoder_outputs.last_hidden_state[:, 0, :] # [CLS] vector 
+        if mode == "supervised":
+            head_output = self.supervised_head(cls_representation)
+        elif mode == "rl":
+            head_output = self.rl_head(cls_representation)
+        else:
+            raise ValueError("mode must be 'supervised' or 'rl'")
+        logits = self.output_layer(head_output)
+        return logits 
+    
+# 4. data preprocessing and Collate function 
+def collate_fn_qa(batch: List[Tuple[str, str]], tokenizer, max_length: int=32) -> dict:
+    """
+    Collate function, process Q&A dataset 
+    encoder question text to input_ids, attention_mask, encoder answer text to labels
+    """
+    questions = [q for q, a in batch]
+    answers = [a for q, a in batch]
+    enc_inputs = tokenizer(questions, padding=True, truncation=True, max_length=max_length, return_tensors="pt")
+    enc_labels = tokenizer(answers, padding=True, truncation=True, max_length=max_length, return_tensors="pt")
+    return {
+        "input_ids": enc_inputs["input_ids"],
+        "attention_mask": enc_inputs["attention_mask"],
+        "labels": enc_labels["input_ids"]
+    }
+
+# 5. train combined functions: supervised loss + policy gradient loss 
+def compute_rl_loss(logits, labels, rewards, tokenizer):
+    """
+    RL loss:
+    - logits: model output logits 
+    - labels: true label token 
+    - rewards: rewards for generated text (simulated as random or fixed reward)
+    use weighted cross entropy loss for policy gradient 
+    """
+    criterion = nn.CrossEntropyLoss(ignore_index = tokenizer.pad_token_id, reduction="none")
+    ce_loss = criterion(logits.view(-1, logits.size(-1)), labels.view(-1))
+    # simulate reward adjustments: multiply by reward factor
+    # assume rewards as a scalar, apply to all samples
+    rl_loss = (ce_loss * rewards).mean()
+    return rl_loss 
+
+def train_finetune_rl(model, tokenizer, dataloader, device, epochs: int=3, rl_weight: float=0.5):
+    """
+    Train function, use SFT & RL to update, one by one 
+    each batch, calcualte supervised loss and rl loss, weighted sum, then back propagate
+    """
+    model.to(device)
+    model.train()
+    optimizer = optim.Adam(model.parameters(), lr=1e-4)
+    total_steps = epochs * len(dataloader)
+    step = 0
+    for epoch in range(epochs):
+        print(f"Epoch {epoch + 1} / {epochs}")
+        for batch in dataloader:
+            # obtain data batch, containing input_ids, attention_mask, labels
+            input_ids = batch["input_ids"].to(device)
+            attention_mask = batch["attention_mask"].to(device)
+            labels = batch["labels"].to(device)
+            # forward propagation, supervised part 
+            logits_sup = model(input_ids, attention_mask, mode="supervised")
+            # supervised cross entropy loss 
+            loss_sup = nn.CrossEntropyLoss(ignore_index = tokenizer.pad_token_id)(logits_sup.view(-1, logits_sup.size(-1)), labels.view(-1))
+            # forward propagation RL part (can use same input, or design special input)
+            logits_rl = model(input_ids, attention_mask, mode="rl")
+            # simulate reward signal: randomly generate reward coefficient in [0.8, 1.2]
+            rewards = torch.tensor(random.uniform(0.8, 1.2), device=device)
+            loss_rl = compute_rl_loss(logits_rl, labels, rewards, tokenizer)
+
+            # total loss = supervised loss + rl loss, weighted sum
+            total_loss = loss_sup + rl_weight * loss_rl
+            optimizer.zero_grad()
+            total_loss.backward()
+            optimizer.step()
+            step += 1 
+            if step % 10 == 0:
+                print(f"Step {step} / {total_steps}, Supervised Loss: {loss_sup.item():.4f}, RL Loss: {loss_rl.item():.4f}, Total Loss: {total_loss.item():.4f}")
+    print("Combined fine tuning done.")
+
+# 6. Reasoning function and API: combined SFT & rejection sampling 
+def generate_text(model, tokenizer, input_text: str, mode: str="supervised", max_length: int=32) -> str:
+    """
+    Generate response based on input text, suppoert supervised or RL modes
+    """
+    model.eval()
+    device = next(model.parameters()).device 
+    encodings = tokenizer(input_text, return_tensors="pt", truncation=True, max_length = max_length)
+    input_ids = encodings["input_ids"].to(device)
+    attention_mask = encodings["attention_mask"].to(device)
+    with torch.no_grad():
+        logits = model(input_ids, attention_mask, mode=mode)
+    # rejection sampling to control output (use top-k as simple simulation)
+    top_k = 50 
+    probs = torch.softmax(logits, dim=-1)
+    top_probs, top_indices = torch.topk(probs, top_k, dim=-1)
+    # randomly choose token 
+    chosen_idx = top_indices[0, random.randint(0, top_k-1)].item()
+    generated_text = tokenizer.decode([chosen_idx], skip_special_tokens=True)
+    return generated_text
+
+# 7. Flask API service deployment 
+app = Flask(__name__)
+# gloabl variable: load tokenizer and model after fine-tuning 
+DEVICE = "cuda" if torch.cuda.is_available() else "cpu"
+print(f"Current device: {DEVICE}")
+TOKENIZER = BertTokenizer.from_pretrained("bert-base-chinese")
+MODEL = FineTuneRLModel()
+MODEL.to(DEVICE)
+
+# simulate load pretrained weights (call simulate function)
+pretrained_weights = simulate_deepseek_r1_pretrained_weights()
+if pretrained_weights is not None:
+    model_dict = MODEL.state_dict()
+    # only load encoder part weights 
+    for key in pretrained_weights:
+        if key in model_dict:
+            model_dict[key] = pretrained_weights[key]
+    MODEL.load_state_dict(model_dict)
+    print("pretrained weight reloaded to FineTuneRLModel, done.")
+else:
+    print(" pretrained weight not loaded")
+
+@app.route('/finetune_inference', methods=['POST'])
+def finetune_inference():
+    """
+    Inference API: take in JSON request {"text": "input text", "mode": "supervised" or "rl"}
+    return generated response text
+    """
+    data = request.get_json(force=True)
+    input_text = data.get("text", "")
+    mode = data.get("mode", "supervised")
+    if not input_text:
+        return jsonify({"error": "Lack 'text' parameter"}), 400 
+    output_text = generate_text(MODEL, TOKENIZER, input_text, mode=mode)
+    return jsonify({"reply": output_text})
+
+@app.route('/', methods=['GET'])
+def index():
+    return "Fine-tune RL inference service start, use /finetune_inference API for inference"
+
+# 8. Main function and training pipeline calls 
+def main():
+    # create QA data for SFT 
+    qa_dataset = QA_Dataset(num_samples=300)
+    # use collate_fn_qa to encode data
+    qa_loader = DataLoader(qa_dataset, batch_size=8, shuffle=True, collate_fn=lambda batch: collate_fn_qa(batch, TOKENIZER, max_length=32))
+    # combined training, SFT cross entropy loss + RL loss for fine tuning 
+    print("start combining fine tuning for supervised learning and RL")
+    train_finetune_rl(MODEL, TOKENIZER, qa_loader, DEVICE, epochs=3, rl_weight=0.5)
+
+    # start Flask API service for online inference
+    print("start fine tuning inference service...")
+    app.run(host="0.0.0.0", port=8000)
+
+if __name__ == "__main__":
+    main()
+```
 
 <!-- TOC --><a name="6-deepseek-r1-architecture"></a>
 ## 6. DeepSeek-R1 Architecture
