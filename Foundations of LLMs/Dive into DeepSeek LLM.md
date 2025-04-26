@@ -805,7 +805,7 @@ class MixtureOfExperts(nn.Module):
 # 4. Parallel Expert Inference test, with multi-threading parallel computing to calculate expert outputs using `ThreadPoolExecutor`
 ```
 
-FP8, RP16
+FP8/16/32
 - 自动混合精度 Automatic Mixed Precision (AMP)：关键计算（梯度更新）仍用FP32，其余计算用FP16，自适应调整精度。推理阶段用FP8量化，激活值用FP16，动态量化。
 - 累积精度提升，用WGMMA (Warp Group Matrix Multiply-Accumulate)，在FP8计算引入FP32寄存器进行分段累积，减少低精度的数值误差，结合FP8低存储占用优势与FP16/32混合计算，提高推理性能。
 
@@ -882,12 +882,151 @@ DualPipe双管道
   - 后处理管道：输出数据格式化、Token解码、后处理优化（I/O密集型）
 
 All-to-All跨节点通信
-- 大规模GPU集群的数据同步，优化通信拓扑结构，降低延迟提高吞吐量。用于模型并行、数据并行、MoE专家间通信。
+- 大规模GPU集群的数据同步，优化通信拓扑结构，降低延迟提高吞吐量。用于模型并行、数据并行、MoE专家间通信。（代码P193）
 - 多个计算点之间并行数据交换，让所有节点同时接收来自其他节点的数据。分布式训练中MoE要跨多个GPU计算，可以减少参数交换通信开销。
 - 优化策略：分层通信（Intra-node, Inter-node）、梯度聚合Gradient Aggregation与参数分片Sharded Parameter，减少数据交换量、KV缓存、自适应负载均衡
 
 <!-- TOC --><a name="7-deepseek-r1-training"></a>
 ## 7. DeepSeek-R1 Training 
+
+混合并行
+- 数据并行：多设备共享一个模型，各自计算不同批次的梯度，通过梯度聚合更新参数。
+- 模型并行：计算图拆分至不同设备，分别执行不同层的前向、反向传播。进一步张量并行，把单层计算分解，减少单个设备显存占用，适用于自注意力机制这类计算密集型层；流水线并行，把不同层分配到不同设备，适用于深度网络结构的跨节点优化。
+- 异步参数服务器Asynchronous Parameter Server、优化通信框架（NCCL、Megatron-LM），降低节点间同步开销。
+
+混合优化：在分布式集群中结合动态负载均衡
+- 参数服务器架构：对于大参数模型，减少通信复杂性，确保模型收敛
+- 无中心化训练架构：训练阶段，去中心化梯度交换机制，优化节点间通信，减少数据传输瓶颈
+
+学习率
+- Warmup：前期epochs学习率低，逐步提高学习率，减少权重初始化训练初期不稳定。可以线性、指数、结合cosine annealing warmup。
+- 余弦退火Cosine Annealing：进入主训练阶段后，初期缓慢下降，后期加快衰减速度，按余弦曲线下降、路径平滑，避免局部最优。
+- 反馈机制
+  - 损失函数趋势监测：若损失下降快，增大学习率加速收敛；损失收敛低水平但有波动时，减小学习率稳定优化
+  - 梯度变化监测：梯度范数波动大，出现梯度爆炸消失，降低学习率
+  - 权重更新幅度：多个epoch间变化大，降低学习率；参数更新小，增加学习率
+  - 强化学习奖励信号调整学习率
+
+KV缓存
+- 在推理中存储已经计算的KV，避免处理长文本时重复计算，新输入的Q可以直接与KV匹配
+- 性能优化：序列化存储（减少内存碎片）、低精度计算优化（提高推理吞吐量）、动态缓存管理（多轮对话仅保留最近N个Token的KV，减少融入存储）、多层级缓存优化、高效索引（Trie树、哈希索引组织KV数据，Query快速定位Key）
+- 推理速度提高3-5倍，显存占用降低30%-50%，推理任务吞吐量提高
+
+```py
+import threading
+import time 
+
+# 2. Cache 
+class ConversationCache:
+    """
+    Simple cache based on memory, each conversation history is saved
+    Set outdated time and max cache size, use simple LRU strategy
+    """
+    def __init__(self, max_items: int=100, expiry_seconds: int=300):
+        self.cache: Dict[str, Tuple[Any, float]] = {}
+        self.lock = threading.Lock()
+        self.max_items = max_items
+        self.expiry_seconds = expiry_seconds
+
+    def _cleanup(self):
+        """
+        Clean up outdated cache and records out of range of max cache items
+        """
+        current_time = time.time()
+        keys_to_delete = []
+        with self.lock:
+            for key, (value, timestamp) in self.cache.items():
+                if current_time - timestamp > self.expiry_seconds:
+                    keys_to_delete.append(key)
+            for key in keys_to_delete:
+                del self.cache[key]
+            # if cache > max items number, delete the earliest record 
+            if len(self.cache) > self.max_items:
+                sorted_keys = sorted(self.cache.items(), key=lambda item: item[1][1])
+            for key, _ in sorted_keys[:len(self.cache) - self.max_items]:
+                del self.cache[key]
+
+    def set(self, key: str, value: Any):
+        """
+        save keys to cache, and keep record of current timestamp 
+        """
+        with self.lock:
+            if key in self.cache:
+                value, timestamp = self.cache[key]
+                if time.time() - timestamp <= self.expiry_seconds:
+                    return value 
+                else:
+                    del self.cache[key]
+        return None 
+    
+# 3. Dialog Manager: multi-round conversations contexts + cache 
+class DialogManager:
+    """
+    Each diaglog use unique ID to save history, cache can get previous response
+    Also for generating long texts with cache to quickly respond
+    """
+    def __init__(self, cache: ConversationCache):
+        self.cache = cache 
+
+    def get_session_key(self, session_id: str) -> str:
+        # get cache key based on conversation ID 
+        return f"dialog_session: {session_id}"
+    
+    def append_turn(self, session_id: str, user_input: str, bot_response: str):
+        # keep record of conversation rounds to cache 
+        key = self.get_session_key(session_id)
+        history = self.cache.get(key)
+        if history is None:
+            history = []
+        history.append({"user": user_input, "bot": bot_response})
+        self.cache.set(key, history)
+
+    def get_history(self, session_id: str) -> List[Dict[str, str]]:
+        key = self.get_session_key(session_id)
+        history = self.cache.get(key)
+        if history is None:
+            history = []
+        return history 
+    
+    def clear_history(self, session_id: str):
+        key = self.get_session_key(session_id)
+        self.cache.set(key, [])
+
+    def generate_response(self, session_id: str, user_input: str) -> str:
+        """
+        First, get history records from cache
+        Baed on history and current context input, call DeepSeek-R1 API to generate response, and save it to cache
+        """
+        history = self.get_history(session_id)
+        # build context: concatenate all rounds conversations 
+        context = ""
+        for turn in history:
+            context += f"User: {turn['user']} \n Response: {turn['bot']} \n"
+        context += f"User: {user_input} \n Response:"
+        # check if cache already has the same context response 
+        cached_reply = self.cache.get(context)
+        if cached_reply is not None:
+            print("[cache hit] return cached reply")
+            return cached_reply 
+        # call DeepSeek-R1 API to simulate response 
+        response = deepseek_r1_api_call(context)
+        # save to cache for generated output 
+        self.cache.set(context, response)
+        # add this round conversation to history 
+        self.append_turn(session_id, user_input, response)
+        return response
+```
+
+无辅助损失机制（No Auxiliary Loss）的负载均衡
+- 有辅助损失能优化任务调度，但带来额外梯度计算开销。因此用MoE动态专家分配，让一部分专家激活；大规模分布式训练时，用All-Reduce梯度同步，节点间高效共享梯度信息；调度方式用Task Parallelism
+
+多Token预测（MTP）
+- 每个模块用Transformer嵌入核编码，用线性投影层对输出进行调整，结合RMSNorm层归一化来稳定梯度。
+- 损失函数用交叉熵，分别计算主模型和多个MTP（多Token预测）模块的损失，最终优化过程中进行无辅助损失加权求和。共享嵌入层减少参数冗余。
+- Adaptive Prediciton Window：动态调整每个时间步生成的token数量，短文用小预测窗口，长文用大预测窗口。
+- Reparameterized Decoding：softmax输出层增加温度调节机制，让不同token的采样概率分布均匀，提高多样性，结合Top-K / Nucleus Sampling，提高丰富性。
+- Batch Token Parallelism：允许不同计算节点同时处理多个token生成任务，结合All-Reduce通信，高效同步梯度，用Predictive Caching，在推理中缓存部分历史预测结果，减少重复计算。
+- Context-Aware Adjustment：动态调整每个token 生成策略，长文本回怼早起预测的token进行置信度评估，调整后续token解码方式。
 
 <!-- TOC --><a name="8-deepseek-r1-development"></a>
 ## 8. DeepSeek-R1 Development
