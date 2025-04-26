@@ -102,7 +102,7 @@ LangChain Scalable LLM Apps, by Teli Li, 2024
 
 <img src="https://github.com/user-attachments/assets/58741520-5516-4c3c-8a65-26f2e158a5d9" width="32%" height="32%">
 
-<img src="https://github.com/user-attachments/assets/d1b9e971-4b10-4128-8b57-389220cc7f0b" width="30%" height="30%">
+<img src="https://github.com/user-attachments/assets/d1b9e971-4b10-4128-8b57-389220cc7f0b" width="31%" height="31%">
 
 ---
 
