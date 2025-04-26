@@ -58,22 +58,6 @@ In-depth review of industry trends in AI, LLMs, Machine Learning, Computer Scien
 
 > <mark>[__2025 NVIDIA GTC Conference − Technical & Industrial Insight__](https://github.com/junfanz1/AI-LLM-ML-CS-Quant-Review/blob/main/NVIDIA%20GTC/GTC%202025.md)</mark> <img src="https://img.shields.io/github/stars/junfanz1%2FAI-LLM-ML-CS-Quant-Overview" alt="GitHub Stars" />
 
-<div style="display: inline-block; border: 1px solid lightgray; padding: 0;">
-  <table style="border-collapse: collapse; transform: scale(0.5); transform-origin: 0 0;">
-    <tr>
-      <td style="padding: 0;">
-        <img src="https://github.com/user-attachments/assets/17a05ffb-200b-437e-9b66-cd003abc6c8e" 
-             style="display: block; width: 300px; height: auto;">
-      </td>
-    </tr>
-    <tr>
-      <td style="padding: 2px 0 0 0;">
-        <em style="display: block; font-size: 12px; line-height: 1; margin: 0;">Project integrating Generative AI, Humanoid Robotics (RLHF), and Low-Altitude Economy.</em>
-      </td>
-    </tr>
-  </table>
-</div>
-
 > [__GTC 2024 Notes-Chinese__](https://github.com/junfanz1/AI-LLM-ML-CS-Quant-Readings/blob/main/NVIDIA%20GTC/GTC%202024.md)
 
 <!-- TOC --><a name="2-llm-essentials"></a>
