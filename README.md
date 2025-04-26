@@ -88,17 +88,17 @@ In-depth review of industry trends in AI, LLMs, Machine Learning, Computer Scien
 
 > Unveiling Large Model, by Liang Wen, 2025 | [__Notes-Chinese__](https://github.com/junfanz1/AI-LLM-ML-CS-Quant-Review/blob/main/Foundations%20of%20LLMs/Unveiling%20Large%20Model.md)
 
-> DeepSeek Large Model High-Performance Core Technology and Multimodal Fusion Development, by Xiaohua Wang, 2025 | [__Notes-Chinese__](https://github.com/junfanz1/AI-LLM-ML-CS-Quant-Review/blob/main/Foundations%20of%20LLMs/DeepSeek%20Large%20Model.md)
-
-> Efficient Training in PyTorch, by Ailing Zhang, 2024 | [__Notes-Chinese__](https://github.com/junfanz1/AI-LLM-ML-CS-Quant-Review/blob/main/Foundations%20of%20LLMs/Efficient%20Training%20PyTorch.md)
-
-> Dive into DeepSeek LLM, by Xiaojing Ding, 2025 | [__Notes-Chinese__](https://github.com/junfanz1/AI-LLM-ML-CS-Quant-Review/blob/main/Foundations%20of%20LLMs/Dive%20into%20DeepSeek%20LLM.md)
-
 <img src="https://github.com/user-attachments/assets/0c35d5d0-f8e0-4b64-9d93-2240c628feaa" width="30%" height="30%">
 
 <img src="https://github.com/user-attachments/assets/05c0f747-7448-4d4e-b338-aae832a86b8b" width="34%" height="34%">
 
 <img src="https://github.com/user-attachments/assets/65fd0bf1-dde7-4282-a7aa-fd413812c686" width="34%" height="34%">
+
+> DeepSeek Large Model High-Performance Core Technology and Multimodal Fusion Development, by Xiaohua Wang, 2025 | [__Notes-Chinese__](https://github.com/junfanz1/AI-LLM-ML-CS-Quant-Review/blob/main/Foundations%20of%20LLMs/DeepSeek%20Large%20Model.md)
+
+> Efficient Training in PyTorch, by Ailing Zhang, 2024 | [__Notes-Chinese__](https://github.com/junfanz1/AI-LLM-ML-CS-Quant-Review/blob/main/Foundations%20of%20LLMs/Efficient%20Training%20PyTorch.md)
+
+> Dive into DeepSeek LLM, by Xiaojing Ding, 2025 | [__Notes-Chinese__](https://github.com/junfanz1/AI-LLM-ML-CS-Quant-Review/blob/main/Foundations%20of%20LLMs/Dive%20into%20DeepSeek%20LLM.md)
 
 <img src="https://github.com/user-attachments/assets/1c3c59ff-4b22-4163-a12b-cfc027950602" width="32%" height="32%">
 
