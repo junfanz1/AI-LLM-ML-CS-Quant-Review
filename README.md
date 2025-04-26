@@ -30,7 +30,7 @@ In-depth review of industry trends in AI, LLMs, Machine Learning, Computer Scien
    * [LLM Applications](#llm-applications)
    * [RAG](#rag)
    * [Multi-Agent](#multi-agent)
-- [3. DeepSeek Trends 2025](#3-deepseek-trends-2025)
+- [3. DeepSeek](#3-deepseek)
    * [Research Implementation](#research-implementation)
    * [DeepSeek Theory](#deepseek-theory)
    * [DeepSeek Applications](#deepseek-applications)
@@ -131,8 +131,8 @@ Unveiling Large Model, by Liang Wen, 2025
 
 
 
-<!-- TOC --><a name="3-deepseek-trends-2025"></a>
-# 3. DeepSeek Trends 2025
+<!-- TOC --><a name="3-deepseek"></a>
+# 3. DeepSeek
 
 <!-- TOC --><a name="research-implementation"></a>
 ## Research Implementation
