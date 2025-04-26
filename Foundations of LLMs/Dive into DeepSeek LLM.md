@@ -806,17 +806,85 @@ class MixtureOfExperts(nn.Module):
 ```
 
 FP8, RP16
-- 
+- 自动混合精度 Automatic Mixed Precision (AMP)：关键计算（梯度更新）仍用FP32，其余计算用FP16，自适应调整精度。推理阶段用FP8量化，激活值用FP16，动态量化。
+- 累积精度提升，用WGMMA (Warp Group Matrix Multiply-Accumulate)，在FP8计算引入FP32寄存器进行分段累积，减少低精度的数值误差，结合FP8低存储占用优势与FP16/32混合计算，提高推理性能。
 
 ```py
+# 3. Simulate FP8 quantization function (need hardware support)
+def simulate_fp8_quantization(tensor: torch.Tensor) -> torch.Tensor:
+    """
+    Change tensor input to FP16, then simulate to FP8 representation (not true FP8)
+    need special hardware to accomodate
+    """
+    # first turn to FP16 (half quantization)
+    tensor_fp16 = tensor.half()
+    # simulate quantization: FP16 scale, round up, and scale back
+    scale = 16.0 # scale factor 
+    tensor_scaled = tensor_fp16 * scale 
+    tensor_rounded = torch.round(tensor_scaled)
+    tensor_fp8_simulated = tensor_rounded / scale 
+    return tensor_fp8_simulated
 
+# 4. mixed precision training, using torch.cuda.amp for FP16 training 
+def train_model_mixed_precision(model: nn.Module, dataloader: DataLoader, device: str="cpu", epochs: int=5) -> None:
+    """
+    Mixed precision for training:
+    - torch.cuda.amp.autocast: automatic calculation in FP16 
+    - GradScaler for gradient scaling, avoid unstable values 
+    - simulate FP8 quantization
+    """
+    model.to(device)
+    model.train()
+    optimizer = optim.Adam(model.parameters(), lr=1e-3)
+    scheduler = StepLR(optimizer, step_size=10, gamma=0.9)
+    ce_loss_fn = nn.CrossEntropyLoss()
+    scaler = torch.cuda.amp.GradScaler(enabled=(device=="cuda"))
+
+    total_steps = epochs * len(dataloader)
+    step = 0
+    for epoch in range(epochs):
+        running_loss = 0.0
+        for inputs, labels in dataloader:
+            inputs = inputs.to(device)
+            labels = labels.to(device)
+            # use auto mixed precision for forward propagation 
+            optimizer.zero_grad()
+            with torch.cuda.amp.autocast(enabled=(device=="cuda")):
+                logits = model(inputs)
+                loss = ce_loss_fn(logits, labels)
+                # simulate part, use FP8 quantization (just for showcase, not impacting whole gradient calculation)
+                logits_fp8 = simulate_fp8_quantization(logits)
+                # calculate extra loss, measuring FP8 and original FP16 difference (as regularization term)
+                quant_loss = F.mse_loss(logits, logits_fp8)
+                total_loss = loss + 0.1 * quant_loss
+
+            # use gradient scaling for back propagation
+            scaler.scale(total_loss).backward()
+            # gradient pruning/clipping
+            scaler.unscale_(optimizer)
+            torch.nn.utils.clip_grad_norm_(model.parameters(), max_norm = 1.0)
+            scaler.step(optimizer)
+            scaler.update()
+
+            running_loss += total_loss.item()
+            step += 1 
+            if step % 10 == 0:
+                avg_loss = running_loss / 10 
+                print(f"Epoch [{epoch+1} / {epochs}], Step [{step}/{total_steps}], Loss: {avg_loss:.4f}")
+                running_loss = 0.0 
+        scheduler.step()
+    print("mixed precision training complete.")
 ```
 
 DualPipe双管道
-- 
+- 计算任务与数据传输并行调度，实现流水线加速，最大限度并行化。结合流水线并行、异步调度、KV缓存、批量化推理。
+  - 前向计算管道：输入数据解析、嵌入向量计算、模型计算（计算密集型，核心任务）
+  - 后处理管道：输出数据格式化、Token解码、后处理优化（I/O密集型）
 
 All-to-All跨节点通信
-- 分布式训练中MoE要跨多个GPU计算，可以减少参数交换通信开销
+- 大规模GPU集群的数据同步，优化通信拓扑结构，降低延迟提高吞吐量。用于模型并行、数据并行、MoE专家间通信。
+- 多个计算点之间并行数据交换，让所有节点同时接收来自其他节点的数据。分布式训练中MoE要跨多个GPU计算，可以减少参数交换通信开销。
+- 优化策略：分层通信（Intra-node, Inter-node）、梯度聚合Gradient Aggregation与参数分片Sharded Parameter，减少数据交换量、KV缓存、自适应负载均衡
 
 <!-- TOC --><a name="7-deepseek-r1-training"></a>
 ## 7. DeepSeek-R1 Training 
