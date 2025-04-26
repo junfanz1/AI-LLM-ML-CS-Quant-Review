@@ -14,9 +14,7 @@ Dive into DeepSeek LLM, by Xiaojing Ding, 2025
 - [6. DeepSeek-R1 Architecture](#6-deepseek-r1-architecture)
 - [7. DeepSeek-R1 Training ](#7-deepseek-r1-training)
 - [8. DeepSeek-R1 Development](#8-deepseek-r1-development)
-- [9. DeepSeek-R1 Development 2](#9-deepseek-r1-development-2)
 - [10. FIM, Context Cache](#10-fim-context-cache)
-- [11. Backend Business Code Generation](#11-backend-business-code-generation)
 - [12. DeepSeek-R1 & V3: SaaS Recommendation System](#12-deepseek-r1-v3-saas-recommendation-system)
 
 <!-- TOC end -->
@@ -1031,14 +1029,133 @@ class DialogManager:
 <!-- TOC --><a name="8-deepseek-r1-development"></a>
 ## 8. DeepSeek-R1 Development
 
-<!-- TOC --><a name="9-deepseek-r1-development-2"></a>
-## 9. DeepSeek-R1 Development 2
+获取API秘钥后，发HTTP请求来调用DeepSeek RESTful API。
+
+本地部署（代码P234）
+- 模型文件：开源仓库下载DeepSeek-R1预训练权重与配置文件
+- Docker镜像构建：编写Dockerfile构建支持GPU的运行环境，将模型代码与权重复制进镜像
+- 部署配置：编写dockercompose文件，映射端口、挂载数据卷、配置GPU资源、NVLink加速。
+- API服务实现：用Flask实现推理借口，加载DeepSeek-R1模型并在线推理。
+- 测试与验证：通过curl或浏览器测试API接口。
 
 <!-- TOC --><a name="10-fim-context-cache"></a>
 ## 10. FIM, Context Cache
 
-<!-- TOC --><a name="11-backend-business-code-generation"></a>
-## 11. Backend Business Code Generation
+FIM (Fill-in-the-Middle)补全：重构输入模式，让LLM学习已知前后文中插入文本，可用于代码补全。
+- 分块训练：DeepSeek-R1动态采样前缀后缀填充段，提高对不同文本结构适应性。
+- 集合额KV缓存提高效率，减少重复计算；结合多轮对话。
+
+多轮对话上下文管理
+- KV缓存参考历史信息，长文本生成时用预先缓存的隐层表示，实现跨轮信息整合复用
+- 复杂对话场景存在模糊隐晦信息，需要符号推理和逻辑判断，融入领域知识、无监督与监督微调结合，还需要多模态数据融合
 
 <!-- TOC --><a name="12-deepseek-r1-v3-saas-recommendation-system"></a>
 ## 12. DeepSeek-R1 & V3: SaaS Recommendation System
+
+DeepSeek-R1 & V3联合开发，通过云部署构建智能推广搜索系统，融合大模型推理、实时数据处理、智能推荐策略。技术有协同机制、云端架构设计、数据交互及安全保障。
+- 基于Kubernetes实现DeepSeek-R1的容器化部署，先写Dockerfile，将R1打包成Docker镜像，再用Kubernetes Deployment管理容器生命周期，实现滚动更新、自动扩容。Kubernetes Service对外暴露API接口，结合云端负载均衡和安全策略，实现线上推理服务。
+  - Dockerfile基于支持CUDA的Ubuntu镜像创建，`requirements.txt`含Flask, torch, transformers
+  - `docker-compose.yml`用于同意管理服务，配置，镜像构建，端口映射，GPU资源使用；`runtime`：NVIDIA确保容器内能访问GPU，并将本地模型文件目录挂载到容器内对应位置；`deploy`部分设置资源预留，实现高效分布式调度。
+  - `kubernetes-deployment.yaml`定义3个副本DeepSeek-R1服务，确保高可用性；镜像上传至Docker Hub并替换为实际用户名和标签‘通过资源限制项分配GPU资源（nvidia.com/gpu:1），用Kubernetes自动扩缩容及滚动更新功能；Service配置为LoadBalancer类型，对外暴露80端口，转发到容器8000端口，确保服务可访问。
+
+```py
+DOCKERFILE_CONTENT=r'''
+FROM nvidia/cuda:11.7.1-cudnn8-runtime-ubuntu20.04
+WORKDIR /app
+
+# install system dependency, python3.8
+RUN apt-get update && apt-get install -y \
+    python3.8 python3-pip git wget curl && \
+    rm -rf /var/lib/apt/lists/*
+# copy local file and install python
+COPY requirements.txt /app/requirements.txt
+RUN python3.8 -m pip install --upgrade pip && \
+    pip install -r requirements.txt
+
+COPY . /app # copy code and file to image
+# expose port:8000 for API service 
+EXPOSE 8000
+# start API service
+CMD ["python3.8", "deepseek_r1_api_service.py"]
+'''
+```
+
+云端部署架构核心目标：高可用 + 弹性扩展
+- 容器化技术、Kubernetes平台：多副本部署、滚动更新、自动重启、故障转移
+- 水平自动扩缩容Horizontal Pod Autoscaler、集群自动扩容Cluster Autoscaler：动态调整Pod数量和节点资源，确保高负载时系统平稳扩展，低负载时降低资源占用。（配置见P294）
+- 构建Docker镜像并上传到Docker Hub，启动容器并加载DeepSeek-R1服务；用kubectl部署yaml文件；通过LoadBalancer分配的外部IP访问服务
+
+智能搜索引擎
+- 基于深度预训练模型，先用R1对用户输入查询进行语义解析，然后用V3扩展性补全和语义重构（过滤噪声、友好查询格式、提高检索相关性），用户经过两级模型处理后生成优化查询
+- 搜索引擎检索并返回精准结果（结合语义匹配算法，对候选搜索结果排序过滤，用深度模型语义相似度肚量，优化排序结果），最后结合用户反馈进一步调参，实现全流程智能优化
+
+```py
+import time 
+import requests 
+from flask import Flask, request, jsonify 
+
+app = Flask(__name__)
+
+# R1 API config, for semantic analysis
+DSR1_API_URL = ""
+DSR1_API_KEY = ""
+# V3 API config, for extend and complete query 
+DSV3_API_URL = ""
+DSV3_API_KEY = ""
+
+def call_deepseek_r1(query: str) -> str:
+    headers = {
+        "Content-Type": "application/json",
+        "Authorization": f"Bearer {DSR1_API_KEY}"
+    }
+    payload = {
+        "prompt": f"Analyze below query intention: {query}",
+        "max_tokens": 50
+    }
+    response = requests.post(DSR1_API_URL, headers=headers, json=payload, timeout=10)
+    if response.status_code == 200:
+        data = response.json()
+        # assume returned text in data["choices"][0]["text"]
+        return data.get("choices", [{}])[0].get("text","").strip()
+    else:
+        return query # return original query if failed
+    
+def call_deepseek_v3(expanded_query: str) -> str:
+    headers = {
+        "Content-Type": "application/json",
+        "Authorization": f"Bearer {DSV3_API_KEY}"
+    }
+    payload = {
+        "prompt": f"Extend and optimize below query: {expanded_query}",
+        "max_tokens": 60
+    }
+    response = requests.post(DSV3_API_URL, headers=headers, json=payload, timeout=10)
+    if response.status_code == 200:
+        data = response.json()
+        return data.get("choices", [{}])[0].get("text","").strip()
+    else:
+        return expanded_query
+    
+@app.route('/optimize_search', methods=['POST'])
+def optimize_search():
+    data = request.get_json(force=True)
+    query = data.get("query","")
+    if not query:
+        return jsonify({"error":"Lack 'query' parameter"}), 400 
+    # R1 for query analysis 
+    parsed_query = call_deepseek_r1(query)
+    # V3 for query expansion 
+    optimized_query = call_deepseek_v3(parsed_query)
+    return jsonify({"optimized_query": optimized_query})
+
+@app.route('/', methods=['GET'])
+def index():
+    return "NLP-powered search optimized algorithm service started, use /optimize_search API to call it."
+
+if __name__ == "__main__":
+    app.run(host="0.0.0.0", port=8000)
+```
+
+
+
+
