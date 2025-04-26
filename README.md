@@ -54,11 +54,11 @@ In-depth review of industry trends in AI, LLMs, Machine Learning, Computer Scien
 <!-- TOC --><a name="1-nvidia-gtc-ai-conference-for-developers"></a>
 # 1. NVIDIA GTC | AI Conference for Developers
 
-<img src="https://github.com/user-attachments/assets/73e41194-64af-45ad-9d1b-6e7f61f49f4a" width="80%" height="80%">
-
 > <mark>[__2025 NVIDIA GTC Conference − Technical & Industrial Insight__](https://github.com/junfanz1/AI-LLM-ML-CS-Quant-Review/blob/main/NVIDIA%20GTC/GTC%202025.md)</mark> <img src="https://img.shields.io/github/stars/junfanz1%2FAI-LLM-ML-CS-Quant-Overview" alt="GitHub Stars" />
 
 > [__GTC 2024 Notes-Chinese__](https://github.com/junfanz1/AI-LLM-ML-CS-Quant-Readings/blob/main/NVIDIA%20GTC/GTC%202024.md)
+
+<img src="https://github.com/user-attachments/assets/73e41194-64af-45ad-9d1b-6e7f61f49f4a" width="80%" height="80%">
 
 <!-- TOC --><a name="2-llm-essentials"></a>
 # 2. LLM Essentials
