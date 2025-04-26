@@ -84,6 +84,24 @@ Efficient Training in PyTorch, by Ailing Zhang, 2024
 
 <img src="https://github.com/user-attachments/assets/7295d359-d625-4930-802d-03f1ddcd8ed3" width="32%" height="32%">
 
+Generative AI on AWS, by Chris Fregly, 2024
+
+> [__Notes-Chinese__](https://github.com/junfanz1/AI-LLM-ML-CS-Quant-Review/blob/main/Foundations%20of%20LLMs/Generative%20AI%20on%20AWS.md)
+
+LLM from Theory to Practice, by Qi Zhang, 2024
+
+> [__Notes-Chinese__](https://github.com/junfanz1/AI-LLM-ML-CS-Quant-Review/blob/main/Foundations%20of%20LLMs/LLM%20from%20Theory%20to%20Practice.md)
+
+LangChain Scalable LLM Apps, by Teli Li, 2024
+
+> [__Notes-Chinese__](https://github.com/junfanz1/AI-LLM-ML-CS-Quant-Review/blob/main/Foundations%20of%20LLMs/LangChain%20Scalable%20LLM%20Apps.md)
+
+<img src="https://github.com/user-attachments/assets/c04f9aa4-6563-4e9b-ad78-03ebd36cc9ec" width="32%" height="32%">
+
+<img src="https://github.com/user-attachments/assets/58741520-5516-4c3c-8a65-26f2e158a5d9" width="32%" height="32%">
+
+<img src="https://github.com/user-attachments/assets/d1b9e971-4b10-4128-8b57-389220cc7f0b" width="32%" height="32%">
+
 
 Foundations of LLMs - by Yuren Mao, Zhejiang University, 2024
 
