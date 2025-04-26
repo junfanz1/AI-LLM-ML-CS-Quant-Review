@@ -1156,6 +1156,144 @@ if __name__ == "__main__":
     app.run(host="0.0.0.0", port=8000)
 ```
 
+语义理解的智能检索与推荐机制
+- 对用户查询语义解析、提取关键词、用户意图和上下文，映射为高维语义向量
+- 系统对存储的文档、产品描述等信息深度编码，形成同意语义表示。计算查询向量与候选内容向量余弦相似度，过滤相关内容，根据用户历史行为和偏好来排序和推荐。
+- R1多轮对话和上下文攻略，能在连续交互中动态调整推荐策略，实时响应用户需求变化；用协同过滤、推荐引擎整合用户浏览、点击、购买行为，精准个性化推荐。用KV缓存和硬盘缓存，在高并发场景保证数据检索和模型推理响应一致性。
+- 具有自适应学习能力，根据用户反馈不断优化模型参数和检索算法，通过多维数据融合、实时监控、自动反馈闭环，确保推荐结果不仅高效准确而且符合用户个性化需求。
+
+高并发数据流处理架构
+- 数据采集：用高性能消息队列（Kafka、RabbitMQ）对数据进行缓冲和分发。
+- 数据传输与缓存：用partition负载均衡，用分布式缓存（Redis、Memcached）和KV缓存，将热点数据和中间计算结果缓存在内存
+- 数据处理：流式框架（Apache Flink、Spark Streaming）对数据流实时处理，用分布式计算把任务拆成子任务，在多个工作节点并行执行。复杂业务场景，集成DeepSeek-R1进行语义解析和推理，支持实时推荐、异常检测、智能搜索。
+- 数据存储：分布式文件系统（HDFS）、NoSQL数据库，内存数据库或SSD存储（实时性要求高）
+- 监控管理：日志收集、指标收集（Prometheus）、可视化（Grafana）监控数据流处理系统
+
+Kafka + 实时数据处理平台与DeepSeek-R1
+
+```py
+import os 
+import sys 
+import time 
+import json 
+import logging 
+import requests 
+from kafka import KafkaConsumer, KafkaProducer, TopicPartition 
+from kafka.errors import KafkaError 
+
+# global config 
+KAFKA_BROKER = "localhost:9092"
+INPUT_TOPIC = "deepseek_input"
+OUTPUT_TOPIC = "deepseek_output"
+
+# config R1 API
+DEEPSEEK_API_URL=""
+API_KEY = os.environ.get("DEEPSEEK_API_KEY", "")
+
+# log config 
+logging.basicConfig(
+    level = logging.INFO,
+    format = "%(asctime)s [%(levelname)s] % (message)s",
+    handlers=[logging.StreamHandler(sys.stdout)]
+)
+logger = logging.getLogger("KafkaDeepSeekIntegration")
+
+def call_deepseek_api(prompt: str) -> dict:
+    headers = {
+        "Content-Type": "application/json",
+        "Authorization": f"Bearer {API_KEY}"
+    }
+    payload = {
+        "task": "text_generation",
+        "prompt": prompt,
+        "max_tokens": 100
+    }
+    try:
+        response = requests.post(DEEPSEEK_API_URL, headers=headers, json=payload, timeout=10)
+        if response.status_code == 200:
+            logger.info("DeepSeek-R1 API call succeed!")
+            return response.json()
+        else:
+            logger.error(f"DeepSeek-R1 API call failed, status code: {response.status_code}")
+            logger.error(f"Response: {response.text}")
+            return {"error": f"API call failed, status code: {response.status_code}"}
+    except requests.RequestException as e:
+        logger.exception("DeepSeek-R1 API call error:")
+        return {"error": str(e)}
+    
+# Kafka consumer-producer 
+class KafkaDeepSeekProcessor:
+    """
+    Get consumer info from input, send text to R1 API, generate result to output, need high-throughput and real-time reasoning.
+    """
+    def __init__(self, broker: str, input_topic: str, output_topic: str):
+        self.broker = broker 
+        self.input_topic = input_topic
+        self.output_topic = output_topic
+        self.consumer = KafkaConsumer(
+            self.input_topic,
+            bootstrap_servers = [self.broker],
+            auto_offset_reset = 'earliest',
+            enable_auto_commit = True,
+            group_id = 'deepseek_group',
+            value_deserializer = lambda m: json.loads(m.decode('utf-8'))
+        )
+        self.producer = KafkaProducer(
+            bootstrap_servers = [self.broker],
+            value_serializer = lambda m: json.dumps(m).encoder('utf-8')
+        )
+
+    def process_messages(self):
+        logger.info("processing kafka messages...")
+        for message in self.consumer:
+            try:
+                logger.info(f"message received, offset: {message.offset}")
+                data = message.value 
+                prompt = data.get("prompt", "")
+                if not prompt:
+                    logger.warning("message not containing 'prompt' info, skip.")
+                    continue 
+                # R1 API for reasoning 
+                api_result = call_deepseek_api(prompt)
+                # output message, including original hint, API result and timestamp 
+                output_message = {
+                    "original_prompt": prompt,
+                    "api_result": api_result,
+                    "timestamp": int(time.time())
+                }
+                self.producer.send(self.output_topic, output_message)
+                self.producer.flush()
+                logger.info(f"message processing complete, sent to topic {self.output_topic}.")
+            except Exception as e:
+                logger.exception("Error:")
+                continue 
+
+def main():
+    logger.info("initialize Kafka and R1 integration...")
+    processor = KafkaDeepSeekProcessor(KAFKA_BROKER, INPUT_TOPIC, OUTPUT_TOPIC)
+    try:
+        processor.process_messages()
+    except KeyboardInterrupt:
+        logger.info("Keyboard Interrupt, closing processor...")
+    finally:
+        processor.consumer.close()
+        processor.producer.close()
+        logger.info("Kafka connection closed.")
+
+if __name__ == "__main__":
+    main()
+```
+
+基于用户行为优化广告投放（代码P305）
+
+A/B Test与广告效果实时评估（代码P309）
+- `ab_test`：提交A/B测试数据，生成效果对比报告和优化建议
+- `ad_evaluation`：提交广告投放数据，生成广告效果评估
+
+
+
+
+
 
 
 
