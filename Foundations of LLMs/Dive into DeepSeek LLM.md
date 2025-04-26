@@ -682,6 +682,142 @@ def evaluate_model(mode: nn.Module, dataloader: DataLoader, device: str="cpu") -
 <!-- TOC --><a name="6-deepseek-r1-architecture"></a>
 ## 6. DeepSeek-R1 Architecture
 
+混合专家MoE
+- Experts：独立子网络
+- Gating Network：DeepSeek-R1用Sigmoid路由机制，保证专家选择和梯度平稳，减少梯度消失和爆炸。动态负载均衡利用所有专家计算能力。
+  - 传统softmax具有指数缩放效应，导致专家过载expert overloading；Sigmoid路由将决策变为二元选择任务，每个专家独立地决定是否被激活（而不是在所有专家之间竞争性选择）。
+  - 动态路由优化：动态Sigmoid门控（自适应学习率调整）、负载均衡正则化（让所有专家都被充分训练）、专家共享
+- Sparse Activation Mechanism稀疏激活：Top-K选择策略 + 多头潜在注意力（计算不同子空间特征表示）+ 旋转位置编码RoPE（输入隐藏状态经过RoPE后与注意力键值对关联，通过拼接和归一化来优化特征表示）
+
+```py
+import os 
+import time 
+import random 
+import numpy as np 
+from typing import List, Tuple, Dict 
+import torch 
+import torch.nn as nn 
+import torch.optim as optim 
+import torch.nn.functional as F 
+from torch.utils.data import Dataset, DataLoader 
+import concurrent.futures # parallel computing, accelerate experts outputs
+from flask import Flask, request, jsonify 
+
+# 1. Define dataset: small classification tasks 
+
+class SimpleClassificationDataset(Dataset):
+    """
+    Each sample = 100 dim features corresponding to 0 ~ 9 labels, simulating classification task data
+    """
+    def __init__(self, num_samples: int=1000, input_dim: int=100, num_classes: int=10):
+        self.num_samples = num_samples
+        self.input_dim = input_dim 
+        self.num_classes = num_classes
+        self.data = np.random.randn(num_samples, input_dim).astype(np.float32)
+        self.labels = np.random.randint(0, num_classes, size=(num_samples,)).astype(np.int64)
+
+    def __len__(self):
+        return self.num_samples
+    
+    def __getitem__(self, idx):
+        return self.data[idx], self.labels[idx]
+    
+def simple_collate_fn(batch: List[Tuple[np.ndarray, int]]) -> Tuple[torch.Tensor, torch.Tensor]:
+    """
+    Collate function, turn list sample to Tensor
+    """
+    features = [item[0] for item in batch]
+    labels = [item[1] for item in batch]
+    features_tensor = torch.tensor(features)
+    labels_tensor = torch.tensor(labels)
+    return features_tensor, labels_tensor
+
+# 2. Model Definition
+# 2.1 Single Expert model to handle input data 
+class ExpertModel(nn.Module):
+    """
+    simple fully connected layer, output 10 dim vector as classification logits
+    """
+    def __init__(self, input_dim: int=100, hidden_dim: int=128, num_classes: int=10):
+        super(ExpertModel, self).__init__()
+        self.fc1 = nn.Linear(input_dim, hidden_dim)
+        self.fc2 = nn.Linear(hidden_dim, hidden_dim)
+        self.out = nn.Linear(hidden_dim, num_classes)
+
+    def forward(self, x: torch.Tensor) -> torch.Tensor:
+        x = F.relu(self.fc1(x))
+        x = F.relu(self.fc2(x))
+        logits = self.out(x)
+        return logits 
+    
+# 2.2 Define gating network: select expert weight according to input dynamically
+class GatingNetwork(nn.Module):
+    """
+    Calculate each expert weight distribution
+    Input feature vector, output prob distribution for each expert
+    """
+    def __init__(self, input_dim: int=100, num_experts: int=4):
+        super(GatingNetwork, self).__init__()
+        self.fc = nn.Linear(input_dim, num_experts)
+
+    def forward(self, x: torch.Tensor) -> torch.Tensor:
+        gate_logits = self.fc(x)
+        gate_probs = F.softmax(gate_logits, dim=-1)
+        return gate_probs 
+    
+# 2.3 MoE: combining multiple experts and gating networks, for parallel computing 
+class MixtureOfExperts(nn.Module):
+    """
+    Multiple experts, parallel
+    One gating network, to calculate each expert weight 
+    Output: all experts outputs takign weighted sum
+    """
+    def __init__(self, input_dim: int=100, hidden_dim: int=128, num_classes: int=10, num_experts: int=4):
+        super(MixtureOfExperts, self).__init__()
+        self.num_experts = num_experts
+        # expert network list 
+        self.experts = nn.ModuleList([ExpertModel(input_dim, hidden_dim, num_classes) for _ in range(num_experts)])
+        self.gating_network = GatingNetwork(input_dim, num_experts)
+
+    def forward(self, x: torch.Tensor) -> torch.Tensor:
+        """
+        Calculate MoE output: gating network to calculate expert weights, parallel calling all expert to calculate logits, then weighted sum for experts
+        """
+        # gating probability, shape [batch_size, num_experts]
+        gate_probs = self.gating_network(x) # (B, E)
+        # parallel compute all experts outputs
+        expert_outputs = []
+        for expert in self.experts:
+            output = expert(x) # (B, num_classes)
+            expert_outputs.append(output.unsqueeze(2)) # (B, num_classes, 1)
+        # concatenate experts, output (B, num_classes, num_experts)
+        experts_concat = torch.cat(expert_outputs, dim=2)
+
+        # gate prob expand dimension for weighted sum, (B, 1, num_experts)
+        gate_probs_expanded = gate_probs.unsqueeze(1)
+
+        # weighted sum for all experts output: (B, num_classes, num_experts) * (B, 1, num_experts)
+        weighted_output = experts_concat * gate_probs_expanded
+        output = torch.sum(weighted_output, dim=2) # (B, num_classes)
+        return output 
+    
+# 3. Distillation + MoE ...
+# 4. Parallel Expert Inference test, with multi-threading parallel computing to calculate expert outputs using `ThreadPoolExecutor`
+```
+
+FP8, RP16
+- 
+
+```py
+
+```
+
+DualPipe双管道
+- 
+
+All-to-All跨节点通信
+- 分布式训练中MoE要跨多个GPU计算，可以减少参数交换通信开销
+
 <!-- TOC --><a name="7-deepseek-r1-training"></a>
 ## 7. DeepSeek-R1 Training 
 
