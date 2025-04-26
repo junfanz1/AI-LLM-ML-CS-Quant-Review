@@ -84,6 +84,8 @@ Efficient Training in PyTorch, by Ailing Zhang, 2024
 
 <img src="https://github.com/user-attachments/assets/7295d359-d625-4930-802d-03f1ddcd8ed3" width="32%" height="32%">
 
+---
+
 Generative AI on AWS, by Chris Fregly, 2024
 
 > [__Notes-Chinese__](https://github.com/junfanz1/AI-LLM-ML-CS-Quant-Review/blob/main/Foundations%20of%20LLMs/Generative%20AI%20on%20AWS.md)
@@ -100,8 +102,9 @@ LangChain Scalable LLM Apps, by Teli Li, 2024
 
 <img src="https://github.com/user-attachments/assets/58741520-5516-4c3c-8a65-26f2e158a5d9" width="32%" height="32%">
 
-<img src="https://github.com/user-attachments/assets/d1b9e971-4b10-4128-8b57-389220cc7f0b" width="32%" height="32%">
+<img src="https://github.com/user-attachments/assets/d1b9e971-4b10-4128-8b57-389220cc7f0b" width="30%" height="30%">
 
+---
 
 Foundations of LLMs - by Yuren Mao, Zhejiang University, 2024
 
@@ -121,6 +124,7 @@ Unveiling Large Model, by Liang Wen, 2025
 
 <img src="https://github.com/user-attachments/assets/65fd0bf1-dde7-4282-a7aa-fd413812c686" width="34%" height="34%">
 
+---
 
 > [GeekBang: AI LLM Practice](https://time.geekbang.org/column/intro/100770601) | [__Notes-Chinese__](https://github.com/junfanz1/AI-LLM-ML-CS-Quant-Readings/blob/main/AI%20LLM/AI%20LLM%20Practice.md)
 
