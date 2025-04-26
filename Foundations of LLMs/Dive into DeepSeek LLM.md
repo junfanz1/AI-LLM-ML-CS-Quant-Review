@@ -111,7 +111,8 @@ Transformer Decoder
 
 强化学习
 - PPO (Proximal Policy Optimization)：最大化策略的语气汇报，策略更新的目标是控制策略更新幅度（裁剪策略）避免不稳定
-  - 分布式强化学习：可以用`DistributedRLTrainer`类，管理分布式训练过程（计算优势函数、回报、更新策略），每个线程在环境中训练，并通过共享经验加速全局模型训练。训练时用Python threading多线程来模拟多智能体并行训练，每个智能体在自己环境训练，最终合并全局奖励。
+  - 分布式强化学习：可以用`DistributedRLTrainer`类，管理分布式训练过程（计算优势函数、回报、更新策略），每个线程在环境中训练，并通过共享经验加速全局模型训练。
+  - 训练时用Python threading多线程来模拟多智能体并行训练，每个智能体在自己环境训练，最终合并全局奖励。
 ```py
 import numpy as np 
 import torch 
@@ -520,7 +521,162 @@ if __name__ == "__main__":
 - 自适应：对金融、医疗、计算机领域，DeepSeek-R1在训练中加入任务相关自适应权重，在特定领域表现更优。增量学习，权重动态更新。
 - Hierarchical Agent分层强化学习：agent首先调用高层策略（选子目标，从预定的集合中选择），然后让低层策略（根据当前状态与子目标选择具体动作）执行动作直到达到子目标或超出步数限制，二者都可用策略梯度更新，最后根据奖励信号更新高层与低层策略网络。（代码P152）
 
-模型蒸馏
+【知识蒸馏：训练采用温度调节temperature scaling、损失加权、梯度剪裁、学习率调度。两阶段：先基础蒸馏，用KL散度损失和交叉熵损失联合优化；然后对特定任务微调，提高学生在下游任务表现。教师模型输出软目标指导学生，在测试集评估学生性能，实现准确性+推理速度双优化】
+
+```py
+import os 
+import time 
+import random 
+import numpy as np 
+from typing import List, Tuple 
+import torch 
+import torch.nn as nn 
+import torch.nn.functional as F 
+import torch.optim as optim 
+from torch.optim.lr_scheduler import StepLR 
+from torch.utils.data import Dataset, DataLoader 
+from flask import Flask, request, jsonify
+
+# 1. create dataset: use synthetic classification dataset
+class SynthetheticClassificationDataset(Daset):
+    """
+    Each sample is randomly generated feature embedding and corresponding label
+    To simulate downstream classification task, good for distillation training
+    """
+    def __init__(self, num_samples: int=1000, input_dim: int=100, num_classes: int=10):
+        self.num_samples = num_samples 
+        self.input_dim = input_dim
+        self.num_classes = num_classes
+        self.data = np.random.randn(num_samples, input_dim).astype(np.float32)
+        # randomly generate 0 ~ num_classes-1 integers as labels 
+        self.labels = np.random.randint(0, num_classes, size=(num_classes,)).astype(np.int64)
+
+    def __len__(self):
+        return self.num_samples
+    
+    def __getitem__(self, idx):
+        return self.data[idx], self.labels[idx]
+    
+    def collate_fn(batch: List[Tuple[np.ndarray, int]]) -> Tuple[torch.Tensor, torch.Tensor]:
+        """
+        Collate function: turn data in batch to Tensor
+        """
+        features = [item[0] for item in batch]
+        labels = [item[1] for item in batch]
+        features = torch.tensor(features)
+        labels = torch.tensor(labels)
+        return features, labels 
+    
+# 2. Define Teacher and Student 
+class TeacherModel(nn.Module):
+    """
+    Teacher is large, generate soft label
+    model simulates DeepSeek-R1 some abilities
+    """
+    def __init__(self, input_dim: int=100, hidden_dim: int=512, num_classes: int=10):
+        super(TeacherModel, self).__init__()
+        self.fc1 = nn.Linear(input_dim, hidden_dim)
+        self.fc2 = nn.Linear(hidden_dim, hidden_dim)
+        self.out = nn.Linear(hidden_dim, num_classes)
+
+    def forward(self, x):
+        x = F.relu(self.fc1(x))
+        x = F.relu(self.fc2(x))
+        logits = self.out(x)
+        return logits 
+    
+class StudentModel(nn.Module):
+    """
+    Student is small, distilled from teacher, small parameters but match the teacher's performance
+    """
+    def __init__(self, input_dim: int=100, hidden_dim: int=128, num_classes: int=10):
+        super(StudentModel, self).__init__()
+        self.fc1 = nn.Linear(input_dim, hidden_dim)
+        self.fc2 = nn.Linear(hidden_dim, hidden_dim)
+        self.out = nn.Linear(hidden_dim, num_classes)
+
+    def forward(self, x):
+        x = F.relu(self.fc1(x))
+        x = F.relu(self.fc2(x))
+        logits = self.out(x)
+        return logits
+    
+# 3. Define knowledge distillation training function
+def train_distillation(teacher: nn.Module, student: nn.Module, dataloader: DataLoader, device: str="cpu", epochs: int=5, temperature: float=2.0, alpha: float=0.7) -> None:
+    """
+    temperature: to soft prob distribution of teacher output 
+    alpha: distillation loss weight, a weighted factor w.r.t. hard label loss
+    """
+    teacher.to(device)
+    student.to(device)
+    teacher.eval() # teacher model is fixed, no update
+
+    optimizer = optim.Adam(student.parameters(), lr=1e-3)
+    scheduler = StepLR(optimizer, step_size=10, gamma=0.9)
+    # loss function
+    ce_loss_fn = nn.CrossEntropyLoss()
+    kl_loss_fn = nn.KLDivLoss(reduction="batchmean")
+
+    total_steps = epochs * len(dataloader)
+    step = 0
+
+    for epoch in range(epochs):
+        running_loss = 0.0 
+        for batch in dataloader:
+            inputs, hard_labels = batch 
+            inputs = inputs.to(device)
+            hard_labels = hard_labels.to(device)
+
+            # teacher model generate soft label for temperature scaling 
+            with torch.no_grad():
+                teacher_logits = teacher(inputs) / temperature
+                teacher_soft = F.softmax(teacher_logits, dim=-1)
+            
+            # student model forward propagation (two modes both use temperature to adjust output)
+            student_logits = student(inputs) / temperature
+
+            # distillation loss: KL divergence loss, note that input is log prob
+            distill_loss = kl_loss_fn(F.log_softmax(student_logits, dim=-1), teacher_soft)
+            # hard label loss: cross entropy loss (no temperature scale)
+            hard_loss = ce_loss_fn(student(inputs), hard_labels)
+            # total loss is weighted sum of two losses, multiplied by temperature squared 
+            total_loss = alpha * (temperature ** 2) * distill_loss + (1 - alpha) * hard_loss 
+
+            optimizer.zero_grad()
+            total_loss.backward()
+            # gradient pruning to avoid gradient explosion
+            torch.nn.utils.clip_grad_norm_(student.parameters(), max_norm=1.0)
+            optimizer.step()
+            running_loss += total_loss.item()
+            step += 1 
+            if step % 10 == 0:
+                avg_loss = running_loss / 10 
+                print(f"Epoch [{epoch + 1}/{epoch}], Step [{step}/{total_steps}], Loss: {avg_loss:.4f}")
+                running_loss = 0.0 
+        scheduler.step()
+    print("Distillation training complete.")
+
+def evaluate_model(mode: nn.Module, dataloader: DataLoader, device: str="cpu") -> float:
+    # evaluate model accuracy on testing set 
+    model.to(device)
+    model.eval()
+    total_correct = 0 
+    total_samples = 0 
+    with torch.no_grad():
+        for batch in dataloader:
+            inputs, labels = batch 
+            inputs = inputs.to(device)
+            labels = labels.to(device)
+            outputs = model(inputs)
+            _, preds = torch.max(outputs, 1)
+            total_correct += (preds == labels).sum().item()
+            total_samples += labels.size(0)
+    accuracy = total_correct / total_samples
+    print(f"Model Accuracy: {accuracy * 100:.2f}%")
+    return accuracy 
+
+# 5. Flask API Deployment ...
+```
 
 
 <!-- TOC --><a name="6-deepseek-r1-architecture"></a>
