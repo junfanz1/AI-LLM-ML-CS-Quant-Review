@@ -82,6 +82,10 @@ In-depth review of industry trends in AI, LLMs, Machine Learning, Computer Scien
 <!-- TOC --><a name="llm-theory"></a>
 ## LLM Theory
 
+Dive into DeepSeek LLM, by Xiaojing Ding, 2025 
+
+> [__Notes-Chinese__](https://github.com/junfanz1/AI-LLM-ML-CS-Quant-Review/blob/main/Foundations%20of%20LLMs/Dive%20into%20DeepSeek%20LLM.md)
+
 DeepSeek Large Model High-Performance Core Technology and Multimodal Fusion Development, by Xiaohua Wang, 2025 
 
 > [__Notes-Chinese__](https://github.com/junfanz1/AI-LLM-ML-CS-Quant-Review/blob/main/Foundations%20of%20LLMs/DeepSeek%20Large%20Model.md)
@@ -90,15 +94,11 @@ Efficient Training in PyTorch, by Ailing Zhang, 2024
 
 > [__Notes-Chinese__](https://github.com/junfanz1/AI-LLM-ML-CS-Quant-Review/blob/main/Foundations%20of%20LLMs/Efficient%20Training%20PyTorch.md)
 
-Dive into DeepSeek LLM, by Xiaojing Ding, 2025 
-
-> [__Notes-Chinese__](https://github.com/junfanz1/AI-LLM-ML-CS-Quant-Review/blob/main/Foundations%20of%20LLMs/Dive%20into%20DeepSeek%20LLM.md)
+<img src="https://github.com/user-attachments/assets/2f24506f-a460-40bd-b3d2-c113f3ef9143" width="34%" height="34%">
 
 <img src="https://github.com/user-attachments/assets/1c3c59ff-4b22-4163-a12b-cfc027950602" width="32%" height="32%">
 
 <img src="https://github.com/user-attachments/assets/7295d359-d625-4930-802d-03f1ddcd8ed3" width="32%" height="32%">
-
-<img src="https://github.com/user-attachments/assets/2f24506f-a460-40bd-b3d2-c113f3ef9143" width="34%" height="34%">
 
 
 Foundations of LLMs - by Yuren Mao, Zhejiang University, 2024
