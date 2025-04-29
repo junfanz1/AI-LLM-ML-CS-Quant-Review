@@ -493,6 +493,191 @@ class DistributedSampler(Sampler):
         self.epoch = epoch
 ```
 
-- 模型并行：
+- 模型并行
+    - 按层切分：流水线并行。为了减少并行气泡，可以用GPipe，将Mini-batch划分成更小的Micro-batch。Megatron-LM用1F1B非交错式调度流水线策略（一个前向通道一个后向通道，比GPipe在内存节省方面更好）。
+    - 计算图层内参数切分：张量并行。FFN有两层全连接层，可以把多头注意力机制的两个矩阵乘切分，张量并行。PyTorch有细粒度张量并行API `DistributedTensor`对大张量分片。
+
+```py
+import torch
+from torch.distributed._tensor import DTensor, DeviceMesh, Shard, distribute_tensor, distribute_module
+
+device_mesh = DeviceMesh("cuda", [0, 1, 2, 3])
+rowwise_placement = [Shard(0)]
+colwise_placement = [Shard(1)]
+big_tensor = torch.randn(888, 12)
+rowwise_tensor = distribute_tensor(big_tensor, device_mesh=device_mesh, placements=rowwise_placement)
+
+class MyModule(nn.Module):
+    def __init__(self):
+        super().__init__()
+        self.fc1 = nn.Linear(8, 8)
+        self.fc2 = nn.Linear(8, 8)
+        self.relu = nn.ReLU()
+
+    def forward(self, input):
+        return self.relu(self.fc1(input) + self.fc2(input))
+    
+mesh = DeviceMesh(device_type="cuda", mesh=[[0, 1], [2, 3]])
+
+def shard_params(mod_name, mod, mesh):
+    rowwise_placement = [Shard(0)]
+    def to_dist_tensor(t): return distribute_tensor(t, mesh, rowwise_placement)
+    mod._apply(to_dist_tensor)
+
+sharded_module = distribute_module(MyModule(), mesh, partition_fn=shard_params)
+
+def shard_fc(mod_name, mod, mesh):
+    rowwise_placement = [Shard(0)]
+    if mod_name == "fc1":
+        mod.weight = torch.nn.Parameter(distribute_tensor(mod.weight, mesh, rowwise_placement))
+
+sharded_module = distribute_module(MyModule(), mesh, partition_fn=shard_fc)
+```
+
+ - Adam优化器：需要计算一阶Momentum和二阶Variance，内存占用大，可以用Dynamic Loss Scaling, Mixed Precision Optimizer
+ - 混合并行：Megatron-LM提供张量并行；DeepSpeed提供ZeRO零冗余优化器（降低显存占用，对模型状态的存储去除冗余，用分区的方法把模型状态量分割，每个设备只保存一部分）、模型流水线和分布式训练组件。PyTorch用`torch.nn.parallel.DistributedDataParallel`.
+ - 集群架构：分布式训练计算集群的拓扑结构是multi-level tree，用Top of Rack Switch连接网络，增加spine switch接入新机柜。由于cross-rack communication瓶颈，用Fat-Tree拓扑结构实现网络带宽无收敛。
+ - 参数服务器Parameter Server架构 = 训练服务器 + 参数服务器（提供内存和通信）。异步训练：训练服务器完成小批次训练后，将梯度推给参数服务器，参数服务器不再等待接收所有梯度，直接基于已收到的梯度进行参数更新。
+ - 去中心化架构：用Collective Communication 集合通信实现分布式训练，通信原语包括Broadcast, Scatter, Reduce, All Reduce, Gather, All Gather, Reduce Scatter, All to All.
+     - `torch.distributed`初始化分布式环境，`torch.multiprocessing`开启多进程
+ - DeepSpeed：灵活组合三种并行（ZeRO支持的数据并行、流水线并行、张量并行），可处理万亿参数超大模型。提供Sparse Attention Kernel可处理长序列。集成1-bit Adam，只用Adam算法1/5的通信量，达到类似收敛率。
+
+LLaMA分布式训练 + DeepSpeed
+
+```py
+# 1. Training data config
+
+from torch.utils.data import DataLoader, RandomSampler, SequentialSampler
+from torch.utils.data.distributed import DistributedSampler 
+from transformers import default_data_collector 
+from utils.data.data_utils import create_pretrain_dataset 
+
+# data prep
+train_dataset, eval_dataset = create_pretrain_dataset(
+    args.local_rank, args.data_path, args.data_split, args.data_output_path,
+    args.seed, tokenizer, args.max_seq_len
+)
+
+# create DataLoader 
+if args.local_rank == -1:
+    train_sampler = RandomSampler(train_dataset)
+    eval_sampler = SequentialSampler(eval_dataset)
+else:
+    train_sampler = DistributedSampler(train_dataset)
+    eval_sampler = DistributedSampler(eval_dataset)
+train_dataloader = DataLoader(train_dataset, collate_fn = default_data_collector,
+                              sampler = train_sampler, batch_size = args.per_device_train_batch_size)
+eval_dataloader = DataLoader(eval_dataset, collate_fn=default_data_collector,
+                             sampler=eval_sampler, batch_size=args.per_device_eval_batch_size)
+
+# 2. Load LLaMA model from transformers, use from_pretrained to load pretrained model
+
+from transformers import LlamaForCausalLM, LlamaTokenizer, LlamaConfig 
+
+# use tokenizer to get correct tokenizer
+tokenizer = LlamaTokenizer.from_pretrained(model_name_or_path, fast_tokenizer=True)
+if tokenizer.pad_token is None:
+    # check tokenizer.eos_token not None, add special token in tokenizer 
+    tokenizer.add_special_tokens({'pad_token': tokenizer.eos_token})
+    tokenizer.add_special_tokens({'pad_token': '[PAD]'})
+    tokenizer.padding_side = 'right'
+
+model_config = LlamaConfig.from_pretrained(model_name_or_path)
+model = LlamaForCausalLM.from_pretrained(model_name_or_path, config=model_config)
+model.config.end_token_id = tokenizer.eos_token_id 
+model.config.pad_token_id = model.config.eos_token_id 
+model.resize_token_embeddings(int(8 * math.ceil(len(tokenizer) / 8.0))) # token embedding size can be divided by 8 for performance optimization on hardware
+
+# 3. Optimization to enhance training speed
+"""
+- params split to two groups (weight decay, and none, for regularization and avoid overfitting)
+- DeepSpeedCPUAdam or FusedAdam
+- Learning rate warmup, dynamic adjustments
+"""
+
+from transformers import get_scheduler 
+from deepspeed.ops.adam import DeepSpeedCPUAdam, FusedAdam 
+# set up optimizer and model params 
+optimizer_grouped_parameters = get_optimizer_grouped_parameters(
+    model, args.weight_decay, args.learning_rate
+)
+AdamOptimizer = DeepSpeedCPUAdam if args.offload else FusedAdam
+optimizer = AdamOptimizer(optimizer_grouped_parameters, lr=args.learning_rate, betas=(0.9, 0.95))
+num_update_steps_per_epoch = math.ceil(
+    len(train_dataloader) / args.gradient_accumulation_steps
+)
+lr_scheduler = get_scheduler(
+    name=args.lr_scheduler_type,
+    optimizer=optimizer,
+    num_warmup_steps=args.num_warmup_steps,
+    num_training_steps=args.num_train_epochs * num_update_steps_per_epoch,
+)
+
+def get_optimizer_grouped_parameters(model, weight_decay, no_decay_name_list=["bias", "LayerNorm.weight"]):
+    # weights split to 2 groups, one with weight decay, another none 
+    optimizer_grouped_parameters = [
+        {
+            "params": [p for n, p in model.named_parameters() 
+                       if (not any (nd in n for nd in no_decay_name_list) and p.requires_grad)],
+            "weight_decay": weight_decay,
+        },
+        {
+            "params": [p for n, p in model.named_parameters() 
+                       if (any (nd in n for nd in no_decay_name_list) and p.requires_grad)],
+            "weight_decay": 0.0,
+        }
+    ]
+    return optimizer_grouped_parameters
+
+# 4. DeepSpeed config
+"""
+- ZeRO config, to reduce redundancy and enhance speed,
+- Mixed precision, FP16
+- gradient_clipping to avoid gradient explosion 
+- hybrid_engine
+- TensorBoard config to track training process
+- get_eval_ds_config: eval set
+"""
+
+# 5. DeepSpeed initialization
+
+import deepspeed 
+if args.local_rank == -1:
+    device = torch.device("cuda")
+else:
+    torch.cuda.set_device(args.local_rank)
+    device = torch.device("cuda", args.local_rank)
+    # initialize distributed backend, synchronize GPU
+    torch.distributed.init_process_group(backend='nccl')
+    deepspeed.init_distributed()
+args.global_rank = torch.distributed.get_rank()
+
+ds_config = get_train_ds_config(offload=args.offload, stage=args.zero_stage,
+                                enable_tensorboard=args.enable_tensorboard,
+                                tb_path=args.tensorboard_path, tb_name="step1_model")
+ds_config['train_micro_batch_size_per_gpu'] = args.per_device_train_batch_size 
+ds_config['train_batch_size'] = args.per_device_train_batch_size * torch.distributed.get_world_size() * args.gradient_accumulation_steps
+
+set_random_seed(args.seed)
+torch.distributed.barrier()
+
+# initialize optimizer and model with DeepSpeed 
+model, optimizer, _, lr_scheduler = deepspeed.initialize(
+    model=model, optimizer=optimizer, args=args, config=ds_config,
+    lr_scheduler=lr_scheduler, dist_init_required=True
+)
+if args.gradient_checkpointing:
+    model.gradient_checkpointing_enable()
+
+# 6. Model Training
+"""
+- Before training, evaluate model, calculate perplexity
+- Training iteration: model.backward(loss) to calculate gradient, model.step() to update parameters.
+    For main thread, print_throughput to know model training speed
+- Save model as HuggingFace format
+"""
+```
+
+# 5. SFT
 
 
