@@ -4,6 +4,8 @@ LLM from Theory to Practice, by Qi Zhang, 2024
 
 ## 2. LLM Intro
 
+- 
+
 ```py
 class PositionalEncoder(nn.Module):
     def __init__(self, d_model, max_seq_len = 80):
@@ -265,3 +267,170 @@ def train_model(epochs, print_every=100):
                 break 
         return ' '.join([FR_TEXT.vocab.itos[ix] for ix in outputs[:i]])
 ```
+
+Llama
+- RMSNorm归一化
+
+```py
+class LlamaRMSNorm(nn.Module):
+    def __init__(self, hidden_size, eps=1e-6):
+        super().__init__()
+        self.weight = nn.Parameter(torch.ones(hidden_size))
+        self.variance_epsilon = eps # eps to avoid divided by 0 
+
+    def forward(self, hidden_states):
+        input_dtype = hidden_states.dtype 
+        variance = hidden_states.to(torch.float32).pow(2).mean(-1, keepdim=True)
+        hidden_states = hidden_states * torch.rsqrt(variance + self.variance_epsilon)
+        # weight can be multiplied by trainable parameter, g_i
+        return (self.weight * hidden_states).to(input_dtype)
+```
+
+- SwiGLU
+- RoPE
+
+```py
+class LlamaRotaryEmbedding(torch.nn.Module):
+    def __init__(self, dim, max_position_embeddings=2048, base=10000, device=None):
+        super().__init__()
+        inv_freq = 1.0 / (base ** (torch.arange(0, dim, 2).float().to(device) / dim))
+        self.register_buffer("inv_freq", inv_freq)
+
+        # `torch.jit,trace` to work
+        self.max_seq_len_cached = max_position_embeddings 
+        t = torch.arange(self.max_seq_len_cached, device=self.inv_freq.device, dtype=self.inv_freq.dtype)
+        freqs = torch.einsum("i,j->ij", t, self.inv_freq)
+        emb = torch.cat((freqs, freqs), dim=-1)
+        dtype = torch.get_default_dtype()
+        self.register_buffer("cos_cached", emb.cos()[None, None, :, :].to(dtype), persistent=False)
+        self.register_buffer("sin_cached", emb.cos()[None, None, :, :].to(dtype), persistent=False)
+
+    def forward(self, x, seq_len=None):
+        # x: [bs, num_attention_heads, seq_len, head_size]
+        # __init__ construct sin/cos, this if is not possible to execute
+        if seq_len > self.max_seq_len_cached:
+            self.max_seq_len_cached = seq_len
+            t = torch.arange(self.max_seq_len_cached, device=x.device, dtype=self.inv_freq.dtype)
+            freqs = torch.einsum("i,j->ij", t, self.inv_freq)
+            emb = torch.cat((freqs, freqs), dim=-1).to(x.device)
+            self.register_buffer("cos_cached", emb.cos()[None, None, :, :].to(x.dtype), persistent=False)
+            self.register_buffer("sin_cached", emb.cos()[None, None, :, :].to(x.dtype), persistent=False)
+        return (
+            self.cos_cached[:, :, :seq_len, ...].to(dtype=x.dtype),
+            self.sin_cached[:, :, :seq_len, ...].to(dtype=x.dtype),
+        )
+    
+    def rotate_half(x):
+        x1 = x[..., : x.shape[-1] // 2] # another half input use rotate to hide dimension
+        x2 = x[..., x.shape[-1] // 2 :]
+        return torch.cat((-x2, x1), dim=-1)
+    
+    def apply_rotary_pos_emb(q, k, cos, sin, position_ids):
+        # cos and sin first two dimensions are always 1, can do squeeze 
+        cos = cos.squeeze(1).squeeze(0) # [seq_len, dim]
+        sin = sin.squeeze(1).squeeze(0) # [seq_len, dim]
+        cos = cos[position_ids].unsqueeze(1) # [bs, 1, seq_len, dim]
+        sin = sin[position_ids].unsqueeze(1) # [bs, 1, seq_len, dim]
+        q_embed = (q * cos) + (rotate_half(q) * sin)
+        k_embed = (k * cos) + (rotate_half(k) * sin)
+        return q_embed, k_embed        
+```
+
+```py
+class LlamaDecoderLayer(nn.Module):
+    def __init__(self, config: LlamaConfig):
+        super().__init__()
+        self.hidden_size = config.hidden_size 
+        self.self_attn = LlamaAttention(config=config)
+        self.mlp = LlamaMLP(
+            hidden_size=self.hidden_size,
+            intermediate_size=config.intermediate_size,
+            hidden_act=config.hidden_act,
+        )
+        self.input_layernorm = LlamaRMSNorm(config.hidden_size, eps=config.rms_norm_eps)
+        self.post_attention_layernorm = LlamaRMSNorm(config.hidden_size, eps=config.rms_norm_eps)
+
+    def forward(
+            self,
+            hidden_states: torch.Tensor,
+            attention_mask: Optional[torch.Tensor] = None,
+            position_ids: Optional[torch.LongTensor] = None,
+            past_key_value: Optional[Tuple[torch.Tensor]] = None,
+            output_attentions: Optional[bool] = False,
+            use_cache: Optional[bool] = False,
+    ) -> Tuple[torch.FloatTensor, Optional[Tuple[torch.FloatTensor, torch.FloatTensor]]]:
+        residual = hidden_states
+        hidden_states = self.input_layernorm(hidden_states)
+
+        # self attention 
+        hidden_states, self_attn_weights, present_key_value = self.self_attn(
+            hidden_states=hidden_states,
+            attention_mask=attention_mask,
+            position_ids=position_ids,
+            past_key_value=past_key_value,
+            output_attentions=output_attentions,
+            use_cache=use_cache,
+        )
+        hidden_states = residual + hidden_states 
+
+        # fully connected layer 
+        residual = hidden_states 
+        hidden_states = self.post_attention_layernorm(hidden_states)
+        hidden_states = self.mlp(hidden_states)
+        hidden_states = residual + hidden_states 
+
+        outputs = (hidden_states,)
+
+        if output_attentions:
+            outputs += (self_attn_weights,)
+        if use_cache:
+            outputs += (present_key_value,)
+        return outputs
+```
+
+```py
+class MultiQueryAttention(nn.Module):
+    # use torch or triton for attention, allow for additional shift 
+    def __init__(
+            self,
+            d_model: int,
+            n_heads: int, 
+            device: Optional[str] = None,
+    ):
+        super().__init__()
+        self.d_model = d_model 
+        self.n_heads = n_heads 
+        self.head_dim = d_model // n_heads 
+
+        self.Wqkv = nn.Linear(
+            # create Multi Query Attention 
+            d_model, 
+            d_model + 2 * self.head_dim, # only create query head vector, so only 1 d_model 
+            device=device, # KV not using unique head vectors
+        )
+        self.attn_fn = scaled_multihead_dot_product_attention 
+        self.out_proj = nn.Linear(
+            self.d_model,
+            self.d_model,
+            device=device
+        )
+        self.out_proj._is_residual = True 
+
+    def forward(self, x):
+        qkv = self.Wqkv(x) # (1, 512, 960)
+        query, key, value = qkv.split(
+            # query -> (1, 512, 768), key -> (1, 512, 96), value -> (1, 512, 96)
+            [self.d_model, self.head_dim, self.head_dim],
+            dim=2
+        )
+        context, attn_weights, past_key_value = self.attn_fn(
+            query, key, value, self.n_heads, multiquery=True
+        )
+        return self.out_proj(context), attn_weights, past_key_value
+```
+
+## 3.
+
+
+
+
