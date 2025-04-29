@@ -440,9 +440,10 @@ class MultiQueryAttention(nn.Module):
         return self.out_proj(context), attn_weights, past_key_value
 ```
 
-## 3. 
+## 4.Distributed Training
 
-## 4.
+- Mini-batch：数据小批次根据损失函数和优化算法计算梯度，修正模型参数。
+- 数据并行：每个设备只分配一个批次数据样本的子集。
 
 ```py
 class DistributedSampler(Sampler):
@@ -492,6 +493,6 @@ class DistributedSampler(Sampler):
         self.epoch = epoch
 ```
 
-
+- 模型并行：
 
 
