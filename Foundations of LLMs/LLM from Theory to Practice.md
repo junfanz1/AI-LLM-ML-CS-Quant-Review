@@ -4,8 +4,6 @@ LLM from Theory to Practice, by Qi Zhang, 2024
 
 ## 2. LLM Intro
 
-- 
-
 ```py
 class PositionalEncoder(nn.Module):
     def __init__(self, d_model, max_seq_len = 80):
@@ -429,7 +427,55 @@ class MultiQueryAttention(nn.Module):
         return self.out_proj(context), attn_weights, past_key_value
 ```
 
-## 3.
+## 4.
+
+```py
+class DistributedSampler(Sampler):
+    def __init__(self, dataset, num_replicas=None, rank=None, shuffle=True, seed=0):
+        if num_replicas is None:
+            if not dist.is_available():
+                raise RuntimeError("Requires distributed package to be available")
+            num_replicas = dist.get_world_size()
+        if rank is None:
+            if not dist.is_available():
+                raise RuntimeError("Requires distributed package to be available")
+            rank = dist.get_rank()
+        self.dataset = dataset 
+        self.num_replicas = num_replicas # threads number, by default = wolrd_size (GPU devices)
+        self.rank = rank # current which thread/GPU 
+        self.epoch = 0 
+        self.num_samples = int(math.ceil(len(self.dataset) * 1.0 / self.num_replicas)) # each thread sample numbers 
+        self.total_size = self.num_samples * self.num_replicas # total sample numbers in dataset 
+        self.shuffle = shuffle # if shuffle dataset or not 
+        self.seed = seed 
+
+    def __iter__(self):
+        # 1. shuffle dataset order 
+        if self.shuffle:
+            # based on training rounds and seeds number
+            g = torch.Generator()
+            # self.seed is fixed, by set_epoch we can change initializing seeds to change self.epoch 
+            # can shuffle order in each epoch training, let each round each GPU get different data for better training 
+            g.manual_seed(self.seed + self.epoch)
+            indices = torch.randperm(len(self.dataset), generator=g).tolist()
+        else:
+            indices = list(range(len(self.dataset)))
+
+        # data augmentation 
+        indices += indices[:(self.total_size - len(indices))]
+        assert len(indices) == self.total_size
+
+        # assign data 
+        indices = indices[self.rank: self.total_size: self.num_replicas]
+        assert len(indices) == self.num_samples 
+        return iter(indices)
+    
+    def __len__(self):
+        return self.num_samples
+    
+    def set_epoch(self, epoch):
+        self.epoch = epoch
+```
 
 
 
