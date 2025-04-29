@@ -285,7 +285,7 @@ class LlamaRMSNorm(nn.Module):
 ```
 
 - SwiGLU
-- RoPE
+- RoPE：外推能力不好，可以用ALiBi让模型有更长上下文建模能力
 
 ```py
 class LlamaRotaryEmbedding(torch.nn.Module):
@@ -386,6 +386,19 @@ class LlamaDecoderLayer(nn.Module):
         return outputs
 ```
 
+注意力机制优化
+- 稀疏注意力：Global Attention（加入全局节点）、Band Attention（大部分数据具有局部性，限制Query只与相邻节点交互）、Dilated Attention（类似CNN的Dilated Conv，通过增加空隙获得更大感受野）、Random Attention（随机采样、提升非局部交互能力）、Block Local Attention（用多个不重叠Block限制信息交互）
+    - Star-Transformer = 带状注意力（宽度=3）+全局注意力（任意两个非相邻节点通过共享的全局注意力连接，相邻节点直接连接）
+    - Longformer = 带状注意力 + Internal Global-node Attention，上层一些带状注意力头部替换为具有膨胀窗口的注意力，在增加感受野的同时不增加计算量
+    - Extended Transformer Construction = 带状注意力 + External Global-node Attention。稀疏注意力包括掩码机制处理结构化输入，用Contrastive Predictive Coding预训练
+    - BigBird = 带状注意力 + 全局注意力，用额外随机注意力近似全连接注意力，且稀疏编码器和稀疏解码器可以模拟任何图灵机，因此稀疏注意力模型很好。
+    - Routing Transformer：用K-Means聚类，对QK聚类，每个Q只与其在相同cluster下的K交互，中心向量用滑动平均来更新。
+    - Reformer：Local-Sensitive Hashing对每个Q选择KV对，把QK进行哈希计算并划分到多个桶里，提高同一个桶QK参与交互的概率。
+- Flash Attention，`torch.backends.cuda.enable_flash_sdp()`
+    - 用GPU硬件特殊设计，对全局内存和共享存储IO速度不同，避免从High Bandwidth Memory（全局内存）读取或写入注意力矩阵，尽可能高效用Shared Memory加快计算速度。
+    - 要在不访问整个输入的情况下计算softmax，后向传播中不存储中间注意力矩阵（分块写入，在输入块上多次传递，增量方式算softmax），通过存储归一化因子来减少全局内存消耗
+- Multi-Query Attention：不同注意力头共享一个键值对，因此键值矩阵只有一份， 减少显存占用。
+
 ```py
 class MultiQueryAttention(nn.Module):
     # use torch or triton for attention, allow for additional shift 
@@ -426,6 +439,8 @@ class MultiQueryAttention(nn.Module):
         )
         return self.out_proj(context), attn_weights, past_key_value
 ```
+
+## 3. 
 
 ## 4.
 
