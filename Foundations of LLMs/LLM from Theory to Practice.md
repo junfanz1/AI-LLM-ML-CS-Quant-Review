@@ -11,7 +11,6 @@ LLM from Theory to Practice, by Qi Zhang, 2024
 - [5. SFT](#5-sft)
 - [6. RL](#6-rl)
 - [7. Applications ](#7-applications)
-- [8. Evaluations](#8-evaluations)
 
 <!-- TOC end -->
 
@@ -1154,12 +1153,87 @@ class ExperienceDataset(IterDataset):
 <!-- TOC --><a name="7-applications"></a>
 ## 7. Applications 
 
-<!-- TOC --><a name="8-evaluations"></a>
-## 8. Evaluations
+MiniGPT-4模型架构
+- 预训练的大模型Vicuna
+- 预训练的视觉编码器
+    - Vision Transformer (ViT)：做图像初步编码，提取基本视觉特征
 
+```py
+def init_vision_encoder(
+# drop_path_rate is regularization technique, use_grad_checkpoint is whether to use gradient checkpoint to reduce memory
+        cls, model_name, img_size, drop_path_rate, use_grad_checkpoint, precision
+):
+    assert model_name == "eva_clip_g", "vit model must be eva_clip_g for current version of MiniGPT-4"
+    # create Eva-ViT-G model, vision model 
+    visual_encoder = create_eva_vit_g(
+        img_size, drop_path_rate, use_grad_checkpoint, precision
+    )
+    # create LayerNorm for normalization of visual encoder 
+    ln_vision = LayerNorm(visual_encoder.num_features)
+    return visual_encoder, ln_vision
+```
 
+    - 图文对齐模块Q-Former：进一步将视觉编码与文本编码对齐，得到LLM可理解的向量编码
 
+```py
+def init_Qformer(cls, num_query_token, vision_width, cross_attention_freq=2):
+    # pretrained BERT for Q-Former config 
+    encoder_config = BertConfig.from_pretrained('bert-base-uncased')
+    # encoder width and query length 
+    encoder_config.encoder_width = vision_width
+    encoder_config.query_length = num_query_token
+    # insert cross attention layer within each two blocks of BERT
+    encoder_config.add_cross_attention = True 
+    encoder_config.cross_attention_freq = cross_attention_freq
 
+    # create Q-Former block with LLM head BERT model
+    Qformer = BertLMHeadModel(config=encoder_config)
+    # create query and initialize, it's trainable params for query image-text relationship
+    query_tokens = nn.Parameter(
+        torch.zeros(1, num_query_token, encoder_config.hidden_size)
+    )
+    query_tokens.data.normal_(mean=0.0, std=encoder_config.initializer_range)
+    return Qformer, query_tokens
+```
+
+- 单一的线性投影层
+    - 为了减小视觉编码器与LLM的差距，通过训练将编码的视觉特征与Vicuna LLM对齐，定义可训练的线性投影层，将Q-Former输出图像特征映射到LLM的表示空间，便于与文本输入进一步处理计算。
+    - 为了减少开销，避免全参数微调带来威胁，把LLM和视觉编码器同时冻结，只训练线性投影层，让视觉特征与LLM对齐。
+
+```py
+# img_f_dim is image feature dimension
+# llama_model.config.hidden_size is LLM hidden state dimension 
+self.llama_proj = nn.Linear(img_f_dim, self.llama_model.config.hidden_size)
+
+def encode_img(self, image):
+    device = image.device 
+    with self.maybe_autocast():
+        # use vision encoder to encode image, then LayerNorm for normalization 
+        image_embeds = self.ln_vision(self.visual_encoder(image)).to(device)
+        # by default, frozen Q-Former
+        if self.has_qformer:
+            # create image attention mask 
+            image_atts = torch.ones(image_embeds.size()[:-1], dtype=torch.long).to(device)
+            # extend query tokens to match image feature dimenstion 
+            query_tokens = self.query_tokens.expand(image_embeds.shape[0], -1, -1)
+            # use Q-Former block to calculate query token and image feature's cross attention, for better alignment of image and text 
+            query_output = self.Qformer.bert(
+                query_embeds=query_tokens,
+                encoder_hidden_states=image_embeds,
+                encoder_attention_mask=image_atts,
+                return_dict=True,
+            )
+            # use linear layer to project Q-Former output to LLM input 
+            inputs_llama = self.llama_proj(query_output.last_hidden_state)
+        # attention mask for LLM 
+        atts_llama = torch.ones(inputs_llama.size()[:-1], dtype=torch.long).to(image.device)
+    return inputs_llama, atts_llama
+```
+
+推理优化
+- KV Cache：在迭代中保持键值以便重复使用。推理过程两阶段：推理过程生成键值缓存，解码阶段秩序计算新token的键值，并更新兼职缓存，逐步生成后面token，减少迭代时间。
+- FastServe框架：跳跃连接多级反馈队列Skip-join MLFQ调度器用Job Profiler作业分析器，根据作业启动阶段的执行时间，决定作业的优先级。用迭代级抢占策略，Least-attained有限策略，解决头部阻塞问题。执行作业时，调度器发送到Distributed Execution Engine来调度GPU集群，并与Distributed KV Cache交互，将优先级低的作业的键值张量移到内存，根据负载均衡调整策略。
+- vLLM：用PagedAttention注意力算法，管理注意力键值（允许在非连续内存空间中存储键值，每个序列键值缓存分成多块，每个块包含固定数量的标记的键值，这样PagedAttention内核可以高效识别和提取这些块，避免现有系统因碎片化和过度预留而浪费内存）
 
 
 
