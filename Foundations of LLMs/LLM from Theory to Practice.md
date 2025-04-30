@@ -7,7 +7,7 @@ LLM from Theory to Practice, by Qi Zhang, 2024
 <!-- TOC start (generated with https://github.com/derlin/bitdowntoc) -->
 
 - [2. LLM Intro](#2-llm-intro)
-- [4.Distributed Training](#4distributed-training)
+- [4. Distributed Training](#4distributed-training)
 - [5. SFT](#5-sft)
 - [6. RL](#6-rl)
 - [7. Applications ](#7-applications)
@@ -455,7 +455,7 @@ class MultiQueryAttention(nn.Module):
 ```
 
 <!-- TOC --><a name="4distributed-training"></a>
-## 4.Distributed Training
+## 4. Distributed Training
 
 - Mini-batch：数据小批次根据损失函数和优化算法计算梯度，修正模型参数。
 - 数据并行：每个设备只分配一个批次数据样本的子集。
