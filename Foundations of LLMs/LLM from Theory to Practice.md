@@ -2,6 +2,20 @@ LLM from Theory to Practice, by Qi Zhang, 2024
 
 <img src="https://github.com/user-attachments/assets/58741520-5516-4c3c-8a65-26f2e158a5d9" width="32%" height="32%">
 
+# Contents
+
+<!-- TOC start (generated with https://github.com/derlin/bitdowntoc) -->
+
+- [2. LLM Intro](#2-llm-intro)
+- [4.Distributed Training](#4distributed-training)
+- [5. SFT](#5-sft)
+- [6. RL](#6-rl)
+- [7. Applications ](#7-applications)
+- [8. Evaluations](#8-evaluations)
+
+<!-- TOC end -->
+
+<!-- TOC --><a name="2-llm-intro"></a>
 ## 2. LLM Intro
 
 ```py
@@ -440,6 +454,7 @@ class MultiQueryAttention(nn.Module):
         return self.out_proj(context), attn_weights, past_key_value
 ```
 
+<!-- TOC --><a name="4distributed-training"></a>
 ## 4.Distributed Training
 
 - Mini-batch：数据小批次根据损失函数和优化算法计算梯度，修正模型参数。
@@ -678,6 +693,473 @@ if args.gradient_checkpointing:
 """
 ```
 
-# 5. SFT
+<!-- TOC --><a name="5-sft"></a>
+## 5. SFT
+
+- LoRA
+    - AdaLoRA：根据下游任务重要性调整秩的大小
+    - QLoRA：新数据类型NF4、双重量化、分页优化器（显存不足时自动将优化器状态转移至内存） 
+
+```py
+from transformers import AutoModelForSeq2SeqLM 
+from peft import get_peft_config, get_peft_model, LoraConfig, TaskType 
+model_name_or_path = ""
+tokenizer_name_or_path = ""
+peft_config = LoraConfig(
+    task_type=TaskType.SEQ_2_SEQ_LM, inference_mode=False, r=8, lora_alpha=32, lora_dropout=0.1
+)
+model = AutoModelForSeq2SeqLM.from_pretrained(model_name_or_path)
+model = get_peft_config(model, peft_config)
+```
+
+- DeepSpeed Chat训练对话模型RLHF系统三步骤
+    - 人类标记数据 + 预训练模型 = 有监督微调
+    - 好坏回答对 + 预训练模型 = 奖励模型
+    - 有监督微调 -> 演员模型、冻结参数的参考模型、EMA；奖励模型 -> 评论模型、冻结参数的奖励函数。用演员模型生成输入，把前面这些都放入PPO
+    - 训练、推理能力整合到混合引擎，用于RLHF训练，让DeepSpeed无缝在推理和训练模式间切换。
+
+<!-- TOC --><a name="6-rl"></a>
+## 6. RL
+
+- Actor-Critic Agent：既学习Policy有学习Value function，通过两者交互得到最佳动作。
+- PPO流程
+    - 环境采样：策略模型对给定输入生成回复，奖励模型对回复打分获得奖励。
+    - 优势估计：用评论模型预测生成回复的未来累计奖励，用Generalized Advantage Estimation (GAE)（k步优势的指数平均，k增大则时序差分趋向于蒙特卡洛）估计优势函数，更准确评估每次行动的好处。
+    - 优化调整：用优势函数优化调整策略模型，用参考模型确保更新的策略变化不大，稳定性好。
+- 模型训练：奖励模型基于Transformer的预训练语言模型，移除最后一个非嵌入层，叠加一个额外线性层，奖励模型能给最后一个token分配标量奖励值。
+    - 模仿学习：训练数据是专家正确答案。奖励函数的附加项：基于学习得到强化学习策略与初始监督模型的KL散度（熵奖励可以促进策略空间探索、避免策略过早收敛到单一模式；强化学习输入不与奖励模型在训练阶段遇到样本产生大偏差，维持学习过程稳定性）。
+    - 注：KL散度约束二者相似，但并非要保证参数空间的距离保持相似，否则可以直接L2范数来约束，而是要保证两个动作概率的表现相似，因为即使参数相似，输出动作也可能大相径庭。
+- PPO优化
+    - On-Policy：策略梯度中，负责与环境交互的演员与负责学习的演员相同
+    - Off-Policy：两个演员分离，固定一个演员与环境交互而不更新它，将交互得到的轨迹交给另一个负责学习的演员训练。好处是重复利用历史数据，提高效率。PPO属于Off-Policy。依赖Importance Sampling。
+- PPO变种
+    - PPO-Pentalty：拉格朗日乘数法，把KL散度的限制加入目标函数，变成无约束优化问题
+    - PPO-Clip：直接裁剪重要性权重，这样就不需要计算KL散度。Clip函数就是若权重超过1+epsilon则输出1+epsilon，若小于1-epsilon则输出1-epsilon，限制上下界，约束p的差异在合理范围内。
+
+MOSS-RLHF框架
+- 影响PPO训练稳定性的7要素：KL惩罚项、奖励值的正则化与裁剪、critic模型的损失裁剪等。
+- PPO-max算法，确保RLHF稳定运行（PPO训练中，稳定性和逐渐收敛是困难的）
+- Reward Hacking陷入局部最优：增强模型输出与SFT输出空间的KL惩罚力度，确保回复奖励的缓慢稳定提升
+- 评估PPO训练成果：因为Reward Hacking所以不能仅依赖回复奖励，需要LLM或人工评估（精心设计prompt如有用性无害性指标）
+
+```py
+# 1. Reward Model Training 
+# based on LLaMA
+import torch 
+from transformers.models.llama.modeling_llama import LlamaForCausalLM 
+
+class LlamaRewardModel(LlamaForCausalLM):
+    def __init__(self, config, opt, tokenizer):
+        super().__init__(config)
+        self.opt = opt 
+        self.tokenizer = tokenizer
+        # add Linear layer reward_head, calculate reward 
+        self.reward_head = torch.nn.Linear(config.hidden_size, 1, bias=False)
+
+    def forward(self, decoder_input, only_last=True):
+        attention_mask = decoder_input.ne(self.tokenizer.pad_token_id)
+        output = self.model.forward(
+            input_ids=decoder_input,
+            attention_mask=attention_mask,
+            return_dict=True,
+            use_cache=False
+        )
+        if only_last:
+            logits = self.reward_head(output.last_hidden_state[:, -1, :]).squeeze(-1)
+        else:
+            logits = self.reward_head(output.last_hidden_state).squeeze(-1)
+        return (logits,)
+    
+# loss training, can widen the gap between chose nand rejected response scores on reward model, and can add to final optimization goal for chosen data loss
+import torch 
+
+def _criterion(self, model_output, batch, return_output):
+    logits, predict_label, *outputs = model_output 
+    bs = logits.size(0) // 2 
+    preferred_rewards = logits[:bs]
+    rejected_rewards = logits[bs:]
+
+    # make preferred labeled data rewards > bad data rewards 
+    probs = torch.sigmoid(preferred_rewards - rejected_rewards)
+    print(f"self.train_state:{self.train_state}, predict_label: {predict_label}")
+    loss = (-torch.log(probs + 1e-5)).mean()
+
+    # language modeling loss
+    if self.calculate_lm_loss:
+        lm_logits, *_ = outputs 
+        scores = lm_logits[:bs, :-1, :]
+        preds = scores.argmax(dim=-1)
+        label_vec = batch['text_vec'][:bs, 1:].clone()
+        loss_mask = batch['loss_mask'][:, 1:]
+        label_vec[~loss_mask] = self.tokenizer.null_token_id 
+        batch['label_vec'] = label_vec
+        lm_loss = super()._criterion((scores, preds), batch, False) # lm loss for chosen only 
+        loss = loss + self.lm_loss_factor * lm_loss
+
+    if return_output:
+        return (loss, model_output)
+    return loss 
+
+# 2. PPO fine tuning 
+
+# Load 4 models: Policy, Critic, Reference, Reward 
+random.seed(opt.seed)
+np.random.seed(opt.seed)
+torch.manual_seed(opt.seed)
+torch.cuda.manual_seed(opt.seed)
+tokenizer = get_tokenizer(opt)
+
+logging.info(f"Loading policy model from: {opt.policy_model_path}...")
+policy_model = Llama.from_pretrained(opt.policy_model_path, opt, tokenizer)
+policy_model._set_gradient_checkpointing(policy_model.model, opt.gradient_checkpoint)
+
+logging.info(f"Loading critic model from: {opt.critic_model_path}...")
+critic_model = LlamaRewardModel.from_pretrained(opt.critic_model_path, opt, tokenizer)
+critic_model._set_gradient_checkpointing(critic_model.model, opt.gradient_checkpoint)
+
+logging.info(f"Loading reference model from: {opt.policy_model_path}...")
+ref_model = Llama.from_pretrained(opt.policy_model_path, opt, tokenizer)
+
+logging.info(f"Loading reward model from: {opt.critic_model_path}...")
+reward_model = LlamaRewardModel.from_pretrained(opt.critic_model_path, opt, tokenizer)
+
+class RLHFTrainableModelWrapper(nn.Module):
+    # wrap policy model and critic model 
+    def __init__(self, policy_model, critic_model) -> None:
+        super().__init__()
+        self.policy_model = policy_model 
+        self.critic_model = critic_model
+
+    def forward(self, inputs, **kwargs):
+        return self.policy_model(decoder_input=inputs, **kwargs), \
+            self.critic_model(decoder_input=inputs, only_last=False, **kwargs)
+    
+    def train(self, mode=True):
+        self.policy_model.train(mode)
+        self.critic_model.train(mode)
+
+    def eval(self):
+        self.policy_model.eval()
+        self.critic_model.eval()
+
+# Experience sampling 
+"""
+- Read input data, use policy model to respond 
+- Reward model to score the response 
+- Record response and policy model output probability to replay buffer
+"""
+
+@torch.no_grad()
+def make_experiences(self):
+    # sample from environment 
+    start_time = time.time()
+    self.model.eval()
+    synchronize_if_distributed()
+    while len(self.replay_buffer) < self.num_rollouts:
+        # get a batch data from generator 
+        batch: Dict[str, Any] = next(self.prompt_loader)
+        to_cuda(batch)
+        context_vec = batch['text_vec'].tolist()
+
+        # get output from policy model 
+        _, responses_vec = self.policy_model.generate(batch)
+        assert len(context_vec) == len(responses_vec)
+
+        context_vec_sampled, resp_vec_sampled, sampled_vec = self.concat_context_and_response(context_vec, responses_vec)
+        sampled_vec = torch.tensor(
+            pad_sequences(sampled_vec, pad_value=self.tokenizer.pad_token_id, padding='left'),
+            dtype=torch.long, device=self.accelerator.device
+        )
+        bsz = sampled_vec.size(0)
+
+        rewards, *_ = self.reward_model_forward(sampled_vec)
+        rewards = rewards.cpu()
+        self.train_metrics.record_metric_many('rewards', rewards.tolist())
+
+        if self.use_reward_scaling:
+            # reward scaling 
+            rewards_mean, rewards_std = self.running.update(rewards)
+            if self.use_reward_norm:
+                rewards = (rewards - self.running.mean) / self.running.std 
+            else:
+                rewards /= self.running.std 
+            logging.info(f"Running mean: {self.running.mean}, std: {self.running.std}")
+            self.train_metrics.record_metric('reward_mean', rewards_mean)
+            self.train_metrics.record_metric('reward_std', rewards_std)
+        if self.use_reward_clip:
+            # reward clip 
+            rewards = torch.clip(rewards, -self.reward_clip, self.reward_clip)
+
+        # calculate log prob and value function beforehand 
+        ref_logits, *_ = self.ref_model_forward(sampled_vec)
+        logits, *_ = self.policy_model_forward(sampled_vec)
+        values, *_ = self.critic_model_forward(sampled_vec)
+        torch.cuda.empty_cache()
+        assert ref_logits.size(1) == logits.size(1) == values.size(1), \
+            f'{ref_logits.size()}, {logits.size()}, {values.size()}'
+        ref_logprobs = logprobs_from_logits(ref_logits[:, :-1, :], sampled_vec[:, 1:])
+        logprobs = logprobs_from_logits(logits[:, :-1, :], sampled_vec[:, 1:])
+        values = values[:, :-1]
+
+        # KL divergence as penalty to ensure RL safe
+        kl_pentalty = (-self.kl_penalty_weight * (logprobs - ref_logprobs)).cpu()
+
+        # calculate perplexity during training 
+        label = sampled_vec 
+        label[label == self.tokenizer.pad_token_id] = self.PAD_TOKEN_LABEL_ID 
+        shift_label = label[:, 1:].contiguous()
+        valid_length = (shift_label != self.PAD_TOKEN_LABEL_ID).sum(dim=-1)
+        shift_logits = logits[..., :-1, :].contiguous()
+        ppl_value = self.ppl_loss_fct(shift_logits.view(-1, shift_logits.size(-1)), shift_label.view(-1))
+        ppl_value = ppl_value.view(len(logits), -1)
+        ppl_value = torch.sum(ppl_value, -1) / valid_length 
+        ppl_value = ppl_value.cpu().tolist()
+
+        # calculate policy model original perplexity 
+        shift_ref_logits = ref_logits[..., :-1, :].contiguous()
+        pp10_value = self.ppl_loss_fct(shift_ref_logits.view(-1, shift_ref_logits.size(-1)), shift_label.view(-1))
+        ppl0_value = ppl0_value.view(len(ref_logits), -1)
+        ppl0_value = torch.sum(ppl0_value, -1) / valid_length 
+        ppl0_value = ppl0_value.cpu().tolist()
+
+        logging.info(f'ppl_value: {ppl_value}')
+        logging.info(f'ppl0_value: {ppl0_value}')
+
+        # wrap together: response from sampling, and intermediate variables
+        for i in range(bsz):
+            resp_length = len(resp_vec_sampled[i])
+            penalized_rewards = kl_pentalty[i].clone()
+            penalized_rewards[-1] += rewards[i]
+            self.train_metrics.record_metric('ref_kl',
+                                             (logprobs[i][-resp_length:] - ref_logprobs[i][-resp_length:]).mean().item())
+            
+            sample = {
+                'context_vec': context_vec_sampled[i],
+                'context': self.tokenizer.decode(context_vec_sampled[i], skip_special_tokens=False),
+                'resp_vec': resp_vec_sampled[i],
+                'resp': self.tokenizer.decode(resp_vec_sampled[i], skip_special_tokens=False),
+                'reward': penalized_rewards[-resp_length:].tolist(),
+                'values': values[i][-resp_length:].tolist(),
+                'ref_logprobs': ref_logprobs[i][-resp_length:].tolist(),
+                'logprobs': logprobs[i][-resp_length:].tolist(),
+                'ppl_value': ppl_value[i],
+                'ppl0_value': ppl0_value[i]
+            }
+            # get pretraining batch data 
+            if self.use_ppo_pretrain_loss:
+                ppo_batch = next(self.pretrain_loader)
+                to_cuda(ppo_batch)
+                sample['ppo_context_vec'] = ppo_batch['text_vec'].tolist()
+                sample['ppo_loss_mask'] = ppo_batch['loss_mask'].tolist()
+            self.replay_buffer.append(sample)
+    
+    logging.inf(f'Sampled {len(self.replay_buffer)} samples in {(time.time() - start_time):.2f} seconds')
+    self.model.train()
+
+# General Advantage Estimation
+# based on replay buffer's advantage function and reward function, use data_helper to wrap the estimated values, for policy model and critic model training 
+
+class ExperienceDataset(IterDataset):
+    # warp experience data from samples 
+    def __init__(self, data, opt, accelerator, mode='train', **kwargs) -> None:
+        self.opt = opt 
+        self.mode = mode 
+        self.accelerator = accelerator
+        self.tokenizer = get_tokenizer(opt)
+        self.use_ppo_pretrain_loss = opt.use_ppo_pretrain_loss
+        self.batch_size = opt.batch_size 
+        self.gamma = opt.gamma 
+        self.lam = opt.lam 
+        self.data = data 
+        self.size = len(data)
+        if self.accelerator.use_distributed:
+            self.size *= self.accelerator.num_processes
+
+    def get_advantages_and_returns(self, rewards: List[float], values: List[float]):
+        # GAE algorithm to calculate advantage function and rewards 
+        response_length = len(values)
+        advantages_reversed = []
+        lastgaelam = 0
+        for t in reversed(range(response_length)):
+            nextvalues = values[t + 1] if t < response_length - 1 else 0.0 
+            delta = rewards[t] + self.gamma * nextvalues - values[t]
+            lastgaelam = delta + self.gamma * self.lam * lastgaelam
+            advantages_reversed.append(lastgaelam)
+        advantages = advantages_reversed[::-1]
+        returns = [a + v for a, v in zip(advantages, values)]
+        assert len(returns) == len(advantages) == len(values)
+        return advantages, returns 
+    
+    def format(self, sample: Dict[str, Any]) -> Dict[str, Any]:
+        # format process 
+        output = copy.deepcopy(sample)
+        advantages, returns = self.get_advantages_and_returns(sample['reward'], sample['values'])
+        context_vec, resp_vec = sample['context_vec'], sample['resp_vec']
+        assert len(resp_vec) == len(advantages) == len(returns)
+
+        text_vec = context_vec + resp_vec 
+        loss_mask = [0] * len(context_vec) + [1] * len(resp_vec)
+
+        output['text'] = self.tokenizer.decode(text_vec, skip_special_tokens=False)
+        output['text_vec'] = text_vec 
+        output['res_len'] = len(resp_vec)
+        output['logprobs'] = [0.] * (len(context_vec) - 1) + output['logprobs']
+        output['loss_mask'] = loss_mask 
+
+        output['reward'] = sample['reward']
+        output['values'] = [0.] * (len(context_vec) - 1) + output['values']
+        output['advantages'] = [0.] * (len(context_vec) - 1) + advantages 
+        output['returns'] = [0.] * (len(context_vec) - 1) + returns 
+        
+        return output 
+    
+    def batch_generator(self):
+        for batch in super().batch_generator():
+            yield batch 
+
+    # batch processing for samples 
+    def batchify(self, batch_samples: List[Dict[str, Any]]) -> Dict[str, Any]:
+        batch = {
+            'text': [sample['text'] for sample in batch_samples],
+            'text_vec': torch.tensor(pad_sequences([sample['text_vec'] for sample in batch_samples],
+                                                   pad_value=self.tokenizer.pad_token_id), dtype=torch.long),
+            'res_len': [sample['res_len'] for sample in batch_samples],
+            'logprobs': torch.tensor(pad_sequences([sample['logprobs'] for sample in batch_samples], pad_value=0.)),
+            'loss_mask': torch.tensor(pad_sequences([sample['loss_mask'] for sample in batch_samples], pad_value=0), dtype=torch.bool),
+            'ppl_value': torch.tensor([sample['ppl_value'] for sample in batch_samples]),
+            'ppl0_value': torch.tensor([sample['ppl_value'] for sample in batch_samples]),
+            'reward': [sample['reward'] for sample in batch_samples],
+            'values': torch.tensor(pad_sequences([sample['values'] for sample in batch_samples], pad_value=0.)),
+            'advantages': torch.tensor(pad_sequences([sample['advantages'] for sample in batch_samples], pad_value=0.)),
+            'returns': torch.tensor(pad_sequences([sample['returns'] for sample in batch_samples], pad_value=0.))
+        }
+        if self.use_ppo_pretrain_loss:
+            tmp_ppo_context_vec = []
+            for pretrain_data_batch in [sample['ppo_context_vec'] for sample in batch_samples]:
+                for one_sample in pretrain_data_batch:
+                    tmp_ppo_context_vec.append(one_sample)
+
+            batch['ppo_context_vec'] = torch.tensor(pad_sequences(
+                tmp_ppo_context_vec, pad_value=self.tokenizer.pad_token_id
+            ), dtype=torch.long)
+            del tmp_ppo_context_vec 
+
+            tmp_ppo_loss_mask = []
+            for pretrain_data_batch in [sample['ppo_loss_mask'] for sample in batch_samples]:
+                for one_sample in pretrain_data_batch:
+                    tmp_ppo_loss_mask.append(one_sample)
+            batch['ppo_loss_mask'] = torch.tensor(pad_sequences(tmp_ppo_loss_mask, pad_value=0), dtype=torch.bool)
+            del tmp_ppo_loss_mask
+        return batch 
+    
+    # Lastly, update policy model and critic model, repeat, use PPO to continue optimize
+    def criterion(self, model_output, batch, return_output=False, training=True):
+        # optimization goal for policy model and critic model 
+        policy_output, critic_output = model_output 
+        policy_logits, *_ = policy_output
+        values, *_ = critic_output
+        values = values[:, :-1]
+        loss_mask = batch['loss_mask']
+        loss_mask = loss_mask[:, 1:]
+        old_values = batch['values']
+        old_logprobs = batch['logprobs']
+        advantages = batch['advantages']
+        returns = batch['returns']
+        if self.use_advantage_norm:
+            advantages = whiten(advantages, loss_mask, accelerator=self.accelerator)
+        if self.use_advantage_clip:
+            advantages = torch.clamp(advantages, -self.advantage_clip, self.advantage_clip)
+        n = loss_mask.sum()
+
+        logprobs = logprobs_from_logits(policy_logits[:, :-1, :],
+                                        batch['text_vec'][:, 1:]) * loss_mask
+        # value function loss calculation
+        values_clipped = torch.clamp(values,
+                                     old_values - self.value_clip,
+                                     old_values + self.value_clip,)
+        vf_loss1 = (values - returns) ** 2 
+        vf_loss2 = (values_clipped - returns) ** 2 
+
+        if self.use_critic_loss_clip:
+            vf_loss = 0.5 * torch.sum(torch.max(vf_loss1, vf_loss2) * loss_mask) / n 
+        else:
+            vf_loss = 0.5 * torch.sum(vf_loss1 * loss_mask) / n
+        vf_clipfrac = torch.sum((vf_loss2 > vf_loss1).float() * loss_mask) / n 
+
+        log_ratio = (logprobs - old_logprobs) * loss_mask 
+        ratio = torch.exp(log_ratio)
+        with torch.no_grad():
+            approx_kl = torch.sum((ratio - 1) - log_ratio) / n 
+
+        pg_loss1 = -advantages * ratio 
+        pg_loss2 = -advantages * torch.clamp(ratio, 1.0 - self.pg_clip, 1.0 + self.pg_clip)
+
+        # policy model loss clip
+        if self.use_policy_loss_clip:
+            pg_loss = torch.sum(torch.max(pg_loss1, pg_loss2) * loss_mask) / n 
+        else:
+            pg_loss = torch.sum(pg_loss1 * loss_mask) / n 
+        pg_clipfrac = torch.sum((pg_loss2 > pg_loss1).float() * loss_mask) / n 
+
+        # entropy regularization
+        if self.use_entropy_loss:
+            ent = get_category_distribution_entropy(len(policy_logits), policy_logits[:, :-1, :])
+            entro_loss = torch.abs(torch.sum(ent * loss_mask) / n - self.entropy_clip)
+
+        # pretraining loss calculation 
+        if self.use_ppo_pretrain_loss:
+            pretrain_sampled_vec = batch['ppo_context_vec']
+            scroes, *_ = self.policy_model_forward(pretrain_sampled_vec)
+            scores = scores[:, :-1, :]
+            preds = scores.argmax(dim=-1)
+
+            ppo_label_vec = batch['ppo_context_vec'][:, 1:].clone()
+            ppo_loss_mask = batch['ppo_loss_mask'][:, 1:]
+            ppo_label_vec[~ppo_loss_mask] = self.tokenizer.pad_token_id 
+
+            labels: torch.LongTensor = ppo_label_vec
+
+            score_view = scores.reshape(-1, scores.size(-1)) # bs * num_tokens, vocab_size 
+            pretrain_loss = self.loss_fn(score_view, labels.reshape(-1)).sum()
+
+            # token prediction precision
+            notnull = labels.ne(self.tokenizer.pad_token_id)
+            target_tokens = notnull.sum()
+            correct = ((labels == preds) * notnull).sum()
+
+            # avg loss 
+            pretrain_loss = pretrain_loss / target_tokens
+            if self.use_entropy_loss:
+                loss1 = pg_loss + self.vf_loss_weight * vf_loss + self.entropy_loss_weight * entro_loss 
+            else:
+                loss1 = pg_loss + self.vf_loss_weight * vf_loss 
+            loss2 = self.ppo_pretrain_loss_weight * pretrain_loss 
+            loss = loss1 + loss2 
+        else:
+            if self.use_entropy_loss:
+                loss = pg_loss + self.vf_loss_weight * vf_loss + self.entropy_loss_weight * entro_loss 
+            else:
+                loss = pg_loss + self.vf_loss_weight * vf_loss 
+        if self.use_ppo_pretrain_loss:
+            if return_output:
+                return loss1, loss2, model_output 
+            else:
+                return loss1, loss2 
+        if return output:
+            return loss, model_output 
+        
+        return loss 
+```
+
+<!-- TOC --><a name="7-applications"></a>
+## 7. Applications 
+
+<!-- TOC --><a name="8-evaluations"></a>
+## 8. Evaluations
+
+
+
+
+
 
 
