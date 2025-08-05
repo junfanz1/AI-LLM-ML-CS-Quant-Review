@@ -19,7 +19,7 @@ Junfan Zhu
 
 2025/08/05
 
-[Agentic AI Summit, Berkeley, 2025 August 2](https://rdi.berkeley.edu/events/agentic-ai-summit)
+[2025 Agentic AI Summit @ Berkeley](https://rdi.berkeley.edu/events/agentic-ai-summit)
 
 <img width="2406" height="1202" alt="image" src="https://github.com/user-attachments/assets/2612341e-f25a-44c2-87d8-4e840f3086d8" />
 
@@ -28,26 +28,25 @@ Junfan Zhu
 
 <!-- TOC start (generated with https://github.com/derlin/bitdowntoc) -->
 
-- [2025 Agentic AI Summit Berkeley − Technical & Industrial Insight](#2025-agentic-ai-summit-berkeley-technical-industrial-insight)
-   * [1. ](#1)
-   * [2. ](#2)
-   * [3. Reflective Optimization of Agents with GEPA and DSPy](#3-reflective-optimization-of-agents-with-gepa-and-dspy)
-   * [4. ](#4)
-   * [5. Automate Knowledge Work](#5-automate-knowledge-work)
-   * [6. Multi-Turn RL for LLM Agents](#6-multi-turn-rl-for-llm-agents)
-   * [7. ](#7)
-   * [8. Coding Agents](#8-coding-agents)
-   * [9. Reliable AI Agents = Predictable + Aligned](#9-reliable-ai-agents-predictable-aligned)
-   * [10. AI Hackers](#10-ai-hackers)
-   * [11. Startup Pitch](#11-startup-pitch)
-   * [12. ](#12)
+- [1. Opening Keynote: Hardware for AI Agents](#1-opening-keynote-hardware-for-ai-agents)
+- [2. Keynote: Frameworks & Stacks for Agentic Systems](#2-keynote-frameworks-stacks-for-agentic-systems)
+- [3. Reflective Optimization of Agents with GEPA and DSPy](#3-reflective-optimization-of-agents-with-gepa-and-dspy)
+- [4. Visionary Stacks for Agentic Systems: Insights and Innovations Ahead Focus Talks](#4-visionary-stacks-for-agentic-systems-insights-and-innovations-ahead-focus-talks)
+- [5. Context Engineering and MCP for Document Workflows](#5-context-engineering-and-mcp-for-document-workflows)
+- [6. Multi-Turn Reinforcement Learning for LLM Agents](#6-multi-turn-reinforcement-learning-for-llm-agents)
+- [7. From Execution to Supervision: Scaling Productivity with Agents](#7-from-execution-to-supervision-scaling-productivity-with-agents)
+- [8. The Breakout year of Coding Agents](#8-the-breakout-year-of-coding-agents)
+- [9. Reliable AI Agents = Predictable + Aligned](#9-reliable-ai-agents-predictable-aligned)
+- [10. Building Scalable AI Companies: AI Hackers](#10-building-scalable-ai-companies-ai-hackers)
+- [11. Startup Pitch & Fireside Chats](#11-startup-pitch-fireside-chats)
+- [12. Building Autonomous Agents](#12-building-autonomous-agents)
 
 <!-- TOC end -->
 
-<!-- TOC --><a name="1"></a>
-## 1. 
+<!-- TOC --><a name="1-opening-keynote-hardware-for-ai-agents"></a>
+## 1. Opening Keynote: Hardware for AI Agents
 
-> Bill, Chief Scientist @ NVIDIA
+> Bill Dally, Chief Scientist @ NVIDIA
 
 Inference 2 phases
 - Prefill/Prompt phase: compute limited, latency insensitive
@@ -55,8 +54,8 @@ Inference 2 phases
 
 Tree of Thought
 
-<!-- TOC --><a name="2"></a>
-## 2. 
+<!-- TOC --><a name="2-keynote-frameworks-stacks-for-agentic-systems"></a>
+## 2. Keynote: Frameworks & Stacks for Agentic Systems
 
 > Ion Stoica, Co-Founder @ Databricks & Anyscale, UC Berkeley
 
@@ -69,7 +68,7 @@ Tree of Thought
 <!-- TOC --><a name="3-reflective-optimization-of-agents-with-gepa-and-dspy"></a>
 ## 3. Reflective Optimization of Agents with GEPA and DSPy
 
-> Matei Zaharia, Co-Founder, CTO @ Databricks, UC Berkeley
+> Matei Zaharia, CTO @ Databricks, UC Berkeley
 
 - Teach AI new task: standard way in ML is to use weight updates with gradient descents, but requires huge data. As flops get cheaper, progress in AI capabilities will be limited by sample efficiency.
 - Teach model more effectively: RL with verified rewards, instead of only 0/1 rewards, have a LM look at traces of all rollouts and reflect on what worked in them (using all intermediate outputs). Instead of only updating weights with small deltas, update a prompt: a single natural language update can give a large behavior change. → GEPA (Genetic-Pareto, evolutionary algorithm)
@@ -82,39 +81,39 @@ Tree of Thought
 - What is learned in GEPA? Prompt: Given summary, generate new query. So it can reflect on its past mistakes with hundreds of steps
 - DSPy: framework for declarative programming with LLM, just describe workflow with high-level signatures, DSPy will optimize how to turn into prompts or weight-tune models to optimize performance. Could be the future of AI training.
 
-<!-- TOC --><a name="4"></a>
-## 4. 
+<!-- TOC --><a name="4-visionary-stacks-for-agentic-systems-insights-and-innovations-ahead-focus-talks"></a>
+## 4. Visionary Stacks for Agentic Systems: Insights and Innovations Ahead Focus Talks
 
 > Sherwin Wu, Head of Engineering @ OpenAI
 
 Ensembling agents together tends to improve performance, so use more inference compute!
 
-
 > Chi Wang, Senior Staff Research Scientist @ Google DeepMind
 
 Challenges: consensus, shared context, interop
 
-<!-- TOC --><a name="5-automate-knowledge-work"></a>
-## 5. Automate Knowledge Work
+<!-- TOC --><a name="5-context-engineering-and-mcp-for-document-workflows"></a>
+## 5. Context Engineering and MCP for Document Workflows
 
 > Jerry Liu, CEO @ LlamaIndex
 
+Automate Knowledge Work
 - Context (supply the right tooling so LLM can access external services and get output) 
   - Main limitation of adoption AI: You as a human is responsible for defining actual input, to tell AI what to do, API completely depend on user. If not good at prompting, then not using effectively. 
   - RAG should be reimagined as an MCP toolbox (retrieval, manipulation, structured querying).
 - Workflow engineering Goal: define constrained steps of acts, you as user design prompts. Can encode the process as a DAG, need human in the loop in the end.
 
-<!-- TOC --><a name="6-multi-turn-rl-for-llm-agents"></a>
-## 6. Multi-Turn RL for LLM Agents
+<!-- TOC --><a name="6-multi-turn-reinforcement-learning-for-llm-agents"></a>
+## 6. Multi-Turn Reinforcement Learning for LLM Agents
 
-> Sergey Levine @ Berkeley
+> Sergey Levine, Co-Founder @ Physical Intelligence, UC Berkeley
 
 How to train goal-conditioned value functions, use sub-optimal interactive data to get optimal strategy with RL: 
 - Bellman equation (next action that is most likely to lead to the goal), so you don’t need optimal training data (states, actions), the data tells you what might happen and what transformation may occur, and then you ask if the best scenario what you’ll get, we can learn for many goals simultaneously. This is Q-learning with 0/1 rewards indicating goal reaching. 
 - Offline RL: to train goal-conditioned value functions using our dataset, leverage representations from LLM as features on top of which to train value functions. Use LLM to make predictions that aid in optimal decision-making. In-domain data can help us learn expert level prediction. Offline RL can learn predictors for strategies that are more optimal than the ones in the data. Finally, we can combine all this to train agents using only suboptimal data that could outperform humans who generated data.
 
-<!-- TOC --><a name="7"></a>
-## 7. 
+<!-- TOC --><a name="7-from-execution-to-supervision-scaling-productivity-with-agents"></a>
+## 7. From Execution to Supervision: Scaling Productivity with Agents
 
 > May Habib, CEO @ Writer
 
@@ -123,8 +122,8 @@ Action agent: let agent automatically solve problem, by supervising digital work
 - Understand why (not ask what) happened, for reasoning tracability and guardrail alignment
 - Design intelligent delegation paths (not simple permission), orchestration graph control.
 
-<!-- TOC --><a name="8-coding-agents"></a>
-## 8. Coding Agents
+<!-- TOC --><a name="8-the-breakout-year-of-coding-agents"></a>
+## 8. The Breakout year of Coding Agents
 
 > Michele Catasta, President @ Replit
 
@@ -139,15 +138,15 @@ Action agent: let agent automatically solve problem, by supervising digital work
 <!-- TOC --><a name="9-reliable-ai-agents-predictable-aligned"></a>
 ## 9. Reliable AI Agents = Predictable + Aligned
 
-> Karthik Narasimhan @ Princeton
+> Karthik Narasimhan, Head of Research @ Sierra, Princeton
 
 - Reliability is a measurable system property, to improve reliability: agent interfaces, self-evaluation + correction, memory, fine-tuning
 - Future trends: proactive + self-improving agents, multi-agent networks (agents verify each other, adding a layer of trust)
 
-<!-- TOC --><a name="10-ai-hackers"></a>
-## 10. AI Hackers
+<!-- TOC --><a name="10-building-scalable-ai-companies-ai-hackers"></a>
+## 10. Building Scalable AI Companies: AI Hackers
 
-> Snehal Antani, CEO @ Horizon3.AI
+> Snehal Antani, CEO @ Horizon3
 
 - Agent 1: Iterative trail-and-error: agents explore step by step, using loops of reflection and retries. Each decision is influenced by the past. Flexible and useful for exploration, but expensive, non-deterministic, and inefficient at scale.
 - Agent 2: Structured context for precision prompting: system builds context-facts, states and relationships stored in the graph. System queries graph to generate precise directives as prompts for targeted reasoning via LLM.
@@ -157,16 +156,16 @@ Action agent: let agent automatically solve problem, by supervising digital work
   - Amazon bedrock: find the best model to use, cheap for scalable business, with architectural flexibility
   - GOAD-HARD is hard, because of: multi-step exploits, conditional execution, discover & abuse trust, reason over file content, no prior knowledge, no human in the loop. Everything is patched, 5VM range, no legacy protocols.
 
-<!-- TOC --><a name="11-startup-pitch"></a>
-## 11. Startup Pitch
+<!-- TOC --><a name="11-startup-pitch-fireside-chats"></a>
+## 11. Startup Pitch & Fireside Chats
 
 - Alex Shan: Agent PoCs are cool, but: agents break in production (infinite loops, improper tool calls, broken retry logic), broken CI/CD (lack of robust evals prevent regression tests, production monitoring, alerts), no route to optimization (no method for piping agent data into post-training workflows). → Judgement Labs: Open source post-building layer for agents.
-- We should trying fail, but don’t fail to try.
+- Vinod Khosla, Founding Partner @ Khosla Ventures: We should trying fail, but don’t fail to try.
 
-<!-- TOC --><a name="12"></a>
-## 12. 
+<!-- TOC --><a name="12-building-autonomous-agents"></a>
+## 12. Building Autonomous Agents
 
-LinkedIn
+> Adam Kaplan, Senior Staff Engineer @ LinkedIn Core AI
 
 - Hiring Assistant multi-agent
 
