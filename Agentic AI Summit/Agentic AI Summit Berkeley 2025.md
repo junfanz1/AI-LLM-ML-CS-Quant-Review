@@ -19,10 +19,32 @@ Junfan Zhu
 
 2025/08/05
 
+[Agentic AI Summit, Berkeley, 2025 August 2](https://rdi.berkeley.edu/events/agentic-ai-summit)
+
+<img width="2406" height="1202" alt="image" src="https://github.com/user-attachments/assets/2612341e-f25a-44c2-87d8-4e840f3086d8" />
+
+
 ## Contents
 
+<!-- TOC start (generated with https://github.com/derlin/bitdowntoc) -->
 
+- [2025 Agentic AI Summit Berkeley − Technical & Industrial Insight](#2025-agentic-ai-summit-berkeley-technical-industrial-insight)
+   * [1. ](#1)
+   * [2. ](#2)
+   * [3. Reflective Optimization of Agents with GEPA and DSPy](#3-reflective-optimization-of-agents-with-gepa-and-dspy)
+   * [4. ](#4)
+   * [5. Automate Knowledge Work](#5-automate-knowledge-work)
+   * [6. Multi-Turn RL for LLM Agents](#6-multi-turn-rl-for-llm-agents)
+   * [7. ](#7)
+   * [8. Coding Agents](#8-coding-agents)
+   * [9. Reliable AI Agents = Predictable + Aligned](#9-reliable-ai-agents-predictable-aligned)
+   * [10. AI Hackers](#10-ai-hackers)
+   * [11. Startup Pitch](#11-startup-pitch)
+   * [12. ](#12)
 
+<!-- TOC end -->
+
+<!-- TOC --><a name="1"></a>
 ## 1. 
 
 > Bill, Chief Scientist @ NVIDIA
@@ -33,6 +55,7 @@ Inference 2 phases
 
 Tree of Thought
 
+<!-- TOC --><a name="2"></a>
 ## 2. 
 
 > Ion Stoica, Co-Founder @ Databricks & Anyscale, UC Berkeley
@@ -43,6 +66,7 @@ Tree of Thought
 - LMArena: understand and quantify human preferences, key to reliable interaction with AI systems.
 - Specifications is the key to build reliability, can verify system, debug system, decompose system, reuse components, plus automated decision making with no human in the loop.
 
+<!-- TOC --><a name="3-reflective-optimization-of-agents-with-gepa-and-dspy"></a>
 ## 3. Reflective Optimization of Agents with GEPA and DSPy
 
 > Matei Zaharia, Co-Founder, CTO @ Databricks, UC Berkeley
@@ -58,6 +82,7 @@ Tree of Thought
 - What is learned in GEPA? Prompt: Given summary, generate new query. So it can reflect on its past mistakes with hundreds of steps
 - DSPy: framework for declarative programming with LLM, just describe workflow with high-level signatures, DSPy will optimize how to turn into prompts or weight-tune models to optimize performance. Could be the future of AI training.
 
+<!-- TOC --><a name="4"></a>
 ## 4. 
 
 > Sherwin Wu, Head of Engineering @ OpenAI
@@ -69,6 +94,7 @@ Ensembling agents together tends to improve performance, so use more inference c
 
 Challenges: consensus, shared context, interop
 
+<!-- TOC --><a name="5-automate-knowledge-work"></a>
 ## 5. Automate Knowledge Work
 
 > Jerry Liu, CEO @ LlamaIndex
@@ -78,6 +104,7 @@ Challenges: consensus, shared context, interop
   - RAG should be reimagined as an MCP toolbox (retrieval, manipulation, structured querying).
 - Workflow engineering Goal: define constrained steps of acts, you as user design prompts. Can encode the process as a DAG, need human in the loop in the end.
 
+<!-- TOC --><a name="6-multi-turn-rl-for-llm-agents"></a>
 ## 6. Multi-Turn RL for LLM Agents
 
 > Sergey Levine @ Berkeley
@@ -86,6 +113,7 @@ How to train goal-conditioned value functions, use sub-optimal interactive data 
 - Bellman equation (next action that is most likely to lead to the goal), so you don’t need optimal training data (states, actions), the data tells you what might happen and what transformation may occur, and then you ask if the best scenario what you’ll get, we can learn for many goals simultaneously. This is Q-learning with 0/1 rewards indicating goal reaching. 
 - Offline RL: to train goal-conditioned value functions using our dataset, leverage representations from LLM as features on top of which to train value functions. Use LLM to make predictions that aid in optimal decision-making. In-domain data can help us learn expert level prediction. Offline RL can learn predictors for strategies that are more optimal than the ones in the data. Finally, we can combine all this to train agents using only suboptimal data that could outperform humans who generated data.
 
+<!-- TOC --><a name="7"></a>
 ## 7. 
 
 > May Habib, CEO @ Writer
@@ -95,6 +123,7 @@ Action agent: let agent automatically solve problem, by supervising digital work
 - Understand why (not ask what) happened, for reasoning tracability and guardrail alignment
 - Design intelligent delegation paths (not simple permission), orchestration graph control.
 
+<!-- TOC --><a name="8-coding-agents"></a>
 ## 8. Coding Agents
 
 > Michele Catasta, President @ Replit
@@ -107,6 +136,7 @@ Action agent: let agent automatically solve problem, by supervising digital work
 - We need more evals. Capabilities with major product impact remain difficult to measure: app generation from scratch, frontend functionality, parallel tasks, long-term iterative development + maintenance
 - Replit agent: less structure in the agent loop, more in the environment
 
+<!-- TOC --><a name="9-reliable-ai-agents-predictable-aligned"></a>
 ## 9. Reliable AI Agents = Predictable + Aligned
 
 > Karthik Narasimhan @ Princeton
@@ -114,6 +144,7 @@ Action agent: let agent automatically solve problem, by supervising digital work
 - Reliability is a measurable system property, to improve reliability: agent interfaces, self-evaluation + correction, memory, fine-tuning
 - Future trends: proactive + self-improving agents, multi-agent networks (agents verify each other, adding a layer of trust)
 
+<!-- TOC --><a name="10-ai-hackers"></a>
 ## 10. AI Hackers
 
 > Snehal Antani, CEO @ Horizon3.AI
@@ -126,11 +157,13 @@ Action agent: let agent automatically solve problem, by supervising digital work
   - Amazon bedrock: find the best model to use, cheap for scalable business, with architectural flexibility
   - GOAD-HARD is hard, because of: multi-step exploits, conditional execution, discover & abuse trust, reason over file content, no prior knowledge, no human in the loop. Everything is patched, 5VM range, no legacy protocols.
 
+<!-- TOC --><a name="11-startup-pitch"></a>
 ## 11. Startup Pitch
 
 - Alex Shan: Agent PoCs are cool, but: agents break in production (infinite loops, improper tool calls, broken retry logic), broken CI/CD (lack of robust evals prevent regression tests, production monitoring, alerts), no route to optimization (no method for piping agent data into post-training workflows). → Judgement Labs: Open source post-building layer for agents.
 - We should trying fail, but don’t fail to try.
 
+<!-- TOC --><a name="12"></a>
 ## 12. 
 
 LinkedIn
