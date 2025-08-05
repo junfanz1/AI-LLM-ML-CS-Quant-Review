@@ -19,7 +19,7 @@ Junfan Zhu
 
 2025/08/05
 
-[2025 Agentic AI Summit @ Berkeley](https://rdi.berkeley.edu/events/agentic-ai-summit)
+[2025 Agentic AI Summit @ Berkeley, Program Schedule](https://rdi.berkeley.edu/events/agentic-ai-summit)
 
 <img width="2406" height="1202" alt="image" src="https://github.com/user-attachments/assets/2612341e-f25a-44c2-87d8-4e840f3086d8" />
 
@@ -28,20 +28,26 @@ Junfan Zhu
 
 <!-- TOC start (generated with https://github.com/derlin/bitdowntoc) -->
 
-- [1. Opening Keynote: Hardware for AI Agents](#1-opening-keynote-hardware-for-ai-agents)
-- [2. Keynote: Frameworks & Stacks for Agentic Systems](#2-keynote-frameworks-stacks-for-agentic-systems)
-- [3. Reflective Optimization of Agents with GEPA and DSPy](#3-reflective-optimization-of-agents-with-gepa-and-dspy)
-- [4. Visionary Stacks for Agentic Systems: Insights and Innovations Ahead Focus Talks](#4-visionary-stacks-for-agentic-systems-insights-and-innovations-ahead-focus-talks)
-- [5. Context Engineering and MCP for Document Workflows](#5-context-engineering-and-mcp-for-document-workflows)
-- [6. Multi-Turn Reinforcement Learning for LLM Agents](#6-multi-turn-reinforcement-learning-for-llm-agents)
-- [7. From Execution to Supervision: Scaling Productivity with Agents](#7-from-execution-to-supervision-scaling-productivity-with-agents)
-- [8. The Breakout year of Coding Agents](#8-the-breakout-year-of-coding-agents)
-- [9. Reliable AI Agents = Predictable + Aligned](#9-reliable-ai-agents-predictable-aligned)
-- [10. Building Scalable AI Companies: AI Hackers](#10-building-scalable-ai-companies-ai-hackers)
-- [11. Startup Pitch & Fireside Chats](#11-startup-pitch-fireside-chats)
-- [12. Building Autonomous Agents](#12-building-autonomous-agents)
+- [Main Stage](#main-stage)
+   * [1. Opening Keynote: Hardware for AI Agents](#1-opening-keynote-hardware-for-ai-agents)
+   * [2. Keynote: Frameworks & Stacks for Agentic Systems](#2-keynote-frameworks-stacks-for-agentic-systems)
+   * [3. Reflective Optimization of Agents with GEPA and DSPy](#3-reflective-optimization-of-agents-with-gepa-and-dspy)
+   * [4. Visionary Stacks for Agentic Systems: Insights and Innovations Ahead Focus Talks](#4-visionary-stacks-for-agentic-systems-insights-and-innovations-ahead-focus-talks)
+   * [5. Context Engineering and MCP for Document Workflows](#5-context-engineering-and-mcp-for-document-workflows)
+   * [6. Multi-Turn Reinforcement Learning for LLM Agents](#6-multi-turn-reinforcement-learning-for-llm-agents)
+   * [7. From Execution to Supervision: Scaling Productivity with Agents](#7-from-execution-to-supervision-scaling-productivity-with-agents)
+   * [8. The Breakout year of Coding Agents](#8-the-breakout-year-of-coding-agents)
+   * [9. Reliable AI Agents = Predictable + Aligned](#9-reliable-ai-agents-predictable-aligned)
+   * [10. Building Scalable AI Companies: AI Hackers](#10-building-scalable-ai-companies-ai-hackers)
+   * [11. Startup Pitch & Fireside Chats](#11-startup-pitch-fireside-chats)
+- [Workshops](#workshops)
+- [Frontier Stage ](#frontier-stage)
+   * [. Building Autonomous Agents](#-building-autonomous-agents)
 
 <!-- TOC end -->
+
+<!-- TOC --><a name="main-stage"></a>
+# Main Stage
 
 <!-- TOC --><a name="1-opening-keynote-hardware-for-ai-agents"></a>
 ## 1. Opening Keynote: Hardware for AI Agents
@@ -167,8 +173,14 @@ Action agent: let agent automatically solve problem, by supervising digital work
 
 - We should trying fail, but don’t fail to try.
 
-<!-- TOC --><a name="12-building-autonomous-agents"></a>
-## 12. Building Autonomous Agents
+<!-- TOC --><a name="workshops"></a>
+# Workshops
+
+<!-- TOC --><a name="frontier-stage"></a>
+# Frontier Stage 
+
+<!-- TOC --><a name="-building-autonomous-agents"></a>
+## . Building Autonomous Agents
 
 > Adam Kaplan, Senior Staff Engineer @ LinkedIn Core AI
 
