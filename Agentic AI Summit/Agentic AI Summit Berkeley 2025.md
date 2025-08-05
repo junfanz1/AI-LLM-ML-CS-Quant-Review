@@ -50,9 +50,10 @@ Tree of Thought
 - Teach AI new task: standard way in ML is to use weight updates with gradient descents, but requires huge data. As flops get cheaper, progress in AI capabilities will be limited by sample efficiency.
 - Teach model more effectively: RL with verified rewards, instead of only 0/1 rewards, have a LM look at traces of all rollouts and reflect on what worked in them (using all intermediate outputs). Instead of only updating weights with small deltas, update a prompt: a single natural language update can give a large behavior change. → GEPA (Genetic-Pareto, evolutionary algorithm)
 
-<img width="1618" height="928" alt="image" src="https://github.com/user-attachments/assets/66daae84-88c3-47a9-b01f-f4fd3c2c2890" />
+<img src="https://github.com/user-attachments/assets/66daae84-88c3-47a9-b01f-f4fd3c2c2890" width="50%" height="50%">
 
-<img width="1712" height="912" alt="image" src="https://github.com/user-attachments/assets/7fab5c5a-c385-42fa-9228-fbfd6405f903" />
+<img src="https://github.com/user-attachments/assets/7fab5c5a-c385-42fa-9228-fbfd6405f903" width="50%" height="50%">
+
 
 - What is learned in GEPA? Prompt: Given summary, generate new query. So it can reflect on its past mistakes with hundreds of steps
 - DSPy: framework for declarative programming with LLM, just describe workflow with high-level signatures, DSPy will optimize how to turn into prompts or weight-tune models to optimize performance. Could be the future of AI training.
@@ -135,15 +136,16 @@ Action agent: let agent automatically solve problem, by supervising digital work
 LinkedIn
 
 - Hiring Assistant multi-agent
-<img width="1746" height="974" alt="image" src="https://github.com/user-attachments/assets/46a74356-80e4-4a98-9a0f-512bc3ea684a" />
+
+<img src="https://github.com/user-attachments/assets/46a74356-80e4-4a98-9a0f-512bc3ea684a" width="50%" height="50%">
 
 - Autonomous agents react to environment signals, with 3 tiers of memory (in session immediate, episodic summaries, long term RAG)
 
-<img width="1638" height="946" alt="image" src="https://github.com/user-attachments/assets/36157836-6ed1-4eb2-8300-76ccd1bc5691" />
+<img src="https://github.com/user-attachments/assets/36157836-6ed1-4eb2-8300-76ccd1bc5691" width="50%" height="50%">
 
 - Scoped Agentic Memory w/Task Sharing: Users are isolated due to trust/regulatory concerns, we introduce another type of common knowledge: shared task summaries, so that agent is aware of what it’s doing under other contexts, and integrate information into main task loop instead of elsewhere.
 
-<img width="1738" height="988" alt="image" src="https://github.com/user-attachments/assets/97d991e2-91ba-4be8-9aa4-f0c75ab4f083" />
+<img src="https://github.com/user-attachments/assets/97d991e2-91ba-4be8-9aa4-f0c75ab4f083" width="50%" height="50%">
 
 - Modular Agentic Architecture
 
