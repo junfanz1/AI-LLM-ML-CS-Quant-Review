@@ -159,8 +159,13 @@ Action agent: let agent automatically solve problem, by supervising digital work
 <!-- TOC --><a name="11-startup-pitch-fireside-chats"></a>
 ## 11. Startup Pitch & Fireside Chats
 
-- Alex Shan: Agent PoCs are cool, but: agents break in production (infinite loops, improper tool calls, broken retry logic), broken CI/CD (lack of robust evals prevent regression tests, production monitoring, alerts), no route to optimization (no method for piping agent data into post-training workflows). → Judgement Labs: Open source post-building layer for agents.
-- Vinod Khosla, Founding Partner @ Khosla Ventures: We should trying fail, but don’t fail to try.
+> Alex Shan, Co-Founder @ Judgment Labs
+
+- Agent PoCs are cool, but: agents break in production (infinite loops, improper tool calls, broken retry logic), broken CI/CD (lack of robust evals prevent regression tests, production monitoring, alerts), no route to optimization (no method for piping agent data into post-training workflows). → Judgement Labs: Open source post-building layer for agents.
+
+> Vinod Khosla, Founding Partner @ Khosla Ventures
+
+- We should trying fail, but don’t fail to try.
 
 <!-- TOC --><a name="12-building-autonomous-agents"></a>
 ## 12. Building Autonomous Agents
