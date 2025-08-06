@@ -354,7 +354,8 @@ CMU: Diffusion beats Autoregressive in data-constrained settings.
 
 > Chi Wang, Senior Staff Research Scientist @ Google DeepMind
 
-- massgen.ai MassGen Orchestrator distributes tasks to different agents with different models in real-time collaboration, then share collaboration in the hub and reach consensus.
+- https://github.com/Leezekun/MassGen
+- MassGen Orchestrator distributes tasks to different agents with different models in real-time collaboration, then share collaboration in the hub and reach consensus.
 - Goal: cross-model/agent synergy for robust results; Multi-Agent system where agents evolve together. E.g. Grok Heavy uses the same model but multi-agent system, price goes up 10 times.
 - Foundation: AutoGen orchestration, iterative refinement, 
 - Insight: Reasoning isn’t linear, it’s messy, iterative, collaborative
@@ -367,7 +368,8 @@ CMU: Diffusion beats Autoregressive in data-constrained settings.
 
 > Papi Menon, CPO @ Outshift by Cisco
 
-- agntcy.org AGNTCY
+AGNTCY
+- agntcy.org
 - Why new Internet of Agents? We need new ways for agents to discover each other and assemble them to collaborate securely, cross-platform and reliably. We have a fragmented, heterogeneous deployment model (e.g. agents on cloud, agents in enterprise, and all servers need to communicate with each other). Due to probabilistic and multimodal, we need evaluation and observation when conflicts and loops.  → Goal: Semantic protocols above the Internet that enable agents to talk to each other.
 - Ensembles of Agents need a secure collaboration layer. 
 - Agent lifecycles: 
