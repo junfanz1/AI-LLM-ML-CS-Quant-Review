@@ -533,6 +533,36 @@ RL Training in Rufus (Amazon AI Shopping Assistant)
 
 <img src="https://github.com/user-attachments/assets/01480390-4403-4d24-800b-9b446c6676b2" width="50%" height="50%">
 
+- SimuRA: Towards General Goal-Oriented Agent via Simulative Reasoning with World Model
+  - Human reasoning is not just linear, autoregressive reasoning, but also forward-looking, simulation-based reasoning using an internal world model
+  - General architecture for optimal goal-oriented agent (i.e., SimuRA), with each component implemented using LLM. Overcame limitation of LLM autoregressive reasoning by introducing world model for planning via simulation
+
+- Decentralized Cooperative Planning & Multi-Agent
+  - https://happyeureka.github.io/damcs  
+  - Each agent maintains individual knowledge graph memory, communicate and share states with other agents
+  - Benchmark to evaluate cooperations, introduce cooperation dependency and constraints
+
+<img src="https://github.com/user-attachments/assets/2d24ba5e-e508-4ac2-8e54-6e6351973d6a" width="50%" height="50%">
+
+- Efficient Training-Free Online Routing for High-Volume Multi-LLM Serving
+  - Existing works primarily focus on offline scenarios and struggle to adapt to online settings with high query volume and constrained token budgets, due to Computational Scalability, Deployment Scalability, Sequential Query Arrival.
+  - We leverage Approximate Nearest Neighbor Search (ANNS) to efficiently estimate the performance and cost associated with each query.
+  - Online routing: We formulate online LLM routing as a Mixed-Integer Linear Programming (MILP) problem. Through analysis of its dual formulation, we derive a simple yet effective routing rule parameterized by learnable routing weights over LLMs. These weights are learned from a small set of initial queries and then used to efficiently guide the routing of subsequent queries.
+
+- Grounded, Memory-driven Cognition in LLM Agents
+  - Hybridizing Memory with Latent Dynamics
+    - Combining memory-driven systems with learned latent dynamics to enhance temporal coherence and adaptive performance in LLMs.
+    - Selective State-Space Models: Integrating episodic and conceptual memory with dynamic latent representations for real-time learning and planning.
+  - Vision for Cognitive LLMs: Transitioning from reactive models to cognitive models that reason, reflect, and adapt in real-time through memory and experience-driven architectures.
+  - Key Takeaway: The future of AI systems lies in integrating structured cognition and artificial experience to build scalable architectures that can evolve with time and engage in continuous thought.
+
+<img src="https://github.com/user-attachments/assets/ef0dc6ce-9435-4d0d-b0c0-4815e439f782" width="50%" height="50%">
+
+- Cross-Tool Data Harvesting and Polluting in Multi-tool Empowered LLM Agents
+
+<img src="https://github.com/user-attachments/assets/396c509a-daa9-4073-8f3e-8d412ee6576b" width="50%" height="50%">
+
+
 <!-- TOC --><a name="211"></a>
 ## 211. 
 
