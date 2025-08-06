@@ -434,7 +434,7 @@ AGNTCY
 
 > Rose Yu @ UCSD
 
-Adapting While Learning (AWL): shouldn’t over-rely on tools without generalization to new tasks, models need to learn when/how to use tools, only when the model realizes its internal knowledge is insufficient to some tasks, then it’ll seek external resources. 
+- Adapting While Learning (AWL): shouldn’t over-rely on tools without generalization to new tasks, models need to learn when/how to use tools, only when the model realizes its internal knowledge is insufficient to some tasks, then it’ll seek external resources. 
 
 <!-- TOC --><a name="207-ai-for-science-lightning-talks"></a>
 ## 207. AI for Science Lightning Talks
@@ -446,7 +446,7 @@ Adapting While Learning (AWL): shouldn’t over-rely on tools without generaliza
 
 <img src="https://github.com/user-attachments/assets/1f4c5d95-f39e-49a0-98d6-7c94fe39d7de" width="50%" height="50%">
 
-- to query/search for scenarios encountered in driving logs, easy to interpret and scale for any scenario definition 
+- To query/search for scenarios encountered in driving logs, easy to interpret and scale for any scenario definition 
 
 <!-- TOC --><a name="provably-accountable-ai-critical-open-questions"></a>
 ### Provably Accountable AI Critical Open Questions
