@@ -588,7 +588,7 @@ RL Training in Rufus (Amazon AI Shopping Assistant)
 <!-- TOC --><a name="211-neuroevolution-of-ai-agent-strategies-from-imitation-to-decision-making-agents"></a>
 ## 211. Neuroevolution of AI Agent Strategies: From Imitation to Decision-Making Agents
 
-Risto Miikkulainen, VP of AI Research @ Cognizant AI Labs, UT Austin
+> Risto Miikkulainen, VP of AI Research @ Cognizant AI Labs, UT Austin
 
 <img src="https://github.com/user-attachments/assets/3186047a-f23f-4ca5-91dd-fe263dd150fb" width="50%" height="50%">
 
@@ -638,7 +638,7 @@ See, Think, Act, Training Multimodal LLM Agents with RL
 
 > Nicole Nichols, Distinguished Engineer @ Palo Alto Networks
 
-Ensemble of Experts (EoE) creates ground truth, and ground truth refines guidelines and evaluator. ground truth validator can be improved by knowledge distillation.
+- Ensemble of Experts (EoE) creates ground truth, and ground truth refines guidelines and evaluator. ground truth validator can be improved by knowledge distillation.
 
 <!-- TOC --><a name="215-ai-safety-alignment-security-lightning-talks"></a>
 ## 215. AI Safety, Alignment & Security Lightning Talks
@@ -646,7 +646,7 @@ Ensemble of Experts (EoE) creates ground truth, and ground truth refines guideli
 <!-- TOC --><a name="inverse-scaling-law"></a>
 ### Inverse Scaling Law 
 
-Revealing the reasoning trace may result in an inverse scaling law for the safety of the reasoning model.
+- Revealing the reasoning trace may result in an inverse scaling law for the safety of the reasoning model.
 
 <!-- TOC --><a name="scaling-test-time-interactiontti"></a>
 ### Scaling Test-Time Interaction(TTI)
