@@ -74,7 +74,7 @@ If you like this repo, feel free to give a ⭐️
    * [209. Agentic AI in Healthcare: Building Trustworthy Autonomy](#209-agentic-ai-in-healthcare-building-trustworthy-autonomy)
    * [210. AgentX Competition Winners](#210-agentx-competition-winners)
       + [AgentSynth](#agentsynth)
-      + [New Agent Paradigm: EvoGitt.](#new-agent-paradigm-evogitt)
+      + [New Agent Paradigm: EvoGitt](#new-agent-paradigm-evogitt)
       + [SimuRA: Towards General Goal-Oriented Agent via Simulative Reasoning with World Model](#simura-towards-general-goal-oriented-agent-via-simulative-reasoning-with-world-model)
       + [Decentralized Cooperative Planning & Multi-Agent](#decentralized-cooperative-planning-multi-agent)
       + [Efficient Training-Free Online Routing for High-Volume Multi-LLM Serving](#efficient-training-free-online-routing-for-high-volume-multi-llm-serving)
@@ -536,7 +536,7 @@ RL Training in Rufus (Amazon AI Shopping Assistant)
 <img src="https://github.com/user-attachments/assets/daf70cfb-4ce7-43cc-b160-6637fa8cfc49" width="50%" height="50%">
 
 <!-- TOC --><a name="new-agent-paradigm-evogitt"></a>
-### New Agent Paradigm: EvoGitt.
+### New Agent Paradigm: EvoGitt
 - State of Agent is a graph, no scalar rewards, everything is partially ordered.
 
 <img src="https://github.com/user-attachments/assets/8053e86f-4aa4-4fa1-a4fe-f01da3e08091" width="50%" height="50%">
