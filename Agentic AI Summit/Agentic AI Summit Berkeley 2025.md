@@ -73,6 +73,13 @@ If you like this repo, feel free to give a ⭐️
    * [208. Building Autonomous Agents](#208-building-autonomous-agents)
    * [209. Agentic AI in Healthcare: Building Trustworthy Autonomy](#209-agentic-ai-in-healthcare-building-trustworthy-autonomy)
    * [210. AgentX Competition Winners](#210-agentx-competition-winners)
+      + [AgentSynth](#agentsynth)
+      + [New Agent Paradigm: EvoGitt.](#new-agent-paradigm-evogitt)
+      + [SimuRA: Towards General Goal-Oriented Agent via Simulative Reasoning with World Model](#simura-towards-general-goal-oriented-agent-via-simulative-reasoning-with-world-model)
+      + [Decentralized Cooperative Planning & Multi-Agent](#decentralized-cooperative-planning-multi-agent)
+      + [Efficient Training-Free Online Routing for High-Volume Multi-LLM Serving](#efficient-training-free-online-routing-for-high-volume-multi-llm-serving)
+      + [Grounded, Memory-driven Cognition in LLM Agents](#grounded-memory-driven-cognition-in-llm-agents)
+      + [Cross-Tool Data Harvesting and Polluting in Multi-tool Empowered LLM Agents](#cross-tool-data-harvesting-and-polluting-in-multi-tool-empowered-llm-agents)
    * [211. ](#211)
 
 <!-- TOC end -->
@@ -521,47 +528,54 @@ RL Training in Rufus (Amazon AI Shopping Assistant)
 <!-- TOC --><a name="210-agentx-competition-winners"></a>
 ## 210. AgentX Competition Winners
 
-- AgentSynth
-  - Multistep agentic work (booking flights) is hard to collect training and evaluation data, sparse and hard to scale, and existing benchmarks rely heavily on expensive human examples. So we use scalable and low-cost pipeline by synthesizing high-quality tasks, using information symmetry, we generate simple subtasks and chain them into complex ones, then enabling control of task complexity. Given the diversity of task, we generate the initial task, then iteratively generate follow-up tasks, chaining/composing into final task, difficulty controllable. 
+<!-- TOC --><a name="agentsynth"></a>
+### AgentSynth
+- Multistep agentic work (booking flights) is hard to collect training and evaluation data, sparse and hard to scale, and existing benchmarks rely heavily on expensive human examples.
+- So we use scalable and low-cost pipeline by synthesizing high-quality tasks, using information symmetry, we generate simple subtasks and chain them into complex ones, then enabling control of task complexity. Given the diversity of task, we generate the initial task, then iteratively generate follow-up tasks, chaining/composing into final task, difficulty controllable. 
 
 <img src="https://github.com/user-attachments/assets/daf70cfb-4ce7-43cc-b160-6637fa8cfc49" width="50%" height="50%">
 
-- New Agent Paradigm: EvoGitt.
-  - State of Agent is a graph, no scalar rewards, everything is partially ordered.
+<!-- TOC --><a name="new-agent-paradigm-evogitt"></a>
+### New Agent Paradigm: EvoGitt.
+- State of Agent is a graph, no scalar rewards, everything is partially ordered.
 
 <img src="https://github.com/user-attachments/assets/8053e86f-4aa4-4fa1-a4fe-f01da3e08091" width="50%" height="50%">
 
 <img src="https://github.com/user-attachments/assets/01480390-4403-4d24-800b-9b446c6676b2" width="50%" height="50%">
 
-- SimuRA: Towards General Goal-Oriented Agent via Simulative Reasoning with World Model
-  - Human reasoning is not just linear, autoregressive reasoning, but also forward-looking, simulation-based reasoning using an internal world model
-  - General architecture for optimal goal-oriented agent (i.e., SimuRA), with each component implemented using LLM. Overcame limitation of LLM autoregressive reasoning by introducing world model for planning via simulation
+<!-- TOC --><a name="simura-towards-general-goal-oriented-agent-via-simulative-reasoning-with-world-model"></a>
+### SimuRA: Towards General Goal-Oriented Agent via Simulative Reasoning with World Model
+- Human reasoning is not just linear, autoregressive reasoning, but also forward-looking, simulation-based reasoning using an internal world model
+- General architecture for optimal goal-oriented agent (i.e., SimuRA), with each component implemented using LLM. Overcame limitation of LLM autoregressive reasoning by introducing world model for planning via simulation
 
-- Decentralized Cooperative Planning & Multi-Agent
-  - https://happyeureka.github.io/damcs  
-  - Each agent maintains individual knowledge graph memory, communicate and share states with other agents
-  - Benchmark to evaluate cooperations, introduce cooperation dependency and constraints
+<!-- TOC --><a name="decentralized-cooperative-planning-multi-agent"></a>
+### Decentralized Cooperative Planning & Multi-Agent
+- https://happyeureka.github.io/damcs  
+- Each agent maintains individual knowledge graph memory, communicate and share states with other agents
+- Benchmark to evaluate cooperations, introduce cooperation dependency and constraints
 
 <img src="https://github.com/user-attachments/assets/2d24ba5e-e508-4ac2-8e54-6e6351973d6a" width="50%" height="50%">
 
-- Efficient Training-Free Online Routing for High-Volume Multi-LLM Serving
-  - Existing works primarily focus on offline scenarios and struggle to adapt to online settings with high query volume and constrained token budgets, due to Computational Scalability, Deployment Scalability, Sequential Query Arrival.
-  - We leverage Approximate Nearest Neighbor Search (ANNS) to efficiently estimate the performance and cost associated with each query.
-  - Online routing: We formulate online LLM routing as a Mixed-Integer Linear Programming (MILP) problem. Through analysis of its dual formulation, we derive a simple yet effective routing rule parameterized by learnable routing weights over LLMs. These weights are learned from a small set of initial queries and then used to efficiently guide the routing of subsequent queries.
+<!-- TOC --><a name="efficient-training-free-online-routing-for-high-volume-multi-llm-serving"></a>
+### Efficient Training-Free Online Routing for High-Volume Multi-LLM Serving
+- Existing works primarily focus on offline scenarios and struggle to adapt to online settings with high query volume and constrained token budgets, due to Computational Scalability, Deployment Scalability, Sequential Query Arrival.
+- We leverage Approximate Nearest Neighbor Search (ANNS) to efficiently estimate the performance and cost associated with each query.
+- Online routing: We formulate online LLM routing as a Mixed-Integer Linear Programming (MILP) problem. Through analysis of its dual formulation, we derive a simple yet effective routing rule parameterized by learnable routing weights over LLMs. These weights are learned from a small set of initial queries and then used to efficiently guide the routing of subsequent queries.
 
-- Grounded, Memory-driven Cognition in LLM Agents
-  - Hybridizing Memory with Latent Dynamics
-    - Combining memory-driven systems with learned latent dynamics to enhance temporal coherence and adaptive performance in LLMs.
-    - Selective State-Space Models: Integrating episodic and conceptual memory with dynamic latent representations for real-time learning and planning.
-  - Vision for Cognitive LLMs: Transitioning from reactive models to cognitive models that reason, reflect, and adapt in real-time through memory and experience-driven architectures.
-  - Key Takeaway: The future of AI systems lies in integrating structured cognition and artificial experience to build scalable architectures that can evolve with time and engage in continuous thought.
+<!-- TOC --><a name="grounded-memory-driven-cognition-in-llm-agents"></a>
+### Grounded, Memory-driven Cognition in LLM Agents
+- Hybridizing Memory with Latent Dynamics
+  - Combining memory-driven systems with learned latent dynamics to enhance temporal coherence and adaptive performance in LLMs.
+  - Selective State-Space Models: Integrating episodic and conceptual memory with dynamic latent representations for real-time learning and planning.
+- Vision for Cognitive LLMs: Transitioning from reactive models to cognitive models that reason, reflect, and adapt in real-time through memory and experience-driven architectures.
+- Key Takeaway: The future of AI systems lies in integrating structured cognition and artificial experience to build scalable architectures that can evolve with time and engage in continuous thought.
 
 <img src="https://github.com/user-attachments/assets/ef0dc6ce-9435-4d0d-b0c0-4815e439f782" width="50%" height="50%">
 
-- Cross-Tool Data Harvesting and Polluting in Multi-tool Empowered LLM Agents
+<!-- TOC --><a name="cross-tool-data-harvesting-and-polluting-in-multi-tool-empowered-llm-agents"></a>
+### Cross-Tool Data Harvesting and Polluting in Multi-tool Empowered LLM Agents
 
 <img src="https://github.com/user-attachments/assets/396c509a-daa9-4073-8f3e-8d412ee6576b" width="50%" height="50%">
-
 
 <!-- TOC --><a name="211"></a>
 ## 211. 
