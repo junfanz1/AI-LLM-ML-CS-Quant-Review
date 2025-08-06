@@ -369,7 +369,7 @@ CMU: Diffusion beats Autoregressive in data-constrained settings.
 > Papi Menon, CPO @ Outshift by Cisco
 
 AGNTCY
-- agntcy.org
+- https://agntcy.org
 - Why new Internet of Agents? We need new ways for agents to discover each other and assemble them to collaborate securely, cross-platform and reliably. We have a fragmented, heterogeneous deployment model (e.g. agents on cloud, agents in enterprise, and all servers need to communicate with each other). Due to probabilistic and multimodal, we need evaluation and observation when conflicts and loops.  → Goal: Semantic protocols above the Internet that enable agents to talk to each other.
 - Ensembles of Agents need a secure collaboration layer. 
 - Agent lifecycles: 
