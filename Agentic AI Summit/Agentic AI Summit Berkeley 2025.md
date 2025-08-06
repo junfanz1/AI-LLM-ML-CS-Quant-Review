@@ -100,11 +100,10 @@ If you like this repo, feel free to give a ⭐️
 
 > Bill Dally, Chief Scientist @ NVIDIA
 
-Inference 2 phases
-- Prefill/Prompt phase: compute limited, latency insensitive
-- Decode phase (token generation): bandwidth limited, latency sensitive
-
-Tree of Thought
+- Inference 2 phases
+  - Prefill/Prompt phase: compute limited, latency insensitive
+  - Decode phase (token generation): bandwidth limited, latency sensitive
+- Tree of Thought
 
 <!-- TOC --><a name="2-keynote-frameworks-stacks-for-agentic-systems"></a>
 ## 2. Keynote: Frameworks & Stacks for Agentic Systems
