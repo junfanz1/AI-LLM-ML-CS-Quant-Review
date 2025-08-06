@@ -373,13 +373,13 @@ AGNTCY
 - Why new Internet of Agents? We need new ways for agents to discover each other and assemble them to collaborate securely, cross-platform and reliably. We have a fragmented, heterogeneous deployment model (e.g. agents on cloud, agents in enterprise, and all servers need to communicate with each other). Due to probabilistic and multimodal, we need evaluation and observation when conflicts and loops.  → Goal: Semantic protocols above the Internet that enable agents to talk to each other.
 - Ensembles of Agents need a secure collaboration layer. 
 - Agent lifecycles: 
- - advocate themselves’ ability/skillset so that other agents discover them, 
- - how they stitch together and allow communication on semantic layer from different platforms (cloud, local) and be understood, 
- - how to deploy all to your cloud infra with message layer optimizing agent communication, 
- - how to reach low-latency with human-in-the-loop for multi-agent, 
- - all communication modes supported by the layer (e.g. a large state of exchange of 1-to-1, 1-to-many, many-to-many), 
- - how to describe identity of agent, 
- - agent with different abilities performs specific task depending on what they’re allowed to do, with a tuple (agentic identity, identity of human principle on who’s behalfing the agent is acting, task the agent is performing at any time)
+  - advocate themselves’ ability/skillset so that other agents discover them, 
+  - how they stitch together and allow communication on semantic layer from different platforms (cloud, local) and be understood, 
+  - how to deploy all to your cloud infra with message layer optimizing agent communication, 
+  - how to reach low-latency with human-in-the-loop for multi-agent, 
+  - all communication modes supported by the layer (e.g. a large state of exchange of 1-to-1, 1-to-many, many-to-many), 
+  - how to describe identity of agent, 
+  - agent with different abilities performs specific task depending on what they’re allowed to do, with a tuple (agentic identity, identity of human principle on who’s behalfing the agent is acting, task the agent is performing at any time)
 
 <img src="https://github.com/user-attachments/assets/a0c2e6ef-b46f-4593-948e-a6020b270cfb" width="50%" height="50%">
 
@@ -506,26 +506,28 @@ RL Training in Rufus (Amazon AI Shopping Assistant)
 
 > Anu Trivedi, Head of GenAI @ Oracle Health HDI
 
-- Tool Integration is Mandatory:
+- Tool Integration is Mandatory
   - Agents without deterministic tool access (ontology mapping, scheduling APIs, clinical rule engines) cannot deliver reliable outcomes.
-- Auditable Planning:
+- Auditable Planning
   - LLM-generated plans must be materialized, versioned, and reflected upon-self-reflection + plan revision is key for reliability.
-- Modular Multi-Agent Flows:
+- Modular Multi-Agent Flows
   - Decomposing tasks into specialized agents (e.g., retrieval, reasoning, execution) increases resilience and enables granular recovery.
-- Hybrid Decisioning:
-  - Pure LLM outputs fail edge-case safety constraints;
+- Hybrid Decisioning
+  - Pure LLM outputs fail edge-case safety constraints
   - combining rule-based constraints with learned reasoning gives acceptable precision/recall trade-offs.
-- State & Context Continuity:
+- State & Context Continuity
   - Long-lived state stores (shared memory) are essential for multi-step clinical/trial workflows to avoid information loss between interactions.
 
 <!-- TOC --><a name="210-agentx-competition-winners"></a>
 ## 210. AgentX Competition Winners
 
-- AgentSynth: Multistep agentic work (booking flights) is hard to collect training and evaluation data, sparse and hard to scale, and existing benchmarks rely heavily on expensive human examples. So we use scalable and low-cost pipeline by synthesizing high-quality tasks, using information symmetry, we generate simple subtasks and chain them into complex ones, then enabling control of task complexity. Given the diversity of task, we generate the initial task, then iteratively generate follow-up tasks, chaining/composing into final task, difficulty controllable. 
+- AgentSynth
+  - Multistep agentic work (booking flights) is hard to collect training and evaluation data, sparse and hard to scale, and existing benchmarks rely heavily on expensive human examples. So we use scalable and low-cost pipeline by synthesizing high-quality tasks, using information symmetry, we generate simple subtasks and chain them into complex ones, then enabling control of task complexity. Given the diversity of task, we generate the initial task, then iteratively generate follow-up tasks, chaining/composing into final task, difficulty controllable. 
 
 <img src="https://github.com/user-attachments/assets/daf70cfb-4ce7-43cc-b160-6637fa8cfc49" width="50%" height="50%">
 
-- New Agent Paradigm: EvoGitt. State of Agent is a graph, no scalar rewards, everything is partially ordered.
+- New Agent Paradigm: EvoGitt.
+  - State of Agent is a graph, no scalar rewards, everything is partially ordered.
 
 <img src="https://github.com/user-attachments/assets/8053e86f-4aa4-4fa1-a4fe-f01da3e08091" width="50%" height="50%">
 
