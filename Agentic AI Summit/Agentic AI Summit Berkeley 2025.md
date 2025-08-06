@@ -413,7 +413,8 @@ AGNTCY
 
 > Samuel Rodriques, CEO @ FutureHouse
 
-platform.futurehouse.org Already has AI published research papers with new discoveries in biology, human only needs to provide wet lab experiment results.
+- https://platform.futurehouse.org 
+- Already has AI published research papers with new discoveries in biology, human only needs to provide wet lab experiment results.
 
 <img src="https://github.com/user-attachments/assets/663760e7-0d76-43a2-b795-36433e4ae6c8" width="50%" height="50%">
 
