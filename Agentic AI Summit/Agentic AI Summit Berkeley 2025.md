@@ -80,7 +80,15 @@ If you like this repo, feel free to give a ⭐️
       + [Efficient Training-Free Online Routing for High-Volume Multi-LLM Serving](#efficient-training-free-online-routing-for-high-volume-multi-llm-serving)
       + [Grounded, Memory-driven Cognition in LLM Agents](#grounded-memory-driven-cognition-in-llm-agents)
       + [Cross-Tool Data Harvesting and Polluting in Multi-tool Empowered LLM Agents](#cross-tool-data-harvesting-and-polluting-in-multi-tool-empowered-llm-agents)
-   * [211. ](#211)
+   * [211. Neuroevolution of AI Agent Strategies: From Imitation to Decision-Making Agents](#211-neuroevolution-of-ai-agent-strategies-from-imitation-to-decision-making-agents)
+   * [212. RAGEN: Training Agents by Reinforcing Reasoning, ](#212-ragen-training-agents-by-reinforcing-reasoning)
+   * [213. Choice and Open Source AI](#213-choice-and-open-source-ai)
+   * [214. Achieving a Secure AI Agent Ecosystem](#214-achieving-a-secure-ai-agent-ecosystem)
+   * [215. AI Safety, Alignment & Security Lightning Talks](#215-ai-safety-alignment-security-lightning-talks)
+      + [Inverse Scaling Law ](#inverse-scaling-law)
+      + [Scaling Test-Time Interaction(TTI)](#scaling-test-time-interactiontti)
+      + [Minimax Language Agent, LLM Approaching for Long-context Learning and Gaming AI](#minimax-language-agent-llm-approaching-for-long-context-learning-and-gaming-ai)
+      + [LLM-Driven Code Discovery and Evolution of Agent Rules](#llm-driven-code-discovery-and-evolution-of-agent-rules)
 
 <!-- TOC end -->
 
@@ -577,8 +585,98 @@ RL Training in Rufus (Amazon AI Shopping Assistant)
 
 <img src="https://github.com/user-attachments/assets/396c509a-daa9-4073-8f3e-8d412ee6576b" width="50%" height="50%">
 
-<!-- TOC --><a name="211"></a>
-## 211. 
+<!-- TOC --><a name="211-neuroevolution-of-ai-agent-strategies-from-imitation-to-decision-making-agents"></a>
+## 211. Neuroevolution of AI Agent Strategies: From Imitation to Decision-Making Agents
+
+Risto Miikkulainen, VP of AI Research @ Cognizant AI Labs, UT Austin
+
+<img src="https://github.com/user-attachments/assets/3186047a-f23f-4ca5-91dd-fe263dd150fb" width="50%" height="50%">
+
+- Solution: Population-based Search (Evolutionary Computation), scaling up well in high dimension space.
+- Evaluation requires a surrogate model of the world which imitates the real world, with the surrogate we can have a neural network. We’re not just predicting, but we also figure out what to do about it.
+- How can we trust solutions? Estimate consequence of AI predictions through Gaussian process, explainable AI through rule set representations, evaluate LLM responses through Semantic Density.
+- Future of Agentic AI
+  - Better abilities: divide and conquer for large problems, multiple perspectives to get unstuck, fine-grained agents more efficient
+  - More flexibility: general agents with more specific ones, open and private agents, asynchronous modular development 
+  - Safer deployments: modular distributed redundant processing, critic agents, human fallbacks
+
+<!-- TOC --><a name="212-ragen-training-agents-by-reinforcing-reasoning"></a>
+## 212. RAGEN: Training Agents by Reinforcing Reasoning, 
+
+> Manling Li @ Northwestern
+
+See, Think, Act, Training Multimodal LLM Agents with RL
+
+- https://ragen-ai.github.io/
+- Real-world is challenging as agents need multi-turn feedback in infinite state combos with many trajectories (not one answer), partial observability.
+- Agent to observe the entire trajectory getting cumulative rewards to decide trajectory is good or not. Agent rollout and check status at each turn, then make prediction based on all historical contexts to decide what to perform next. This thinking process is included in thinking tokens, then action will be dispatched to environment, so that we get feedback from environment. This finishes rollout stage, getting cumulative rewards for trajectory. 
+- After rollout stage, we have update stage. We use multiple trajectories to see whether the model can learn from this trajectory and which one is correct.
+
+<img src="https://github.com/user-attachments/assets/e4bfd9bb-9677-479f-8fbd-399dba78e930" width="50%" height="50%">
+
+- But RL in observable environment is challenging, why RL can’t converge for LLM Agents? Due to Echo trap: agent overfits to locally rewarded reasoning patterns, suppressing exploration, and after some thinking steps, agent predicts the same tokens and stuck there, won’t be able to really learn. 
+- How to monitor when RL will collapse? Several indicators: Reward variances, gradient norm spikes, output entropy.
+- How to avoid Echo trap? Use reward variance as a proxy to measure reasoning diversity. The model learns better from fewer but more diverse trajectories.
+- How to make models to see (VLM)? Symbolic representation makes it easy for LLM agents while VLM agents must first solve vision just to play. Observation changes model from Markov Decision Process (observable, learn from current status to reach next status) to POMDP (partially observable, introducing observation stage: first observe, then state estimate, and then state changes)
+- Add World Model to training. We ask model to predict current status, then predict what will happen next given this action.
+- How to improve “See” process? ask agent to check different view of environment, try to imagine what’s in the view (cognitive map) and construct a mental model of the physical space. Then it can reason about the entire environment.
+- How to think in space? By interacting with environment, get feedback, and during thinking, think over cognitive map, with map + reason, we can improve RL training.
+- https://foundation-models-meet-embodied-agents.github.io 
+- Not only reasoning, but also abstraction of the mental model of the environment. Mental model is like interface connecting LLM with any environment (e.g. On top of MDP, we have goal interpretation (input), action sequencing (output), subgoal decomposition (output), transition modeling (learn), these 4 components are embodied agent interface).
+
+<!-- TOC --><a name="213-choice-and-open-source-ai"></a>
+## 213. Choice and Open Source AI
+
+> John Dickerson, CEO @ Mozilla AI
+
+<img src="https://github.com/user-attachments/assets/77d8a003-028a-40a4-83d7-439f687202ea" width="50%" height="50%">
+
+<img src="https://github.com/user-attachments/assets/c6342387-ca33-4678-989a-ade6155e7546" width="50%" height="50%">
+
+<!-- TOC --><a name="214-achieving-a-secure-ai-agent-ecosystem"></a>
+## 214. Achieving a Secure AI Agent Ecosystem
+
+> Nicole Nichols, Distinguished Engineer @ Palo Alto Networks
+
+Ensemble of Experts (EoE) creates ground truth, and ground truth refines guidelines and evaluator. ground truth validator can be improved by knowledge distillation.
+
+<!-- TOC --><a name="215-ai-safety-alignment-security-lightning-talks"></a>
+## 215. AI Safety, Alignment & Security Lightning Talks
+
+<!-- TOC --><a name="inverse-scaling-law"></a>
+### Inverse Scaling Law 
+
+Revealing the reasoning trace may result in an inverse scaling law for the safety of the reasoning model.
+
+<!-- TOC --><a name="scaling-test-time-interactiontti"></a>
+### Scaling Test-Time Interaction(TTI)
+
+- TTI = RL + Horizon-based Curriculum, train on shorter tasks to grasp basic skills, train on long tasks to learn to scale interaction (e.g. exploration, backtracking, verification, just like human)
+- Simply running RL with many steps doesn’t work, curriculum training for TTI has better performance
+
+<!-- TOC --><a name="minimax-language-agent-llm-approaching-for-long-context-learning-and-gaming-ai"></a>
+### Minimax Language Agent, LLM Approaching for Long-context Learning and Gaming AI
+
+> Princeton
+
+- LLMs can act as competitive agents when scaffolded with symbolic search. Agent-Env loop uses LLM to generate actions with context engineering. Search-augmented, minimax tree narrows down to high-quality actions. It samples human-like strategies, evaluate future states in language, cuts down search space and handles partial observability, and plan like top human players with 0 fine-tuning. 
+- LLM + Search = SOTA generalist agent win rates. Base LLM + test time planning. Game theoretic scaffolding. Context-engineered opponent prediction. Comparative LLM-as-a-judge (relative > absolute).
+
+<!-- TOC --><a name="llm-driven-code-discovery-and-evolution-of-agent-rules"></a>
+### LLM-Driven Code Discovery and Evolution of Agent Rules
+
+> Northwestern
+
+- Motivation: use pseudocode representations to evolve code using LLMs, use LLM-driven code discovery in multi-agent settings
+- LEAR framework: initialize agents and environment, evaluation and fitness scoring, tournament-based selection, LLM-driven mutation, replacement of agents back to the environment
+- Limitations of pseudocode-based mutation: code-based mutation is better with few-shot prompting, commented code mutation has best performance, pseudocode mutation has challenge in accurate code translation
+
+
+
+
+
+
+
 
 
 
