@@ -1,4 +1,4 @@
-Kimi K2
+# Kimi K2
 
 Model Architecture
 - Based on DeepSeek V3
