@@ -32,10 +32,11 @@ In-depth review of industry trends in AI, LLMs, Machine Learning, Computer Scien
    * [LLM Applications](#llm-applications)
    * [RAG](#rag)
    * [Multi-Agent](#multi-agent)
-- [4. DeepSeek](#4-deepseek)
+- [4. DeepSeek & Kimi ](#4-deepseek-kimi)
    * [Research Implementation](#research-implementation)
    * [DeepSeek Theory](#deepseek-theory)
    * [DeepSeek Applications](#deepseek-applications)
+   * [Kimi K2](#kimi-k2)
 - [5. LangGraph & Cursor AI Projects](#5-langgraph-cursor-ai-projects)
 - [6. System Design](#6-system-design)
    * [ByteByteGo - GenAI/ML/Modern System Design Interview](#bytebytego-genaimlmodern-system-design-interview)
@@ -163,8 +164,8 @@ Unveiling Large Model, by Liang Wen, 2025
 
 
 
-<!-- TOC --><a name="4-deepseek"></a>
-# 4. DeepSeek
+<!-- TOC --><a name="4-deepseek-kimi"></a>
+# 4. DeepSeek & Kimi 
 
 <!-- TOC --><a name="research-implementation"></a>
 ## Research Implementation
@@ -186,6 +187,11 @@ Unveiling Large Model, by Liang Wen, 2025
 > [GeekBang: DeepSeek HandsOn](https://time.geekbang.org/column/101000501) | [__Notes-Chinese__](https://github.com/junfanz1/AI-LLM-ML-CS-Quant-Readings/blob/main/DeepSeek/DeepSeek%20HandsOn.md)
 
 > [GeekBang: DeepSeek App Development](https://time.geekbang.org/column/intro/100995901) | [__Notes-Chinese__](https://github.com/junfanz1/AI-ML-CS-Quant-Readings/blob/main/DeepSeek/DeepSeek%20Developer%20Practice.md)
+
+<!-- TOC --><a name="kimi-k2"></a>
+## Kimi K2
+
+> [Kimi K2](https://github.com/junfanz1/AI-LLM-ML-CS-Quant-Review/blob/main/DeepSeek/Kimi%20K2.md) | [🚀 Understand Kimi K2 in 10 Minutes](https://www.linkedin.com/pulse/understand-kimi-k2-10-minutes-jf-ai-vnsqc/)
 
 <!-- TOC --><a name="5-langgraph-cursor-ai-projects"></a>
 # 5. LangGraph & Cursor AI Projects
