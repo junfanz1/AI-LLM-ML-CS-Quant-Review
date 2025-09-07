@@ -1,5 +1,7 @@
 # Kimi K2
 
+[🚀 Understand Kimi K2 in 10 Minutes](https://www.linkedin.com/pulse/understand-kimi-k2-10-minutes-jf-ai-vnsqc/)
+
 Model Architecture
 - Based on DeepSeek V3
 - 1T parameters 
@@ -23,4 +25,3 @@ Algorithm
 System Design
 - Training pipeline: based on Megatron, selective recomputation (LayerNorm, SwiGLU), FP8 storage for intensive application, activation CPU offload
 - RL infra: parameter synchronization (train -> checkpoint -> inference, separate architecture)
-
