@@ -5,7 +5,7 @@ Model Architecture
 - 1T parameters 
 - 256 -> 384 experts, but # of activated experts are the same as DeepSeek
   - SwiGLU FFN: matrix parameters are separated to 3 weights (W1, W2 & V)
-  - # parameters in FFN: FFN Dense = FFN MoE = 396M
+  - #parameters in FFN: FFN Dense = FFN MoE = 396M
 - 128 -> 64 attention heads
   - LoRA’s Kv_latent_dim  = 512, very small, *32 num_head = 16384
   - Scaling Law: sparsity scaling law, # of activated experts 8, * sparsity 48. Attention heads = 64
