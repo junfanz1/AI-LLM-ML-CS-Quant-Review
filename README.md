@@ -197,7 +197,7 @@ Unveiling Large Model, by Liang Wen, 2025
 <!-- TOC --><a name="5-paper-reading"></a>
 # 5. Paper Reading
 
-- [World Models](https://github.com/junfanz1/AI-LLM-ML-CS-Quant-Review/blob/main/Paper%20Reading/World%20Models.md) | [LinkedIn: World Model: 5 Debates Between Eric Xing's PAN & Yann LeCun’s JEPA](https://www.linkedin.com/pulse/world-model-5-debates-between-eric-xings-pan-yann-lecuns-jepa-jf-ai-8xigc/)
+> [World Models](https://github.com/junfanz1/AI-LLM-ML-CS-Quant-Review/blob/main/Paper%20Reading/World%20Models.md) | [LinkedIn: World Model: 5 Debates Between Eric Xing's PAN & Yann LeCun’s JEPA](https://www.linkedin.com/pulse/world-model-5-debates-between-eric-xings-pan-yann-lecuns-jepa-jf-ai-8xigc/)
 
 <!-- TOC --><a name="6-langgraph-cursor-ai-projects"></a>
 # 6. LangGraph & Cursor AI Projects
