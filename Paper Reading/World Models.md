@@ -1,5 +1,13 @@
 # World Model: 5 Debates Between Eric Xing's PAN & Yann LeCun’s JEPA  
 
+Are autoregressive LLMs truly doomed, as Yann LeCun suggests — or are they just one layer in a future hierarchical reasoning stack?
+
+Should representation learning stay continuous (JEPA) or embrace discrete tokens as a human-evolved latent space?
+
+Is model-predictive control the right direction, or will RL with policy reuse win out in real-world efficiency?
+
+Inspired by (Eric) Zhang Chen 's recent sharing in the Journal Club at AI community https://www.ez-encoder.com/ - our discussion sparked deep dive into simulative reasoning, JEPA vs. PAN, and exploring how world models could take us beyond autoregressive LLMs. Would love to hear about your thoughts — architecture, objective, or paradigm.
+
 ## Definition  
 LLMs predict the **next word**, while **world models** predict the **next world**.  
 
