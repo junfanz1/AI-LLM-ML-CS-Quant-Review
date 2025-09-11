@@ -37,7 +37,7 @@ In-depth review of industry trends in AI, LLMs, Machine Learning, Computer Scien
    * [DeepSeek Theory](#deepseek-theory)
    * [DeepSeek Applications](#deepseek-applications)
    * [Kimi K2](#kimi-k2)
-- [5. Paper Reading](#5-paper-reading)
+- [5. 2025 Paper Reading](#5-2025-paper-reading)
 - [6. LangGraph & Cursor AI Projects](#6-langgraph-cursor-ai-projects)
 - [7. System Design](#7-system-design)
    * [ByteByteGo - GenAI/ML/Modern System Design Interview](#bytebytego-genaimlmodern-system-design-interview)
@@ -194,8 +194,8 @@ Unveiling Large Model, by Liang Wen, 2025
 
 > [Kimi K2](https://github.com/junfanz1/AI-LLM-ML-CS-Quant-Review/blob/main/DeepSeek/Kimi%20K2.md) | [🚀 Understand Kimi K2 in 10 Minutes](https://www.linkedin.com/pulse/understand-kimi-k2-10-minutes-jf-ai-vnsqc/)
 
-<!-- TOC --><a name="5-paper-reading"></a>
-# 5. Paper Reading
+<!-- TOC --><a name="5-2025-paper-reading"></a>
+# 5. 2025 Paper Reading
 
 > [World Models](https://github.com/junfanz1/AI-LLM-ML-CS-Quant-Review/blob/main/Paper%20Reading/World%20Models.md) | [LinkedIn: World Model: 5 Debates Between Eric Xing's PAN & Yann LeCun’s JEPA](https://www.linkedin.com/pulse/world-model-5-debates-between-eric-xings-pan-yann-lecuns-jepa-jf-ai-8xigc/)
 
