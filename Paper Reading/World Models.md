@@ -55,7 +55,7 @@ Information density, not just volume. E.g. memory, social, mental information ca
 
 > *JF.AI’s note: This resonates with Wittgenstein’s idea that “the limits of my language mean the limits of my world.”*
 
-continuous, discrete, or both? Discrete tokens can be an advantage, because space of language is already a latent space (through human evolution), human cognition maps these concepts to discrete worlds. How can we ensure such discrete representations capture richness in high-dimensional continuous sensory data? As long as we can scale up (learn a large modality tokenizer) and scale out (find longer language expression, increase sequence length). Conclusion: we need both. [JF.AI’s note: This is a profound thought that human language is exactly a latent space, relevant to Ludwig Wittgenstein’s philosophy.]
+Continuous, discrete, or both? Discrete tokens can be an advantage, because space of language is already a latent space (through human evolution), human cognition maps these concepts to discrete worlds. How can we ensure such discrete representations capture richness in high-dimensional continuous sensory data? As long as we can scale up (learn a large modality tokenizer) and scale out (find longer language expression, increase sequence length). Conclusion: we need both. [JF.AI’s note: This is a profound thought that human language is exactly a latent space, relevant to Ludwig Wittgenstein’s philosophy.]
 
 <img width="2166" height="866" alt="image" src="https://github.com/user-attachments/assets/eaee6370-3f82-49f6-ae72-a8d5054bbe35" />
 
@@ -82,7 +82,7 @@ Autoregressive generation is not the enemy. Yann Lecun thinks there’s compound
 - Latent space ≠ real world → misalignment risk.  
 - **Conclusion:** compute loss in **observation space** for grounding.
 
-learn in data space or latent space? Eric thinks that JEPA loss calculation in latent space can cause collapse and cheat configuration (map every input to 0 vector, and 0 vector can rebuild original signal). Also, latent space is not equivalent to real world and can be misaligned. Conclusion: We still need encoder-decoder, and calculate loss in observation space.
+Learn in data space or latent space? Eric thinks that JEPA loss calculation in latent space can cause collapse and cheat configuration (map every input to 0 vector, and 0 vector can rebuild original signal). Also, latent space is not equivalent to real world and can be misaligned. Conclusion: We still need encoder-decoder, and calculate loss in observation space.
 
 <img width="2270" height="814" alt="image" src="https://github.com/user-attachments/assets/9dfbc727-0446-4266-8cc7-59ad5ee98351" />
 
@@ -114,3 +114,4 @@ Eric proposes a **PAN model** that fuses **sensory** and **textual worlds**:
 
 ## References  
 - *Critiques of World Models*, Eric Xing et al. [[arXiv:2507.05169]](https://arxiv.org/pdf/2507.05169)
+- *World Model: 5 Debates Between Eric Xing's PAN & Yann LeCun’s JEPA*, JF.AI. [LinkedIn Post](https://www.linkedin.com/pulse/world-model-5-debates-between-eric-xings-pan-yann-lecuns-jepa-jf-ai-8xigc/)
