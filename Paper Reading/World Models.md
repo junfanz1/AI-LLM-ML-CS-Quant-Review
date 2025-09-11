@@ -63,7 +63,7 @@ Information density, not just volume. E.g. memory, social, mental information ca
 
 > *JF.AI’s note: This resonates with Wittgenstein’s idea that “the limits of my language mean the limits of my world.”*
 
-Continuous, discrete, or both? Discrete tokens can be an advantage, because space of language is already a latent space (through human evolution), human cognition maps these concepts to discrete worlds. How can we ensure such discrete representations capture richness in high-dimensional continuous sensory data? As long as we can scale up (learn a large modality tokenizer) and scale out (find longer language expression, increase sequence length). Conclusion: we need both. [JF.AI’s note: This is a profound thought that human language is exactly a latent space, relevant to Ludwig Wittgenstein’s philosophy.]
+Continuous, discrete, or both? Discrete tokens can be an advantage, because space of language is already a latent space (through human evolution), human cognition maps these concepts to discrete worlds. How can we ensure such discrete representations capture richness in high-dimensional continuous sensory data? As long as we can scale up (learn a large modality tokenizer) and scale out (find longer language expression, increase sequence length). Conclusion: we need both. [JF.AI’s note: Some concepts in human language have already been abstracted to certain level. This is a profound thought that human language is exactly a latent space, relevant to Ludwig Wittgenstein’s philosophy.]
 
 <img width="2166" height="866" alt="image" src="https://github.com/user-attachments/assets/eaee6370-3f82-49f6-ae72-a8d5054bbe35" />
 
