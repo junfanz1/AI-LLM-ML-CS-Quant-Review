@@ -37,17 +37,18 @@ In-depth review of industry trends in AI, LLMs, Machine Learning, Computer Scien
    * [DeepSeek Theory](#deepseek-theory)
    * [DeepSeek Applications](#deepseek-applications)
    * [Kimi K2](#kimi-k2)
-- [5. LangGraph & Cursor AI Projects](#5-langgraph-cursor-ai-projects)
-- [6. System Design](#6-system-design)
+- [5. Paper Reading](#5-paper-reading)
+- [6. LangGraph & Cursor AI Projects](#6-langgraph-cursor-ai-projects)
+- [7. System Design](#7-system-design)
    * [ByteByteGo - GenAI/ML/Modern System Design Interview](#bytebytego-genaimlmodern-system-design-interview)
    * [Educative - GenAI/Modern System Design Interview](#educative-genaimodern-system-design-interview)
-- [7. Computer Systems](#7-computer-systems)
-- [8. Big Data and AI in Finance, Econometrics and Statistics Conference, UChicago 2024](#8-big-data-and-ai-in-finance-econometrics-and-statistics-conference-uchicago-2024)
-- [9. C++ Design Patterns and Derivatives Pricing](#9-c-design-patterns-and-derivatives-pricing)
-- [10. High-Frequency Finance](#10-high-frequency-finance)
-- [11. Machine Learning for Algorithmic Trading](#11-machine-learning-for-algorithmic-trading)
-- [12. Stochastic Volatility Modeling](#12-stochastic-volatility-modeling)
-- [13. Quant Job Interview Questions](#13-quant-job-interview-questions)
+- [8. Computer Systems](#8-computer-systems)
+- [9. Big Data and AI in Finance, Econometrics and Statistics Conference, UChicago 2024](#9-big-data-and-ai-in-finance-econometrics-and-statistics-conference-uchicago-2024)
+- [10. C++ Design Patterns and Derivatives Pricing](#10-c-design-patterns-and-derivatives-pricing)
+- [11. High-Frequency Finance](#11-high-frequency-finance)
+- [12. Machine Learning for Algorithmic Trading](#12-machine-learning-for-algorithmic-trading)
+- [13. Stochastic Volatility Modeling](#13-stochastic-volatility-modeling)
+- [14. Quant Job Interview Questions](#14-quant-job-interview-questions)
    * [Star History](#star-history)
 
 <!-- TOC end -->
@@ -193,8 +194,13 @@ Unveiling Large Model, by Liang Wen, 2025
 
 > [Kimi K2](https://github.com/junfanz1/AI-LLM-ML-CS-Quant-Review/blob/main/DeepSeek/Kimi%20K2.md) | [🚀 Understand Kimi K2 in 10 Minutes](https://www.linkedin.com/pulse/understand-kimi-k2-10-minutes-jf-ai-vnsqc/)
 
-<!-- TOC --><a name="5-langgraph-cursor-ai-projects"></a>
-# 5. LangGraph & Cursor AI Projects
+<!-- TOC --><a name="5-paper-reading"></a>
+# 5. Paper Reading
+
+- [World Models](https://github.com/junfanz1/AI-LLM-ML-CS-Quant-Review/blob/main/Paper%20Reading/World%20Models.md) | [LinkedIn: World Model: 5 Debates Between Eric Xing's PAN & Yann LeCun’s JEPA](https://www.linkedin.com/pulse/world-model-5-debates-between-eric-xings-pan-yann-lecuns-jepa-jf-ai-8xigc/)
+
+<!-- TOC --><a name="6-langgraph-cursor-ai-projects"></a>
+# 6. LangGraph & Cursor AI Projects
 
 > [__Notes__](https://github.com/junfanz1/AI-ML-CS-Quant-Readings/blob/main/LangChain/Projects.md)
 - [Ed Donner: LLM Engineering: Master AI, Large Language Models & Agents](https://www.udemy.com/course/llm-engineering-master-ai-and-large-language-models)
@@ -219,8 +225,8 @@ Unveiling Large Model, by Liang Wen, 2025
 
 
 
-<!-- TOC --><a name="6-system-design"></a>
-# 6. System Design
+<!-- TOC --><a name="7-system-design"></a>
+# 7. System Design
 
 <!-- TOC --><a name="bytebytego-genaimlmodern-system-design-interview"></a>
 ## ByteByteGo - GenAI/ML/Modern System Design Interview
@@ -252,8 +258,8 @@ Machine Learning System Design Interview - by Ali Aminian, Alex Xu, 2023
 
 > [Educative - GenAI System Design](https://www.educative.io/verify-certificate/RgxzXQFQkKyYgKrGjTX1RQpE9J3vT6) | [__Notes__](https://github.com/junfanz1/AI-LLM-ML-CS-Quant-Readings/blob/main/System%20Design/GenAI%20System%20Design.md)
 
-<!-- TOC --><a name="7-computer-systems"></a>
-# 7. Computer Systems
+<!-- TOC --><a name="8-computer-systems"></a>
+# 8. Computer Systems
 
 计算机底层的秘密，陆小风 - 2023，电子工业出版社
 
@@ -261,8 +267,8 @@ Machine Learning System Design Interview - by Ali Aminian, Alex Xu, 2023
   
 <img src="https://github.com/user-attachments/assets/5d41a90f-1188-42d2-9a08-b5b3efc33130" width="35%" height="35%">
 
-<!-- TOC --><a name="8-big-data-and-ai-in-finance-econometrics-and-statistics-conference-uchicago-2024"></a>
-# 8. Big Data and AI in Finance, Econometrics and Statistics Conference, UChicago 2024
+<!-- TOC --><a name="9-big-data-and-ai-in-finance-econometrics-and-statistics-conference-uchicago-2024"></a>
+# 9. Big Data and AI in Finance, Econometrics and Statistics Conference, UChicago 2024
 
 BDAI Conference, 2024 Oct 3-5, UChicago
 
@@ -272,8 +278,8 @@ BDAI Conference, 2024 Oct 3-5, UChicago
 <img src="https://github.com/user-attachments/assets/b1ff9d58-2deb-4caa-8370-115539c18abf" width="50%" height="50%">
 
 
-<!-- TOC --><a name="9-c-design-patterns-and-derivatives-pricing"></a>
-# 9. C++ Design Patterns and Derivatives Pricing
+<!-- TOC --><a name="10-c-design-patterns-and-derivatives-pricing"></a>
+# 10. C++ Design Patterns and Derivatives Pricing
 
 C++ Design Patterns and Derivatives Pricing (Mathematics, Finance and Risk, Series Number 2) 2nd Edition, by M. S. Joshi
 
@@ -282,8 +288,8 @@ C++ Design Patterns and Derivatives Pricing (Mathematics, Finance and Risk, Seri
 <img src="https://github.com/user-attachments/assets/c16d6c10-2dbf-44a4-9651-3917c039d2cc" width="30%" height="30%">
 
 
-<!-- TOC --><a name="10-high-frequency-finance"></a>
-# 10. High-Frequency Finance
+<!-- TOC --><a name="11-high-frequency-finance"></a>
+# 11. High-Frequency Finance
 
 An Introduction to High-Frequency Finance, by Ramazan Gençay, et al.
 
@@ -292,8 +298,8 @@ An Introduction to High-Frequency Finance, by Ramazan Gençay, et al.
 <img src="https://github.com/user-attachments/assets/587c8e69-f785-4137-b9f6-c809bb87bb90" width="30%" height="30%">
 
 
-<!-- TOC --><a name="11-machine-learning-for-algorithmic-trading"></a>
-# 11. Machine Learning for Algorithmic Trading
+<!-- TOC --><a name="12-machine-learning-for-algorithmic-trading"></a>
+# 12. Machine Learning for Algorithmic Trading
 
 Machine Learning for Algorithmic Trading: Predictive models to extract signals from market and alternative data for systematic trading strategies with Python, 2nd Edition Paperback – by Stefan Jansen 2020 
 
@@ -303,8 +309,8 @@ Machine Learning for Algorithmic Trading: Predictive models to extract signals f
 
 <img src="https://github.com/user-attachments/assets/5c2a9362-211e-4372-ac51-1653031e5f7b" width="30%" height="30%">
 
-<!-- TOC --><a name="12-stochastic-volatility-modeling"></a>
-# 12. Stochastic Volatility Modeling
+<!-- TOC --><a name="13-stochastic-volatility-modeling"></a>
+# 13. Stochastic Volatility Modeling
 
 Stochastic Volatility Modeling (Chapman and Hall/CRC Financial Mathematics Series) 1st Edition, by Lorenzo Bergomi
 
@@ -312,8 +318,8 @@ Stochastic Volatility Modeling (Chapman and Hall/CRC Financial Mathematics Serie
 
 <img src="https://github.com/user-attachments/assets/6c275c02-a757-49bc-9417-d7be1fc709df" width="30%" height="30%">
 
-<!-- TOC --><a name="13-quant-job-interview-questions"></a>
-# 13. Quant Job Interview Questions
+<!-- TOC --><a name="14-quant-job-interview-questions"></a>
+# 14. Quant Job Interview Questions
 
 Quant Job Interview Questions and Answers (Second Edition) – by Mark Joshi 2013 
 
