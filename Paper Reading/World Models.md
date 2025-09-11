@@ -114,4 +114,5 @@ Eric proposes a **PAN model** that fuses **sensory** and **textual worlds**:
 
 ## References  
 - *Critiques of World Models*, Eric Xing et al. [[arXiv:2507.05169]](https://arxiv.org/pdf/2507.05169)
+
 - *World Model: 5 Debates Between Eric Xing's PAN & Yann LeCun’s JEPA*, JF.AI. [LinkedIn Post](https://www.linkedin.com/pulse/world-model-5-debates-between-eric-xings-pan-yann-lecuns-jepa-jf-ai-8xigc/)
