@@ -199,6 +199,8 @@ Unveiling Large Model, by Liang Wen, 2025
 
 > [World Models](https://github.com/junfanz1/AI-LLM-ML-CS-Quant-Review/blob/main/Paper%20Reading/World%20Models.md) | [LinkedIn: World Model: 5 Debates Between Eric Xing's PAN & Yann LeCun’s JEPA](https://www.linkedin.com/pulse/world-model-5-debates-between-eric-xings-pan-yann-lecuns-jepa-jf-ai-8xigc/)
 
+> [Shunyu Yao on Agentic AI](https://github.com/junfanz1/AI-LLM-ML-CS-Quant-Review/blob/main/Paper%20Reading/Shunyu%20Yao%20Agentic%20AI.md) | [LinkedIn: 30 Takeaways from Shunyu Yao's Talk on Agentic AI](https://www.linkedin.com/pulse/30-takeaways-from-shunyu-yaos-talk-agentic-ai-jf-ai-dqz6c)
+
 <!-- TOC --><a name="6-langgraph-cursor-ai-projects"></a>
 # 6. LangGraph & Cursor AI Projects
 
