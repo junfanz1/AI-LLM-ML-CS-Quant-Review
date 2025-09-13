@@ -16,6 +16,8 @@ A few thoughts before reading:
 
 🔍 What “contrarian bets” could define the next scaling dimension of AI?
 
+# English
+
 ## Definition of Agent
 - **Agent**: interacts with the external world, makes decisions autonomously, and optimizes for reward.
 - Early symbolic agents were rule-based, but rules can never capture every detail and edge case in the real world.
@@ -176,6 +178,8 @@ A few thoughts before reading:
 - Creating something **more general than humans** is one of the most exciting goals.
 - Suggested reading: *A Brief History of Intelligence*, biographies.
 
+# 中文
+
 Agent定义：能和外界交互、自我决策、optimize reward。
 
 - 早期符号主义的基于硬规则的agent，但规则永远无法涵盖世界上所有细节和特殊情况。
@@ -242,7 +246,7 @@ CEO与科学家：组织架构也像通用方法可以创造很多东西（比�
 
 通用的Mindset：这个时代做上限更高的事情更好，想象力要丰富，什么都爱看，想变得通用，而创造比人更通用的东西更有意思。看《智能简史》、传记。
 
-## Summary
+# Summary
 
 🔭 Summarizing 30 key takeaways from Shunyu Yao's (OpenAI Researcher) latest in-depth 3-hour interview, where he reflects on #agent #research trends, the boundaries between humans and systems, and the future of an #AI world that is simultaneously unified and pluralistic.
 
@@ -264,7 +268,7 @@ Pragmatism with Long-Term Vision 🧩: next few years may still be dominated by 
 
 Encouraging Contrarian Thinking 🧐: Calling for “high-ceiling” projects and contrarian bets, urging researchers and entrepreneurs to focus on imagination, curiosity, and creating new interaction modes — rather than just chasing leaderboards.
 
-## References
+# References
 
 - [LinkedIn: 30 Takeaways from Shunyu Yao's Talk on Agentic AI](https://www.linkedin.com/pulse/30-takeaways-from-shunyu-yaos-talk-agentic-ai-jf-ai-dqz6c/
 - Full interview Video (in Chinese) 张小珺对OpenAI姚顺雨3小时访谈：6年Agent研究、人与系统、吞噬的边界、既单极又多元的世界: https://www.youtube.com/watch?v=gQgKkUsx5q0&t=3245s
