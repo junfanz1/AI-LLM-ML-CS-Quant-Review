@@ -271,6 +271,6 @@ Encouraging Contrarian Thinking 🧐: Calling for “high-ceiling” projects an
 # References
 
 - [LinkedIn: 30 Takeaways from Shunyu Yao's Talk on Agentic AI](https://www.linkedin.com/pulse/30-takeaways-from-shunyu-yaos-talk-agentic-ai-jf-ai-dqz6c/)
-- Full interview Video (in Chinese) 张小珺对OpenAI姚顺雨3小时访谈：6年Agent研究、人与系统、吞噬的边界、既单极又多元的世界: https://www.youtube.com/watch?v=gQgKkUsx5q0&t=3245s
-- Shunyu Yao’s “The Second Half”: https://ysymyth.github.io/The-Second-Half/
+- [Full interview Video (in Chinese) 张小珺对OpenAI姚顺雨3小时访谈：6年Agent研究、人与系统、吞噬的边界、既单极又多元的世界](https://www.youtube.com/watch?v=gQgKkUsx5q0&t=3245s)
+- [Shunyu Yao’s “The Second Half”](https://ysymyth.github.io/The-Second-Half/)
 
