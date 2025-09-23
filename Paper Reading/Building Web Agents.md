@@ -92,15 +92,10 @@ Chris Manning’s NNetNav experimented with zero-shot Llama 70B exploration:
 - Future Directions: RL for web agents might benefit from a GAN-style setup, where agents iteratively create harder tasks for themselves — pushing both data quality and reasoning skill forward.
 
 | Component | WebDancer | WebSailer |
-
 |--------------|--------------|--------------|
-
 | Data Construction | crawlQA, e2hQA | Knowledge-graph path construction |
-
 | Cold Start | SFT (tool use, planning) | RFT (Best-of-N distillation) |
-
 | RL Optimization | DAPO (Clip-Higher, token-level loss) | DUPO (batch balancing) |
-
 | Focus | Learn to explore & extend reasoning | Execute long, precise trajectories |
 
 ## References 
