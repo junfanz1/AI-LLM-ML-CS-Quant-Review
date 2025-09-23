@@ -38,6 +38,10 @@ In-depth review of industry trends in AI, LLMs, Machine Learning, Computer Scien
    * [DeepSeek Applications](#deepseek-applications)
    * [Kimi K2](#kimi-k2)
 - [5. 2025 Paper Reading](#5-2025-paper-reading)
+   * [World Model: 5 Debates Between Eric Xing's PAN & Yann LeCun’s JEPA](#world-model-5-debates-between-eric-xings-pan-yann-lecuns-jepa)
+   * [30 Takeaways from Shunyu Yao's Talk on Agentic AI](#30-takeaways-from-shunyu-yaos-talk-on-agentic-ai)
+   * [Building Web Agents](#building-web-agents)
+   * [Future of AI Agents = Agentic RL + Pretraining?](#future-of-ai-agents-agentic-rl-pretraining)
 - [6. LangGraph & Cursor AI Projects](#6-langgraph-cursor-ai-projects)
 - [7. System Design](#7-system-design)
    * [ByteByteGo - GenAI/ML/Modern System Design Interview](#bytebytego-genaimlmodern-system-design-interview)
@@ -197,9 +201,25 @@ Unveiling Large Model, by Liang Wen, 2025
 <!-- TOC --><a name="5-2025-paper-reading"></a>
 # 5. 2025 Paper Reading
 
+<!-- TOC --><a name="world-model-5-debates-between-eric-xings-pan-yann-lecuns-jepa"></a>
+## World Model: 5 Debates Between Eric Xing's PAN & Yann LeCun’s JEPA
+
 > [World Models](https://github.com/junfanz1/AI-LLM-ML-CS-Quant-Review/blob/main/Paper%20Reading/World%20Models.md) | [LinkedIn: World Model: 5 Debates Between Eric Xing's PAN & Yann LeCun’s JEPA](https://www.linkedin.com/pulse/world-model-5-debates-between-eric-xings-pan-yann-lecuns-jepa-jf-ai-8xigc/)
 
+<!-- TOC --><a name="30-takeaways-from-shunyu-yaos-talk-on-agentic-ai"></a>
+## 30 Takeaways from Shunyu Yao's Talk on Agentic AI
+
 > [Shunyu Yao on Agentic AI](https://github.com/junfanz1/AI-LLM-ML-CS-Quant-Review/blob/main/Paper%20Reading/Shunyu%20Yao%20Agentic%20AI.md) | [LinkedIn: 30 Takeaways from Shunyu Yao's Talk on Agentic AI](https://www.linkedin.com/pulse/30-takeaways-from-shunyu-yaos-talk-agentic-ai-jf-ai-dqz6c)
+
+<!-- TOC --><a name="building-web-agents"></a>
+## Building Web Agents
+
+> [Building Web Agents](https://github.com/junfanz1/AI-LLM-ML-CS-Quant-Review/blob/main/Paper%20Reading/Building%20Web%20Agents.md) | [LinkedIn: Building Web Agents](https://www.linkedin.com/pulse/building-web-agents-jf-ai-khjic)
+
+<!-- TOC --><a name="future-of-ai-agents-agentic-rl-pretraining"></a>
+## Future of AI Agents = Agentic RL + Pretraining?
+
+> [Future of AI Agents = Agentic RL + Pretraining?](https://github.com/junfanz1/AI-LLM-ML-CS-Quant-Review/blob/main/Paper%20Reading/Future%20of%20AI%20Agents%20%3D%20Agentic%20RL%20%2B%20Pretraining%3F.md) | [LinkedIn: Future of AI Agents = Agentic RL + Pretraining?](https://www.linkedin.com/pulse/future-ai-agents-agentic-rl-pretraining-jf-ai-p0nlc/)
 
 <!-- TOC --><a name="6-langgraph-cursor-ai-projects"></a>
 # 6. LangGraph & Cursor AI Projects
