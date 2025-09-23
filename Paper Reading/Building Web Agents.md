@@ -49,12 +49,16 @@ WebDancer is a two-stage pipeline designed to maximize reasoning ability:
 - Training: SFT (Supervised Fine-Tuning): Train on a curated subset of the data to give the agent a cold start and teach it basic multi-step reasoning and tool use. DAPO (Decoupled Clip & Dynamic Sampling Policy Optimization): Train on the remaining data to extend reasoning depth and improve exploration.
 - Model Mix: LLM handles short CoT (Chain-of-Thought) reasoning. Large Reasoning Model (LRM) handles long CoT trajectories, ensuring robust reasoning over extended browsing sessions.
 
-DAPO: RL optimization with
+PPO: Uses importance sampling, clipping (CLIP), surrogate objective, and GAE. Rewards can be either rule-based or learned via a neural network.
 
-- Clip-Higher for better exploration
-- Dynamic Sampling to avoid zero-gradient groups
-- Token-Level Loss to penalize bad long answers
-- Soft Overlong Penalty to keep reasoning concise
+GRPO: Removes the critic, and the advantage function is replaced with a group-level advantage.
+
+DAPO: RL optimization on top of GRPO
+
+- Clip-Higher for better exploration: Raise the CLIP upper bound ϵ\epsilonϵ to increase exploration of low-probability events, preventing entropy collapse caused by PPO’s overly tight clipping.
+- Dynamic Sampling to avoid zero-gradient groups: In GRPO, when all questions in a group are either all correct or all wrong, the advantage becomes zero, resulting in zero policy gradient. As the model improves, all-correct groups become more common. To address this, DAPO introduces a rule-based reward and resamples until the group is neither fully correct nor fully wrong.
+- Token-level Policy Gradient Loss to penalize bad long answers: GRPO computes sample-level loss. DAPO restructures this into token-level loss, penalizing excessively long responses (since longer samples contribute more overall but are treated equally per sample in GRPO). This ensures that long, high-quality samples are fully utilized, while low-quality long samples are penalized.
+- Soft Overlong Penalty to keep reasoning concise: Samples that are too long are excluded from gradient updates, while borderline overlong samples receive a soft length penalty.
 
 Takeaway:
 - High-quality, diverse data is the single most important factor.
