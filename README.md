@@ -38,6 +38,7 @@ In-depth review of industry trends in AI, LLMs, Machine Learning, Computer Scien
    * [DeepSeek Applications](#deepseek-applications)
    * [Kimi K2](#kimi-k2)
 - [5. 2025 Paper Reading](#5-2025-paper-reading)
+   * [Jason Wei: 3 Ideas to Understand AI in 2025](#jason-wei-3-ideas-to-understand-ai-in-2025)
    * [World Model: 5 Debates Between Eric Xing's PAN & Yann LeCun’s JEPA](#world-model-5-debates-between-eric-xings-pan-yann-lecuns-jepa)
    * [30 Takeaways from Shunyu Yao's Talk on Agentic AI](#30-takeaways-from-shunyu-yaos-talk-on-agentic-ai)
    * [Building Web Agents](#building-web-agents)
@@ -200,6 +201,11 @@ Unveiling Large Model, by Liang Wen, 2025
 
 <!-- TOC --><a name="5-2025-paper-reading"></a>
 # 5. 2025 Paper Reading
+
+<!-- TOC --><a name="jason-wei-3-ideas-to-understand-ai-in-2025"></a>
+## Jason Wei: 3 Ideas to Understand AI in 2025
+
+> [Jason Wei: 3 Ideas to Understand AI in 2025](https://github.com/junfanz1/AI-LLM-ML-CS-Quant-Review/blob/main/Paper%20Reading/Jason%20Wei%3A%203%20Ideas%20to%20Understand%20AI%20in%202025.md) | [LinkedIn: Jason Wei: 3 Ideas to Understand AI in 2025](https://www.linkedin.com/pulse/06-jason-weis-3-ideas-understand-ai-2025-jf-ai-v7rgc/)
 
 <!-- TOC --><a name="world-model-5-debates-between-eric-xings-pan-yann-lecuns-jepa"></a>
 ## World Model: 5 Debates Between Eric Xing's PAN & Yann LeCun’s JEPA
