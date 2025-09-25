@@ -43,6 +43,7 @@ In-depth review of industry trends in AI, LLMs, Machine Learning, Computer Scien
    * [30 Takeaways from Shunyu Yao's Talk on Agentic AI](#30-takeaways-from-shunyu-yaos-talk-on-agentic-ai)
    * [Building Web Agents](#building-web-agents)
    * [Future of AI Agents = Agentic RL + Pretraining?](#future-of-ai-agents-agentic-rl-pretraining)
+   * [HiVA: Self-organized Hierarchical Variable Agent via Goal-driven Semantic-Topological Evolution](#hiva-self-organized-hierarchical-variable-agent-via-goal-driven-semantic-topological-evolution)
 - [6. LangGraph & Cursor AI Projects](#6-langgraph-cursor-ai-projects)
 - [7. System Design](#7-system-design)
    * [ByteByteGo - GenAI/ML/Modern System Design Interview](#bytebytego-genaimlmodern-system-design-interview)
@@ -226,6 +227,11 @@ Unveiling Large Model, by Liang Wen, 2025
 ## Future of AI Agents = Agentic RL + Pretraining?
 
 > [Future of AI Agents = Agentic RL + Pretraining?](https://github.com/junfanz1/AI-LLM-ML-CS-Quant-Review/blob/main/Paper%20Reading/Future%20of%20AI%20Agents%20%3D%20Agentic%20RL%20%2B%20Pretraining%3F.md) | [LinkedIn: Future of AI Agents = Agentic RL + Pretraining?](https://www.linkedin.com/pulse/future-ai-agents-agentic-rl-pretraining-jf-ai-p0nlc/)
+
+<!-- TOC --><a name="hiva-self-organized-hierarchical-variable-agent-via-goal-driven-semantic-topological-evolution"></a>
+## HiVA: Self-organized Hierarchical Variable Agent via Goal-driven Semantic-Topological Evolution
+
+> [HiVA: Self-organized Hierarchical Variable Agent via Goal-driven Semantic-Topological Evolution](https://github.com/junfanz1/AI-LLM-ML-CS-Quant-Review/blob/main/Paper%20Reading/HiVA:%20Self-organized%20Hierarchical%20Variable%20Agent%20via%20Goal-driven%20Semantic-Topological%20Evolution.md) | [LinkedIn: Co-Evolutionary Path Towards Organizational Intelligence: How Structure-as-Memory Network & Multi-Agent Emergence Could Unlock AGI?](https://www.linkedin.com/pulse/07-co-evolutionary-path-towards-organizational-intelligence-how-kpqjc/)
 
 <!-- TOC --><a name="6-langgraph-cursor-ai-projects"></a>
 # 6. LangGraph & Cursor AI Projects
