@@ -15,7 +15,7 @@
 </div>
 
 
-# AI-LLM-ML-CS-Quant-Review
+# Awesome AI Engineer Review
 
 In-depth review of industry trends in AI, LLMs, Machine Learning, Computer Science, and Quantitative Finance. 
   - <mark>[__2025 NVIDIA GTC Conference − Technical & Industrial Insight__](https://github.com/junfanz1/AI-LLM-ML-CS-Quant-Review/blob/main/NVIDIA%20GTC/GTC%202025.md)</mark> <img src="https://img.shields.io/github/stars/junfanz1%2FAI-LLM-ML-CS-Quant-Review" alt="GitHub Stars" />
