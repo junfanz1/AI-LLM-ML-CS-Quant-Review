@@ -180,71 +180,69 @@ A few thoughts before reading:
 
 # 中文
 
-Agent定义：能和外界交互、自我决策、optimize reward。
+1、Agent定义：能和外界交互、自我决策、optimize reward。
 
 - 早期符号主义的基于硬规则的agent，但规则永远无法涵盖世界上所有细节和特殊情况。
 - 深度强化学习如AlphaGo，有无穷次玩的虚拟环境、奖励、通用网络架构，像黑盒一样学习进步，但问题是环境-specific的工程（如游戏本身），无法泛化到其他环境、游戏，且很难真实世界应用。
 - 大模型推理，可以有新环境如coding、互联网、真实世界。
 
-语言agent比其他agent更本质：因为语言模型提供了强大的先验知识，先验知识可以推理，推理才能泛化。因为人可以思考，而没有推理做不到思考能力。
+2、语言agent比其他agent更本质：因为语言模型提供了强大的先验知识，先验知识可以推理，推理才能泛化。因为人可以思考，而没有推理做不到思考能力。
 
-今天agent的两个方向：agent有自己的reward和探索、multi-agent形成组织。
+3、今天agent的两个方向：agent有自己的reward和探索、multi-agent形成组织。
 
-提升agent能力：处理context, memory能力，并做lifelong online learning。
+4、提升agent能力：处理context, memory能力，并做lifelong online learning。
 
-编程环境：coding就像人的手，是AI最重要的affordance。API也是code一部分，最终AGI是基于API或code，还是基于人的定义，可能是两者mixed的。很多事情并没有API，就像让车开在所有的路上，还是用人力改造所有的路去适应车（API），最终agent可能什么都做。
+5、编程环境：coding就像人的手，是AI最重要的affordance。API也是code一部分，最终AGI是基于API或code，还是基于人的定义，可能是两者mixed的。很多事情并没有API，就像让车开在所有的路上，还是用人力改造所有的路去适应车（API），最终agent可能什么都做。
 
-泛化：若pretraining包含所有世界上事情，RL只是激发出所有skill，maybe the optimal generalization is to overfit reality，如果是全能的那么讨论是overfit还是泛化就不重要了。但泛化的原因是能推理，即思考的技能可以迁移到不同环境，而不仅是技能多少。很多时候AI模型的技能不差，但缺乏的是完整的context。
+6、泛化：若pretraining包含所有世界上事情，RL只是激发出所有skill，maybe the optimal generalization is to overfit reality，如果是全能的那么讨论是overfit还是泛化就不重要了。但泛化的原因是能推理，即思考的技能可以迁移到不同环境，而不仅是技能多少。很多时候AI模型的技能不差，但缺乏的是完整的context。
 
-Second Half：基于语言的agent正在转移，现在已有通用方法，bottleneck不是训模型和方法，而是怎么定义好的任务、好的环境，用通用方法解决什么问题。
+7、Second Half：基于语言的agent正在转移，现在已有通用方法，bottleneck不是训模型和方法，而是怎么定义好的任务、好的环境，用通用方法解决什么问题。
 
-RL成功关键是一个好任务：想定义一个reward是基于结果而非过程，是基于可计算的规则而非基于人或模型的黑盒偏好。RL任务最难的是定义白盒而非黑盒且不noisy的reward，任务有难度有价值。如果基于过程去定义reward就会出现hacking，如果优化人或机器的偏好也会出现hacking，不能解决问题。
+8、RL成功关键是一个好任务：想定义一个reward是基于结果而非过程，是基于可计算的规则而非基于人或模型的黑盒偏好。RL任务最难的是定义白盒而非黑盒且不noisy的reward，任务有难度有价值。如果基于过程去定义reward就会出现hacking，如果优化人或机器的偏好也会出现hacking，不能解决问题。
 
-定义不同任务：有的简单但注重reliability（客服），有的注重creativity（作家、数学家），multi-agent注重任务广度和长期记忆（一个人和一个公司的区别）。设计方法是pass@1, pass@100，起码成功一次的概率（代码），永远成功或最多失败一次的概率（客服），我们目前对简单任务的robustness还不够重视。
+9、定义不同任务：有的简单但注重reliability（客服），有的注重creativity（作家、数学家），multi-agent注重任务广度和长期记忆（一个人和一个公司的区别）。设计方法是pass@1, pass@100，起码成功一次的概率（代码），永远成功或最多失败一次的概率（客服），我们目前对简单任务的robustness还不够重视。
 
-创业公司：创业公司要能设计不同interface和人机交互方式，即创造新的交互方式（如Cursor可以提示你写代码）&模型有溢出能力来赋能这个交互方式，二者缺一不可。如果只做旧的interface，那容易被ChatGPT取代；如果做新的interface但模型能力没有变好，那也难做。有super APP对公司来说是双刃剑，因为当你有一个交互方式的时候，公司的大部分资源必然形成路径依赖（例如谷歌依赖搜索引擎）。
+10、创业公司：创业公司要能设计不同interface和人机交互方式，即创造新的交互方式（如Cursor可以提示你写代码）&模型有溢出能力来赋能这个交互方式，二者缺一不可。如果只做旧的interface，那容易被ChatGPT取代；如果做新的interface但模型能力没有变好，那也难做。有super APP对公司来说是双刃剑，因为当你有一个交互方式的时候，公司的大部分资源必然形成路径依赖（例如谷歌依赖搜索引擎）。
 
-数据飞轮：大部分公司没有数据飞轮，依赖于模型变好。数据飞轮需要自己训模型、通过交互有好reward来区分好数据坏数据。好案例Midjourney：有清晰reward（人喜欢哪张图）、应用与我公司业务align，这样可以数据飞轮，但数据飞轮也不主线。
+11、数据飞轮：大部分公司没有数据飞轮，依赖于模型变好。数据飞轮需要自己训模型、通过交互有好reward来区分好数据坏数据。好案例Midjourney：有清晰reward（人喜欢哪张图）、应用与我公司业务align，这样可以数据飞轮，但数据飞轮也不主线。
 
-Pretraining：会尝试训练模型，但未必pretraining，看情况，取决于开源与闭源模型的gap。Pretraining给RL做铺垫是non-trivial的，能在基于语言和先验知识的环境里做RL（而不需要学10^30年）。cost-value：当前cost很大而value不大，但也许不同应用有不同形态agent，很多交互方式需要不同模型的能力，如果能足够justify pretraining cost，就会合理。如果有封闭环境垂类价值足够大，数据能形成闭环，仅RL就可以（如谷歌ads）。但世界有很多长尾事情，需要generalization，需要像人类一样在线学习并适应环境，这时pretraining更重要因为需要泛化性。
+12、Pretraining：会尝试训练模型，但未必pretraining，看情况，取决于开源与闭源模型的gap。Pretraining给RL做铺垫是non-trivial的，能在基于语言和先验知识的环境里做RL（而不需要学10^30年）。cost-value：当前cost很大而value不大，但也许不同应用有不同形态agent，很多交互方式需要不同模型的能力，如果能足够justify pretraining cost，就会合理。如果有封闭环境垂类价值足够大，数据能形成闭环，仅RL就可以（如谷歌ads）。但世界有很多长尾事情，需要generalization，需要像人类一样在线学习并适应环境，这时pretraining更重要因为需要泛化性。
 
-Agent研究方向：long term memory/context（有些context只在大脑中基于分布式存在而无法写下，因此人无可或缺）, intrinsic reward（因为直到成功之前都没有reward/feedback，而是内在价值观和激励，这是创新者必要的。婴儿可以通过好奇或内在motivation做尝试，而人类社会的游戏更像文字游戏，与婴儿的物理游戏不同）, scalable multi-agent（创造新的伟大组织的人）
+13、Agent研究方向：long term memory/context（有些context只在大脑中基于分布式存在而无法写下，因此人无可或缺）, intrinsic reward（因为直到成功之前都没有reward/feedback，而是内在价值观和激励，这是创新者必要的。婴儿可以通过好奇或内在motivation做尝试，而人类社会的游戏更像文字游戏，与婴儿的物理游戏不同）, scalable multi-agent（创造新的伟大组织的人）
 
-人与agent：人能推理而机器不够，基于第一性原理设计，从utility出发。
+14、人与agent：人能推理而机器不够，基于第一性原理设计，从utility出发。
 
-Crypto+agent，value-based商业模式：人类是网络，中心化程度会增加，贫富差距加大具有28定律和马太效应，大公司对世界掌控增加。不过另一个维度是中心化与diverse不矛盾，如今人们从网络边缘到中心的跃迁速度加快，普通人的机会也更多，产业组织形态也在增加。技术发展的趋势是两者都加剧，因为效率是根本原因。中心化的极限是context limitation，很多人的价值并非是某个单一技能的高超，而是掌握了别人没有的信息差，为了维持自己的previledge会发明出distributed network，例如每个trader都有自己的信息，用multi-agent交换信息来做交易。现在强巨头有motivation做中心化，而中心化以外的力量也会有motivation去做中心化，两种力量都会存在。
+15、Crypto+agent，value-based商业模式：人类是网络，中心化程度会增加，贫富差距加大具有28定律和马太效应，大公司对世界掌控增加。不过另一个维度是中心化与diverse不矛盾，如今人们从网络边缘到中心的跃迁速度加快，普通人的机会也更多，产业组织形态也在增加。技术发展的趋势是两者都加剧，因为效率是根本原因。中心化的极限是context limitation，很多人的价值并非是某个单一技能的高超，而是掌握了别人没有的信息差，为了维持自己的previledge会发明出distributed network，例如每个trader都有自己的信息，用multi-agent交换信息来做交易。现在强巨头有motivation做中心化，而中心化以外的力量也会有motivation去做中心化，两种力量都会存在。
 
-未来：要寻找反共识的事情，有different bet（多种super app的不同交互方式），不需要所有人的共识而只需要足够多人的共识就能做事。未来会有新scaling dimension出现，但基于不同应用如何选择scale比重是课题。
+16、未来：要寻找反共识的事情，有different bet（多种super app的不同交互方式），不需要所有人的共识而只需要足够多人的共识就能做事。未来会有新scaling dimension出现，但基于不同应用如何选择scale比重是课题。
 
-语言：是人为了实现泛化并完成事情的最本质的工具，就像火，而语言可以解决任何新任务。特定领域（如围棋）有比语言更好的思维方式，但语言不是为了处理特定任务（可能特定任务存在冗余性，但整体通用），而语言是通过强大先验知识可以打通各领域的通用工具。
+17、语言：是人为了实现泛化并完成事情的最本质的工具，就像火，而语言可以解决任何新任务。特定领域（如围棋）有比语言更好的思维方式，但语言不是为了处理特定任务（可能特定任务存在冗余性，但整体通用），而语言是通过强大先验知识可以打通各领域的通用工具。
 
-Agent怎么scale up：找到很有价值的应用是最重要的，cost总会降低。
+18、Agent怎么scale up：找到很有价值的应用是最重要的，cost总会降低。
 
-强agent：不同交互方式下有不同定义，不是单极的，需要不同系统去判断价值。智能边界取决于交互方式而非single model，比如做助手还有很多新的交互方式没诞生。
+19、强agent：不同交互方式下有不同定义，不是单极的，需要不同系统去判断价值。智能边界取决于交互方式而非single model，比如做助手还有很多新的交互方式没诞生。
 
-Manus：很通用的第一性感觉/交互方式/很多想象空间，与有killer app（做一件事好的应用），两者不矛盾。
+20、Manus：很通用的第一性感觉/交互方式/很多想象空间，与有killer app（做一件事好的应用），两者不矛盾。DeepSeek：长思维链很重要，给人新体验。
 
-DeepSeek：长思维链很重要，给人新体验。
+21、ChatGPT：不仅是技术，而且memory可以形成壁垒，用户用的黏性强，有更多context就有更多黏性和壁垒（比如有效从很多用户对话中提炼出相关东西）。
 
-ChatGPT：不仅是技术，而且memory可以形成壁垒，用户用的黏性强，有更多context就有更多黏性和壁垒（比如有效从很多用户对话中提炼出相关东西）。
+22、MCP也是memory，context在软件里：世界有memory hierarchy，外部是世界环境。
 
-MCP也是memory，context在软件里：世界有memory hierarchy，外部是世界环境。
+23、Long context是实现long term memory的方式。
 
-Long context是实现long term memory的方式。
+24、评估：是衡量好坏的必要条件，评估取决于现实世界的实际价值，而非刷榜与Benchmark。定义考试和游戏是简单well-defined reward，而世界很难是因为没有标准答案。评估可能要取决于几百个任务，把平行的数据加在一起进行reward，例如，评估人一年后能变得多好，而不是在100个平行宇宙中能变得多好。
 
-评估：是衡量好坏的必要条件，评估取决于现实世界的实际价值，而非刷榜与Benchmark。定义考试和游戏是简单well-defined reward，而世界很难是因为没有标准答案。评估可能要取决于几百个任务，把平行的数据加在一起进行reward，例如，评估人一年后能变得多好，而不是在100个平行宇宙中能变得多好。
+25、Agent的未来：会有agentic交互方式，有新的cursor产品出现，但基于新的更大的环境copilot，两方面：基于模型的（如remote virtual machine），或者既有的环境场景中把agent引入。
 
-Agent的未来：会有agentic交互方式，有新的cursor产品出现，但基于新的更大的环境copilot，两方面：基于模型的（如remote virtual machine），或者既有的环境场景中把agent引入。
+26、Agentic增强能力：agent和数字世界的交互环境（MCP，API），人和agent交互是什么。需要很多设计、infra、工程。还有，如何构建user-intention生态系统。
 
-Agentic增强能力：agent和数字世界的交互环境（MCP，API），人和agent交互是什么。需要很多设计、infra、工程。还有，如何构建user-intention生态系统。
+27、Agent需要虚拟机吗：两年内可能还不会那么分布式，而是更中心化有很多super app。两方面：基于用户本地环境的优化，从头创造新的环境（DeepResearch）。
 
-Agent需要虚拟机吗：两年内可能还不会那么分布式，而是更中心化有很多super app。两方面：基于用户本地环境的优化，从头创造新的环境（DeepResearch）。
+28、有价值的创业方向：积累user context，或构建特殊环境的公司，user context就像发明汽车之前的石油，有机会。如果intelligence可以普及，那么像腾讯微信这样拥有平台、环境、context会是壁垒。人类网络会变成啥样，取决于我们有更多人类朋友还是更多agent朋友。
 
-有价值的创业方向：积累user context，或构建特殊环境的公司，user context就像发明汽车之前的石油，有机会。如果intelligence可以普及，那么像腾讯微信这样拥有平台、环境、context会是壁垒。人类网络会变成啥样，取决于我们有更多人类朋友还是更多agent朋友。
+29、CEO与科学家：组织架构也像通用方法可以创造很多东西（比如硅谷），它和科学家的发明创新路径有区别。
 
-CEO与科学家：组织架构也像通用方法可以创造很多东西（比如硅谷），它和科学家的发明创新路径有区别。
-
-通用的Mindset：这个时代做上限更高的事情更好，想象力要丰富，什么都爱看，想变得通用，而创造比人更通用的东西更有意思。看《智能简史》、传记。
+30、通用的Mindset：这个时代做上限更高的事情更好，想象力要丰富，什么都爱看，想变得通用，而创造比人更通用的东西更有意思。看《智能简史》、传记。
 
 # Summary
 
