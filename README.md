@@ -38,6 +38,7 @@ In-depth review of industry trends in AI, LLMs, Machine Learning, Computer Scien
    * [DeepSeek Applications](#deepseek-applications)
    * [Kimi K2](#kimi-k2)
 - [5. 2025 Paper Reading](#5-2025-paper-reading)
+   * [SGLang x NVIDIA: Dynamo for Inference Performance at Scale](#sglang-x-nvidia-dynamo-for-inference-performance-at-scale)
    * [Jason Wei: 3 Ideas to Understand AI in 2025](#jason-wei-3-ideas-to-understand-ai-in-2025)
    * [World Model: 5 Debates Between Eric Xing's PAN & Yann LeCun’s JEPA](#world-model-5-debates-between-eric-xings-pan-yann-lecuns-jepa)
    * [30 Takeaways from Shunyu Yao's Talk on Agentic AI](#30-takeaways-from-shunyu-yaos-talk-on-agentic-ai)
@@ -202,6 +203,11 @@ Unveiling Large Model, by Liang Wen, 2025
 
 <!-- TOC --><a name="5-2025-paper-reading"></a>
 # 5. 2025 Paper Reading
+
+<!-- TOC --><a name="sglang-x-nvidia-dynamo-for-inference-performance-at-scale"></a>
+## SGLang x NVIDIA: Dynamo for Inference Performance at Scale
+
+> [🚀 Insights from SGLang x NVIDIA: Dynamo for Inference Performance at Scale](https://github.com/junfanz1/Awesome-AI-Engineer-Review/blob/main/Paper%20Reading/SGLang%20Dynamo.md) | [LinkedIn: 🚀 Insights from sgl-project x NVIDIA: #Dynamo for Inference Performance at Scale](https://www.linkedin.com/posts/junfan-zhu_dynamo-sanfrancisco-ai-activity-7379780254493569024-pEBC?utm_source=share&utm_medium=member_desktop&rcm=ACoAABxP-p0BpUNGDf347aKh_1uJAPzG4er0As8)
 
 <!-- TOC --><a name="jason-wei-3-ideas-to-understand-ai-in-2025"></a>
 ## Jason Wei: 3 Ideas to Understand AI in 2025
