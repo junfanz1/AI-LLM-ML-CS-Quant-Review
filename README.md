@@ -204,6 +204,10 @@ Unveiling Large Model, by Liang Wen, 2025
 <!-- TOC --><a name="5-2025-paper-reading"></a>
 # 5. 2025 Paper Reading
 
+## Frontier of Agentic AI: Agent Memory
+
+> [🚀 Frontier of Agentic AI: Agent Memory — Key Takeaways](https://github.com/junfanz1/Awesome-AI-Engineer-Review/blob/main/Paper%20Reading/Frontier%20of%20Agentic%20AI:%20Agent%20Memory.md) | [LinkedIn: 🚀 Frontier of Agentic AI: Agent Memory — Key Takeaways](https://www.linkedin.com/posts/junfan-zhu_agent-memory-activity-7380113422757277696-oaAc?utm_source=share&utm_medium=member_desktop&rcm=ACoAABxP-p0BpUNGDf347aKh_1uJAPzG4er0As8)
+
 <!-- TOC --><a name="sglang-x-nvidia-dynamo-for-inference-performance-at-scale"></a>
 ## SGLang x NVIDIA: Dynamo for Inference Performance at Scale
 
