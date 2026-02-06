@@ -1,0 +1,58 @@
+Status,Session Title,Session Code,Date,Start Time,End Time,Room
+
+Scheduled, PhysicsNeMo ,S81969,2026-03-15,19:00,19:50,China Simulive Room 3
+Scheduled,,S81939,2026-03-15,20:00,20:50,China Simulive Room 3
+Scheduled, NVIDIA  AI  AI ,S81974,2026-03-15,23:00,23:50,China Simulive Room 1
+Scheduled, AI ,S81577,2026-03-16,00:00,00:50,China Simulive Room 3
+Scheduled,,S81858,2026-03-16,01:00,01:50,China Simulive Room 3
+Scheduled,,S81619,2026-03-16,19:00,19:50,China Simulive Room 3
+Scheduled, Isaac Gym  Isaac Lab,S81860,2026-03-16,20:00,20:50,China Simulive Room 3
+Scheduled, ChatGPT ,S82278,2026-03-16,23:00,23:50,China Simulive Room 3
+Scheduled, Physical AI ,S82188,2026-03-17,00:00,00:50,China Simulive Room 3
+Scheduled,AI ,S81944,2026-03-17,01:00,01:50,China Simulive Room 3
+Scheduled,Build Physical Intelligence: Open Collaboration Across Robotics Ecosystems,S81509,2026-03-17,03:00,03:50,EMEA Simulive Room 1
+Scheduled,Beyond the Black Box: Interpretability of LLMs in Finance,S82175,2026-03-17,06:00,06:50,EMEA Simulive Room 2
+Scheduled, 3D  Beyond Visuals: A Physics-Informed Generative Method for Articulated 3D Assets,S81935,2026-03-17,19:00,19:50,China Simulive Room 3
+Scheduled, NVIDIA Jetson Thor ,S81962,2026-03-17,20:00,20:50,China Simulive Room 3
+Scheduled, NVIDIA Isaac Sim  Genie Sim 3.0 ,S81971,2026-03-17,23:00,23:50,China Simulive Room 3
+Scheduled, GPU  Diffusion-Driven Embodied AI: From Unified Theory to GPU-Accelerated Robot Policies,S81979,2026-03-18,00:00,00:50,China Simulive Room 3
+Scheduled,"PAINVIDIAPhysicalAIPAIIntegratesNVIDIAPhysicalAI:PowerE2ESDG,ModelTraining & Evaluation",S82282,2026-03-18,01:00,01:50,China Simulive Room 3
+Scheduled,Neural Physics for AI-Powered Differentiable PDE-Solvers and Digital Twins,S81927,2026-03-18,03:00,03:50,EMEA Simulive Room 4
+Favorited,(Favorited) Realizing the Promise of Quantum Computation,S82295,2026-03-18,15:00,15:40,Hyatt Place - Salon 1
+Favorited,(Favorited) The State of Open-Source AI,S81791,2026-03-17,16:00,16:40,LL20CD
+Favorited,(Favorited)  Performance optimization for training Multimodal Large Language Models,S81883,2026-03-16,01:00,01:50,China Simulive Room 2
+Favorited,(Favorited) DiT ,S81970,2026-03-16,20:00,20:50,China Simulive Room 1
+Favorited,(Favorited) Scaling the AI Life Cycle: Next-Gen Training and Inference With Crusoe Cloud (Presented by Crusoe),S82018,2026-03-18,09:00,09:40,Hilton Winchester (L1)
+Favorited,(Favorited) Distillation Recipes and Synthetic Data Fine-Tuning for Algorithmic Trading,S81522,2026-03-17,13:00,13:40,Marriott BR 4
+Favorited,(Favorited) Generate Synthetic Data for Physical AI with NVIDIA Cosmos World Foundation Models,DLIT81644,2026-03-18,13:00,14:45,Gold
+Favorited,(Favorited) Building the Next Wave of AI-Enabled Robots,S81490,2026-03-17,16:00,17:00,LL21F
+Favorited,(Favorited)  NVIDIA Dynamo Router  LongCat-Flash -,S81943,2026-03-17,19:00,19:50,China Simulive Room 2
+Favorited,(Favorited)  2026  AI  - AI  AI ,S81846,2026-03-16,01:00,01:50,China Simulive Room 1
+Favorited,(Favorited) NVIDIA  AI ,S81981,2026-03-15,20:00,20:50,China Simulive Room 1
+Favorited,(Favorited) ,S82127,2026-03-15,23:00,23:50,China Simulive Room 3
+Favorited,(Favorited) ,S82109,2026-03-17,00:00,00:50,China Simulive Room 4
+Favorited,"(Favorited) Automotive Special Address: Advancing Level 4 Autonomy, the Path to Scalable, Safe AVs and Robotaxis",S81713,2026-03-16,16:00,16:40,San Jose CPA
+Favorited,(Favorited) NVIDIA GPU  LLM ,S81620,2026-03-16,23:00,23:50,China Simulive Room 2
+Favorited,(Favorited) How to Build EndtoEnd Physical AI Systems for Humanoid Robots,S81478,2026-03-19,14:00,15:30,LL21CD
+Favorited,(Favorited)  DeepGEMM  FlashMLA  DeepEP  DeepSeek  Blackwell ,S81938,2026-03-16,19:00,19:50,China Simulive Room 1
+Favorited,(Favorited) -- VLM ,S81961,2026-03-15,23:00,23:50,China Simulive Room 4
+Favorited,(Favorited) LLM ,S82281,2026-03-16,01:00,01:50,China Simulive Room 4
+Favorited,(Favorited) Accelerate Physical AI with Simulation-Centric Data Engine (Presented by Lightwheel),EX82219,2026-03-16,17:20,17:35,Hall 1 Theater
+Favorited,(Favorited) Build Next-Generation Foundation Models in Finance,S81618,2026-03-18,15:00,15:40,230B
+Favorited,(Favorited)  Architectures of Scale: Navigate the Continual Learning in Large Language Models,S82322,2026-03-17,01:00,01:50,China Simulive Room 2
+Favorited,(Favorited) ROLL NVIDIA Megatron LLM  An Efficient and User-Friendly Large-Scale RL Framework Integrating Megatron,S82284,2026-03-15,20:00,20:50,China Simulive Room 2
+Favorited,(Favorited) China AI Networking Day -  10  AI ,S81580,2026-03-16,23:00,01:00,China Simulive Room 1
+Favorited,(Favorited)  verl ,S81829,2026-03-15,19:00,19:50,China Simulive Room 2
+Favorited,(Favorited) Developing the First Generative AI Model of Global Financial Markets,S81530,2026-03-17,16:00,16:40,Marriott BR 4
+Favorited,(Favorited) Build an Open Surgery Robot AI Platform With NVIDIA Frameworks,S81512,2026-03-17,16:00,16:40,LL21AB
+Favorited,(Favorited) From Concept to Production: Humanoid Robotics at Scale,S81645,2026-03-16,15:00,15:40,Civic Center
+Favorited,(Favorited) AIBOX + AIOS AI ,S81975,2026-03-18,00:30,01:20,China Simulive Room 4
+Favorited,(Favorited) Use Reinforcement Learning to Turn AI Agents Into Continuous Learners,S82359,2026-03-18,11:00,11:40,LL20CD
+Favorited,(Favorited) NVIDIA  2.0  AI ,S82221,2026-03-18,01:30,02:20,China Simulive Room 4
+Favorited,"(Favorited) AI Agents, Robotics, and Digital Twins: The Full Stack of Self-Driving Labs and Biomanufacturing",S81674,2026-03-17,10:00,10:40,LL21F
+Favorited,(Favorited) Build Robot-Ready Assets for Physically Accurate Simulations With Lightwheel,DLIT81816,2026-03-17,08:00,09:45,Regency 2
+Favorited,(Favorited)  L2  L4 - Thor  L4  Robotaxi ,S82131,2026-03-17,23:30,00:20,China Simulive Room 4
+Favorited,(Favorited) Reinforcement Learning at Scale: Engineering the Next Generation of Intelligence,S82182,2026-03-16,16:00,16:40,LL20AB
+Favorited,(Favorited) Advance World Simulation With 3D Gaussian Splatting for Large-Scale Environment Reconstruction,DLIT81757,2026-03-19,13:00,14:45,Gold
+Favorited,(Favorited) ,S81995,2026-03-17,01:00,01:50,China Simulive Room 4
+Favorited,(Favorited)  Agent RL ,S82283,2026-03-15,23:00,23:50,China Simulive Room 2
